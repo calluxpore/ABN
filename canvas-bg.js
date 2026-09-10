@@ -230,12 +230,12 @@
           this.vy = (this.vy / speed) * maxSpeed;
         }
 
-        // Screen boundary wrapping
-        const pad = this.size + 160;
-        if (this.x < -pad) this.x = width + pad;
-        if (this.x > width + pad) this.x = -pad;
-        if (this.y < -pad) this.y = height + pad;
-        if (this.y > height + pad) this.y = -pad;
+        // Screen boundary rebound to keep the subtle shapes in view
+        const pad = this.size * 0.5 + 30;
+        if (this.x < pad && this.vx < 0) this.vx = Math.abs(this.vx);
+        if (this.x > width - pad && this.vx > 0) this.vx = -Math.abs(this.vx);
+        if (this.y < pad && this.vy < 0) this.vy = Math.abs(this.vy);
+        if (this.y > height - pad && this.vy > 0) this.vy = -Math.abs(this.vy);
 
         // Interactive magnetic repulsion when mouse cursor is near
         let targetMouseRepelX = 0;
@@ -302,165 +302,40 @@
 
         const fillColor = getInterpolatedColor(this.colorKey, this.fillAlpha);
         const strokeColor = getInterpolatedColor('stroke', this.strokeAlpha);
-        const accentStroke = getInterpolatedColor('accent', this.strokeAlpha * 1.2);
 
         switch (this.type) {
-          case 'concentricRing':
-            this.drawConcentricRing(ctx, fillColor, strokeColor);
+          case 'circle':
+            this.drawCircle(ctx, fillColor, strokeColor);
             break;
-          case 'capsule':
-            this.drawCapsule(ctx, fillColor, strokeColor);
-            break;
-          case 'halfMoon':
-            this.drawHalfMoon(ctx, fillColor, strokeColor, accentStroke);
-            break;
-          case 'modernDiamond':
-            this.drawModernDiamond(ctx, fillColor, strokeColor);
-            break;
-          case 'bauhausArc':
-            this.drawBauhausArc(ctx, fillColor, strokeColor, accentStroke);
-            break;
+          case 'plus':
+          case 'cross':
           case 'swissCross':
-            this.drawSwissCross(ctx, strokeColor, accentStroke);
-            break;
-          case 'dotCluster':
-            this.drawDotCluster(ctx, strokeColor);
-            break;
-          case 'orbitalDisc':
-            this.drawOrbitalDisc(ctx, fillColor, strokeColor);
+            this.drawPlus(ctx, strokeColor);
             break;
         }
 
         ctx.restore();
       }
 
-      drawConcentricRing(ctx, fill, stroke) {
+      drawCircle(ctx, fill, stroke) {
         const r = this.size * 0.5;
-        // Outer soft filled circle
+        // Soft minimal filled circle
         ctx.beginPath();
         ctx.arc(0, 0, r, 0, Math.PI * 2);
         ctx.fillStyle = fill;
         ctx.fill();
 
-        // Outer stroke
+        // Delicate stroke
         ctx.beginPath();
         ctx.arc(0, 0, r, 0, Math.PI * 2);
         ctx.strokeStyle = stroke;
         ctx.lineWidth = 1;
         ctx.stroke();
-
-        // Inner dashed ring
-        ctx.save();
-        ctx.beginPath();
-        ctx.arc(0, 0, r * 0.62, 0, Math.PI * 2);
-        ctx.setLineDash([3, 5]);
-        ctx.strokeStyle = stroke;
-        ctx.lineWidth = 1;
-        ctx.stroke();
-        ctx.restore();
-
-        // Satellite dot
-        const satAngle = this.wobblePhase * 1.5;
-        const satR = r + 12;
-        ctx.beginPath();
-        ctx.arc(Math.cos(satAngle) * satR, Math.sin(satAngle) * satR, 2.5, 0, Math.PI * 2);
-        ctx.fillStyle = stroke;
-        ctx.fill();
       }
 
-      drawCapsule(ctx, fill, stroke) {
-        const w = this.size * 1.6;
-        const h = this.size * 0.65;
-        const r = h / 2;
-
-        ctx.beginPath();
-        ctx.roundRect(-w / 2, -h / 2, w, h, r);
-        ctx.fillStyle = fill;
-        ctx.fill();
-        ctx.strokeStyle = stroke;
-        ctx.lineWidth = 1;
-        ctx.stroke();
-
-        // Inner minimal divider line
-        ctx.beginPath();
-        ctx.moveTo(0, -h / 2 + 5);
-        ctx.lineTo(0, h / 2 - 5);
-        ctx.strokeStyle = stroke;
-        ctx.lineWidth = 0.8;
-        ctx.stroke();
-      }
-
-      drawHalfMoon(ctx, fill, stroke, accent) {
-        const r = this.size * 0.6;
-        // Semi circle fill
-        ctx.beginPath();
-        ctx.arc(0, 0, r, -Math.PI / 2, Math.PI / 2);
-        ctx.closePath();
-        ctx.fillStyle = fill;
-        ctx.fill();
-        ctx.strokeStyle = stroke;
-        ctx.lineWidth = 1;
-        ctx.stroke();
-
-        // Modern axis extension line
-        ctx.beginPath();
-        ctx.moveTo(0, -r - 18);
-        ctx.lineTo(0, r + 18);
-        ctx.strokeStyle = accent;
-        ctx.lineWidth = 0.8;
-        ctx.stroke();
-
-        // Small tick on the axis
-        ctx.beginPath();
-        ctx.arc(0, 0, 2, 0, Math.PI * 2);
-        ctx.fillStyle = accent;
-        ctx.fill();
-      }
-
-      drawModernDiamond(ctx, fill, stroke) {
-        const s = this.size * 0.55;
-        ctx.beginPath();
-        ctx.roundRect(-s, -s, s * 2, s * 2, 10);
-        ctx.fillStyle = fill;
-        ctx.fill();
-        ctx.strokeStyle = stroke;
-        ctx.lineWidth = 1;
-        ctx.stroke();
-
-        // Diagonal accent line
-        ctx.beginPath();
-        ctx.moveTo(-s + 12, -s + 12);
-        ctx.lineTo(s - 12, s - 12);
-        ctx.strokeStyle = stroke;
-        ctx.lineWidth = 0.8;
-        ctx.stroke();
-      }
-
-      drawBauhausArc(ctx, fill, stroke, accent) {
-        const r = this.size * 0.7;
-        // Pie / quadrant shape
-        ctx.beginPath();
-        ctx.moveTo(0, 0);
-        ctx.arc(0, 0, r, 0, Math.PI * 0.65);
-        ctx.closePath();
-        ctx.fillStyle = fill;
-        ctx.fill();
-        ctx.strokeStyle = stroke;
-        ctx.lineWidth = 1;
-        ctx.stroke();
-
-        // Tangent floating line
-        ctx.beginPath();
-        ctx.moveTo(r * 0.7, -15);
-        ctx.lineTo(r * 0.7, r + 25);
-        ctx.strokeStyle = accent;
-        ctx.lineWidth = 0.8;
-        ctx.stroke();
-      }
-
-      drawSwissCross(ctx, stroke, accent) {
-        const arm = this.size * 0.45;
-        const thick = Math.max(1.8, this.size * 0.08);
+      drawPlus(ctx, stroke) {
+        const arm = this.size * 0.5;
+        const thick = 1.5;
 
         ctx.strokeStyle = stroke;
         ctx.lineWidth = thick;
@@ -476,164 +351,31 @@
         ctx.lineTo(0, arm);
         ctx.stroke();
       }
-
-      drawDotCluster(ctx, stroke) {
-        const spacing = 12;
-        const dotR = 1.6;
-        ctx.fillStyle = stroke;
-        for (let row = -1; row <= 1; row++) {
-          for (let col = -1; col <= 1; col++) {
-            ctx.beginPath();
-            ctx.arc(col * spacing, row * spacing, dotR, 0, Math.PI * 2);
-            ctx.fill();
-          }
-        }
-      }
-
-      drawOrbitalDisc(ctx, fill, stroke) {
-        const r = this.size * 0.5;
-        // Soft disc
-        ctx.beginPath();
-        ctx.arc(0, 0, r, 0, Math.PI * 2);
-        ctx.fillStyle = fill;
-        ctx.fill();
-
-        // Orbit ellipse
-        ctx.save();
-        ctx.beginPath();
-        ctx.ellipse(0, 0, r * 1.5, r * 0.75, Math.PI / 6, 0, Math.PI * 2);
-        ctx.strokeStyle = stroke;
-        ctx.lineWidth = 0.9;
-        ctx.stroke();
-
-        // Planetoid on orbit
-        const orbAngle = this.pulsePhase * 1.2;
-        const ox = Math.cos(orbAngle) * (r * 1.5);
-        const oy = Math.sin(orbAngle) * (r * 0.75);
-        const rotX = ox * Math.cos(Math.PI / 6) - oy * Math.sin(Math.PI / 6);
-        const rotY = ox * Math.sin(Math.PI / 6) + oy * Math.cos(Math.PI / 6);
-
-        ctx.beginPath();
-        ctx.arc(rotX, rotY, 3, 0, Math.PI * 2);
-        ctx.fillStyle = stroke;
-        ctx.fill();
-        ctx.restore();
-      }
     }
 
-    // Curated layout of elements across the canvas
+    // Exactly 2 subtle background elements: one circle and one plus
     const elements = [
-      // Top left / hero ambient
-      new GeometricElement('concentricRing', 0.12, 0.18, {
-        size: 170,
+      // Subtle background circle floating gently in upper right
+      new GeometricElement('circle', 0.85, 0.22, {
+        size: 110,
         colorKey: 'mint',
-        fillAlpha: 0.22,
-        strokeAlpha: 0.16,
+        fillAlpha: 0.07,
+        strokeAlpha: 0.08,
         depth: 0.35,
-        vx: 0.04,
-        vy: -0.03,
-        vRot: 0.0008
+        vx: -0.012,
+        vy: 0.010,
+        vRot: 0.0004
       }),
-      new GeometricElement('swissCross', 0.06, 0.42, {
+
+      // Subtle plus shape in lower left
+      new GeometricElement('plus', 0.12, 0.65, {
         size: 26,
-        strokeAlpha: 0.22,
-        depth: 0.9,
-        vx: 0.03,
-        vy: 0.02,
-        vRot: 0.002
-      }),
-
-      // Top right
-      new GeometricElement('capsule', 0.88, 0.15, {
-        size: 130,
-        colorKey: 'blush',
-        fillAlpha: 0.20,
-        strokeAlpha: 0.15,
-        depth: 0.4,
-        vx: -0.03,
-        vy: 0.04,
-        vRot: -0.0012,
-        rotation: 0.45
-      }),
-      new GeometricElement('dotCluster', 0.82, 0.34, {
-        strokeAlpha: 0.25,
-        depth: 0.8,
-        vx: -0.02,
-        vy: -0.03
-      }),
-
-      // Center area (subtle & soft behind content)
-      new GeometricElement('orbitalDisc', 0.55, 0.28, {
-        size: 120,
-        colorKey: 'lav',
-        fillAlpha: 0.16,
-        strokeAlpha: 0.14,
-        depth: 0.3,
-        vx: 0.02,
-        vy: 0.03,
-        vRot: 0.0006
-      }),
-      new GeometricElement('halfMoon', 0.25, 0.52, {
-        size: 140,
-        colorKey: 'powder',
-        fillAlpha: 0.20,
-        strokeAlpha: 0.16,
+        colorKey: 'stroke',
+        strokeAlpha: 0.12,
         depth: 0.45,
-        vx: 0.03,
-        vy: -0.02,
-        vRot: 0.001,
-        rotation: -0.3
-      }),
-
-      // Mid / lower right
-      new GeometricElement('modernDiamond', 0.82, 0.65, {
-        size: 90,
-        colorKey: 'cream',
-        fillAlpha: 0.24,
-        strokeAlpha: 0.18,
-        depth: 0.55,
-        vx: -0.04,
-        vy: -0.02,
-        vRot: 0.0015,
-        rotation: 0.25
-      }),
-      new GeometricElement('swissCross', 0.72, 0.85, {
-        size: 22,
-        strokeAlpha: 0.20,
-        depth: 0.85,
-        vx: 0.02,
-        vy: 0.03,
-        vRot: -0.002
-      }),
-
-      // Lower left / footer area
-      new GeometricElement('bauhausArc', 0.18, 0.82, {
-        size: 160,
-        colorKey: 'mint',
-        fillAlpha: 0.18,
-        strokeAlpha: 0.15,
-        depth: 0.4,
-        vx: 0.03,
-        vy: 0.02,
-        vRot: -0.0009,
-        rotation: 0.8
-      }),
-      new GeometricElement('dotCluster', 0.28, 0.92, {
-        strokeAlpha: 0.22,
-        depth: 0.75,
-        vx: -0.02,
-        vy: 0.02
-      }),
-      new GeometricElement('capsule', 0.48, 0.78, {
-        size: 100,
-        colorKey: 'lav',
-        fillAlpha: 0.18,
-        strokeAlpha: 0.14,
-        depth: 0.45,
-        vx: -0.02,
-        vy: -0.03,
-        vRot: 0.0014,
-        rotation: -0.6
+        vx: 0.012,
+        vy: -0.010,
+        vRot: -0.0006
       })
     ];
 
