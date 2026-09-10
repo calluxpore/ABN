@@ -3,8 +3,76 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Save the Date - Dhriti & Prashant | Anadhya BN</title>
+<title>Save the Date - Dhriti & Prashant | Anadhya Badri Narayan</title>
 <meta name="description" content="A visual teaser for Dhriti & Prashant's 2-states Gujju & Telugu wedding in Hyderabad, bringing cultural fragments into motion.">
+<script>
+  (function () {
+    try {
+      var urlTheme = new URLSearchParams(window.location.search).get('theme');
+      var saved = (urlTheme === 'dark' || urlTheme === 'light') ? urlTheme : localStorage.getItem('me-portfolio-theme');
+      var theme = (saved === 'dark' || saved === 'light') ? saved : 'light';
+      document.documentElement.setAttribute('data-theme', theme);
+    } catch (e) {
+      document.documentElement.setAttribute('data-theme', 'light');
+    }
+  })();
+</script>
+<style>
+  html[data-theme="dark"] {
+    background-color: #1C1C1A;
+    color: #EDE9E2;
+  }
+  html[data-theme="light"], html:not([data-theme="dark"]) {
+    background-color: #F7F4EF;
+    color: #262421;
+  }
+</style>
+<script src="./lenis.min.js"></script>
+<script>
+  (function () {
+    function initLenis() {
+      if (typeof Lenis === 'undefined') return;
+      var lenis = new Lenis({
+        duration: 1.1,
+        easing: function (t) { return Math.min(1, 1.001 - Math.pow(2, -10 * t)); },
+        smoothWheel: true,
+        wheelMultiplier: 1,
+        touchMultiplier: 2
+      });
+      window.lenis = lenis;
+      function raf(time) {
+        lenis.raf(time);
+        requestAnimationFrame(raf);
+      }
+      requestAnimationFrame(raf);
+
+      document.addEventListener('click', function (e) {
+        var anchor = e.target.closest('a[href^="#"]');
+        if (anchor && anchor.getAttribute('href').length > 1) {
+          var target = document.querySelector(anchor.getAttribute('href'));
+          if (target) {
+            e.preventDefault();
+            lenis.scrollTo(target, { offset: 0, duration: 1.2 });
+          }
+        }
+      });
+
+      if (window.location.hash) {
+        setTimeout(function () {
+          var target = document.querySelector(window.location.hash);
+          if (target) {
+            lenis.scrollTo(target, { offset: 0, duration: 1.2 });
+          }
+        }, 150);
+      }
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initLenis);
+    } else {
+      initLenis();
+    }
+  })();
+</script>
 <script src="./support.js"></script>
 </head>
 <body>
@@ -58,6 +126,22 @@
     --maroon: #7D1A20;
   }
   * { box-sizing: border-box; }
+  html {
+    scroll-behavior: smooth;
+    background: var(--bg);
+  }
+  html.lenis, html.lenis body {
+    height: auto;
+  }
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+  .lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+  }
+  .lenis.lenis-stopped {
+    overflow: hidden;
+  }
   body {
     margin: 0;
     background: var(--bg);
@@ -88,7 +172,7 @@
     <!-- Navigation -->
     <nav style="display: flex; align-items: center; justify-content: space-between; gap: 20px; padding-bottom: clamp(40px, 8vh, 80px);">
       <a href="index.html" style="font-family: 'Archivo', Helvetica, sans-serif; font-size: 17px; font-weight: 600; letter-spacing: -0.01em; display: inline-flex; align-items: center; gap: 8px;">
-        <span>Anadhya BN</span>
+        <span>Anadhya Badri Narayan</span>
       </a>
       <div style="display: flex; align-items: center; gap: clamp(14px, 2.4vw, 28px);">
         <a href="about.html" style="font-size: 13.5px; font-weight: 500; color: var(--ink-2);" style-hover="color: var(--ink);">About</a>
@@ -401,7 +485,7 @@
     <footer style="border-top: 1px solid var(--line); padding: clamp(36px, 6vw, 60px) 0 44px; display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-end; justify-content: space-between;">
       <div>
         <p style="margin: 0; font-family: 'Archivo', Helvetica, sans-serif; font-weight: 600; font-size: clamp(20px, 2.6vw, 27px); letter-spacing: -0.02em;">Let's make something calm.</p>
-        <p style="margin: 10px 0 0; font-family: 'Space Mono', monospace; font-size: 12px; color: var(--ink-2);">&copy; 2026 Anadhya BN</p>
+        <p style="margin: 10px 0 0; font-family: 'Space Mono', monospace; font-size: 12px; color: var(--ink-2);">&copy; 2026 Anadhya Badri Narayan</p>
       </div>
       <div style="display: flex; flex-wrap: wrap; gap: 10px;">
         <a href="mailto:hello@anadhya.design" style="border: 1px solid var(--line); background: var(--bg-2); border-radius: 999px; padding: 12px 22px; font-size: 13.5px; font-weight: 500; transition: background 200ms ease;" style-hover="background: var(--mint); color: var(--chip-ink);">Email</a>
@@ -416,14 +500,32 @@
 
 <script type="text/x-dc" data-dc-script data-props="{&quot;defaultTheme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;light&quot;,&quot;dark&quot;],&quot;default&quot;:&quot;light&quot;,&quot;tsType&quot;:&quot;'light' | 'dark'&quot;}}">
 class Component extends DCLogic {
-  state = { theme: 'light', isPaused: false };
+  state = {
+    theme: (function() {
+      try {
+        var urlTheme = new URLSearchParams(window.location.search).get('theme');
+        var saved = (urlTheme === 'dark' || urlTheme === 'light') ? urlTheme : localStorage.getItem('me-portfolio-theme');
+        return (saved === 'dark' || saved === 'light') ? saved : 'light';
+      } catch (e) {
+        return 'light';
+      }
+    })(),
+    isPaused: false
+  };
 
   componentDidMount() {
     let t = null;
-    try { t = localStorage.getItem('me-portfolio-theme'); } catch (e) {}
+    try {
+      const urlTheme = new URLSearchParams(window.location.search).get('theme');
+      t = (urlTheme === 'dark' || urlTheme === 'light') ? urlTheme : localStorage.getItem('me-portfolio-theme');
+    } catch (e) {}
     if (t !== 'dark' && t !== 'light') t = this.props.defaultTheme === 'dark' ? 'dark' : 'light';
-    this.setState({ theme: t });
+    if (this.state.theme !== t) {
+      this.setState({ theme: t });
+    }
     this.applyTheme(t);
+
+    window.addEventListener('storage', this.onStorage);
 
     const vid = document.getElementById('std-video');
     if (vid) {
@@ -438,6 +540,17 @@ class Component extends DCLogic {
       });
     }
   }
+
+  componentWillUnmount() {
+    window.removeEventListener('storage', this.onStorage);
+  }
+
+  onStorage = (e) => {
+    if (e.key === 'me-portfolio-theme' && (e.newValue === 'dark' || e.newValue === 'light')) {
+      this.setState({ theme: e.newValue });
+      this.applyTheme(e.newValue);
+    }
+  };
 
   applyTheme(t) {
     document.documentElement.setAttribute('data-theme', t);
