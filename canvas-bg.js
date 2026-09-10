@@ -39,21 +39,25 @@
     let animId = null;
     let lastTime = performance.now();
 
-    // PlayStation Color Palettes (Triangle = Green, Square = Pink, Circle = Red, Cross = Blue)
+    // Theme Color Palettes (RGB tuples for smooth interpolation)
     const PALETTES = {
       light: {
-        triangle: [60, 175, 125], // PS Green
-        square: [230, 80, 135],   // PS Pink
-        circle: [232, 72, 72],    // PS Red
-        cross: [52, 132, 235],    // PS Blue
-        stroke: [38, 36, 33]
+        mint: [207, 232, 219],
+        blush: [246, 218, 223],
+        lav: [223, 217, 243],
+        powder: [213, 228, 241],
+        cream: [243, 233, 216],
+        stroke: [38, 36, 33],
+        accent: [75, 70, 64]
       },
       dark: {
-        triangle: [85, 215, 155], // PS Neon Green
-        square: [248, 115, 170],  // PS Neon Pink
-        circle: [248, 98, 98],    // PS Neon Red
-        cross: [85, 168, 255],    // PS Neon Blue
-        stroke: [237, 233, 226]
+        mint: [169, 211, 194],
+        blush: [231, 190, 197],
+        lav: [196, 187, 228],
+        powder: [178, 203, 224],
+        cream: [225, 207, 174],
+        stroke: [237, 233, 226],
+        accent: [210, 205, 198]
       }
     };
 
@@ -296,195 +300,340 @@
         ctx.rotate(this.rotation);
         ctx.scale(scale, scale);
 
-        const strokeColor = getInterpolatedColor(this.colorKey, this.strokeAlpha);
-        const lineWidth = Math.max(2.2, this.size * 0.038);
+        const fillColor = getInterpolatedColor(this.colorKey, this.fillAlpha);
+        const strokeColor = getInterpolatedColor('stroke', this.strokeAlpha);
+        const accentStroke = getInterpolatedColor('accent', this.strokeAlpha * 1.2);
 
         switch (this.type) {
-          case 'triangle':
-            this.drawTriangle(ctx, strokeColor, lineWidth);
+          case 'concentricRing':
+            this.drawConcentricRing(ctx, fillColor, strokeColor);
             break;
-          case 'square':
-            this.drawSquare(ctx, strokeColor, lineWidth);
+          case 'capsule':
+            this.drawCapsule(ctx, fillColor, strokeColor);
             break;
-          case 'circle':
-            this.drawCircle(ctx, strokeColor, lineWidth);
+          case 'halfMoon':
+            this.drawHalfMoon(ctx, fillColor, strokeColor, accentStroke);
             break;
-          case 'cross':
-            this.drawCross(ctx, strokeColor, lineWidth);
+          case 'modernDiamond':
+            this.drawModernDiamond(ctx, fillColor, strokeColor);
+            break;
+          case 'bauhausArc':
+            this.drawBauhausArc(ctx, fillColor, strokeColor, accentStroke);
+            break;
+          case 'swissCross':
+            this.drawSwissCross(ctx, strokeColor, accentStroke);
+            break;
+          case 'dotCluster':
+            this.drawDotCluster(ctx, strokeColor);
+            break;
+          case 'orbitalDisc':
+            this.drawOrbitalDisc(ctx, fillColor, strokeColor);
             break;
         }
 
         ctx.restore();
       }
 
-      drawTriangle(ctx, stroke, lineWidth) {
-        const r = this.size * 0.54;
+      drawConcentricRing(ctx, fill, stroke) {
+        const r = this.size * 0.5;
+        // Outer soft filled circle
         ctx.beginPath();
-        // Equilateral triangle pointing up
-        ctx.moveTo(0, -r);
-        ctx.lineTo(r * 0.866, r * 0.5);
-        ctx.lineTo(-r * 0.866, r * 0.5);
-        ctx.closePath();
-        ctx.strokeStyle = stroke;
-        ctx.lineWidth = lineWidth;
-        ctx.lineJoin = 'round';
-        ctx.lineCap = 'round';
-        ctx.stroke();
-      }
+        ctx.arc(0, 0, r, 0, Math.PI * 2);
+        ctx.fillStyle = fill;
+        ctx.fill();
 
-      drawSquare(ctx, stroke, lineWidth) {
-        const s = this.size * 0.42;
-        ctx.beginPath();
-        ctx.roundRect(-s, -s, s * 2, s * 2, 5);
-        ctx.strokeStyle = stroke;
-        ctx.lineWidth = lineWidth;
-        ctx.lineJoin = 'round';
-        ctx.stroke();
-      }
-
-      drawCircle(ctx, stroke, lineWidth) {
-        const r = this.size * 0.46;
+        // Outer stroke
         ctx.beginPath();
         ctx.arc(0, 0, r, 0, Math.PI * 2);
         ctx.strokeStyle = stroke;
-        ctx.lineWidth = lineWidth;
+        ctx.lineWidth = 1;
+        ctx.stroke();
+
+        // Inner dashed ring
+        ctx.save();
+        ctx.beginPath();
+        ctx.arc(0, 0, r * 0.62, 0, Math.PI * 2);
+        ctx.setLineDash([3, 5]);
+        ctx.strokeStyle = stroke;
+        ctx.lineWidth = 1;
+        ctx.stroke();
+        ctx.restore();
+
+        // Satellite dot
+        const satAngle = this.wobblePhase * 1.5;
+        const satR = r + 12;
+        ctx.beginPath();
+        ctx.arc(Math.cos(satAngle) * satR, Math.sin(satAngle) * satR, 2.5, 0, Math.PI * 2);
+        ctx.fillStyle = stroke;
+        ctx.fill();
+      }
+
+      drawCapsule(ctx, fill, stroke) {
+        const w = this.size * 1.6;
+        const h = this.size * 0.65;
+        const r = h / 2;
+
+        ctx.beginPath();
+        ctx.roundRect(-w / 2, -h / 2, w, h, r);
+        ctx.fillStyle = fill;
+        ctx.fill();
+        ctx.strokeStyle = stroke;
+        ctx.lineWidth = 1;
+        ctx.stroke();
+
+        // Inner minimal divider line
+        ctx.beginPath();
+        ctx.moveTo(0, -h / 2 + 5);
+        ctx.lineTo(0, h / 2 - 5);
+        ctx.strokeStyle = stroke;
+        ctx.lineWidth = 0.8;
         ctx.stroke();
       }
 
-      drawCross(ctx, stroke, lineWidth) {
-        const d = this.size * 0.40;
+      drawHalfMoon(ctx, fill, stroke, accent) {
+        const r = this.size * 0.6;
+        // Semi circle fill
         ctx.beginPath();
-        ctx.moveTo(-d, -d);
-        ctx.lineTo(d, d);
-        ctx.moveTo(-d, d);
-        ctx.lineTo(d, -d);
+        ctx.arc(0, 0, r, -Math.PI / 2, Math.PI / 2);
+        ctx.closePath();
+        ctx.fillStyle = fill;
+        ctx.fill();
         ctx.strokeStyle = stroke;
-        ctx.lineWidth = lineWidth;
-        ctx.lineCap = 'round';
+        ctx.lineWidth = 1;
         ctx.stroke();
+
+        // Modern axis extension line
+        ctx.beginPath();
+        ctx.moveTo(0, -r - 18);
+        ctx.lineTo(0, r + 18);
+        ctx.strokeStyle = accent;
+        ctx.lineWidth = 0.8;
+        ctx.stroke();
+
+        // Small tick on the axis
+        ctx.beginPath();
+        ctx.arc(0, 0, 2, 0, Math.PI * 2);
+        ctx.fillStyle = accent;
+        ctx.fill();
+      }
+
+      drawModernDiamond(ctx, fill, stroke) {
+        const s = this.size * 0.55;
+        ctx.beginPath();
+        ctx.roundRect(-s, -s, s * 2, s * 2, 10);
+        ctx.fillStyle = fill;
+        ctx.fill();
+        ctx.strokeStyle = stroke;
+        ctx.lineWidth = 1;
+        ctx.stroke();
+
+        // Diagonal accent line
+        ctx.beginPath();
+        ctx.moveTo(-s + 12, -s + 12);
+        ctx.lineTo(s - 12, s - 12);
+        ctx.strokeStyle = stroke;
+        ctx.lineWidth = 0.8;
+        ctx.stroke();
+      }
+
+      drawBauhausArc(ctx, fill, stroke, accent) {
+        const r = this.size * 0.7;
+        // Pie / quadrant shape
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        ctx.arc(0, 0, r, 0, Math.PI * 0.65);
+        ctx.closePath();
+        ctx.fillStyle = fill;
+        ctx.fill();
+        ctx.strokeStyle = stroke;
+        ctx.lineWidth = 1;
+        ctx.stroke();
+
+        // Tangent floating line
+        ctx.beginPath();
+        ctx.moveTo(r * 0.7, -15);
+        ctx.lineTo(r * 0.7, r + 25);
+        ctx.strokeStyle = accent;
+        ctx.lineWidth = 0.8;
+        ctx.stroke();
+      }
+
+      drawSwissCross(ctx, stroke, accent) {
+        const arm = this.size * 0.45;
+        const thick = Math.max(1.8, this.size * 0.08);
+
+        ctx.strokeStyle = stroke;
+        ctx.lineWidth = thick;
+        ctx.lineCap = 'round';
+
+        ctx.beginPath();
+        ctx.moveTo(-arm, 0);
+        ctx.lineTo(arm, 0);
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.moveTo(0, -arm);
+        ctx.lineTo(0, arm);
+        ctx.stroke();
+      }
+
+      drawDotCluster(ctx, stroke) {
+        const spacing = 12;
+        const dotR = 1.6;
+        ctx.fillStyle = stroke;
+        for (let row = -1; row <= 1; row++) {
+          for (let col = -1; col <= 1; col++) {
+            ctx.beginPath();
+            ctx.arc(col * spacing, row * spacing, dotR, 0, Math.PI * 2);
+            ctx.fill();
+          }
+        }
+      }
+
+      drawOrbitalDisc(ctx, fill, stroke) {
+        const r = this.size * 0.5;
+        // Soft disc
+        ctx.beginPath();
+        ctx.arc(0, 0, r, 0, Math.PI * 2);
+        ctx.fillStyle = fill;
+        ctx.fill();
+
+        // Orbit ellipse
+        ctx.save();
+        ctx.beginPath();
+        ctx.ellipse(0, 0, r * 1.5, r * 0.75, Math.PI / 6, 0, Math.PI * 2);
+        ctx.strokeStyle = stroke;
+        ctx.lineWidth = 0.9;
+        ctx.stroke();
+
+        // Planetoid on orbit
+        const orbAngle = this.pulsePhase * 1.2;
+        const ox = Math.cos(orbAngle) * (r * 1.5);
+        const oy = Math.sin(orbAngle) * (r * 0.75);
+        const rotX = ox * Math.cos(Math.PI / 6) - oy * Math.sin(Math.PI / 6);
+        const rotY = ox * Math.sin(Math.PI / 6) + oy * Math.cos(Math.PI / 6);
+
+        ctx.beginPath();
+        ctx.arc(rotX, rotY, 3, 0, Math.PI * 2);
+        ctx.fillStyle = stroke;
+        ctx.fill();
+        ctx.restore();
       }
     }
 
-    // Curated layout of hollow PlayStation shapes across the canvas
+    // Curated layout of elements across the canvas
     const elements = [
-      // Top left
-      new GeometricElement('triangle', 0.12, 0.18, {
-        size: 95,
-        colorKey: 'triangle',
-        strokeAlpha: 0.46,
-        depth: 0.4,
-        vx: 0.03,
-        vy: -0.02,
-        vRot: 0.001
+      // Top left / hero ambient
+      new GeometricElement('concentricRing', 0.12, 0.18, {
+        size: 170,
+        colorKey: 'mint',
+        fillAlpha: 0.22,
+        strokeAlpha: 0.16,
+        depth: 0.35,
+        vx: 0.04,
+        vy: -0.03,
+        vRot: 0.0008
       }),
-      new GeometricElement('cross', 0.08, 0.45, {
-        size: 80,
-        colorKey: 'cross',
-        strokeAlpha: 0.44,
-        depth: 0.8,
-        vx: 0.02,
-        vy: 0.03,
-        vRot: -0.0015
+      new GeometricElement('swissCross', 0.06, 0.42, {
+        size: 26,
+        strokeAlpha: 0.22,
+        depth: 0.9,
+        vx: 0.03,
+        vy: 0.02,
+        vRot: 0.002
       }),
 
       // Top right
-      new GeometricElement('circle', 0.86, 0.16, {
-        size: 100,
-        colorKey: 'circle',
-        strokeAlpha: 0.46,
-        depth: 0.45,
+      new GeometricElement('capsule', 0.88, 0.15, {
+        size: 130,
+        colorKey: 'blush',
+        fillAlpha: 0.20,
+        strokeAlpha: 0.15,
+        depth: 0.4,
         vx: -0.03,
-        vy: 0.02,
-        vRot: 0.0008
+        vy: 0.04,
+        vRot: -0.0012,
+        rotation: 0.45
       }),
-      new GeometricElement('square', 0.78, 0.38, {
-        size: 85,
-        colorKey: 'square',
-        strokeAlpha: 0.44,
-        depth: 0.7,
+      new GeometricElement('dotCluster', 0.82, 0.34, {
+        strokeAlpha: 0.25,
+        depth: 0.8,
         vx: -0.02,
-        vy: -0.03,
-        vRot: 0.0012
+        vy: -0.03
       }),
 
-      // Center area (calm background)
-      new GeometricElement('triangle', 0.45, 0.26, {
-        size: 80,
-        colorKey: 'triangle',
-        strokeAlpha: 0.38,
-        depth: 0.35,
+      // Center area (subtle & soft behind content)
+      new GeometricElement('orbitalDisc', 0.55, 0.28, {
+        size: 120,
+        colorKey: 'lav',
+        fillAlpha: 0.16,
+        strokeAlpha: 0.14,
+        depth: 0.3,
         vx: 0.02,
-        vy: 0.02,
-        vRot: -0.001
+        vy: 0.03,
+        vRot: 0.0006
       }),
-      new GeometricElement('cross', 0.62, 0.48, {
-        size: 90,
-        colorKey: 'cross',
-        strokeAlpha: 0.42,
-        depth: 0.5,
+      new GeometricElement('halfMoon', 0.25, 0.52, {
+        size: 140,
+        colorKey: 'powder',
+        fillAlpha: 0.20,
+        strokeAlpha: 0.16,
+        depth: 0.45,
         vx: 0.03,
         vy: -0.02,
-        vRot: 0.0014
-      }),
-
-      // Mid left
-      new GeometricElement('square', 0.22, 0.65, {
-        size: 90,
-        colorKey: 'square',
-        strokeAlpha: 0.44,
-        depth: 0.55,
-        vx: 0.02,
-        vy: -0.03,
-        vRot: -0.0012
+        vRot: 0.001,
+        rotation: -0.3
       }),
 
       // Mid / lower right
-      new GeometricElement('circle', 0.84, 0.68, {
-        size: 95,
-        colorKey: 'circle',
-        strokeAlpha: 0.44,
-        depth: 0.6,
-        vx: -0.03,
-        vy: 0.02,
-        vRot: 0.001
+      new GeometricElement('modernDiamond', 0.82, 0.65, {
+        size: 90,
+        colorKey: 'cream',
+        fillAlpha: 0.24,
+        strokeAlpha: 0.18,
+        depth: 0.55,
+        vx: -0.04,
+        vy: -0.02,
+        vRot: 0.0015,
+        rotation: 0.25
       }),
-      new GeometricElement('triangle', 0.68, 0.82, {
-        size: 85,
-        colorKey: 'triangle',
-        strokeAlpha: 0.40,
-        depth: 0.75,
+      new GeometricElement('swissCross', 0.72, 0.85, {
+        size: 22,
+        strokeAlpha: 0.20,
+        depth: 0.85,
         vx: 0.02,
         vy: 0.03,
-        vRot: -0.0015
+        vRot: -0.002
       }),
 
-      // Bottom left / footer
-      new GeometricElement('cross', 0.15, 0.86, {
-        size: 85,
-        colorKey: 'cross',
-        strokeAlpha: 0.42,
-        depth: 0.5,
+      // Lower left / footer area
+      new GeometricElement('bauhausArc', 0.18, 0.82, {
+        size: 160,
+        colorKey: 'mint',
+        fillAlpha: 0.18,
+        strokeAlpha: 0.15,
+        depth: 0.4,
         vx: 0.03,
         vy: 0.02,
-        vRot: 0.0012
+        vRot: -0.0009,
+        rotation: 0.8
       }),
-      new GeometricElement('circle', 0.38, 0.88, {
+      new GeometricElement('dotCluster', 0.28, 0.92, {
+        strokeAlpha: 0.22,
+        depth: 0.75,
+        vx: -0.02,
+        vy: 0.02
+      }),
+      new GeometricElement('capsule', 0.48, 0.78, {
         size: 100,
-        colorKey: 'circle',
-        strokeAlpha: 0.44,
-        depth: 0.4,
+        colorKey: 'lav',
+        fillAlpha: 0.18,
+        strokeAlpha: 0.14,
+        depth: 0.45,
         vx: -0.02,
-        vy: -0.02,
-        vRot: -0.0008
-      }),
-      new GeometricElement('square', 0.52, 0.72, {
-        size: 80,
-        colorKey: 'square',
-        strokeAlpha: 0.40,
-        depth: 0.5,
-        vx: -0.02,
-        vy: 0.03,
-        vRot: 0.0015
+        vy: -0.03,
+        vRot: 0.0014,
+        rotation: -0.6
       })
     ];
 
