@@ -66,14 +66,17 @@
     let themeTransition = currentThemeMode === 'dark' ? 1 : 0; // 0 = light, 1 = dark
     let targetThemeTransition = themeTransition;
 
-    function getInterpolatedColor(colorKey, alpha) {
+    function getInterpolatedColor(colorKey, alphaLight, alphaDark) {
       const cLight = PALETTES.light[colorKey] || PALETTES.light.mint;
       const cDark = PALETTES.dark[colorKey] || PALETTES.dark.mint;
       const t = themeTransition;
       const r = Math.round(cLight[0] + (cDark[0] - cLight[0]) * t);
       const g = Math.round(cLight[1] + (cDark[1] - cLight[1]) * t);
       const b = Math.round(cLight[2] + (cDark[2] - cLight[2]) * t);
-      return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+      const aL = typeof alphaLight === 'number' ? alphaLight : 0.35;
+      const aD = typeof alphaDark === 'number' ? alphaDark : aL;
+      const a = (aL + (aD - aL) * t).toFixed(3);
+      return `rgba(${r}, ${g}, ${b}, ${a})`;
     }
 
     // Update Theme Observer
@@ -169,6 +172,10 @@
         this.colorKey = config.colorKey || colorKeys[Math.floor(Math.random() * colorKeys.length)];
         this.fillAlpha = config.fillAlpha !== undefined ? config.fillAlpha : 0.22;
         this.strokeAlpha = config.strokeAlpha !== undefined ? config.strokeAlpha : 0.18;
+        this.fillAlphaLight = config.fillAlphaLight !== undefined ? config.fillAlphaLight : (config.fillAlpha !== undefined ? config.fillAlpha : 0.45);
+        this.fillAlphaDark = config.fillAlphaDark !== undefined ? config.fillAlphaDark : (config.fillAlpha !== undefined ? config.fillAlpha : 0.22);
+        this.strokeAlphaLight = config.strokeAlphaLight !== undefined ? config.strokeAlphaLight : (config.strokeAlpha !== undefined ? config.strokeAlpha : 0.35);
+        this.strokeAlphaDark = config.strokeAlphaDark !== undefined ? config.strokeAlphaDark : (config.strokeAlpha !== undefined ? config.strokeAlpha : 0.25);
         this.depth = config.depth || 0.5; // parallax depth factor (0.2 to 1.2)
         
         // Motion dynamics
@@ -300,8 +307,8 @@
         ctx.rotate(this.rotation);
         ctx.scale(scale, scale);
 
-        const fillColor = getInterpolatedColor(this.colorKey, this.fillAlpha);
-        const strokeColor = getInterpolatedColor('stroke', this.strokeAlpha);
+        const fillColor = getInterpolatedColor(this.colorKey, this.fillAlphaLight, this.fillAlphaDark);
+        const strokeColor = getInterpolatedColor('stroke', this.strokeAlphaLight, this.strokeAlphaDark);
 
         switch (this.type) {
           case 'circle':
@@ -325,17 +332,17 @@
         ctx.fillStyle = fill;
         ctx.fill();
 
-        // Delicate stroke
+        // Distinct border stroke
         ctx.beginPath();
         ctx.arc(0, 0, r, 0, Math.PI * 2);
         ctx.strokeStyle = stroke;
-        ctx.lineWidth = 1;
+        ctx.lineWidth = 1.4;
         ctx.stroke();
       }
 
       drawPlus(ctx, stroke) {
         const arm = this.size * 0.5;
-        const thick = 1.5;
+        const thick = 2.0;
 
         ctx.strokeStyle = stroke;
         ctx.lineWidth = thick;
@@ -355,23 +362,26 @@
 
     // Exactly 2 subtle background elements: one circle and one plus
     const elements = [
-      // Subtle background circle floating gently in upper right
+      // Clean background circle floating gently in upper right
       new GeometricElement('circle', 0.85, 0.22, {
         size: 110,
         colorKey: 'mint',
-        fillAlpha: 0.07,
-        strokeAlpha: 0.08,
+        fillAlphaLight: 0.52,
+        fillAlphaDark: 0.25,
+        strokeAlphaLight: 0.35,
+        strokeAlphaDark: 0.28,
         depth: 0.35,
         vx: -0.012,
         vy: 0.010,
         vRot: 0.0004
       }),
 
-      // Subtle plus shape in lower left
+      // Clean plus shape in lower left
       new GeometricElement('plus', 0.12, 0.65, {
-        size: 26,
+        size: 36,
         colorKey: 'stroke',
-        strokeAlpha: 0.12,
+        strokeAlphaLight: 0.45,
+        strokeAlphaDark: 0.30,
         depth: 0.45,
         vx: 0.012,
         vy: -0.010,
