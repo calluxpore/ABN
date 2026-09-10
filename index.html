@@ -103,7 +103,7 @@
     <header style="max-width: 780px; padding-bottom: clamp(70px, 14vh, 150px);">
       <p style="margin: 0 0 22px; font-family: 'Space Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-2);">Graphic designer &middot; Bangalore</p>
       <h1 style="margin: 0; font-family: 'Archivo', Helvetica, sans-serif; font-weight: 600; font-size: clamp(40px, 7vw, 78px); line-height: 1.04; letter-spacing: -0.02em; text-wrap: pretty;">Design that says less, and means more.</h1>
-      <p style="margin: 26px 0 0; max-width: 46ch; font-size: clamp(15px, 1.5vw, 18px); line-height: 1.65; color: var(--ink-2); text-wrap: pretty;">I'm Anadhya — I build identities, packaging and illustration for makers who'd rather be remembered than be loud.</p>
+      <p style="margin: 26px 0 0; max-width: 46ch; font-size: clamp(15px, 1.5vw, 18px); line-height: 1.65; color: var(--ink-2); text-wrap: pretty;">I'm Anadhya - I build identities, packaging and illustration for makers who'd rather be remembered than be loud.</p>
       <div style="display: flex; flex-wrap: wrap; gap: 12px; margin-top: 38px;">
         <a href="#work" style="background: var(--btn-bg); color: var(--btn-ink); border-radius: 999px; padding: 15px 30px; font-size: 14px; font-weight: 600; letter-spacing: 0.01em; transition: opacity 200ms ease;" style-hover="opacity: 0.82; color: var(--btn-ink);">View selected work</a>
         <a href="mailto:hello@anadhya.design" style="border: 1px solid var(--line); border-radius: 999px; padding: 15px 30px; font-size: 14px; font-weight: 500; color: var(--ink-2); transition: background 200ms ease;" style-hover="background: var(--bg-2); color: var(--ink);">Available for projects</a>
@@ -113,26 +113,57 @@
     <section id="work" style="padding-bottom: clamp(70px, 12vh, 130px);">
       <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 20px; padding-bottom: 34px; border-bottom: 1px solid var(--line);">
         <h2 style="margin: 0; font-family: 'Archivo', Helvetica, sans-serif; font-weight: 600; font-size: clamp(24px, 3vw, 34px); letter-spacing: -0.01em;">Selected work</h2>
-        <span style="font-family: 'Space Mono', monospace; font-size: 12px; color: var(--ink-2);">2024 — 2026</span>
+        <span style="font-family: 'Space Mono', monospace; font-size: 12px; color: var(--ink-2);">2024 - 2026</span>
       </div>
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: clamp(20px, 3vw, 34px); padding-top: clamp(24px, 4vw, 40px);">
         <sc-for list="{{ projects }}" as="p" hint-placeholder-count="4">
-          <article style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 14px 14px 24px; transition: transform 250ms ease, background 300ms ease;" style-hover="transform: translateY(-4px);">
-            <div style="border-radius: calc(var(--r) - 12px); aspect-ratio: 4 / 3; background-color: {{ p.tint }}; background-image: repeating-linear-gradient(45deg, var(--stripe) 0 7px, transparent 7px 14px); display: flex; align-items: flex-end; padding: 16px;">
-              <span style="font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.06em; color: var(--pill-ink); background: var(--pill-bg); border-radius: 999px; padding: 6px 12px;">{{ p.slot }}</span>
-            </div>
-            <div style="padding: 22px 10px 0;">
-              <h3 style="margin: 0; font-size: 18px; font-weight: 600; letter-spacing: -0.01em;">{{ p.title }}</h3>
-              <p style="margin: 8px 0 0; font-size: 14.5px; line-height: 1.6; color: var(--ink-2); text-wrap: pretty;">{{ p.blurb }}</p>
-              <sc-if value="{{ showTags }}" hint-placeholder-val="{{ true }}">
-                <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px;">
-                  <sc-for list="{{ p.tags }}" as="t" hint-placeholder-count="3">
-                    <span style="background: {{ t.bg }}; color: var(--chip-ink); border-radius: 999px; padding: 6px 13px; font-size: 12px; font-weight: 500;">{{ t.label }}</span>
-                  </sc-for>
+          <sc-if value="{{ p.link }}" hint-placeholder-val="{{ true }}">
+            <a href="{{ p.link }}" style="display: block; text-decoration: none; color: inherit;">
+              <article style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 14px 14px 24px; transition: transform 250ms ease, background 300ms ease, border-color 200ms ease; cursor: pointer; height: 100%; display: flex; flex-direction: column;" style-hover="transform: translateY(-4px); border-color: var(--ink-2);">
+                <sc-if value="{{ p.image }}" hint-placeholder-val="{{ true }}">
+                  <div style="border-radius: calc(var(--r) - 12px); aspect-ratio: 4 / 3; overflow: hidden; background-color: {{ p.tint }}; background-image: url('{{ p.image }}'); background-size: cover; background-position: center top;"></div>
+                </sc-if>
+                <sc-if value="{{ !p.image }}" hint-placeholder-val="{{ false }}">
+                  <div style="border-radius: calc(var(--r) - 12px); aspect-ratio: 4 / 3; background-color: {{ p.tint }}; background-image: repeating-linear-gradient(45deg, var(--stripe) 0 7px, transparent 7px 14px);"></div>
+                </sc-if>
+                <div style="padding: 22px 10px 0; flex: 1; display: flex; flex-direction: column;">
+                  <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 8px;">
+                    <h3 style="margin: 0; font-size: 18px; font-weight: 600; letter-spacing: -0.01em;">{{ p.title }}</h3>
+                    <span style="font-size: 15px; color: var(--ink-2); margin-top: 2px;">&rarr;</span>
+                  </div>
+                  <p style="margin: 8px 0 0; font-size: 14.5px; line-height: 1.6; color: var(--ink-2); text-wrap: pretty; flex: 1;">{{ p.blurb }}</p>
+                  <sc-if value="{{ showTags }}" hint-placeholder-val="{{ true }}">
+                    <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px;">
+                      <sc-for list="{{ p.tags }}" as="t" hint-placeholder-count="3">
+                        <span style="background: {{ t.bg }}; color: var(--chip-ink); border-radius: 999px; padding: 6px 13px; font-size: 12px; font-weight: 500;">{{ t.label }}</span>
+                      </sc-for>
+                    </div>
+                  </sc-if>
                 </div>
+              </article>
+            </a>
+          </sc-if>
+          <sc-if value="{{ !p.link }}" hint-placeholder-val="{{ false }}">
+            <article style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 14px 14px 24px; transition: transform 250ms ease, background 300ms ease; height: 100%; display: flex; flex-direction: column;" style-hover="transform: translateY(-4px);">
+              <sc-if value="{{ p.image }}" hint-placeholder-val="{{ false }}">
+                <div style="border-radius: calc(var(--r) - 12px); aspect-ratio: 4 / 3; overflow: hidden; background-color: {{ p.tint }}; background-image: url('{{ p.image }}'); background-size: cover; background-position: center top;"></div>
               </sc-if>
-            </div>
-          </article>
+              <sc-if value="{{ !p.image }}" hint-placeholder-val="{{ true }}">
+                <div style="border-radius: calc(var(--r) - 12px); aspect-ratio: 4 / 3; background-color: {{ p.tint }}; background-image: repeating-linear-gradient(45deg, var(--stripe) 0 7px, transparent 7px 14px);"></div>
+              </sc-if>
+              <div style="padding: 22px 10px 0; flex: 1; display: flex; flex-direction: column;">
+                <h3 style="margin: 0; font-size: 18px; font-weight: 600; letter-spacing: -0.01em;">{{ p.title }}</h3>
+                <p style="margin: 8px 0 0; font-size: 14.5px; line-height: 1.6; color: var(--ink-2); text-wrap: pretty; flex: 1;">{{ p.blurb }}</p>
+                <sc-if value="{{ showTags }}" hint-placeholder-val="{{ true }}">
+                  <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px;">
+                    <sc-for list="{{ p.tags }}" as="t" hint-placeholder-count="3">
+                      <span style="background: {{ t.bg }}; color: var(--chip-ink); border-radius: 999px; padding: 6px 13px; font-size: 12px; font-weight: 500;">{{ t.label }}</span>
+                    </sc-for>
+                  </div>
+                </sc-if>
+              </div>
+            </article>
+          </sc-if>
         </sc-for>
       </div>
     </section>
@@ -142,15 +173,13 @@
         <h2 style="margin: 0; font-family: 'Archivo', Helvetica, sans-serif; font-weight: 600; font-size: clamp(24px, 3vw, 34px); letter-spacing: -0.01em;">Illustrations</h2>
         <span style="font-family: 'Space Mono', monospace; font-size: 12px; color: var(--ink-2);">Personal &amp; commissioned</span>
       </div>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: clamp(20px, 3vw, 34px); padding-top: clamp(24px, 4vw, 40px);">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: clamp(20px, 3vw, 34px); padding-top: clamp(24px, 4vw, 40px);">
         <sc-for list="{{ illustrations }}" as="p" hint-placeholder-count="6">
-          <article style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 14px 14px 24px; transition: transform 250ms ease, background 300ms ease;" style-hover="transform: translateY(-4px);">
-            <div style="border-radius: calc(var(--r) - 12px); aspect-ratio: 1 / 1; background-color: {{ p.tint }}; background-image: repeating-linear-gradient(45deg, var(--stripe) 0 7px, transparent 7px 14px); display: flex; align-items: flex-end; padding: 16px;">
-              <span style="font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.06em; color: var(--pill-ink); background: var(--pill-bg); border-radius: 999px; padding: 6px 12px;">{{ p.slot }}</span>
-            </div>
-            <div style="padding: 22px 10px 0;">
+          <article style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 14px 14px 24px; transition: transform 250ms ease, background 300ms ease; height: 100%; display: flex; flex-direction: column;" style-hover="transform: translateY(-4px);">
+            <div style="border-radius: calc(var(--r) - 12px); aspect-ratio: 4 / 3; background-color: {{ p.tint }}; background-image: repeating-linear-gradient(45deg, var(--stripe) 0 7px, transparent 7px 14px);"></div>
+            <div style="padding: 22px 10px 0; flex: 1; display: flex; flex-direction: column;">
               <h3 style="margin: 0; font-size: 18px; font-weight: 600; letter-spacing: -0.01em;">{{ p.title }}</h3>
-              <p style="margin: 8px 0 0; font-size: 14.5px; line-height: 1.6; color: var(--ink-2); text-wrap: pretty;">{{ p.blurb }}</p>
+              <p style="margin: 8px 0 0; font-size: 14.5px; line-height: 1.6; color: var(--ink-2); text-wrap: pretty; flex: 1;">{{ p.blurb }}</p>
               <sc-if value="{{ showTags }}" hint-placeholder-val="{{ true }}">
                 <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px;">
                   <sc-for list="{{ p.tags }}" as="t" hint-placeholder-count="2">
@@ -266,6 +295,15 @@ class Component extends DCLogic {
       ],
       projects: [
         {
+          title: 'Save the Date - Dhriti & Prashant',
+          blurb: 'A visual teaser for a 2-states Gujju & Telugu wedding in Hyderabad, bringing cultural fragments into motion.',
+          slot: 'featured project',
+          tint: 'var(--blush)',
+          image: './_assets/covers/save%20the%20date_cover.jpg',
+          link: 'save-the-date.html',
+          tags: [tag('Wedding Identity', 'blush'), tag('Illustration', 'mint'), tag('Motion', 'lav')]
+        },
+        {
           title: 'Brand Identity for Aura',
           blurb: 'A wordmark and pastel system for a slow-skincare label.',
           slot: 'identity board',
@@ -299,13 +337,6 @@ class Component extends DCLogic {
           slot: 'signage mockup',
           tint: 'var(--blush)',
           tags: [tag('Signage', 'powder'), tag('Figma', 'cream'), tag('Layout', 'mint')]
-        },
-        {
-          title: 'Visual System for Halva',
-          blurb: 'Motion-ready brand kit for a small bakery collective.',
-          slot: 'system overview',
-          tint: 'var(--powder)',
-          tags: [tag('Figma', 'lav'), tag('After Effects', 'cream'), tag('Guidelines', 'mint')]
         }
       ]
     };
