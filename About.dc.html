@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600&family=Karla:wght@400;500;600&family=Space+Mono:wght@400&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --r: 28px;
+    --bg: #F7F4EF;
+    --bg-2: #FFFDFA;
+    --surface: #FFFFFF;
+    --ink: #262421;
+    --ink-2: #6B665E;
+    --line: rgba(38,36,33,0.10);
+    --mint: #CFE8DB;
+    --blush: #F6DADF;
+    --lav: #DFD9F3;
+    --powder: #D5E4F1;
+    --cream: #F3E9D8;
+    --chip-ink: #3A362F;
+    --pill-bg: #FFFFFF;
+    --pill-ink: #262421;
+    --btn-bg: #262421;
+    --btn-ink: #FBF9F5;
+    --stripe: rgba(38,36,33,0.05);
+  }
+  html[data-theme="dark"] {
+    --bg: #1C1C1A;
+    --bg-2: #212120;
+    --surface: #262625;
+    --ink: #EDE9E2;
+    --ink-2: #A29C93;
+    --line: rgba(237,233,226,0.12);
+    --mint: #A9D3C2;
+    --blush: #E7BEC5;
+    --lav: #C4BBE4;
+    --powder: #B2CBE0;
+    --cream: #E1CFAE;
+    --chip-ink: #1C1C1A;
+    --pill-bg: #171716;
+    --pill-ink: #EDE9E2;
+    --btn-bg: #CFE8DB;
+    --btn-ink: #1C1C1A;
+    --stripe: rgba(237,233,226,0.06);
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Karla', Helvetica, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    transition: background 300ms ease, color 300ms ease;
+  }
+  a { color: var(--ink); text-decoration: none; }
+  a:hover { color: var(--ink-2); }
+</style>
+</helmet>
+<div style="min-height: 100vh; padding: 28px clamp(20px, 5vw, 56px) 0;">
+  <div style="max-width: 1080px; margin: 0 auto;">
+
+    <nav style="display: flex; align-items: center; justify-content: space-between; gap: 20px; padding-bottom: clamp(48px, 9vh, 96px);">
+      <a href="Portfolio.dc.html" style="font-family: 'Archivo', Helvetica, sans-serif; font-size: 17px; font-weight: 600; letter-spacing: -0.01em;">Anadhya BN</a>
+      <div style="display: flex; align-items: center; gap: clamp(14px, 2.4vw, 28px);">
+        <a href="About.dc.html" style="font-size: 13.5px; font-weight: 500; color: var(--ink);">About</a>
+        <a href="Portfolio.dc.html#work" style="font-size: 13.5px; font-weight: 500; color: var(--ink-2);" style-hover="color: var(--ink);">Work</a>
+        <a href="https://www.linkedin.com/in/anadhyanarayan/" target="_blank" rel="noreferrer" style="font-size: 13.5px; font-weight: 500; color: var(--ink-2);" style-hover="color: var(--ink);">LinkedIn</a>
+        <button onClick="{{ toggleTheme }}" aria-label="{{ themeLabel }}" title="{{ themeLabel }}" style="display: inline-flex; align-items: center; justify-content: center; width: 42px; height: 42px; border: 1px solid var(--line); background: var(--bg-2); color: var(--ink); border-radius: 999px; padding: 0; cursor: pointer; transition: background 200ms ease;" style-hover="background: var(--surface);">
+          <sc-if value="{{ isDark }}" hint-placeholder-val="{{ false }}">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="4.2"></circle>
+              <line x1="12" y1="2.4" x2="12" y2="4.8"></line>
+              <line x1="12" y1="19.2" x2="12" y2="21.6"></line>
+              <line x1="2.4" y1="12" x2="4.8" y2="12"></line>
+              <line x1="19.2" y1="12" x2="21.6" y2="12"></line>
+              <line x1="5.4" y1="5.4" x2="7.1" y2="7.1"></line>
+              <line x1="16.9" y1="16.9" x2="18.6" y2="18.6"></line>
+              <line x1="5.4" y1="18.6" x2="7.1" y2="16.9"></line>
+              <line x1="16.9" y1="7.1" x2="18.6" y2="5.4"></line>
+            </svg>
+          </sc-if>
+          <sc-if value="{{ isLight }}" hint-placeholder-val="{{ true }}">
+            <svg width="19" height="19" viewBox="0 0 24 24" aria-hidden="true">
+              <mask id="anad-moon-about">
+                <rect width="24" height="24" fill="#fff"></rect>
+                <circle cx="19" cy="7" r="8.4" fill="#000"></circle>
+              </mask>
+              <circle cx="12" cy="12" r="8.4" fill="currentColor" mask="url(#anad-moon-about)"></circle>
+            </svg>
+          </sc-if>
+        </button>
+      </div>
+    </nav>
+
+    <header style="padding-bottom: clamp(48px, 8vh, 90px);">
+      <p style="margin: 0 0 22px; font-family: 'Space Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-2);">About &mdash; Anadhya BN</p>
+      <h1 style="margin: 0; max-width: 20ch; font-family: 'Archivo', Helvetica, sans-serif; font-weight: 600; font-size: clamp(36px, 6.4vw, 72px); line-height: 1.05; letter-spacing: -0.025em; text-wrap: pretty;">A designer with a bias for calm, useful things.</h1>
+    </header>
+
+    <section style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: clamp(28px, 5vw, 64px); align-items: start; padding-bottom: clamp(64px, 11vh, 120px);">
+      <div style="position: relative; max-width: 420px;">
+        <div style="position: absolute; inset: 20px -18px -18px 20px; border-radius: var(--r); background: var(--mint);"></div>
+        <div style="position: relative; border-radius: var(--r); aspect-ratio: 4 / 5; background-color: var(--lav); background-image: repeating-linear-gradient(45deg, var(--stripe) 0 7px, transparent 7px 14px); display: flex; align-items: flex-end; padding: 18px;">
+          <span style="font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.06em; color: var(--pill-ink); background: var(--pill-bg); border-radius: 999px; padding: 6px 12px;">portrait</span>
+        </div>
+      </div>
+      <div>
+        <p style="margin: 0; font-size: clamp(17px, 1.8vw, 21px); line-height: 1.55; letter-spacing: -0.01em; text-wrap: pretty;">I'm a graphic designer in Bangalore working across brand identity, packaging and illustration &mdash; mostly with small teams making something physical.</p>
+        <p style="margin: 22px 0 0; font-size: 15px; line-height: 1.75; color: var(--ink-2); text-wrap: pretty;">My work sits where careful typography meets a light hand with colour. I like a brief with a real object at the end of it: a label, a menu, a printed page. Systems that a two-person team can actually keep using after I've handed them over.</p>
+        <p style="margin: 16px 0 0; font-size: 15px; line-height: 1.75; color: var(--ink-2); text-wrap: pretty;">Outside client work I draw &mdash; ink and gouache, mostly &mdash; and keep a running sketchbook of the city.</p>
+        <div style="margin-top: 34px; border-left: 2px solid var(--mint); padding: 4px 0 4px 22px;">
+          <p style="margin: 0; font-family: 'Archivo', Helvetica, sans-serif; font-weight: 500; font-size: clamp(17px, 2vw, 22px); line-height: 1.4; letter-spacing: -0.015em; text-wrap: pretty;">&ldquo;Take one thing away, then look again.&rdquo;</p>
+          <p style="margin: 10px 0 0; font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-2);">Working rule</p>
+        </div>
+      </div>
+    </section>
+
+    <section style="padding-bottom: clamp(64px, 11vh, 120px);">
+      <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 20px; padding-bottom: 34px; border-bottom: 1px solid var(--line);">
+        <h2 style="margin: 0; font-family: 'Archivo', Helvetica, sans-serif; font-weight: 600; font-size: clamp(22px, 2.8vw, 32px); letter-spacing: -0.015em;">How I work</h2>
+        <span style="font-family: 'Space Mono', monospace; font-size: 12px; color: var(--ink-2);">Three steps</span>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); gap: clamp(18px, 2.6vw, 28px); padding-top: clamp(24px, 4vw, 40px);">
+        <sc-for list="{{ steps }}" as="s" hint-placeholder-count="3">
+          <article style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 26px 26px 30px;">
+            <span style="display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 999px; background: {{ s.tint }}; color: var(--chip-ink); font-family: 'Space Mono', monospace; font-size: 12px;">{{ s.no }}</span>
+            <h3 style="margin: 20px 0 0; font-family: 'Archivo', Helvetica, sans-serif; font-size: 18px; font-weight: 600; letter-spacing: -0.01em;">{{ s.title }}</h3>
+            <p style="margin: 8px 0 0; font-size: 14.5px; line-height: 1.65; color: var(--ink-2); text-wrap: pretty;">{{ s.body }}</p>
+          </article>
+        </sc-for>
+      </div>
+    </section>
+
+    <section style="padding-bottom: clamp(64px, 11vh, 120px);">
+      <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 20px; padding-bottom: 10px; border-bottom: 1px solid var(--line);">
+        <h2 style="margin: 0; font-family: 'Archivo', Helvetica, sans-serif; font-weight: 600; font-size: clamp(22px, 2.8vw, 32px); letter-spacing: -0.015em;">Experience</h2>
+        <span style="font-family: 'Space Mono', monospace; font-size: 12px; color: var(--ink-2);">2016 &mdash; now</span>
+      </div>
+      <sc-for list="{{ roles }}" as="r" hint-placeholder-count="4">
+        <div style="display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 12px 24px; align-items: baseline; padding: 24px 0; border-bottom: 1px solid var(--line);">
+          <span style="font-family: 'Space Mono', monospace; font-size: 12px; color: var(--ink-2);">{{ r.years }}</span>
+          <div>
+            <p style="margin: 0; font-size: 16.5px; font-weight: 600; letter-spacing: -0.01em;">{{ r.role }}</p>
+            <p style="margin: 6px 0 0; font-size: 14.5px; line-height: 1.6; color: var(--ink-2); text-wrap: pretty;">{{ r.place }}</p>
+          </div>
+        </div>
+      </sc-for>
+    </section>
+
+    <section style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: clamp(20px, 3vw, 34px); padding-bottom: clamp(64px, 11vh, 120px);">
+      <div>
+        <p style="margin: 0 0 16px; font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-2);">Toolkit</p>
+        <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+          <sc-for list="{{ tools }}" as="t" hint-placeholder-count="6">
+            <span style="background: {{ t.bg }}; color: var(--chip-ink); border-radius: 999px; padding: 8px 15px; font-size: 12.5px; font-weight: 500;">{{ t.label }}</span>
+          </sc-for>
+        </div>
+      </div>
+      <div>
+        <p style="margin: 0 0 16px; font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-2);">Currently</p>
+        <div style="display: grid; gap: 10px;">
+          <sc-for list="{{ currently }}" as="c" hint-placeholder-count="3">
+            <div style="display: grid; grid-template-columns: 14px minmax(0, 1fr); gap: 12px; align-items: start; background: var(--surface); border: 1px solid var(--line); border-radius: calc(var(--r) - 10px); padding: 16px 20px;">
+              <span style="width: 9px; height: 9px; margin-top: 6px; border-radius: 999px; background: var(--mint);"></span>
+              <p style="margin: 0; font-size: 14.5px; line-height: 1.6; text-wrap: pretty;">{{ c }}</p>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+
+    <section style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: clamp(30px, 5vw, 54px); margin-bottom: clamp(56px, 9vh, 100px); display: flex; flex-wrap: wrap; gap: 24px; align-items: center; justify-content: space-between;">
+      <div>
+        <h2 style="margin: 0; max-width: 22ch; font-family: 'Archivo', Helvetica, sans-serif; font-weight: 600; font-size: clamp(22px, 3vw, 34px); line-height: 1.15; letter-spacing: -0.02em; text-wrap: pretty;">Have something small and good to make?</h2>
+        <p style="margin: 12px 0 0; font-size: 15px; color: var(--ink-2);">Taking on two projects for early 2026.</p>
+      </div>
+      <div style="display: flex; flex-wrap: wrap; gap: 12px;">
+        <a href="mailto:hello@anadhya.design" style="background: var(--btn-bg); color: var(--btn-ink); border-radius: 999px; padding: 15px 30px; font-size: 14px; font-weight: 600; transition: opacity 200ms ease;" style-hover="opacity: 0.82; color: var(--btn-ink);">Get in touch</a>
+        <a href="Portfolio.dc.html#work" style="border: 1px solid var(--line); border-radius: 999px; padding: 15px 30px; font-size: 14px; font-weight: 500; color: var(--ink-2); transition: background 200ms ease;" style-hover="background: var(--bg-2); color: var(--ink);">See the work</a>
+      </div>
+    </section>
+
+    <footer style="border-top: 1px solid var(--line); padding: clamp(36px, 6vw, 60px) 0 44px; display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-end; justify-content: space-between;">
+      <div>
+        <p style="margin: 0; font-family: 'Archivo', Helvetica, sans-serif; font-weight: 600; font-size: clamp(20px, 2.6vw, 27px); letter-spacing: -0.02em;">Let's make something calm.</p>
+        <p style="margin: 10px 0 0; font-family: 'Space Mono', monospace; font-size: 12px; color: var(--ink-2);">&copy; 2026 Anadhya BN</p>
+      </div>
+      <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+        <a href="mailto:hello@anadhya.design" style="border: 1px solid var(--line); background: var(--bg-2); border-radius: 999px; padding: 12px 22px; font-size: 13.5px; font-weight: 500; transition: background 200ms ease;" style-hover="background: var(--mint); color: var(--chip-ink);">Email</a>
+        <a href="https://dribbble.com" style="border: 1px solid var(--line); background: var(--bg-2); border-radius: 999px; padding: 12px 22px; font-size: 13.5px; font-weight: 500; transition: background 200ms ease;" style-hover="background: var(--blush); color: var(--chip-ink);">Dribbble</a>
+        <a href="https://www.linkedin.com/in/anadhyanarayan/" style="border: 1px solid var(--line); background: var(--bg-2); border-radius: 999px; padding: 12px 22px; font-size: 13.5px; font-weight: 500; transition: background 200ms ease;" style-hover="background: var(--powder); color: var(--chip-ink);">LinkedIn</a>
+      </div>
+    </footer>
+
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;defaultTheme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;light&quot;,&quot;dark&quot;],&quot;default&quot;:&quot;light&quot;,&quot;tsType&quot;:&quot;'light' | 'dark'&quot;},&quot;corners&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Soft&quot;,&quot;Rounded&quot;,&quot;Square&quot;],&quot;default&quot;:&quot;Soft&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  state = { theme: 'light' };
+
+  componentDidMount() {
+    let t = null;
+    try { t = localStorage.getItem('me-portfolio-theme'); } catch (e) {}
+    if (t !== 'dark' && t !== 'light') t = this.props.defaultTheme === 'dark' ? 'dark' : 'light';
+    this.setState({ theme: t });
+    document.documentElement.setAttribute('data-theme', t);
+    this.applyRadius();
+  }
+
+  componentDidUpdate(prev) {
+    if (prev.corners !== this.props.corners) this.applyRadius();
+  }
+
+  applyRadius() {
+    const map = { Soft: '28px', Rounded: '40px', Square: '6px' };
+    document.documentElement.style.setProperty('--r', map[this.props.corners] || '28px');
+  }
+
+  toggleTheme = () => {
+    const next = this.state.theme === 'dark' ? 'light' : 'dark';
+    this.setState({ theme: next });
+    document.documentElement.setAttribute('data-theme', next);
+    try { localStorage.setItem('me-portfolio-theme', next); } catch (e) {}
+  };
+
+  renderVals() {
+    const tag = (label, bg) => ({ label, bg: 'var(--' + bg + ')' });
+    return {
+      toggleTheme: this.toggleTheme,
+      themeLabel: this.state.theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode',
+      isDark: this.state.theme === 'dark',
+      isLight: this.state.theme !== 'dark',
+      steps: [
+        { no: '01', title: 'Listen first', body: 'A long conversation, the existing material, and what the team is actually worried about.', tint: 'var(--mint)' },
+        { no: '02', title: 'Reduce', body: 'Fewer marks, fewer colours, one clear idea — tested small before anything is scaled.', tint: 'var(--blush)' },
+        { no: '03', title: 'Make it real', body: 'Print proofs, dielines and files a small team can pick up without me in the room.', tint: 'var(--powder)' }
+      ],
+      roles: [
+        { years: '2023 — now', role: 'Independent graphic designer', place: 'Identity, packaging and illustration for makers and studios · Bangalore' },
+        { years: '2020 — 2023', role: 'Senior designer', place: 'Brand and packaging studio · led four-person project teams' },
+        { years: '2018 — 2020', role: 'Designer', place: 'Editorial and print work for magazines and cultural programmes' },
+        { years: '2016 — 2018', role: 'Junior designer', place: 'First studio job — production art, dielines and a lot of press checks' }
+      ],
+      tools: [
+        tag('Illustrator', 'mint'), tag('InDesign', 'blush'), tag('Photoshop', 'lav'),
+        tag('Figma', 'powder'), tag('Procreate', 'cream'), tag('After Effects', 'mint'),
+        tag('Risograph', 'blush'), tag('Letterpress', 'powder')
+      ],
+      currently: [
+        'Designing a tea range for a Coorg estate.',
+        'Drawing a 12-plate gouache series of street vendors.',
+        'Open to two identity projects for early 2026.'
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>
