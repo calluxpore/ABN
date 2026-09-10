@@ -25,6 +25,19 @@
     background-color: #F7F4EF;
     color: #262421;
   }
+  #bg-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 0;
+  }
+  #dc-root, x-dc {
+    position: relative;
+    z-index: 1;
+  }
 </style>
 <script src="./lenis.min.js"></script>
 <script>
@@ -72,9 +85,11 @@
     }
   })();
 </script>
+<script src="./canvas-bg.js?v=6"></script>
 <script src="./support.js"></script>
 </head>
 <body>
+<canvas id="bg-canvas"></canvas>
 <x-dc>
 <helmet>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -147,6 +162,19 @@
   }
   a { color: var(--ink); text-decoration: none; }
   a:hover { color: var(--ink-2); }
+  #bg-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 0;
+  }
+  #dc-root, x-dc {
+    position: relative;
+    z-index: 1;
+  }
 </style>
 </helmet>
 <div style="min-height: 100vh; padding: 28px clamp(20px, 5vw, 56px) 0;">
