@@ -315,8 +315,8 @@
     <nav aria-label="Main Navigation" style="display: flex; align-items: center; justify-content: space-between; gap: 20px; padding-bottom: clamp(60px, 12vh, 130px);">
       <a href="index.html" style="font-family: 'Archivo', Helvetica, sans-serif; font-size: 17px; font-weight: 600; letter-spacing: -0.01em;" aria-current="page">Anadhya Badri Narayan</a>
       <div style="display: flex; align-items: center; gap: clamp(14px, 2.4vw, 28px);">
+        <a href="index.html" style="font-size: 13.5px; font-weight: 500; color: var(--ink-2); padding: 8px 4px;" style-hover="color: var(--ink);">Home</a>
         <a href="about.html" style="font-size: 13.5px; font-weight: 500; color: var(--ink-2); padding: 8px 4px;" style-hover="color: var(--ink);">About</a>
-        <a href="#work" style="font-size: 13.5px; font-weight: 500; color: var(--ink-2); padding: 8px 4px;" style-hover="color: var(--ink);">Work</a>
         <a href="https://www.linkedin.com/in/anadhyanarayan/" target="_blank" rel="noopener noreferrer" style="font-size: 13.5px; font-weight: 500; color: var(--ink-2); padding: 8px 4px;" style-hover="color: var(--ink);">LinkedIn<span class="sr-only"> (opens in a new tab)</span></a>
         <a href="./_assets/CV/Profile.pdf" target="_blank" rel="noopener noreferrer" style="font-size: 13.5px; font-weight: 500; color: var(--ink-2); padding: 8px 4px;" style-hover="color: var(--ink);">CV<span class="sr-only"> (PDF document, opens in a new tab)</span></a>
         <button onClick="{{ toggleTheme }}" aria-label="Toggle dark and light theme" title="Toggle dark and light theme" style="display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border: 1px solid var(--line); background: var(--bg-2); color: var(--ink); border-radius: 999px; padding: 0; cursor: pointer; transition: background 200ms ease, transform 200ms ease;" style-hover="background: var(--surface);">
@@ -807,27 +807,7 @@ class Component extends DCLogic {
           isExternal: true,
           tags: [tag('Digital Art', 'mint'), tag('Portraiture', 'powder'), tag('Line Art', 'lav')]
         },
-        {
-          title: 'Monsoon Field Notes',
-          blurb: 'Ink and gouache architectural studies of Bangalore rooftops and rain lines.',
-          slot: 'ink study',
-          tint: 'var(--powder)',
-          tags: [tag('Ink Drawing', 'mint'), tag('Procreate', 'lav')]
-        },
-        {
-          title: 'Fruit Sellers, MG Road',
-          blurb: 'A six plate gouache series documenting street vendor canopies and morning markets.',
-          slot: 'gouache plate',
-          tint: 'var(--blush)',
-          tags: [tag('Gouache', 'cream'), tag('Series', 'powder')]
-        },
-        {
-          title: 'Botanical Alphabet',
-          blurb: 'Twenty-six stylized letterforms grown from native Karnataka flora and vines.',
-          slot: 'letterform sheet',
-          tint: 'var(--mint)',
-          tags: [tag('Lettering', 'blush'), tag('Botanical', 'powder')]
-        }
+
       ]
     };
   }
