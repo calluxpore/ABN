@@ -158,6 +158,7 @@
         <a href="about.html" style="font-size: 13.5px; font-weight: 500; color: var(--ink);">About</a>
         <a href="index.html#work" style="font-size: 13.5px; font-weight: 500; color: var(--ink-2);" style-hover="color: var(--ink);">Work</a>
         <a href="https://www.linkedin.com/in/anadhyanarayan/" target="_blank" rel="noreferrer" style="font-size: 13.5px; font-weight: 500; color: var(--ink-2);" style-hover="color: var(--ink);">LinkedIn</a>
+        <a href="./_assets/CV/Profile.pdf" target="_blank" rel="noreferrer" style="font-size: 13.5px; font-weight: 500; color: var(--ink-2);" style-hover="color: var(--ink);">CV</a>
         <button onClick="{{ toggleTheme }}" aria-label="{{ themeLabel }}" title="{{ themeLabel }}" style="display: inline-flex; align-items: center; justify-content: center; width: 42px; height: 42px; border: 1px solid var(--line); background: var(--bg-2); color: var(--ink); border-radius: 999px; padding: 0; cursor: pointer; transition: background 200ms ease;" style-hover="background: var(--surface);">
           <sc-if value="{{ isDark }}" hint-placeholder-val="{{ false }}">
             <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">
@@ -203,9 +204,9 @@
         </div>
       </div>
       <div>
-        <p style="margin: 0; font-size: clamp(17px, 1.8vw, 21px); line-height: 1.55; letter-spacing: -0.01em; text-wrap: pretty;">I'm a graphic designer in Bangalore working across brand identity, packaging and illustration - mostly with small teams making something physical.</p>
-        <p style="margin: 22px 0 0; font-size: 15px; line-height: 1.75; color: var(--ink-2); text-wrap: pretty;">My work sits where careful typography meets a light hand with colour. I like a brief with a real object at the end of it: a label, a menu, a printed page. Systems that a two-person team can actually keep using after I've handed them over.</p>
-        <p style="margin: 16px 0 0; font-size: 15px; line-height: 1.75; color: var(--ink-2); text-wrap: pretty;">Outside client work I draw - ink and gouache, mostly - and keep a running sketchbook of the city.</p>
+        <p style="margin: 0; font-size: clamp(17px, 1.8vw, 21px); line-height: 1.55; letter-spacing: -0.01em; text-wrap: pretty;">Senior Graphic Designer at Kiana Bespoke Invitations based in Bengaluru, specializing in bespoke stationery, event design, and visual storytelling.</p>
+        <p style="margin: 22px 0 0; font-size: 15px; line-height: 1.75; color: var(--ink-2); text-wrap: pretty;">With a Bachelor of Arts in Industrial and Product Design from Raffles Design Institute, my work sits where careful typography meets tactile craft. From bespoke celebratory suites to brand systems, I believe in design that a team or client can genuinely connect with and cherish.</p>
+        <p style="margin: 16px 0 0; font-size: 15px; line-height: 1.75; color: var(--ink-2); text-wrap: pretty;">Drawing is central to how I see and think. Whether creating bespoke stationery or visual narratives, I bring versatility, adaptability, and an observant eye to every project.</p>
         <div style="margin-top: 34px; border-left: 2px solid var(--mint); padding: 4px 0 4px 22px;">
           <p style="margin: 0; font-family: 'Archivo', Helvetica, sans-serif; font-weight: 500; font-size: clamp(17px, 2vw, 22px); line-height: 1.4; letter-spacing: -0.015em; text-wrap: pretty;">&ldquo;Take one thing away, then look again.&rdquo;</p>
           <p style="margin: 10px 0 0; font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-2);">Working rule</p>
@@ -232,10 +233,10 @@
     <section style="padding-bottom: clamp(64px, 11vh, 120px);">
       <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 20px; padding-bottom: 10px; border-bottom: 1px solid var(--line);">
         <h2 style="margin: 0; font-family: 'Archivo', Helvetica, sans-serif; font-weight: 600; font-size: clamp(22px, 2.8vw, 32px); letter-spacing: -0.015em;">Experience</h2>
-        <span style="font-family: 'Space Mono', monospace; font-size: 12px; color: var(--ink-2);">2016 - now</span>
+        <span style="font-family: 'Space Mono', monospace; font-size: 12px; color: var(--ink-2);">2018 - Present</span>
       </div>
       <sc-for list="{{ roles }}" as="r" hint-placeholder-count="4">
-        <div style="display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 12px 24px; align-items: baseline; padding: 24px 0; border-bottom: 1px solid var(--line);">
+        <div style="display: grid; grid-template-columns: clamp(110px, 16vw, 150px) minmax(0, 1fr); gap: 12px 24px; align-items: baseline; padding: 24px 0; border-bottom: 1px solid var(--line);">
           <span style="font-family: 'Space Mono', monospace; font-size: 12px; color: var(--ink-2);">{{ r.years }}</span>
           <div>
             <p style="margin: 0; font-size: 16.5px; font-weight: 600; letter-spacing: -0.01em;">{{ r.role }}</p>
@@ -245,11 +246,27 @@
       </sc-for>
     </section>
 
+    <section style="padding-bottom: clamp(64px, 11vh, 120px);">
+      <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 20px; padding-bottom: 10px; border-bottom: 1px solid var(--line);">
+        <h2 style="margin: 0; font-family: 'Archivo', Helvetica, sans-serif; font-weight: 600; font-size: clamp(22px, 2.8vw, 32px); letter-spacing: -0.015em;">Education</h2>
+        <span style="font-family: 'Space Mono', monospace; font-size: 12px; color: var(--ink-2);">2013 - 2018</span>
+      </div>
+      <sc-for list="{{ education }}" as="e" hint-placeholder-count="1">
+        <div style="display: grid; grid-template-columns: clamp(110px, 16vw, 150px) minmax(0, 1fr); gap: 12px 24px; align-items: baseline; padding: 24px 0; border-bottom: 1px solid var(--line);">
+          <span style="font-family: 'Space Mono', monospace; font-size: 12px; color: var(--ink-2);">{{ e.years }}</span>
+          <div>
+            <p style="margin: 0; font-size: 16.5px; font-weight: 600; letter-spacing: -0.01em;">{{ e.degree }}</p>
+            <p style="margin: 6px 0 0; font-size: 14.5px; line-height: 1.6; color: var(--ink-2); text-wrap: pretty;">{{ e.place }}</p>
+          </div>
+        </div>
+      </sc-for>
+    </section>
+
     <section style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: clamp(20px, 3vw, 34px); padding-bottom: clamp(64px, 11vh, 120px);">
       <div>
-        <p style="margin: 0 0 16px; font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-2);">Toolkit</p>
+        <p style="margin: 0 0 16px; font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-2);">Top Skills &amp; Focus</p>
         <div style="display: flex; flex-wrap: wrap; gap: 8px;">
-          <sc-for list="{{ tools }}" as="t" hint-placeholder-count="6">
+          <sc-for list="{{ tools }}" as="t" hint-placeholder-count="9">
             <span style="background: {{ t.bg }}; color: var(--chip-ink); border-radius: 999px; padding: 8px 15px; font-size: 12.5px; font-weight: 500;">{{ t.label }}</span>
           </sc-for>
         </div>
@@ -269,24 +286,24 @@
 
     <section style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: clamp(30px, 5vw, 54px); margin-bottom: clamp(56px, 9vh, 100px); display: flex; flex-wrap: wrap; gap: 24px; align-items: center; justify-content: space-between;">
       <div>
-        <h2 style="margin: 0; max-width: 22ch; font-family: 'Archivo', Helvetica, sans-serif; font-weight: 600; font-size: clamp(22px, 3vw, 34px); line-height: 1.15; letter-spacing: -0.02em; text-wrap: pretty;">Have something small and good to make?</h2>
-        <p style="margin: 12px 0 0; font-size: 15px; color: var(--ink-2);">Taking on two projects for early 2026.</p>
+        <h2 style="margin: 0; max-width: 22ch; font-family: 'Archivo', Helvetica, sans-serif; font-weight: 600; font-size: clamp(22px, 3vw, 34px); line-height: 1.15; letter-spacing: -0.02em; text-wrap: pretty;">Have a project or collaboration in mind?</h2>
+        <p style="margin: 12px 0 0; font-size: 15px; color: var(--ink-2);">Open for bespoke stationery, invitations, and identity design commissions.</p>
       </div>
       <div style="display: flex; flex-wrap: wrap; gap: 12px;">
-        <a href="mailto:hello@anadhya.design" style="background: var(--btn-bg); color: var(--btn-ink); border-radius: 999px; padding: 15px 30px; font-size: 14px; font-weight: 600; transition: opacity 200ms ease;" style-hover="opacity: 0.82; color: var(--btn-ink);">Get in touch</a>
-        <a href="index.html#work" style="border: 1px solid var(--line); border-radius: 999px; padding: 15px 30px; font-size: 14px; font-weight: 500; color: var(--ink-2); transition: background 200ms ease;" style-hover="background: var(--bg-2); color: var(--ink);">See the work</a>
+        <a href="mailto:anadhya94@gmail.com" style="background: var(--btn-bg); color: var(--btn-ink); border-radius: 999px; padding: 15px 30px; font-size: 14px; font-weight: 600; transition: opacity 200ms ease;" style-hover="opacity: 0.82; color: var(--btn-ink);">Get in touch</a>
+        <a href="./_assets/CV/Profile.pdf" target="_blank" rel="noreferrer" style="border: 1px solid var(--line); border-radius: 999px; padding: 15px 30px; font-size: 14px; font-weight: 500; color: var(--ink-2); transition: background 200ms ease;" style-hover="background: var(--bg-2); color: var(--ink);">View CV (PDF)</a>
       </div>
     </section>
 
     <footer style="border-top: 1px solid var(--line); padding: clamp(36px, 6vw, 60px) 0 44px; display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-end; justify-content: space-between;">
       <div>
         <p style="margin: 0; font-family: 'Archivo', Helvetica, sans-serif; font-weight: 600; font-size: clamp(20px, 2.6vw, 27px); letter-spacing: -0.02em;">Let's make something calm.</p>
-        <p style="margin: 10px 0 0; font-family: 'Space Mono', monospace; font-size: 12px; color: var(--ink-2);">&copy; 2026 Anadhya Badri Narayan</p>
+        <p style="margin: 10px 0 0; font-family: 'Space Mono', monospace; font-size: 12px; color: var(--ink-2);">&copy; 2026 Anadhya Badri Narayan &middot; Bengaluru, India</p>
       </div>
       <div style="display: flex; flex-wrap: wrap; gap: 10px;">
-        <a href="mailto:hello@anadhya.design" style="border: 1px solid var(--line); background: var(--bg-2); border-radius: 999px; padding: 12px 22px; font-size: 13.5px; font-weight: 500; transition: background 200ms ease;" style-hover="background: var(--mint); color: var(--chip-ink);">Email</a>
-        <a href="https://dribbble.com" style="border: 1px solid var(--line); background: var(--bg-2); border-radius: 999px; padding: 12px 22px; font-size: 13.5px; font-weight: 500; transition: background 200ms ease;" style-hover="background: var(--blush); color: var(--chip-ink);">Dribbble</a>
-        <a href="https://www.linkedin.com/in/anadhyanarayan/" style="border: 1px solid var(--line); background: var(--bg-2); border-radius: 999px; padding: 12px 22px; font-size: 13.5px; font-weight: 500; transition: background 200ms ease;" style-hover="background: var(--powder); color: var(--chip-ink);">LinkedIn</a>
+        <a href="mailto:anadhya94@gmail.com" style="border: 1px solid var(--line); background: var(--bg-2); border-radius: 999px; padding: 12px 22px; font-size: 13.5px; font-weight: 500; transition: background 200ms ease;" style-hover="background: var(--mint); color: var(--chip-ink);">Email</a>
+        <a href="https://www.linkedin.com/in/anadhyanarayan/" target="_blank" rel="noreferrer" style="border: 1px solid var(--line); background: var(--bg-2); border-radius: 999px; padding: 12px 22px; font-size: 13.5px; font-weight: 500; transition: background 200ms ease;" style-hover="background: var(--powder); color: var(--chip-ink);">LinkedIn</a>
+        <a href="./_assets/CV/Profile.pdf" target="_blank" rel="noreferrer" style="border: 1px solid var(--line); background: var(--bg-2); border-radius: 999px; padding: 12px 22px; font-size: 13.5px; font-weight: 500; transition: background 200ms ease;" style-hover="background: var(--cream); color: var(--chip-ink);">CV (PDF)</a>
       </div>
     </footer>
 
@@ -367,20 +384,23 @@ class Component extends DCLogic {
         { no: '03', title: 'Make it real', body: 'Print proofs, dielines and files a small team can pick up without me in the room.', tint: 'var(--powder)' }
       ],
       roles: [
-        { years: '2023 - now', role: 'Independent graphic designer', place: 'Identity, packaging and illustration for makers and studios · Bangalore' },
-        { years: '2020 - 2023', role: 'Senior designer', place: 'Brand and packaging studio · led four-person project teams' },
-        { years: '2018 - 2020', role: 'Designer', place: 'Editorial and print work for magazines and cultural programmes' },
-        { years: '2016 - 2018', role: 'Junior designer', place: 'First studio job - production art, dielines and a lot of press checks' }
+        { years: 'Feb 2023 - Present', role: 'Senior Graphic Designer', place: 'Kiana Bespoke Invitations Stationery · Bengaluru, Karnataka, India' },
+        { years: 'Aug 2019 - Oct 2019', role: 'Graphic Designer', place: 'ARN Square · Bengaluru Area, India' },
+        { years: 'Dec 2018 - Jun 2019', role: 'Event Designer', place: 'With love Nilma · Bangalore, India' },
+        { years: 'Nov 2018 - Dec 2018', role: 'Visual Merchandiser', place: 'Studio J · Bangalore, India' }
+      ],
+      education: [
+        { years: '2013 - 2018', degree: 'Bachelor of Arts - BA, Industrial and Product Design', place: 'Raffles Design Institute' }
       ],
       tools: [
-        tag('Illustrator', 'mint'), tag('InDesign', 'blush'), tag('Photoshop', 'lav'),
-        tag('Figma', 'powder'), tag('Procreate', 'cream'), tag('After Effects', 'mint'),
-        tag('Risograph', 'blush'), tag('Letterpress', 'powder')
+        tag('Drawing', 'mint'), tag('Social Media', 'blush'), tag('Easily Adaptable', 'lav'),
+        tag('Bespoke Stationery', 'powder'), tag('Event Design', 'cream'), tag('Visual Merchandising', 'mint'),
+        tag('Illustrator', 'blush'), tag('InDesign', 'lav'), tag('Photoshop', 'powder')
       ],
       currently: [
-        'Designing a tea range for a Coorg estate.',
-        'Drawing a 12-plate gouache series of street vendors.',
-        'Open to two identity projects for early 2026.'
+        'Senior Graphic Designer at Kiana Bespoke Invitations Stationery, designing bespoke invitations and stationery suites.',
+        'Continuing dedicated drawing and sketching explorations across Bengaluru.',
+        'Available for select bespoke invitation, branding, and event design projects.'
       ]
     };
   }

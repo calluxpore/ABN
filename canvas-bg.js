@@ -97,6 +97,10 @@
     }
 
     // Mouse & Scroll Parallax & Repulsion State
+    let lastMouseX = -9999;
+    let lastMouseY = -9999;
+    let mouseSpeed = 0;
+
     const mouse = {
       x: 0,
       y: 0,
@@ -111,6 +115,13 @@
 
     function onPointerMove(clientX, clientY) {
       if (typeof clientX !== 'number' || typeof clientY !== 'number') return;
+      if (lastMouseX !== -9999) {
+        const mdx = clientX - lastMouseX;
+        const mdy = clientY - lastMouseY;
+        mouseSpeed = Math.hypot(mdx, mdy);
+      }
+      lastMouseX = clientX;
+      lastMouseY = clientY;
       mouse.clientX = clientX;
       mouse.clientY = clientY;
       mouse.targetX = (clientX / Math.max(1, width) - 0.5) * 2; // -1 to 1
@@ -162,145 +173,208 @@
     const colorKeys = ['mint', 'blush', 'lav', 'powder', 'cream'];
 
     class GeometricElement {
-      constructor(type, relX, relY, config = {}) {
+      constructor(type, posX, posY, config = {}) {
         this.type = type;
-        this.relX = relX; // 0 to 1
-        this.relY = relY; // 0 to 1
-        this.x = relX * width;
-        this.y = relY * height;
         this.size = config.size || 80;
+        // Accept absolute coordinates (e.g. from hero random position) or relative proportions
+        if (typeof posX === 'number') {
+          this.x = posX > 1 ? posX : posX * (width || window.innerWidth || 1200);
+        } else {
+          this.x = (width || window.innerWidth || 1200) * 0.5;
+        }
+        if (typeof posY === 'number') {
+          this.y = posY > 1 ? posY : posY * (height || window.innerHeight || 800);
+        } else {
+          this.y = (height || window.innerHeight || 800) * 0.3;
+        }
+
         this.colorKey = config.colorKey || colorKeys[Math.floor(Math.random() * colorKeys.length)];
-        this.fillAlpha = config.fillAlpha !== undefined ? config.fillAlpha : 0.22;
-        this.strokeAlpha = config.strokeAlpha !== undefined ? config.strokeAlpha : 0.18;
         this.fillAlphaLight = config.fillAlphaLight !== undefined ? config.fillAlphaLight : (config.fillAlpha !== undefined ? config.fillAlpha : 0.45);
         this.fillAlphaDark = config.fillAlphaDark !== undefined ? config.fillAlphaDark : (config.fillAlpha !== undefined ? config.fillAlpha : 0.22);
         this.strokeAlphaLight = config.strokeAlphaLight !== undefined ? config.strokeAlphaLight : (config.strokeAlpha !== undefined ? config.strokeAlpha : 0.35);
         this.strokeAlphaDark = config.strokeAlphaDark !== undefined ? config.strokeAlphaDark : (config.strokeAlpha !== undefined ? config.strokeAlpha : 0.25);
-        this.depth = config.depth || 0.5; // parallax depth factor (0.2 to 1.2)
+        this.depth = config.depth || 0.4;
         
-        // Motion dynamics
-        this.vx = (config.vx !== undefined ? config.vx : (Math.random() - 0.5) * 0.12);
-        this.vy = (config.vy !== undefined ? config.vy : (Math.random() - 0.5) * 0.12);
+        // Base slow ambient velocity (calm, elegant, minimal motion when idle)
+        this.baseSpeed = config.baseSpeed !== undefined ? config.baseSpeed : 0.12;
+        const initialAngle = config.angle !== undefined ? config.angle : Math.random() * Math.PI * 2;
+        this.vx = Math.cos(initialAngle) * this.baseSpeed;
+        this.vy = Math.sin(initialAngle) * this.baseSpeed;
+        
         this.rotation = config.rotation || Math.random() * Math.PI * 2;
-        this.baseVRot = config.vRot !== undefined ? config.vRot : (Math.random() - 0.5) * 0.003;
+        this.baseVRot = config.vRot !== undefined ? config.vRot : (Math.random() - 0.5) * 0.0008;
         this.vRot = this.baseVRot;
-        
-        // Sine wobble
-        this.wobblePhase = Math.random() * Math.PI * 2;
-        this.wobbleSpeed = 0.0008 + Math.random() * 0.001;
-        this.wobbleRadius = 15 + Math.random() * 25;
-        
-        // Pulse
-        this.pulsePhase = Math.random() * Math.PI * 2;
-        this.pulseSpeed = 0.001 + Math.random() * 0.0015;
 
-        // Interactive mouse & peer repulsion physics state
-        this.repelX = 0;
-        this.repelY = 0;
-        this.repelVx = 0;
-        this.repelVy = 0;
-        this.targetPeerRepelX = 0;
-        this.targetPeerRepelY = 0;
-        this.currentX = 0;
-        this.currentY = 0;
+        // Gentle organic sine wobble & pulse (subtle amplitude so drift feels smooth and slow)
+        this.wobblePhase = Math.random() * Math.PI * 2;
+        this.wobbleSpeed = 0.0004 + Math.random() * 0.0004;
+        this.wobbleRadius = 4 + Math.random() * 4;
+        
+        this.pulsePhase = Math.random() * Math.PI * 2;
+        this.pulseSpeed = 0.0008 + Math.random() * 0.0006;
+
+        // Visual position coordinates
+        this.currentX = this.x;
+        this.currentY = this.y;
 
         // Custom properties per type
         this.prop1 = config.prop1 || 0;
         this.prop2 = config.prop2 || 0;
       }
 
-      computePosition(mouseState, scrollOffset) {
+      computePosition(mouseState) {
         const wobbleX = Math.cos(this.wobblePhase) * this.wobbleRadius;
         const wobbleY = Math.sin(this.wobblePhase * 1.3) * this.wobbleRadius;
-        const baseX = this.x + wobbleX + (mouseState.x * this.depth * 35);
-        const baseY = this.y + wobbleY + (mouseState.y * this.depth * 25) - (scrollOffset * this.depth * 0.15);
-        this.currentX = baseX + this.repelX;
-        this.currentY = baseY + this.repelY;
-        this.targetPeerRepelX = 0;
-        this.targetPeerRepelY = 0;
+        const parallaxX = mouseState.x * this.depth * 10;
+        const parallaxY = mouseState.y * this.depth * 10;
+        this.currentX = this.x + wobbleX + parallaxX;
+        this.currentY = this.y + wobbleY + parallaxY;
       }
 
-      update(dt, mouseState, scrollOffset) {
+      update(dt, mouseState, mouseSpeed) {
+        const timeFactor = Math.min(dt / 16.67, 3);
         this.wobblePhase += this.wobbleSpeed * dt;
         this.pulsePhase += this.pulseSpeed * dt;
-        this.rotation += this.vRot * (dt / 16.67);
+        this.rotation += this.vRot * timeFactor;
 
-        // Slow ambient drift
-        this.x += this.vx * (dt / 16.67);
-        this.y += this.vy * (dt / 16.67);
-
-        // Soft velocity damping to maintain calm, elegant slow motion
-        const speed = Math.hypot(this.vx, this.vy);
-        const maxSpeed = 0.14;
-        if (speed > maxSpeed) {
-          this.vx = (this.vx / speed) * maxSpeed;
-          this.vy = (this.vy / speed) * maxSpeed;
-        }
-
-        // Screen boundary rebound to keep the subtle shapes in view
-        const pad = this.size * 0.5 + 30;
-        if (this.x < pad && this.vx < 0) this.vx = Math.abs(this.vx);
-        if (this.x > width - pad && this.vx > 0) this.vx = -Math.abs(this.vx);
-        if (this.y < pad && this.vy < 0) this.vy = Math.abs(this.vy);
-        if (this.y > height - pad && this.vy > 0) this.vy = -Math.abs(this.vy);
-
-        // Interactive magnetic repulsion when mouse cursor is near
-        let targetMouseRepelX = 0;
-        let targetMouseRepelY = 0;
-
-        if (mouseState.active) {
+        // 1. Mouse Repulsion: upon mouse movement/proximity, gently repel and guide anywhere on canvas
+        if (mouseState.active && mouseState.clientX > -1000) {
           const dx = this.currentX - mouseState.clientX;
           const dy = this.currentY - mouseState.clientY;
           const dist = Math.hypot(dx, dy);
-          const repelRadius = Math.max(220, this.size * 1.6);
+          // Intuitive repulsion zone scaled to shape size
+          const repelRadius = Math.max(160, this.size * 1.6);
 
-          if (dist < repelRadius) {
+          if (dist < repelRadius && dist > 0.01) {
             const safeDist = Math.max(dist, 1);
-            const norm = 1 - (dist / repelRadius); // 1 at cursor, 0 at boundary
-            const pushFactor = Math.pow(norm, 1.2);
-            const maxPush = Math.max(100, this.size * 0.95);
-            const push = pushFactor * maxPush;
-
             const nx = dx / safeDist;
             const ny = dy / safeDist;
 
-            targetMouseRepelX = nx * push;
-            targetMouseRepelY = ny * push;
+            // Proximity factor: 1 at cursor center, 0 at outer perimeter
+            const norm = 1 - (dist / repelRadius);
+            
+            // Repulsion responds smoothly to cursor motion and proximity
+            const motionFactor = 1 + Math.min((mouseSpeed || 0) * 0.06, 1.0);
+            const pushAccel = Math.pow(norm, 1.3) * 0.42 * motionFactor * timeFactor;
+            this.vx += nx * pushAccel;
+            this.vy += ny * pushAccel;
 
-            // Angular reaction from cursor
-            this.vRot += (nx * (dy / safeDist) - ny * (dx / safeDist)) * pushFactor * 0.001;
+            // Soft core separation to prevent cursor from passing right through
+            const coreRadius = this.size * 0.65;
+            if (dist < coreRadius) {
+              const directPush = (coreRadius - dist) * 0.14 * timeFactor;
+              this.x += nx * directPush;
+              this.y += ny * directPush;
+            }
+
+            // Gentle rotational deflection from repulsion
+            this.vRot += (nx * (dy / safeDist) - ny * (dx / safeDist)) * norm * 0.0006 * timeFactor;
           }
         }
 
-        // Combine mouse repulsion and peer mutual repulsion
-        const targetTotalRepelX = targetMouseRepelX + this.targetPeerRepelX;
-        const targetTotalRepelY = targetMouseRepelY + this.targetPeerRepelY;
+        // 2. Boundary Repulsion & Crisp Bounce: boundaries actively repel shapes and provide energetic bounce
+        const pad = this.size * 0.5 + 8;
+        const boundaryZone = Math.max(140, this.size * 1.6);
 
-        // Responsive spring-damper towards combined displacement
-        const spring = 0.12;
-        const damping = 0.80;
-        this.repelVx += (targetTotalRepelX - this.repelX) * spring;
-        this.repelVy += (targetTotalRepelY - this.repelY) * spring;
-        this.repelVx *= damping;
-        this.repelVy *= damping;
+        // --- Left Boundary ---
+        if (this.x < boundaryZone) {
+          const norm = Math.max(0, 1 - (this.x / boundaryZone));
+          // Strong inward repulsion from wall
+          const repelForce = Math.pow(norm, 1.1) * 1.4 * timeFactor;
+          this.vx += repelForce;
+          
+          // Energetic bounce if reaching edge
+          if (this.x <= pad) {
+            this.x = pad;
+            this.vx = Math.max(Math.abs(this.vx) * 1.2 + 0.6, 1.4);
+            this.vRot += (Math.random() - 0.5) * 0.006;
+          }
+        }
 
-        this.repelX += this.repelVx * (dt / 16.67);
-        this.repelY += this.repelVy * (dt / 16.67);
+        // --- Right Boundary ---
+        const distRight = width - this.x;
+        if (distRight < boundaryZone) {
+          const norm = Math.max(0, 1 - (distRight / boundaryZone));
+          const repelForce = Math.pow(norm, 1.1) * 1.4 * timeFactor;
+          this.vx -= repelForce;
+          
+          if (this.x >= width - pad) {
+            this.x = width - pad;
+            this.vx = -Math.max(Math.abs(this.vx) * 1.2 + 0.6, 1.4);
+            this.vRot += (Math.random() - 0.5) * 0.006;
+          }
+        }
 
-        // Smoothly return rotation velocity to base speed
-        this.vRot += (this.baseVRot - this.vRot) * 0.025;
+        // --- Top Boundary ---
+        if (this.y < boundaryZone) {
+          const norm = Math.max(0, 1 - (this.y / boundaryZone));
+          const repelForce = Math.pow(norm, 1.1) * 1.4 * timeFactor;
+          this.vy += repelForce;
+          
+          if (this.y <= pad) {
+            this.y = pad;
+            this.vy = Math.max(Math.abs(this.vy) * 1.2 + 0.6, 1.4);
+            this.vRot += (Math.random() - 0.5) * 0.006;
+          }
+        }
+
+        // --- Bottom Boundary ---
+        const distBottom = height - this.y;
+        if (distBottom < boundaryZone) {
+          const norm = Math.max(0, 1 - (distBottom / boundaryZone));
+          const repelForce = Math.pow(norm, 1.1) * 1.4 * timeFactor;
+          this.vy -= repelForce;
+          
+          if (this.y >= height - pad) {
+            this.y = height - pad;
+            this.vy = -Math.max(Math.abs(this.vy) * 1.2 + 0.6, 1.4);
+            this.vRot += (Math.random() - 0.5) * 0.006;
+          }
+        }
+
+        // 3. Velocity damping: speeds stay smooth and fluidly ease back to calm drift
+        const currentSpeed = Math.hypot(this.vx, this.vy);
+        const maxSpeed = 3.0; // Responsive cap allowing bouncy impulses
+        if (currentSpeed > maxSpeed) {
+          this.vx = (this.vx / currentSpeed) * maxSpeed;
+          this.vy = (this.vy / currentSpeed) * maxSpeed;
+        }
+
+        if (currentSpeed > this.baseSpeed) {
+          // Smooth fluid deceleration back to gentle drift
+          const friction = Math.pow(0.972, timeFactor);
+          this.vx *= friction;
+          this.vy *= friction;
+        } else if (currentSpeed < 0.03) {
+          // Keep gently drifting, never freeze completely
+          const angle = Math.random() * Math.PI * 2;
+          this.vx = Math.cos(angle) * this.baseSpeed;
+          this.vy = Math.sin(angle) * this.baseSpeed;
+        }
+
+        // 4. Update canvas position freely across entire viewport
+        this.x += this.vx * timeFactor;
+        this.y += this.vy * timeFactor;
+
+        // Ensure within bounds
+        this.x = Math.max(pad, Math.min(width - pad, this.x));
+        this.y = Math.max(pad, Math.min(height - pad, this.y));
+
+        // Restore rotation velocity smoothly to baseline
+        this.vRot += (this.baseVRot - this.vRot) * 0.02 * timeFactor;
       }
 
-      draw(ctx, mouseOffsetX, mouseOffsetY, scrollOffset) {
-        // Base coordinate with wobble, parallax & repulsion offset
+      draw(ctx, mouseOffsetX, mouseOffsetY) {
         const wobbleX = Math.cos(this.wobblePhase) * this.wobbleRadius;
         const wobbleY = Math.sin(this.wobblePhase * 1.3) * this.wobbleRadius;
+        const parallaxX = mouseOffsetX * this.depth * 15;
+        const parallaxY = mouseOffsetY * this.depth * 15;
         
-        const px = this.x + wobbleX + (mouseOffsetX * this.depth * 35) + this.repelX;
-        const py = this.y + wobbleY + (mouseOffsetY * this.depth * 25) - (scrollOffset * this.depth * 0.15) + this.repelY;
+        const px = this.x + wobbleX + parallaxX;
+        const py = this.y + wobbleY + parallaxY;
 
-        // Pulse scale
-        const scale = 1 + Math.sin(this.pulsePhase) * 0.06;
+        // Clean uniform scale preserving pure geometric shape with zero distortion
+        const scale = 1 + Math.sin(this.pulsePhase) * 0.03;
 
         ctx.save();
         ctx.translate(px, py);
@@ -313,6 +387,9 @@
         switch (this.type) {
           case 'circle':
             this.drawCircle(ctx, fillColor, strokeColor);
+            break;
+          case 'square':
+            this.drawSquare(ctx, fillColor, strokeColor);
             break;
           case 'plus':
           case 'cross':
@@ -340,6 +417,30 @@
         ctx.stroke();
       }
 
+      drawSquare(ctx, fill, stroke) {
+        const s = this.size;
+        const half = s * 0.5;
+        const r = this.prop1 !== undefined ? this.prop1 : 6;
+        ctx.beginPath();
+        if (ctx.roundRect) {
+          ctx.roundRect(-half, -half, s, s, r);
+        } else {
+          ctx.rect(-half, -half, s, s);
+        }
+        ctx.fillStyle = fill;
+        ctx.fill();
+
+        ctx.beginPath();
+        if (ctx.roundRect) {
+          ctx.roundRect(-half, -half, s, s, r);
+        } else {
+          ctx.rect(-half, -half, s, s);
+        }
+        ctx.strokeStyle = stroke;
+        ctx.lineWidth = 1.4;
+        ctx.stroke();
+      }
+
       drawPlus(ctx, stroke) {
         const arm = this.size * 0.5;
         const thick = 2.0;
@@ -360,34 +461,139 @@
       }
     }
 
-    // Exactly 2 subtle background elements: one circle and one plus
-    const elements = [
-      // Clean background circle floating gently in upper right
-      new GeometricElement('circle', 0.85, 0.22, {
-        size: 110,
-        colorKey: 'mint',
-        fillAlphaLight: 0.52,
-        fillAlphaDark: 0.25,
-        strokeAlphaLight: 0.35,
-        strokeAlphaDark: 0.28,
-        depth: 0.35,
-        vx: -0.012,
-        vy: 0.010,
-        vRot: 0.0004
-      }),
+    // Calculate hero section boundaries within the viewport
+    function getHeroBounds() {
+      const header = document.querySelector('header');
+      const w = width || window.innerWidth || 1200;
+      const h = height || window.innerHeight || 800;
+      let top = 40;
+      let bottom = Math.min(h * 0.72, 560);
+      let left = 40;
+      let right = w - 40;
 
-      // Clean plus shape in lower left
-      new GeometricElement('plus', 0.12, 0.65, {
-        size: 36,
-        colorKey: 'stroke',
-        strokeAlphaLight: 0.45,
-        strokeAlphaDark: 0.30,
-        depth: 0.45,
-        vx: 0.012,
-        vy: -0.010,
-        vRot: -0.0006
-      })
-    ];
+      if (header) {
+        const rect = header.getBoundingClientRect();
+        // The canvas is fixed, so rect.top and rect.bottom give screen coordinates
+        top = Math.max(30, rect.top);
+        bottom = Math.min(h - 30, Math.max(top + 280, rect.bottom + 10));
+        left = Math.max(30, rect.left - 20);
+        right = Math.min(w - 30, Math.max(rect.right + 60, w - 40));
+      }
+
+      if (bottom <= top + 150) {
+        bottom = Math.min(h - 30, top + 320);
+      }
+      if (right <= left + 150) {
+        left = 40;
+        right = w - 40;
+      }
+
+      return { left, right, top, bottom };
+    }
+
+    // Pick a well-spaced random coordinate strictly within the hero section
+    function getRandomHeroPosition(size, placedElements = []) {
+      const bounds = getHeroBounds();
+      const half = size * 0.5;
+      const minX = Math.max(half + 15, bounds.left + half);
+      const maxX = Math.min((width || window.innerWidth || 1200) - half - 15, bounds.right - half);
+      const minY = Math.max(half + 15, bounds.top + half);
+      const maxY = Math.min((height || window.innerHeight || 800) - half - 15, bounds.bottom - half);
+
+      const safeMinX = Math.min(minX, maxX);
+      const safeMaxX = Math.max(minX, maxX);
+      const safeMinY = Math.min(minY, maxY);
+      const safeMaxY = Math.max(minY, maxY);
+
+      let bestX = safeMinX + Math.random() * (safeMaxX - safeMinX);
+      let bestY = safeMinY + Math.random() * (safeMaxY - safeMinY);
+      let maxMinDist = -1;
+
+      // Try multiple random attempts to ensure good initial distribution
+      for (let attempt = 0; attempt < 30; attempt++) {
+        const candidateX = safeMinX + Math.random() * (safeMaxX - safeMinX);
+        const candidateY = safeMinY + Math.random() * (safeMaxY - safeMinY);
+
+        if (placedElements.length === 0) {
+          bestX = candidateX;
+          bestY = candidateY;
+          break;
+        }
+
+        let minDist = Infinity;
+        for (let i = 0; i < placedElements.length; i++) {
+          const el = placedElements[i];
+          const d = Math.hypot(candidateX - el.x, candidateY - el.y);
+          if (d < minDist) minDist = d;
+        }
+
+        const preferredSpacing = (size + 80) * 0.75;
+        if (minDist >= preferredSpacing) {
+          bestX = candidateX;
+          bestY = candidateY;
+          break;
+        }
+
+        if (minDist > maxMinDist) {
+          maxMinDist = minDist;
+          bestX = candidateX;
+          bestY = candidateY;
+        }
+      }
+
+      return { x: bestX, y: bestY };
+    }
+
+    // Background geometric elements: floating circle, square, and plus
+    // Default initial placement is randomly inside the hero section only
+    const elements = [];
+
+    // 1. Clean background circle
+    const circlePos = getRandomHeroPosition(110, elements);
+    const circleEl = new GeometricElement('circle', circlePos.x, circlePos.y, {
+      size: 110,
+      colorKey: 'mint',
+      fillAlphaLight: 0.52,
+      fillAlphaDark: 0.25,
+      strokeAlphaLight: 0.35,
+      strokeAlphaDark: 0.28,
+      depth: 0.35,
+      baseSpeed: 0.12,
+      angle: Math.random() * Math.PI * 2,
+      vRot: (Math.random() - 0.5) * 0.0006
+    });
+    elements.push(circleEl);
+
+    // 2. Clean floating square
+    const squarePos = getRandomHeroPosition(78, elements);
+    const squareEl = new GeometricElement('square', squarePos.x, squarePos.y, {
+      size: 78,
+      colorKey: 'lav',
+      fillAlphaLight: 0.48,
+      fillAlphaDark: 0.22,
+      strokeAlphaLight: 0.35,
+      strokeAlphaDark: 0.28,
+      depth: 0.40,
+      baseSpeed: 0.11,
+      angle: Math.random() * Math.PI * 2,
+      vRot: (Math.random() - 0.5) * 0.0006,
+      prop1: 8
+    });
+    elements.push(squareEl);
+
+    // 3. Clean plus shape
+    const plusPos = getRandomHeroPosition(36, elements);
+    const plusEl = new GeometricElement('plus', plusPos.x, plusPos.y, {
+      size: 36,
+      colorKey: 'stroke',
+      strokeAlphaLight: 0.45,
+      strokeAlphaDark: 0.30,
+      depth: 0.45,
+      baseSpeed: 0.13,
+      angle: Math.random() * Math.PI * 2,
+      vRot: (Math.random() - 0.5) * 0.0008
+    });
+    elements.push(plusEl);
 
     // Main Animation Loop
     function render(currentTime) {
@@ -407,6 +613,9 @@
       mouse.x += (mouse.targetX - mouse.x) * 0.05;
       mouse.y += (mouse.targetY - mouse.y) * 0.05;
 
+      // Decay mouse movement momentum
+      mouseSpeed *= 0.88;
+
       // Smooth scroll interpolation
       scrollY += (targetScrollY - scrollY) * 0.1;
 
@@ -417,10 +626,10 @@
 
       // 1. Precompute current rendered positions for all elements
       for (let i = 0; i < elements.length; i++) {
-        elements[i].computePosition(mouse, scrollY);
+        elements[i].computePosition(mouse);
       }
 
-      // 2. Pairwise mutual repulsion pass (prevent clutter and keep elements away from each other)
+      // 2. Active Shape-to-Shape Repulsion (objects actively repel each other when near without changing shape)
       for (let i = 0; i < elements.length; i++) {
         const elA = elements[i];
         for (let j = i + 1; j < elements.length; j++) {
@@ -430,33 +639,59 @@
           const dy = elA.currentY - elB.currentY;
           const dist = Math.hypot(dx, dy);
 
-          // Generous comfort spacing based on both elements' sizes
-          const minDist = (elA.size + elB.size) * 0.70 + 80;
+          // Generous mutual repulsion field so shapes actively steer and repel away from each other
+          const repelDist = (elA.size + elB.size) * 0.95 + 60;
 
-          if (dist < minDist && dist > 0.01) {
+          if (dist < repelDist && dist > 0.01) {
             const safeDist = Math.max(dist, 1);
             const nx = dx / safeDist;
             const ny = dy / safeDist;
-            const overlap = minDist - dist;
-            const norm = overlap / minDist; // 0 to 1
 
-            // Dynamic steering on drift velocity
-            const steer = norm * 0.015;
-            elA.vx += nx * steer;
-            elA.vy += ny * steer;
-            elB.vx -= nx * steer;
-            elB.vy -= ny * steer;
+            // Proportional repulsion force
+            const norm = 1 - (dist / repelDist);
+            const repelPush = Math.pow(norm, 1.3) * 0.70;
 
-            // Elastic separation force to immediately prevent visual clutter
-            const push = Math.pow(norm, 1.3) * 85;
-            elA.targetPeerRepelX += nx * push;
-            elA.targetPeerRepelY += ny * push;
-            elB.targetPeerRepelX -= nx * push;
-            elB.targetPeerRepelY -= ny * push;
+            elA.vx += nx * repelPush;
+            elA.vy += ny * repelPush;
+            elB.vx -= nx * repelPush;
+            elB.vy -= ny * repelPush;
 
-            // Subtle angular diversion
-            elA.vRot += (nx * ny) * 0.0003;
-            elB.vRot -= (nx * ny) * 0.0003;
+            // Core proximity extra repulsion
+            const coreDist = (elA.size + elB.size) * 0.65;
+            if (dist < coreDist) {
+              const coreNorm = 1 - (dist / coreDist);
+              const corePush = Math.pow(coreNorm, 1.2) * 0.85;
+              elA.vx += nx * corePush;
+              elA.vy += ny * corePush;
+              elB.vx -= nx * corePush;
+              elB.vy -= ny * corePush;
+
+              // Physical separation to guarantee shapes never overlap
+              const minAllowed = (elA.size + elB.size) * 0.52;
+              if (dist < minAllowed) {
+                const sep = (minAllowed - dist) * 0.5;
+                elA.x += nx * sep;
+                elA.y += ny * sep;
+                elB.x -= nx * sep;
+                elB.y -= ny * sep;
+
+                // Elastic velocity rebound
+                const rvx = elA.vx - elB.vx;
+                const rvy = elA.vy - elB.vy;
+                const velAlongNormal = rvx * nx + rvy * ny;
+                if (velAlongNormal < 0) {
+                  const bounceImpulse = -velAlongNormal * 0.85;
+                  elA.vx += nx * bounceImpulse;
+                  elA.vy += ny * bounceImpulse;
+                  elB.vx -= nx * bounceImpulse;
+                  elB.vy -= ny * bounceImpulse;
+                }
+              }
+            }
+
+            // Gentle angular diversion without deforming geometry
+            elA.vRot += (nx * ny) * 0.0001;
+            elB.vRot -= (nx * ny) * 0.0001;
           }
         }
       }
@@ -464,8 +699,8 @@
       // 3. Update physics and draw elements
       for (let i = 0; i < elements.length; i++) {
         const el = elements[i];
-        el.update(dt, mouse, scrollY);
-        el.draw(ctx, mouse.x, mouse.y, scrollY);
+        el.update(dt, mouse, mouseSpeed);
+        el.draw(ctx, mouse.x, mouse.y);
       }
 
       ctx.restore();

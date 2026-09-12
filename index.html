@@ -85,7 +85,7 @@
     }
   })();
 </script>
-<script src="./canvas-bg.js?v=9"></script>
+<script src="./canvas-bg.js?v=15"></script>
 <script src="./support.js"></script>
 </head>
 <body>
@@ -183,10 +183,11 @@
     <nav style="display: flex; align-items: center; justify-content: space-between; gap: 20px; padding-bottom: clamp(60px, 12vh, 130px);">
       <span style="font-family: 'Archivo', Helvetica, sans-serif; font-size: 17px; font-weight: 600; letter-spacing: -0.01em;">Anadhya Badri Narayan</span>
       <div style="display: flex; align-items: center; gap: clamp(14px, 2.4vw, 28px);">
-      <a href="about.html" style="font-size: 13.5px; font-weight: 500; color: var(--ink-2);" style-hover="color: var(--ink);">About</a>
-      <a href="#work" style="font-size: 13.5px; font-weight: 500; color: var(--ink-2);" style-hover="color: var(--ink);">Work</a>
-      <a href="https://www.linkedin.com/in/anadhyanarayan/" target="_blank" rel="noreferrer" style="font-size: 13.5px; font-weight: 500; color: var(--ink-2);" style-hover="color: var(--ink);">LinkedIn</a>
-      <button onClick="{{ toggleTheme }}" aria-label="{{ themeLabel }}" title="{{ themeLabel }}" style="display: inline-flex; align-items: center; justify-content: center; width: 42px; height: 42px; border: 1px solid var(--line); background: var(--bg-2); color: var(--ink); border-radius: 999px; padding: 0; cursor: pointer; transition: background 200ms ease;" style-hover="background: var(--surface);">
+        <a href="about.html" style="font-size: 13.5px; font-weight: 500; color: var(--ink-2);" style-hover="color: var(--ink);">About</a>
+        <a href="#work" style="font-size: 13.5px; font-weight: 500; color: var(--ink-2);" style-hover="color: var(--ink);">Work</a>
+        <a href="https://www.linkedin.com/in/anadhyanarayan/" target="_blank" rel="noreferrer" style="font-size: 13.5px; font-weight: 500; color: var(--ink-2);" style-hover="color: var(--ink);">LinkedIn</a>
+        <a href="./_assets/CV/Profile.pdf" target="_blank" rel="noreferrer" style="font-size: 13.5px; font-weight: 500; color: var(--ink-2);" style-hover="color: var(--ink);">CV</a>
+        <button onClick="{{ toggleTheme }}" aria-label="{{ themeLabel }}" title="{{ themeLabel }}" style="display: inline-flex; align-items: center; justify-content: center; width: 42px; height: 42px; border: 1px solid var(--line); background: var(--bg-2); color: var(--ink); border-radius: 999px; padding: 0; cursor: pointer; transition: background 200ms ease;" style-hover="background: var(--surface);">
         <sc-if value="{{ isDark }}" hint-placeholder-val="{{ false }}">
           <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">
             <circle cx="12" cy="12" r="4.2"></circle>
@@ -214,41 +215,42 @@
     </nav>
 
     <header style="max-width: 780px; padding-bottom: clamp(70px, 14vh, 150px);">
-      <p style="margin: 0 0 22px; font-family: 'Space Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-2);">Graphic designer &middot; Bangalore</p>
+      <p style="margin: 0 0 22px; font-family: 'Space Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-2);">Senior Graphic Designer &middot; Bengaluru</p>
       <h1 style="margin: 0; font-family: 'Archivo', Helvetica, sans-serif; font-weight: 600; font-size: clamp(40px, 7vw, 78px); line-height: 1.04; letter-spacing: -0.02em; text-wrap: pretty;">Design that says less, and means more.</h1>
-      <p style="margin: 26px 0 0; max-width: 46ch; font-size: clamp(15px, 1.5vw, 18px); line-height: 1.65; color: var(--ink-2); text-wrap: pretty;">I'm Anadhya Badri Narayan - I build identities, packaging and illustration for makers who'd rather be remembered than be loud.</p>
+      <p style="margin: 26px 0 0; max-width: 48ch; font-size: clamp(15px, 1.5vw, 18px); line-height: 1.65; color: var(--ink-2); text-wrap: pretty;">I'm Anadhya Badri Narayan &mdash; Senior Graphic Designer at Kiana Bespoke Invitations. I build bespoke wedding stationery, visual identities, and narratives rooted in craft, typography, and tactile materiality.</p>
       <div style="display: flex; flex-wrap: wrap; gap: 12px; margin-top: 38px;">
         <a href="#work" style="background: var(--btn-bg); color: var(--btn-ink); border-radius: 999px; padding: 15px 30px; font-size: 14px; font-weight: 600; letter-spacing: 0.01em; transition: opacity 200ms ease;" style-hover="opacity: 0.82; color: var(--btn-ink);">View selected work</a>
-        <a href="mailto:hello@anadhya.design" style="border: 1px solid var(--line); border-radius: 999px; padding: 15px 30px; font-size: 14px; font-weight: 500; color: var(--ink-2); transition: background 200ms ease;" style-hover="background: var(--bg-2); color: var(--ink);">Available for projects</a>
+        <a href="mailto:anadhya94@gmail.com" style="border: 1px solid var(--line); border-radius: 999px; padding: 15px 30px; font-size: 14px; font-weight: 500; color: var(--ink-2); transition: background 200ms ease;" style-hover="background: var(--bg-2); color: var(--ink);">Get in touch</a>
+        <a href="./_assets/CV/Profile.pdf" target="_blank" rel="noreferrer" style="border: 1px solid var(--line); border-radius: 999px; padding: 15px 30px; font-size: 14px; font-weight: 500; color: var(--ink-2); transition: background 200ms ease;" style-hover="background: var(--bg-2); color: var(--ink);">View CV (PDF)</a>
       </div>
     </header>
 
     <section id="work" style="padding-bottom: clamp(70px, 12vh, 130px);">
       <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 20px; padding-bottom: 34px; border-bottom: 1px solid var(--line);">
         <h2 style="margin: 0; font-family: 'Archivo', Helvetica, sans-serif; font-weight: 600; font-size: clamp(24px, 3vw, 34px); letter-spacing: -0.01em;">Selected work</h2>
-        <span style="font-family: 'Space Mono', monospace; font-size: 12px; color: var(--ink-2);">2024 - 2026</span>
+        <span style="font-family: 'Space Mono', monospace; font-size: 12px; color: var(--ink-2);">Bespoke Stationery &amp; Projects</span>
       </div>
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: clamp(20px, 3vw, 34px); padding-top: clamp(24px, 4vw, 40px);">
-        <sc-for list="{{ projects }}" as="p" hint-placeholder-count="4">
+        <sc-for list="{{ projects }}" as="p" hint-placeholder-count="6">
           <sc-if value="{{ p.link }}" hint-placeholder-val="{{ true }}">
             <a href="{{ p.link }}" style="display: block; text-decoration: none; color: inherit;">
-              <article style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 14px 14px 24px; transition: transform 250ms ease, background 300ms ease, border-color 200ms ease; cursor: pointer; height: 100%; display: flex; flex-direction: column;" style-hover="transform: translateY(-4px); border-color: var(--ink-2);">
+              <article style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 16px 16px 26px; transition: transform 250ms ease, background 300ms ease, border-color 200ms ease; cursor: pointer; height: 100%; display: flex; flex-direction: column;" style-hover="transform: translateY(-4px); border-color: var(--ink-2);">
                 <sc-if value="{{ p.image }}" hint-placeholder-val="{{ true }}">
-                  <div style="border-radius: calc(var(--r) - 12px); aspect-ratio: 4 / 3; overflow: hidden; background-color: {{ p.tint }}; background-image: url('{{ p.image }}'); background-size: cover; background-position: center top;"></div>
+                  <div style="border-radius: calc(var(--r) - 12px); aspect-ratio: 1 / 1; overflow: hidden; background-color: {{ p.tint }}; background-image: url('{{ p.image }}'); background-size: cover; background-position: center top;"></div>
                 </sc-if>
                 <sc-if value="{{ !p.image }}" hint-placeholder-val="{{ false }}">
-                  <div style="border-radius: calc(var(--r) - 12px); aspect-ratio: 4 / 3; background-color: {{ p.tint }}; background-image: repeating-linear-gradient(45deg, var(--stripe) 0 7px, transparent 7px 14px);"></div>
+                  <div style="border-radius: calc(var(--r) - 12px); aspect-ratio: 1 / 1; background-color: {{ p.tint }}; background-image: repeating-linear-gradient(45deg, var(--stripe) 0 7px, transparent 7px 14px);"></div>
                 </sc-if>
-                <div style="padding: 22px 10px 0; flex: 1; display: flex; flex-direction: column;">
+                <div style="padding: 24px 12px 0; flex: 1; display: flex; flex-direction: column;">
                   <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 8px;">
-                    <h3 style="margin: 0; font-size: 18px; font-weight: 600; letter-spacing: -0.01em;">{{ p.title }}</h3>
-                    <span style="font-size: 15px; color: var(--ink-2); margin-top: 2px;">&rarr;</span>
+                    <h3 style="margin: 0; font-size: 20px; font-weight: 600; letter-spacing: -0.01em;">{{ p.title }}</h3>
+                    <span style="font-size: 16px; color: var(--ink-2); margin-top: 2px;">&rarr;</span>
                   </div>
-                  <p style="margin: 8px 0 0; font-size: 14.5px; line-height: 1.6; color: var(--ink-2); text-wrap: pretty; flex: 1;">{{ p.blurb }}</p>
+                  <p style="margin: 10px 0 0; font-size: 15px; line-height: 1.65; color: var(--ink-2); text-wrap: pretty; flex: 1;">{{ p.blurb }}</p>
                   <sc-if value="{{ showTags }}" hint-placeholder-val="{{ true }}">
-                    <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px;">
+                    <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px;">
                       <sc-for list="{{ p.tags }}" as="t" hint-placeholder-count="3">
-                        <span style="background: {{ t.bg }}; color: var(--chip-ink); border-radius: 999px; padding: 6px 13px; font-size: 12px; font-weight: 500;">{{ t.label }}</span>
+                        <span style="background: {{ t.bg }}; color: var(--chip-ink); border-radius: 999px; padding: 6px 14px; font-size: 12px; font-weight: 500;">{{ t.label }}</span>
                       </sc-for>
                     </div>
                   </sc-if>
@@ -257,20 +259,20 @@
             </a>
           </sc-if>
           <sc-if value="{{ !p.link }}" hint-placeholder-val="{{ false }}">
-            <article style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 14px 14px 24px; transition: transform 250ms ease, background 300ms ease; height: 100%; display: flex; flex-direction: column;" style-hover="transform: translateY(-4px);">
+            <article style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 16px 16px 26px; transition: transform 250ms ease, background 300ms ease; height: 100%; display: flex; flex-direction: column;" style-hover="transform: translateY(-4px);">
               <sc-if value="{{ p.image }}" hint-placeholder-val="{{ false }}">
-                <div style="border-radius: calc(var(--r) - 12px); aspect-ratio: 4 / 3; overflow: hidden; background-color: {{ p.tint }}; background-image: url('{{ p.image }}'); background-size: cover; background-position: center top;"></div>
+                <div style="border-radius: calc(var(--r) - 12px); aspect-ratio: 1 / 1; overflow: hidden; background-color: {{ p.tint }}; background-image: url('{{ p.image }}'); background-size: cover; background-position: center top;"></div>
               </sc-if>
               <sc-if value="{{ !p.image }}" hint-placeholder-val="{{ true }}">
-                <div style="border-radius: calc(var(--r) - 12px); aspect-ratio: 4 / 3; background-color: {{ p.tint }}; background-image: repeating-linear-gradient(45deg, var(--stripe) 0 7px, transparent 7px 14px);"></div>
+                <div style="border-radius: calc(var(--r) - 12px); aspect-ratio: 1 / 1; background-color: {{ p.tint }}; background-image: repeating-linear-gradient(45deg, var(--stripe) 0 7px, transparent 7px 14px);"></div>
               </sc-if>
-              <div style="padding: 22px 10px 0; flex: 1; display: flex; flex-direction: column;">
-                <h3 style="margin: 0; font-size: 18px; font-weight: 600; letter-spacing: -0.01em;">{{ p.title }}</h3>
-                <p style="margin: 8px 0 0; font-size: 14.5px; line-height: 1.6; color: var(--ink-2); text-wrap: pretty; flex: 1;">{{ p.blurb }}</p>
+              <div style="padding: 24px 12px 0; flex: 1; display: flex; flex-direction: column;">
+                <h3 style="margin: 0; font-size: 20px; font-weight: 600; letter-spacing: -0.01em;">{{ p.title }}</h3>
+                <p style="margin: 10px 0 0; font-size: 15px; line-height: 1.65; color: var(--ink-2); text-wrap: pretty; flex: 1;">{{ p.blurb }}</p>
                 <sc-if value="{{ showTags }}" hint-placeholder-val="{{ true }}">
-                  <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px;">
+                  <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px;">
                     <sc-for list="{{ p.tags }}" as="t" hint-placeholder-count="3">
-                      <span style="background: {{ t.bg }}; color: var(--chip-ink); border-radius: 999px; padding: 6px 13px; font-size: 12px; font-weight: 500;">{{ t.label }}</span>
+                      <span style="background: {{ t.bg }}; color: var(--chip-ink); border-radius: 999px; padding: 6px 14px; font-size: 12px; font-weight: 500;">{{ t.label }}</span>
                     </sc-for>
                   </div>
                 </sc-if>
@@ -288,15 +290,15 @@
       </div>
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: clamp(20px, 3vw, 34px); padding-top: clamp(24px, 4vw, 40px);">
         <sc-for list="{{ illustrations }}" as="p" hint-placeholder-count="6">
-          <article style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 14px 14px 24px; transition: transform 250ms ease, background 300ms ease; height: 100%; display: flex; flex-direction: column;" style-hover="transform: translateY(-4px);">
-            <div style="border-radius: calc(var(--r) - 12px); aspect-ratio: 4 / 3; background-color: {{ p.tint }}; background-image: repeating-linear-gradient(45deg, var(--stripe) 0 7px, transparent 7px 14px);"></div>
-            <div style="padding: 22px 10px 0; flex: 1; display: flex; flex-direction: column;">
-              <h3 style="margin: 0; font-size: 18px; font-weight: 600; letter-spacing: -0.01em;">{{ p.title }}</h3>
-              <p style="margin: 8px 0 0; font-size: 14.5px; line-height: 1.6; color: var(--ink-2); text-wrap: pretty; flex: 1;">{{ p.blurb }}</p>
+          <article style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 16px 16px 26px; transition: transform 250ms ease, background 300ms ease; height: 100%; display: flex; flex-direction: column;" style-hover="transform: translateY(-4px);">
+            <div style="border-radius: calc(var(--r) - 12px); aspect-ratio: 1 / 1; background-color: {{ p.tint }}; background-image: repeating-linear-gradient(45deg, var(--stripe) 0 7px, transparent 7px 14px);"></div>
+            <div style="padding: 24px 12px 0; flex: 1; display: flex; flex-direction: column;">
+              <h3 style="margin: 0; font-size: 20px; font-weight: 600; letter-spacing: -0.01em;">{{ p.title }}</h3>
+              <p style="margin: 10px 0 0; font-size: 15px; line-height: 1.65; color: var(--ink-2); text-wrap: pretty; flex: 1;">{{ p.blurb }}</p>
               <sc-if value="{{ showTags }}" hint-placeholder-val="{{ true }}">
-                <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px;">
+                <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px;">
                   <sc-for list="{{ p.tags }}" as="t" hint-placeholder-count="2">
-                    <span style="background: {{ t.bg }}; color: var(--chip-ink); border-radius: 999px; padding: 6px 13px; font-size: 12px; font-weight: 500;">{{ t.label }}</span>
+                    <span style="background: {{ t.bg }}; color: var(--chip-ink); border-radius: 999px; padding: 6px 14px; font-size: 12px; font-weight: 500;">{{ t.label }}</span>
                   </sc-for>
                 </div>
               </sc-if>
@@ -309,12 +311,12 @@
     <footer style="border-top: 1px solid var(--line); padding: clamp(36px, 6vw, 60px) 0 44px; display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-end; justify-content: space-between;">
       <div>
         <p style="margin: 0; font-family: 'Archivo', Helvetica, sans-serif; font-weight: 600; font-size: clamp(20px, 2.6vw, 27px); letter-spacing: -0.02em;">Let's make something calm.</p>
-        <p style="margin: 10px 0 0; font-family: 'Space Mono', monospace; font-size: 12px; color: var(--ink-2);">&copy; 2026 Anadhya Badri Narayan</p>
+        <p style="margin: 10px 0 0; font-family: 'Space Mono', monospace; font-size: 12px; color: var(--ink-2);">&copy; 2026 Anadhya Badri Narayan &middot; Bengaluru, India</p>
       </div>
       <div style="display: flex; flex-wrap: wrap; gap: 10px;">
-        <a href="mailto:hello@anadhya.design" style="border: 1px solid var(--line); background: var(--bg-2); border-radius: 999px; padding: 12px 22px; font-size: 13.5px; font-weight: 500; transition: background 200ms ease;" style-hover="background: var(--mint); color: var(--chip-ink);">Email</a>
-        <a href="https://dribbble.com" style="border: 1px solid var(--line); background: var(--bg-2); border-radius: 999px; padding: 12px 22px; font-size: 13.5px; font-weight: 500; transition: background 200ms ease;" style-hover="background: var(--blush); color: var(--chip-ink);">Dribbble</a>
-        <a href="https://www.linkedin.com/in/anadhyanarayan/" style="border: 1px solid var(--line); background: var(--bg-2); border-radius: 999px; padding: 12px 22px; font-size: 13.5px; font-weight: 500; transition: background 200ms ease;" style-hover="background: var(--powder); color: var(--chip-ink);">LinkedIn</a>
+        <a href="mailto:anadhya94@gmail.com" style="border: 1px solid var(--line); background: var(--bg-2); border-radius: 999px; padding: 12px 22px; font-size: 13.5px; font-weight: 500; transition: background 200ms ease;" style-hover="background: var(--mint); color: var(--chip-ink);">Email</a>
+        <a href="https://www.linkedin.com/in/anadhyanarayan/" target="_blank" rel="noreferrer" style="border: 1px solid var(--line); background: var(--bg-2); border-radius: 999px; padding: 12px 22px; font-size: 13.5px; font-weight: 500; transition: background 200ms ease;" style-hover="background: var(--powder); color: var(--chip-ink);">LinkedIn</a>
+        <a href="./_assets/CV/Profile.pdf" target="_blank" rel="noreferrer" style="border: 1px solid var(--line); background: var(--bg-2); border-radius: 999px; padding: 12px 22px; font-size: 13.5px; font-weight: 500; transition: background 200ms ease;" style-hover="background: var(--cream); color: var(--chip-ink);">CV (PDF)</a>
       </div>
     </footer>
 
@@ -390,50 +392,6 @@ class Component extends DCLogic {
       isDark: this.state.theme === 'dark',
       isLight: this.state.theme !== 'dark',
       showTags: this.props.showTags !== false,
-      illustrations: [
-        {
-          title: 'Monsoon Field Notes',
-          blurb: 'Ink studies of Bangalore rooftops during the rains.',
-          slot: 'ink study',
-          tint: 'var(--powder)',
-          tags: [tag('Ink', 'mint'), tag('Procreate', 'lav')]
-        },
-        {
-          title: 'Fruit Sellers, MG Road',
-          blurb: 'A six-plate gouache series of street vendors.',
-          slot: 'gouache plate',
-          tint: 'var(--blush)',
-          tags: [tag('Gouache', 'cream'), tag('Series', 'powder')]
-        },
-        {
-          title: 'Botanical Alphabet',
-          blurb: 'Twenty-six letterforms grown from native plants.',
-          slot: 'letterform sheet',
-          tint: 'var(--mint)',
-          tags: [tag('Lettering', 'blush'), tag('Illustrator', 'powder')]
-        },
-        {
-          title: 'Kitchen Objects',
-          blurb: 'Quiet still lifes drawn from a grandmother’s pantry.',
-          slot: 'still life',
-          tint: 'var(--cream)',
-          tags: [tag('Pencil', 'lav'), tag('Risograph', 'mint')]
-        },
-        {
-          title: 'Night Bus Sketches',
-          blurb: 'Loose figure drawings made on the 500D route.',
-          slot: 'sketch page',
-          tint: 'var(--lav)',
-          tags: [tag('Figure', 'powder'), tag('Sketchbook', 'cream')]
-        },
-        {
-          title: 'Editorial Spot Icons',
-          blurb: 'Spot illustrations for a weekly food column.',
-          slot: 'spot set',
-          tint: 'var(--mint)',
-          tags: [tag('Editorial', 'blush'), tag('Vector', 'lav')]
-        }
-      ],
       projects: [
         {
           title: 'Save the Date - Dhriti & Prashant',
@@ -445,39 +403,83 @@ class Component extends DCLogic {
           tags: [tag('Wedding Identity', 'blush'), tag('Illustration', 'mint'), tag('Motion', 'lav')]
         },
         {
-          title: 'Brand Identity for Aura',
-          blurb: 'A wordmark and pastel system for a slow-skincare label.',
-          slot: 'identity board',
+          title: 'Bespoke Wedding Suite - Mira & Kabir',
+          blurb: 'A boxed celebratory invitation suite featuring gold foil stamping, deckled edges, and hand-illustrated botanical monograms.',
+          slot: 'bespoke suite',
           tint: 'var(--mint)',
-          tags: [tag('Illustrator', 'blush'), tag('Type design', 'lav'), tag('Art direction', 'powder')]
+          tags: [tag('Luxury Stationery', 'mint'), tag('Foil Print', 'powder'), tag('Monogram', 'blush')]
         },
         {
-          title: 'Packaging Design for Bloom',
-          blurb: 'Six-SKU botanical tea range, printed on uncoated stock.',
-          slot: 'packaging shot',
-          tint: 'var(--blush)',
-          tags: [tag('Dieline', 'mint'), tag('InDesign', 'powder'), tag('Print', 'cream')]
-        },
-        {
-          title: 'Editorial Layout for Fold',
-          blurb: 'A quarterly print journal on architecture and quiet.',
-          slot: 'spread photo',
+          title: 'Event Branding - Nilma Floral Gathering',
+          blurb: 'Event visual identity, floral menus, and hand-lettered signage for an intimate pavilion banquet celebration in Bangalore.',
+          slot: 'event identity',
           tint: 'var(--lav)',
-          tags: [tag('InDesign', 'powder'), tag('Grid systems', 'mint'), tag('Photo edit', 'blush')]
+          tags: [tag('Event Design', 'lav'), tag('Wayfinding', 'cream'), tag('Lettering', 'mint')]
         },
         {
-          title: 'Poster Series for Nira Festival',
-          blurb: 'Twelve risograph posters for a three-day sound festival.',
-          slot: 'poster series',
+          title: 'Visual Identity & Packaging - Kiana Signature',
+          blurb: 'Brand mark development, custom wax seal motifs, and paper curation for bespoke bespoke luxury stationery suites.',
+          slot: 'brand system',
+          tint: 'var(--powder)',
+          tags: [tag('Brand Identity', 'powder'), tag('Packaging', 'blush'), tag('Art Direction', 'lav')]
+        },
+        {
+          title: 'Ceremonial Itinerary - Royal Hyderabad Celebration',
+          blurb: 'A multi-fold accordion event itinerary with architectural arches, custom motifs, and heirloom screen printing.',
+          slot: 'print system',
           tint: 'var(--cream)',
-          tags: [tag('Riso print', 'blush'), tag('Illustrator', 'mint'), tag('Typography', 'lav')]
+          tags: [tag('Print System', 'cream'), tag('Typography', 'mint'), tag('Dielines', 'powder')]
         },
         {
-          title: 'Menu & Signage for Tamr',
-          blurb: 'Wayfinding and menu suite for a date-and-coffee bar.',
-          slot: 'signage mockup',
+          title: 'Botanical Place Cards & Menu Suite',
+          blurb: 'Custom gouache botanical spot illustrations paired with tactile letterpress place cards on handmade cotton stock.',
+          slot: 'botanical suite',
           tint: 'var(--blush)',
-          tags: [tag('Signage', 'powder'), tag('Figma', 'cream'), tag('Layout', 'mint')]
+          tags: [tag('Illustration', 'blush'), tag('Letterpress', 'lav'), tag('Menu Design', 'mint')]
+        }
+      ],
+      illustrations: [
+        {
+          title: 'Monsoon Field Notes',
+          blurb: 'Ink and gouache architectural studies of Bangalore rooftops and rain lines.',
+          slot: 'ink study',
+          tint: 'var(--powder)',
+          tags: [tag('Ink Drawing', 'mint'), tag('Procreate', 'lav')]
+        },
+        {
+          title: 'Fruit Sellers, MG Road',
+          blurb: 'A six-plate gouache series documenting street vendor canopies and morning markets.',
+          slot: 'gouache plate',
+          tint: 'var(--blush)',
+          tags: [tag('Gouache', 'cream'), tag('Series', 'powder')]
+        },
+        {
+          title: 'Botanical Alphabet',
+          blurb: 'Twenty-six stylized letterforms grown from native Karnataka flora and vines.',
+          slot: 'letterform sheet',
+          tint: 'var(--mint)',
+          tags: [tag('Lettering', 'blush'), tag('Botanical', 'powder')]
+        },
+        {
+          title: 'Kitchen Objects & Brass',
+          blurb: 'Quiet observational still lifes drawn from vintage South Indian pantry heirloom objects.',
+          slot: 'still life',
+          tint: 'var(--cream)',
+          tags: [tag('Pencil & Ink', 'lav'), tag('Risograph', 'mint')]
+        },
+        {
+          title: 'Night Bus Sketches',
+          blurb: 'Loose observational figure drawings and quick gestures made on the 500D route.',
+          slot: 'sketch page',
+          tint: 'var(--lav)',
+          tags: [tag('Figure Drawing', 'powder'), tag('Sketchbook', 'cream')]
+        },
+        {
+          title: 'Heirloom Spot Motifs',
+          blurb: 'Spot illustrations and decorative accents designed for bespoke celebratory invitations.',
+          slot: 'spot set',
+          tint: 'var(--mint)',
+          tags: [tag('Motif Design', 'blush'), tag('Invitations', 'lav')]
         }
       ]
     };
