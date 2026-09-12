@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Anadhya Badri Narayan — Graphic Designer</title>
-<meta name="description" content="Portfolio of Anadhya Badri Narayan — Senior Graphic Designer at Kiana Bespoke Invitations, Bengaluru. Crafting bespoke stationery, visual identities, and narratives.">
+<title>Anadhya Badri Narayan | Graphic Designer</title>
+<meta name="description" content="Portfolio of Anadhya Badri Narayan, Senior Graphic Designer at Kiana Bespoke Invitations, Bengaluru. Crafting bespoke stationery, visual identities, and narratives.">
 <script>
   (function () {
     try {
@@ -350,7 +350,7 @@
     <header style="max-width: 780px; padding-bottom: clamp(70px, 14vh, 150px);">
       <p style="margin: 0 0 22px; font-family: 'Space Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-2);">Senior Graphic Designer &middot; Bengaluru</p>
       <h1 style="margin: 0; font-family: 'Archivo', Helvetica, sans-serif; font-weight: 600; font-size: clamp(40px, 7vw, 78px); line-height: 1.04; letter-spacing: -0.02em; text-wrap: pretty;">Design that says less, and means more.</h1>
-      <p style="margin: 26px 0 0; max-width: 48ch; font-size: clamp(15px, 1.5vw, 18px); line-height: 1.65; color: var(--ink-2); text-wrap: pretty;">I'm Anadhya Badri Narayan &mdash; Senior Graphic Designer at Kiana Bespoke Invitations. I build bespoke wedding stationery, visual identities, and narratives rooted in craft, typography, and tactile materiality.</p>
+      <p style="margin: 26px 0 0; max-width: 48ch; font-size: clamp(15px, 1.5vw, 18px); line-height: 1.65; color: var(--ink-2); text-wrap: pretty;">I'm Anadhya Badri Narayan, Senior Graphic Designer at Kiana Bespoke Invitations. I build bespoke wedding stationery, visual identities, and narratives rooted in craft, typography, and tactile materiality.</p>
       <div style="display: flex; flex-wrap: wrap; gap: 12px; margin-top: 38px;">
         <a href="#work" class="hero-cta-btn" style="background: var(--btn-bg); color: var(--btn-ink); border-radius: 999px; padding: 15px 32px; font-size: 14px; font-weight: 600; letter-spacing: 0.01em; display: inline-flex; align-items: center; justify-content: center; min-height: 48px;">View selected work</a>
         <a href="mailto:anadhya94@gmail.com" class="hero-cta-btn" style="border: 1px solid var(--line); border-radius: 999px; padding: 15px 30px; font-size: 14px; font-weight: 500; color: var(--ink); background: var(--surface); display: inline-flex; align-items: center; justify-content: center; min-height: 48px;">Get in touch</a>
@@ -366,7 +366,7 @@
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: clamp(20px, 3vw, 34px); padding-top: clamp(24px, 4vw, 40px);">
         <sc-for list="{{ projects }}" as="p" hint-placeholder-count="6">
           <sc-if value="{{ p.link }}" hint-placeholder-val="{{ true }}">
-            <a href="{{ p.link }}" style="display: block; text-decoration: none; color: inherit;">
+            <a href="{{ p.link }}" target="{{ p.target }}" rel="{{ p.rel }}" style="display: block; text-decoration: none; color: inherit;">
               <article style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 16px 16px 26px; cursor: pointer; height: 100%; display: flex; flex-direction: column;" style-hover="transform: translateY(-4px); border-color: var(--ink-2);">
                 <sc-if value="{{ p.image }}" hint-placeholder-val="{{ true }}">
                   <div role="img" aria-label="{{ p.title }}" style="border-radius: calc(var(--r) - 12px); aspect-ratio: 1 / 1; overflow: hidden; background-color: {{ p.tint }}; background-image: url('{{ p.image }}'); background-size: cover; background-position: center top;"></div>
@@ -376,7 +376,12 @@
                 </sc-if>
                 <div style="padding: 24px 12px 0; flex: 1; display: flex; flex-direction: column;">
                   <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 8px;">
-                    <h3 style="margin: 0; font-size: 20px; font-weight: 600; letter-spacing: -0.01em;">{{ p.title }}</h3>
+                    <h3 style="margin: 0; font-size: 20px; font-weight: 600; letter-spacing: -0.01em;">
+                      {{ p.title }}
+                      <sc-if value="{{ p.isExternal }}" hint-placeholder-val="{{ false }}">
+                        <span class="sr-only"> (opens in a new tab)</span>
+                      </sc-if>
+                    </h3>
                     <span class="card-arrow" style="font-size: 16px; color: var(--ink-2); margin-top: 2px;" aria-hidden="true">&rarr;</span>
                   </div>
                   <p style="margin: 10px 0 0; font-size: 15px; line-height: 1.65; color: var(--ink-2); text-wrap: pretty; flex: 1;">{{ p.blurb }}</p>
@@ -423,20 +428,121 @@
       </div>
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: clamp(20px, 3vw, 34px); padding-top: clamp(24px, 4vw, 40px);">
         <sc-for list="{{ illustrations }}" as="p" hint-placeholder-count="6">
-          <article style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 16px 16px 26px; height: 100%; display: flex; flex-direction: column;" style-hover="transform: translateY(-4px);">
-            <div role="img" aria-label="{{ p.title }} illustration study" style="border-radius: calc(var(--r) - 12px); aspect-ratio: 1 / 1; background-color: {{ p.tint }}; background-image: repeating-linear-gradient(45deg, var(--stripe) 0 7px, transparent 7px 14px);"></div>
-            <div style="padding: 24px 12px 0; flex: 1; display: flex; flex-direction: column;">
-              <h3 style="margin: 0; font-size: 20px; font-weight: 600; letter-spacing: -0.01em;">{{ p.title }}</h3>
-              <p style="margin: 10px 0 0; font-size: 15px; line-height: 1.65; color: var(--ink-2); text-wrap: pretty; flex: 1;">{{ p.blurb }}</p>
-              <sc-if value="{{ showTags }}" hint-placeholder-val="{{ true }}">
-                <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px;">
-                  <sc-for list="{{ p.tags }}" as="t" hint-placeholder-count="2">
-                    <span style="background: {{ t.bg }}; color: var(--chip-ink); border-radius: 999px; padding: 6px 14px; font-size: 12px; font-weight: 500;">{{ t.label }}</span>
-                  </sc-for>
+          <sc-if value="{{ p.link }}" hint-placeholder-val="{{ true }}">
+            <a href="{{ p.link }}" target="{{ p.target }}" rel="{{ p.rel }}" style="display: block; text-decoration: none; color: inherit;">
+              <article style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 16px 16px 26px; cursor: pointer; height: 100%; display: flex; flex-direction: column;" style-hover="transform: translateY(-4px); border-color: var(--ink-2);">
+                <sc-if value="{{ p.image }}" hint-placeholder-val="{{ true }}">
+                  <div role="img" aria-label="{{ p.title }}" style="border-radius: calc(var(--r) - 12px); aspect-ratio: 1 / 1; overflow: hidden; background-color: {{ p.tint }}; background-image: url('{{ p.image }}'); background-size: cover; background-position: center;"></div>
+                </sc-if>
+                <sc-if value="{{ !p.image }}" hint-placeholder-val="{{ false }}">
+                  <div role="img" aria-label="{{ p.title }} illustration study" style="border-radius: calc(var(--r) - 12px); aspect-ratio: 1 / 1; background-color: {{ p.tint }}; background-image: repeating-linear-gradient(45deg, var(--stripe) 0 7px, transparent 7px 14px);"></div>
+                </sc-if>
+                <div style="padding: 24px 12px 0; flex: 1; display: flex; flex-direction: column;">
+                  <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 8px;">
+                    <h3 style="margin: 0; font-size: 20px; font-weight: 600; letter-spacing: -0.01em;">
+                      {{ p.title }}
+                      <sc-if value="{{ p.isExternal }}" hint-placeholder-val="{{ true }}">
+                        <span class="sr-only"> (opens in a new tab)</span>
+                      </sc-if>
+                    </h3>
+                    <span class="card-arrow" style="font-size: 16px; color: var(--ink-2); margin-top: 2px;" aria-hidden="true">&rarr;</span>
+                  </div>
+                  <p style="margin: 10px 0 0; font-size: 15px; line-height: 1.65; color: var(--ink-2); text-wrap: pretty; flex: 1;">{{ p.blurb }}</p>
+                  <sc-if value="{{ showTags }}" hint-placeholder-val="{{ true }}">
+                    <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px;">
+                      <sc-for list="{{ p.tags }}" as="t" hint-placeholder-count="2">
+                        <span style="background: {{ t.bg }}; color: var(--chip-ink); border-radius: 999px; padding: 6px 14px; font-size: 12px; font-weight: 500;">{{ t.label }}</span>
+                      </sc-for>
+                    </div>
+                  </sc-if>
                 </div>
+              </article>
+            </a>
+          </sc-if>
+          <sc-if value="{{ !p.link }}" hint-placeholder-val="{{ false }}">
+            <article style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 16px 16px 26px; height: 100%; display: flex; flex-direction: column;" style-hover="transform: translateY(-4px);">
+              <sc-if value="{{ p.image }}" hint-placeholder-val="{{ false }}">
+                <div role="img" aria-label="{{ p.title }}" style="border-radius: calc(var(--r) - 12px); aspect-ratio: 1 / 1; overflow: hidden; background-color: {{ p.tint }}; background-image: url('{{ p.image }}'); background-size: cover; background-position: center;"></div>
               </sc-if>
-            </div>
-          </article>
+              <sc-if value="{{ !p.image }}" hint-placeholder-val="{{ true }}">
+                <div role="img" aria-label="{{ p.title }} illustration study" style="border-radius: calc(var(--r) - 12px); aspect-ratio: 1 / 1; background-color: {{ p.tint }}; background-image: repeating-linear-gradient(45deg, var(--stripe) 0 7px, transparent 7px 14px);"></div>
+              </sc-if>
+              <div style="padding: 24px 12px 0; flex: 1; display: flex; flex-direction: column;">
+                <h3 style="margin: 0; font-size: 20px; font-weight: 600; letter-spacing: -0.01em;">{{ p.title }}</h3>
+                <p style="margin: 10px 0 0; font-size: 15px; line-height: 1.65; color: var(--ink-2); text-wrap: pretty; flex: 1;">{{ p.blurb }}</p>
+                <sc-if value="{{ showTags }}" hint-placeholder-val="{{ true }}">
+                  <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px;">
+                    <sc-for list="{{ p.tags }}" as="t" hint-placeholder-count="2">
+                      <span style="background: {{ t.bg }}; color: var(--chip-ink); border-radius: 999px; padding: 6px 14px; font-size: 12px; font-weight: 500;">{{ t.label }}</span>
+                    </sc-for>
+                  </div>
+                </sc-if>
+              </div>
+            </article>
+          </sc-if>
+        </sc-for>
+      </div>
+    </section>
+
+    <section id="industrial-design" style="padding-bottom: clamp(70px, 12vh, 130px);">
+      <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 20px; padding-bottom: 34px; border-bottom: 1px solid var(--line);">
+        <h2 style="margin: 0; font-family: 'Archivo', Helvetica, sans-serif; font-weight: 600; font-size: clamp(24px, 3vw, 34px); letter-spacing: -0.01em;">Industrial Design</h2>
+        <span style="font-family: 'Space Mono', monospace; font-size: 12px; color: var(--ink-2);">Product &amp; Computational Research</span>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: clamp(20px, 3vw, 34px); padding-top: clamp(24px, 4vw, 40px);">
+        <sc-for list="{{ industrialDesign }}" as="p" hint-placeholder-count="3">
+          <sc-if value="{{ p.link }}" hint-placeholder-val="{{ true }}">
+            <a href="{{ p.link }}" target="{{ p.target }}" rel="{{ p.rel }}" style="display: block; text-decoration: none; color: inherit;">
+              <article style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 16px 16px 26px; cursor: pointer; height: 100%; display: flex; flex-direction: column;" style-hover="transform: translateY(-4px); border-color: var(--ink-2);">
+                <sc-if value="{{ p.image }}" hint-placeholder-val="{{ true }}">
+                  <div role="img" aria-label="{{ p.title }}" style="border-radius: calc(var(--r) - 12px); aspect-ratio: 1 / 1; overflow: hidden; background-color: {{ p.tint }}; background-image: url('{{ p.image }}'); background-size: cover; background-position: center top;"></div>
+                </sc-if>
+                <sc-if value="{{ !p.image }}" hint-placeholder-val="{{ false }}">
+                  <div role="img" aria-label="{{ p.title }} concept placeholder" style="border-radius: calc(var(--r) - 12px); aspect-ratio: 1 / 1; background-color: {{ p.tint }}; background-image: repeating-linear-gradient(45deg, var(--stripe) 0 7px, transparent 7px 14px);"></div>
+                </sc-if>
+                <div style="padding: 24px 12px 0; flex: 1; display: flex; flex-direction: column;">
+                  <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 8px;">
+                    <h3 style="margin: 0; font-size: 20px; font-weight: 600; letter-spacing: -0.01em;">
+                      {{ p.title }}
+                      <sc-if value="{{ p.isExternal }}" hint-placeholder-val="{{ true }}">
+                        <span class="sr-only"> (opens in a new tab)</span>
+                      </sc-if>
+                    </h3>
+                    <span class="card-arrow" style="font-size: 16px; color: var(--ink-2); margin-top: 2px;" aria-hidden="true">&rarr;</span>
+                  </div>
+                  <p style="margin: 10px 0 0; font-size: 15px; line-height: 1.65; color: var(--ink-2); text-wrap: pretty; flex: 1;">{{ p.blurb }}</p>
+                  <sc-if value="{{ showTags }}" hint-placeholder-val="{{ true }}">
+                    <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px;">
+                      <sc-for list="{{ p.tags }}" as="t" hint-placeholder-count="3">
+                        <span style="background: {{ t.bg }}; color: var(--chip-ink); border-radius: 999px; padding: 6px 14px; font-size: 12px; font-weight: 500;">{{ t.label }}</span>
+                      </sc-for>
+                    </div>
+                  </sc-if>
+                </div>
+              </article>
+            </a>
+          </sc-if>
+          <sc-if value="{{ !p.link }}" hint-placeholder-val="{{ false }}">
+            <article style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 16px 16px 26px; height: 100%; display: flex; flex-direction: column;" style-hover="transform: translateY(-4px);">
+              <sc-if value="{{ p.image }}" hint-placeholder-val="{{ false }}">
+                <div role="img" aria-label="{{ p.title }}" style="border-radius: calc(var(--r) - 12px); aspect-ratio: 1 / 1; overflow: hidden; background-color: {{ p.tint }}; background-image: url('{{ p.image }}'); background-size: cover; background-position: center top;"></div>
+              </sc-if>
+              <sc-if value="{{ !p.image }}" hint-placeholder-val="{{ true }}">
+                <div role="img" aria-label="{{ p.title }} concept placeholder" style="border-radius: calc(var(--r) - 12px); aspect-ratio: 1 / 1; background-color: {{ p.tint }}; background-image: repeating-linear-gradient(45deg, var(--stripe) 0 7px, transparent 7px 14px);"></div>
+              </sc-if>
+              <div style="padding: 24px 12px 0; flex: 1; display: flex; flex-direction: column;">
+                <h3 style="margin: 0; font-size: 20px; font-weight: 600; letter-spacing: -0.01em;">{{ p.title }}</h3>
+                <p style="margin: 10px 0 0; font-size: 15px; line-height: 1.65; color: var(--ink-2); text-wrap: pretty; flex: 1;">{{ p.blurb }}</p>
+                <sc-if value="{{ showTags }}" hint-placeholder-val="{{ true }}">
+                  <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px;">
+                    <sc-for list="{{ p.tags }}" as="t" hint-placeholder-count="3">
+                      <span style="background: {{ t.bg }}; color: var(--chip-ink); border-radius: 999px; padding: 6px 14px; font-size: 12px; font-weight: 500;">{{ t.label }}</span>
+                    </sc-for>
+                  </div>
+                </sc-if>
+              </div>
+            </article>
+          </sc-if>
         </sc-for>
       </div>
     </section>
@@ -554,51 +660,153 @@ class Component extends DCLogic {
       showTags: this.props.showTags !== false,
       projects: [
         {
-          title: 'Save the Date - Dhriti & Prashant',
-          blurb: 'A visual teaser for a 2-states Gujju & Telugu wedding in Hyderabad, bringing cultural fragments into motion.',
+          title: 'Save the Date : Dhriti & Prashant',
+          blurb: 'A visual teaser for a two states Gujju & Telugu wedding in Hyderabad, bringing cultural fragments into motion.',
           slot: 'featured project',
           tint: 'var(--blush)',
           image: './_assets/covers/save%20the%20date_cover.jpg',
           link: 'save-the-date.html',
+          target: '_self',
+          rel: '',
+          isExternal: false,
           tags: [tag('Wedding Identity', 'blush'), tag('Illustration', 'mint'), tag('Motion', 'lav')]
         },
         {
-          title: 'Bespoke Wedding Suite - Mira & Kabir',
-          blurb: 'A boxed celebratory invitation suite featuring gold foil stamping, deckled edges, and hand-illustrated botanical monograms.',
+          title: 'Wedding Invitation : Vivek & Nisergini',
+          blurb: 'A bilingual Kerala & Maharashtrian wedding invitation suite with bespoke typography, traditional Muthukkuda umbrella motifs, and custom NV monogram.',
           slot: 'bespoke suite',
           tint: 'var(--mint)',
-          tags: [tag('Luxury Stationery', 'mint'), tag('Foil Print', 'powder'), tag('Monogram', 'blush')]
+          image: './_assets/invitation/4.png',
+          link: 'wedding-invitation-vivek-nisergini.html',
+          target: '_self',
+          rel: '',
+          isExternal: false,
+          tags: [tag('Wedding Stationery', 'mint'), tag('Print & Foliage', 'cream'), tag('Monogram', 'blush')]
         },
         {
-          title: 'Event Branding - Nilma Floral Gathering',
-          blurb: 'Event visual identity, floral menus, and hand-lettered signage for an intimate pavilion banquet celebration in Bangalore.',
-          slot: 'event identity',
-          tint: 'var(--lav)',
-          tags: [tag('Event Design', 'lav'), tag('Wayfinding', 'cream'), tag('Lettering', 'mint')]
-        },
-        {
-          title: 'Visual Identity & Packaging - Kiana Signature',
-          blurb: 'Brand mark development, custom wax seal motifs, and paper curation for bespoke bespoke luxury stationery suites.',
-          slot: 'brand system',
-          tint: 'var(--powder)',
-          tags: [tag('Brand Identity', 'powder'), tag('Packaging', 'blush'), tag('Art Direction', 'lav')]
-        },
-        {
-          title: 'Ceremonial Itinerary - Royal Hyderabad Celebration',
-          blurb: 'A multi-fold accordion event itinerary with architectural arches, custom motifs, and heirloom screen printing.',
-          slot: 'print system',
+          title: 'Shashtiabdapoorthi : Sri. Sampath Badri Narayan',
+          blurb: 'An heirloom milestone celebration suite for her father\'s 60th birthday and parental vow renewal at Bangalore Palace.',
+          slot: 'milestone suite',
           tint: 'var(--cream)',
-          tags: [tag('Print System', 'cream'), tag('Typography', 'mint'), tag('Dielines', 'powder')]
+          image: './_assets/covers/Sampath_cover.png',
+          link: 'shashtiabdapoorthi-sampath.html',
+          target: '_self',
+          rel: '',
+          isExternal: false,
+          tags: [tag('Milestone Stationery', 'cream'), tag('Marigold & Bells', 'mint'), tag('Bangalore Palace', 'blush')]
         },
         {
-          title: 'Botanical Place Cards & Menu Suite',
-          blurb: 'Custom gouache botanical spot illustrations paired with tactile letterpress place cards on handmade cotton stock.',
-          slot: 'botanical suite',
+          title: 'Wedding Stationery : Akshatha & Bhargav',
+          blurb: 'An elegant botanical wedding invitation suite featuring soft blush florals, custom gold foil calligraphy monogram, and fluid watercolor washes across Le Méridien and Ebisu Palace celebrations.',
+          slot: 'bespoke suite',
+          tint: 'var(--powder)',
+          image: './_assets/covers/Bhargav_cover',
+          link: 'wedding-invitation-akshatha-bhargav.html',
+          target: '_self',
+          rel: '',
+          isExternal: false,
+          tags: [tag('Wedding Stationery', 'powder'), tag('Botanical Watercolour', 'blush'), tag('Ebisu Palace', 'mint')]
+        },
+        {
+          title: 'Celebration Stationery : The Paul & Milestone Suites',
+          blurb: 'A curated collection of bespoke ceremonial invitations spanning betrothals at The Paul, Vedic housewarming homams, and intimate baby shower celebrations.',
+          slot: 'bespoke suite',
+          tint: 'var(--mint)',
+          image: './_assets/covers/Paul_cover.png',
+          link: 'celebration-stationery-paul-milestones.html',
+          target: '_self',
+          rel: '',
+          isExternal: false,
+          tags: [tag('Event Stationery', 'mint'), tag('Milestone Suites', 'powder'), tag('Bespoke Print', 'blush')]
+        },
+        {
+          title: 'Restaurant Branding : Money Heist EN Whitefield',
+          blurb: 'A bold themed character illustration set for a Bangalore bar and kitchen, translating La Casa de Papel\u2019s iconic cast into a bespoke flat vector portrait series with custom day offer graphics.',
+          slot: 'brand illustration',
           tint: 'var(--blush)',
-          tags: [tag('Illustration', 'blush'), tag('Letterpress', 'lav'), tag('Menu Design', 'mint')]
+          image: './_assets/covers/restaurant_cover.jpg',
+          link: 'restaurant-branding-money-heist-whitefield.html',
+          target: '_self',
+          rel: '',
+          isExternal: false,
+          tags: [tag('Character Design', 'blush'), tag('Restaurant Branding', 'mint'), tag('Flat Vector', 'lav')]
+        }
+      ],
+      industrialDesign: [
+        {
+          title: 'Parametric Prosthesis',
+          blurb: 'Reimagining the design of braces and prosthetics by utilizing advanced 3D modeling technologies to better meet user needs (collaboration with ABN).',
+          slot: 'applied research',
+          tint: 'var(--powder)',
+          image: './_assets/covers/Prosthetic%20Prosthesis_cover.jpeg',
+          link: 'https://portfolio-5208db.webflow.io/physical-computation-and-applied-research/parametric-prosthesis',
+          target: '_blank',
+          rel: 'noopener noreferrer',
+          isExternal: true,
+          tags: [tag('Computational Design', 'powder'), tag('3D Modeling', 'mint'), tag('Product Design', 'lav')]
+        },
+        {
+          title: 'Blaisse Tableware',
+          blurb: 'A contemporary tableware collection exploring tactile form, refined geometry, and everyday dining rituals.',
+          slot: 'tableware design',
+          tint: 'var(--cream)',
+          image: './_assets/covers/Blaisse_cover.png',
+          link: 'https://www.behance.net/gallery/161526615/Blaisse-Tableware',
+          target: '_blank',
+          rel: 'noopener noreferrer',
+          isExternal: true,
+          tags: [tag('Product Design', 'cream'), tag('Tableware', 'blush'), tag('Industrial Design', 'mint')]
+        },
+        {
+          title: 'Aston Martin Retail Store',
+          blurb: 'A futuristic concept retail showroom and spatial experience shaped around aerodynamic curves, performance, and brand presence.',
+          slot: 'spatial & retail',
+          tint: 'var(--mint)',
+          image: './_assets/covers/Aston_martin_Store_cover.png',
+          link: 'https://www.behance.net/gallery/57872429/Aston-Martin-Retail-Store',
+          target: '_blank',
+          rel: 'noopener noreferrer',
+          isExternal: true,
+          tags: [tag('Spatial Design', 'mint'), tag('Retail Design', 'powder'), tag('Automotive', 'lav')]
         }
       ],
       illustrations: [
+        {
+          title: 'Bigeyes',
+          blurb: 'A playful character design series bringing expressive, wide eyed personality to a charming menagerie including tortoise, beaver, snail, frog, cat, squirrel, bird, seal, squid, and pig.',
+          slot: 'character series',
+          tint: 'var(--powder)',
+          image: './_assets/covers/Octopus_cover.png',
+          link: 'https://www.behance.net/gallery/138381645/Bigeyes',
+          target: '_blank',
+          rel: 'noopener noreferrer',
+          isExternal: true,
+          tags: [tag('Character Design', 'mint'), tag('Animal Series', 'powder'), tag('Illustration', 'lav')]
+        },
+        {
+          title: 'Baby Milestone Cards',
+          blurb: 'A tender illustrated collection of milestone cards celebrating first year moments with whimsical storybook animals and soft watercolor textures.',
+          slot: 'stationery illustration',
+          tint: 'var(--cream)',
+          image: './_assets/covers/Babymilestone_cover.png',
+          link: 'https://www.behance.net/gallery/161500361/Baby-Milestone-Cards',
+          target: '_blank',
+          rel: 'noopener noreferrer',
+          isExternal: true,
+          tags: [tag('Children\'s Illustration', 'cream'), tag('Watercolour', 'mint'), tag('Baby Stationery', 'blush')]
+        },
+        {
+          title: 'General Illustrations',
+          blurb: 'A digital illustration and portrait series exploring stylized female figures, minimalist line art, and organic botanical silhouettes.',
+          slot: 'digital portraits',
+          tint: 'var(--mint)',
+          image: './_assets/covers/General_illustrations_cover.jpg',
+          link: 'https://www.behance.net/gallery/161501519/General-Illustrations',
+          target: '_blank',
+          rel: 'noopener noreferrer',
+          isExternal: true,
+          tags: [tag('Digital Art', 'mint'), tag('Portraiture', 'powder'), tag('Line Art', 'lav')]
+        },
         {
           title: 'Monsoon Field Notes',
           blurb: 'Ink and gouache architectural studies of Bangalore rooftops and rain lines.',
@@ -608,7 +816,7 @@ class Component extends DCLogic {
         },
         {
           title: 'Fruit Sellers, MG Road',
-          blurb: 'A six-plate gouache series documenting street vendor canopies and morning markets.',
+          blurb: 'A six plate gouache series documenting street vendor canopies and morning markets.',
           slot: 'gouache plate',
           tint: 'var(--blush)',
           tags: [tag('Gouache', 'cream'), tag('Series', 'powder')]
@@ -619,27 +827,6 @@ class Component extends DCLogic {
           slot: 'letterform sheet',
           tint: 'var(--mint)',
           tags: [tag('Lettering', 'blush'), tag('Botanical', 'powder')]
-        },
-        {
-          title: 'Kitchen Objects & Brass',
-          blurb: 'Quiet observational still lifes drawn from vintage South Indian pantry heirloom objects.',
-          slot: 'still life',
-          tint: 'var(--cream)',
-          tags: [tag('Pencil & Ink', 'lav'), tag('Risograph', 'mint')]
-        },
-        {
-          title: 'Night Bus Sketches',
-          blurb: 'Loose observational figure drawings and quick gestures made on the 500D route.',
-          slot: 'sketch page',
-          tint: 'var(--lav)',
-          tags: [tag('Figure Drawing', 'powder'), tag('Sketchbook', 'cream')]
-        },
-        {
-          title: 'Heirloom Spot Motifs',
-          blurb: 'Spot illustrations and decorative accents designed for bespoke celebratory invitations.',
-          slot: 'spot set',
-          tint: 'var(--mint)',
-          tags: [tag('Motif Design', 'blush'), tag('Invitations', 'lav')]
         }
       ]
     };

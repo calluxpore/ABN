@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Save the Date : Dhriti &amp; Prashant | Anadhya Badri Narayan</title>
-<meta name="description" content="A visual teaser for Dhriti & Prashant's two states Gujju and Telugu wedding in Hyderabad, bringing cultural fragments into motion.">
+<title>Wedding Invitation : Vivek &amp; Nisergini | Anadhya Badri Narayan</title>
+<meta name="description" content="A bilingual Kerala and Maharashtrian wedding invitation suite celebrating Vivek and Nisergini, featuring traditional Muthukkuda parasols, plantain foliage, and a bespoke monogram.">
 <script>
   (function () {
     try {
@@ -103,8 +103,6 @@
     --btn-bg: #262421;
     --btn-ink: #FBF9F5;
     --stripe: rgba(38,36,33,0.05);
-    --gold: #D4AF37;
-    --maroon: #5F0E13;
     --card-shadow: 0 4px 14px rgba(38,36,33,0.04), 0 1px 3px rgba(38,36,33,0.03);
     --card-shadow-hover: 0 16px 36px rgba(38,36,33,0.08), 0 4px 10px rgba(38,36,33,0.04);
   }
@@ -126,8 +124,6 @@
     --btn-bg: #CFE8DB;
     --btn-ink: #1C1C1A;
     --stripe: rgba(237,233,226,0.06);
-    --gold: #E5C358;
-    --maroon: #7D1A20;
     --card-shadow: 0 4px 14px rgba(0,0,0,0.22);
     --card-shadow-hover: 0 16px 36px rgba(0,0,0,0.38), 0 4px 10px rgba(0,0,0,0.25);
   }
@@ -234,16 +230,13 @@
       scroll-behavior: auto !important;
     }
   }
-  
-  .custom-scrollbar::-webkit-scrollbar {
-    height: 6px;
+
+  .zoom-card {
+    transition: transform 250ms ease, box-shadow 250ms ease;
   }
-  .custom-scrollbar::-webkit-scrollbar-track {
-    background: transparent;
-  }
-  .custom-scrollbar::-webkit-scrollbar-thumb {
-    background: var(--line);
-    border-radius: 999px;
+  .zoom-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--card-shadow-hover);
   }
 </style>
 </helmet>
@@ -278,11 +271,11 @@
           </sc-if>
           <sc-if value="{{ isLight }}" hint-placeholder-val="{{ true }}">
             <svg width="19" height="19" viewBox="0 0 24 24" aria-hidden="true">
-              <mask id="anad-moon-std">
+              <mask id="anad-moon-inv">
                 <rect width="24" height="24" fill="#fff"></rect>
                 <circle cx="19" cy="7" r="8.4" fill="#000"></circle>
               </mask>
-              <circle cx="12" cy="12" r="8.4" fill="currentColor" mask="url(#anad-moon-std)"></circle>
+              <circle cx="12" cy="12" r="8.4" fill="currentColor" mask="url(#anad-moon-inv)"></circle>
             </svg>
           </sc-if>
         </button>
@@ -301,36 +294,36 @@
     <!-- Project Hero Header -->
     <header style="padding-bottom: clamp(48px, 9vh, 90px);">
       <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px;">
-        <span style="background: var(--blush); color: var(--chip-ink); border-radius: 999px; padding: 6px 14px; font-size: 12.5px; font-weight: 600;">Wedding Identity &amp; Motion</span>
-        <span style="background: var(--mint); color: var(--chip-ink); border-radius: 999px; padding: 6px 14px; font-size: 12.5px; font-weight: 600;">2 States &middot; Gujju + Telugu</span>
-        <span style="background: var(--cream); color: var(--chip-ink); border-radius: 999px; padding: 6px 14px; font-size: 12.5px; font-weight: 600;">Hyderabad &middot; Dec 2026</span>
+        <span style="background: var(--mint); color: var(--chip-ink); border-radius: 999px; padding: 6px 14px; font-size: 12.5px; font-weight: 600;">Wedding Stationery &amp; Print</span>
+        <span style="background: var(--cream); color: var(--chip-ink); border-radius: 999px; padding: 6px 14px; font-size: 12.5px; font-weight: 600;">2 Traditions &middot; Kerala + Maharashtrian</span>
+        <span style="background: var(--blush); color: var(--chip-ink); border-radius: 999px; padding: 6px 14px; font-size: 12.5px; font-weight: 600;">Mumbai &amp; Kerala &middot; Jan 2022</span>
       </div>
       
       <h1 style="margin: 0; font-family: 'Archivo', Helvetica, sans-serif; font-weight: 600; font-size: clamp(34px, 5.5vw, 64px); line-height: 1.08; letter-spacing: -0.02em; text-wrap: balance;">
-        Save the Date : Dhriti &amp; Prashant
+        Wedding Invitation : Vivek &amp; Nisergini
       </h1>
 
       <p style="margin: 20px 0 0; font-family: 'Karla', sans-serif; font-size: clamp(16px, 1.75vw, 21px); line-height: 1.5; color: var(--ink-2); max-width: 100%;">
-        <em>&ldquo;Teasing the main event&rdquo;</em> : A cross cultural wedding invite celebrating Gujarati and Telugu heritage.
+        <em>&ldquo;Harmonizing traditions&rdquo;</em> : A bespoke ceremonial invitation suite bridging Kerala and Maharashtrian rituals through sacred foliage, traditional Muthukkuda umbrellas, and an intertwined cursive monogram.
       </p>
 
       <!-- Project Metadata Grid -->
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 20px; margin-top: clamp(32px, 5vw, 48px); padding: 24px 28px; background: var(--surface); border: 1px solid var(--line); border-radius: calc(var(--r) - 8px);">
         <div>
           <span style="font-family: 'Space Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-2); display: block; margin-bottom: 6px;">Couple</span>
-          <span style="font-weight: 600; font-size: 15px;">Dhriti &amp; Prashant</span>
+          <span style="font-weight: 600; font-size: 15px;">Vivek &amp; Nisergini</span>
         </div>
         <div>
-          <span style="font-family: 'Space Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-2); display: block; margin-bottom: 6px;">Theme</span>
-          <span style="font-weight: 600; font-size: 15px;">2 States (Gujarati + Telugu)</span>
+          <span style="font-family: 'Space Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-2); display: block; margin-bottom: 6px;">Traditions</span>
+          <span style="font-weight: 600; font-size: 15px;">Kerala &amp; Maharashtrian</span>
         </div>
         <div>
-          <span style="font-family: 'Space Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-2); display: block; margin-bottom: 6px;">Format</span>
-          <span style="font-weight: 600; font-size: 15px;">Animated Teaser &amp; Artwork</span>
+          <span style="font-family: 'Space Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-2); display: block; margin-bottom: 6px;">Design Scope</span>
+          <span style="font-weight: 600; font-size: 15px;">Monogram, Print &amp; Motif Suite</span>
         </div>
         <div>
-          <span style="font-family: 'Space Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-2); display: block; margin-bottom: 6px;">Destination</span>
-          <span style="font-weight: 600; font-size: 15px;">Hyderabad, Dec 17 to 18, 2026</span>
+          <span style="font-family: 'Space Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-2); display: block; margin-bottom: 6px;">Destinations</span>
+          <span style="font-weight: 600; font-size: 15px;">Mumbai &amp; Pookkottukavu, Kerala</span>
         </div>
       </div>
     </header>
@@ -343,15 +336,15 @@
           <span style="font-family: 'Space Mono', monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-2); display: block; margin-bottom: 16px;">The Concept</span>
           
           <h2 style="margin: 0 0 24px; font-family: 'Archivo', Helvetica, sans-serif; font-weight: 600; font-size: clamp(24px, 3.2vw, 36px); line-height: 1.2; letter-spacing: -0.01em;">
-            A Save the Date doesn't need to reveal the whole story, just enough to make you curious about what's coming.
+            Uniting two culturally distinctive wedding traditions into a singular, graceful visual narrative.
           </h2>
 
           <p style="margin: 0 0 20px; font-size: clamp(16px, 1.4vw, 18px); line-height: 1.7; color: var(--ink-2); text-wrap: pretty;">
-            Starting with the moodboard, I wanted to move away from the usual Save the Date format and create something that felt more like a visual teaser for the wedding itself.
+            Vivek and Nisergini&rsquo;s wedding celebration brought together two rich coastal traditions: a morning Kerala Wedding Muhurtham followed immediately by the Maharashtrian wedding ceremony in Mumbai, followed by a homecoming reception at Pookkottukavu in Kerala.
           </p>
 
           <p style="margin: 0; font-size: clamp(16px, 1.4vw, 18px); line-height: 1.7; color: var(--ink-2); text-wrap: pretty;">
-            Since the celebration brings together North and South Indian traditions, I picked out recognisable details from both cultures, including banana leaves, brass lamps, florals, marigolds, draped textiles, architecture and festive d&eacute;cor, and brought them together as individual fragments rather than one complete scene.
+            The visual language honours this union with iconic ceremonial symbols: the golden <em>Muthukkuda</em> (temple pageant parasol) adorned with hanging beaded tassels, lush plantain banana leaves signaling auspicious beginnings, and an intertwined cursive ligature monogram representing their names.
           </p>
         </div>
 
@@ -359,27 +352,27 @@
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px; margin-top: clamp(36px, 5vw, 54px);">
           
           <div style="padding: 18px; background: var(--bg); border-radius: calc(var(--r) - 14px);">
-            <div style="width: 36px; height: 36px; border-radius: 999px; background: var(--mint); display: flex; align-items: center; justify-content: center; font-size: 16px; margin-bottom: 12px;">🌿</div>
-            <h3 style="margin: 0 0 6px; font-size: 15px; font-weight: 600;">Banana Leaves &amp; Brass Lamps</h3>
-            <p style="margin: 0; font-size: 13.5px; line-height: 1.55; color: var(--ink-2);">Auspicious South Indian &amp; Telugu wedding motifs evoking warm heritage and sacred light.</p>
+            <div style="width: 36px; height: 36px; border-radius: 999px; background: var(--cream); display: flex; align-items: center; justify-content: center; font-size: 16px; margin-bottom: 12px;">☂️</div>
+            <h3 style="margin: 0 0 6px; font-size: 15px; font-weight: 600;">The Muthukkuda Parasol</h3>
+            <p style="margin: 0; font-size: 13.5px; line-height: 1.55; color: var(--ink-2);">Golden silk ornamental umbrellas with intricate bead tassels celebrating the grandeur of Kerala temple processions.</p>
           </div>
 
           <div style="padding: 18px; background: var(--bg); border-radius: calc(var(--r) - 14px);">
-            <div style="width: 36px; height: 36px; border-radius: 999px; background: var(--cream); display: flex; align-items: center; justify-content: center; font-size: 16px; margin-bottom: 12px;">🌼</div>
-            <h3 style="margin: 0 0 6px; font-size: 15px; font-weight: 600;">Marigolds &amp; Draped Textiles</h3>
-            <p style="margin: 0; font-size: 13.5px; line-height: 1.55; color: var(--ink-2);">Vibrant Gujarati textiles, rich bandhani patterns, fresh mogra garlands, and layered gold accents.</p>
+            <div style="width: 36px; height: 36px; border-radius: 999px; background: var(--mint); display: flex; align-items: center; justify-content: center; font-size: 16px; margin-bottom: 12px;">🍃</div>
+            <h3 style="margin: 0 0 6px; font-size: 15px; font-weight: 600;">Plantain Foliage (Vazhayila)</h3>
+            <p style="margin: 0; font-size: 13.5px; line-height: 1.55; color: var(--ink-2);">Hand-illustrated banana leaves framing the card borders, evoking natural fertility, prosperity, and ritual feasts.</p>
           </div>
 
           <div style="padding: 18px; background: var(--bg); border-radius: calc(var(--r) - 14px);">
-            <div style="width: 36px; height: 36px; border-radius: 999px; background: var(--blush); display: flex; align-items: center; justify-content: center; font-size: 16px; margin-bottom: 12px;">🏛️</div>
-            <h3 style="margin: 0 0 6px; font-size: 15px; font-weight: 600;">Arches &amp; Destination Mandap</h3>
-            <p style="margin: 0; font-size: 13.5px; line-height: 1.55; color: var(--ink-2);">Regal Hyderabad architectural arches framing the celebratory date drop with poise.</p>
+            <div style="width: 36px; height: 36px; border-radius: 999px; background: var(--blush); display: flex; align-items: center; justify-content: center; font-size: 16px; margin-bottom: 12px;">🖋️</div>
+            <h3 style="margin: 0 0 6px; font-size: 15px; font-weight: 600;">Intertwined NV Monogram</h3>
+            <p style="margin: 0; font-size: 13.5px; line-height: 1.55; color: var(--ink-2);">A bespoke cursive ligature uniting &ldquo;N&rdquo; and &ldquo;V&rdquo; in deep forest green, layered across the parasol canopy.</p>
           </div>
 
           <div style="padding: 18px; background: var(--bg); border-radius: calc(var(--r) - 14px);">
-            <div style="width: 36px; height: 36px; border-radius: 999px; background: var(--powder); display: flex; align-items: center; justify-content: center; font-size: 16px; margin-bottom: 12px;">🕊️</div>
-            <h3 style="margin: 0 0 6px; font-size: 15px; font-weight: 600;">Doves &amp; Temple Bells</h3>
-            <p style="margin: 0; font-size: 13.5px; line-height: 1.55; color: var(--ink-2);">Floating white doves and hanging bells setting an uplifting, joyful celebratory cadence.</p>
+            <div style="width: 36px; height: 36px; border-radius: 999px; background: var(--powder); display: flex; align-items: center; justify-content: center; font-size: 16px; margin-bottom: 12px;">📜</div>
+            <h3 style="margin: 0 0 6px; font-size: 15px; font-weight: 600;">Warm Ivory Paper &amp; Saffron</h3>
+            <p style="margin: 0; font-size: 13.5px; line-height: 1.55; color: var(--ink-2);">Warm tactile card stock enriched with saffron cinnabar titles, classical serif typesetting, and Sanskrit blessing invocations.</p>
           </div>
 
         </div>
@@ -387,167 +380,118 @@
       </div>
     </section>
 
-    <!-- Motion Video Section -->
+    <!-- Physical Suite Photography Showcase -->
     <section style="margin-bottom: clamp(60px, 10vh, 120px);">
       <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 20px; padding-bottom: 24px; border-bottom: 1px solid var(--line); margin-bottom: clamp(28px, 4vw, 44px);">
         <div>
-          <span style="font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-2);">Motion Design</span>
-          <h2 style="margin: 6px 0 0; font-family: 'Archivo', Helvetica, sans-serif; font-weight: 600; font-size: clamp(22px, 2.8vw, 32px); letter-spacing: -0.01em;">The Animated Teaser</h2>
+          <span style="font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-2);">Print &amp; Materiality</span>
+          <h2 style="margin: 6px 0 0; font-family: 'Archivo', Helvetica, sans-serif; font-weight: 600; font-size: clamp(22px, 2.8vw, 32px); letter-spacing: -0.01em;">The Printed Invitation Suite</h2>
         </div>
-        <span style="font-family: 'Space Mono', monospace; font-size: 12px; color: var(--ink-2);">Vertical Video Reel</span>
+        <span style="font-family: 'Space Mono', monospace; font-size: 12px; color: var(--ink-2);">Flatlay Photography</span>
       </div>
 
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: clamp(24px, 4vw, 48px); align-items: center; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: clamp(24px, 5vw, 48px);">
-        
-        <!-- Video Player Container with custom phone / card styling -->
-        <div style="display: flex; justify-content: center;">
-          <div 
-            style="position: relative; width: 100%; max-width: 340px; border-radius: 24px; overflow: hidden; background: #000; box-shadow: 0 20px 48px rgba(0,0,0,0.18); border: 1px solid var(--line); user-select: none;"
-          >
-            <video 
-              id="std-video"
-              src="./_assets/save-the-date/video.mp4" 
-              controls 
-              autoplay
-              muted
-              loop
-              playsinline
-              preload="auto"
-              style="width: 100%; height: auto; display: block; object-fit: contain; max-height: 600px; cursor: pointer;"
-            >
-              Your browser does not support the video tag.
-            </video>
-
-            <!-- Play/Pause Indicator Button -->
-            <button
-              id="std-play-btn"
-              onClick="{{ toggleVideoPlay }}"
-              aria-label="Toggle video playback"
-              title="Click to play or pause"
-              style="position: absolute; top: 16px; right: 16px; width: 38px; height: 38px; border-radius: 999px; background: rgba(0,0,0,0.65); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.25); color: #fff; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: transform 150ms ease, background 150ms ease; z-index: 10; padding: 0;"
-              style-hover="transform: scale(1.08); background: rgba(0,0,0,0.85);"
-            >
-              <sc-if value="{{ isPaused }}" hint-placeholder-val="{{ false }}">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" style="margin-left: 2px;">
-                  <polygon points="5 3 19 12 5 21 5 3"></polygon>
-                </svg>
-              </sc-if>
-              <sc-if value="{{ !isPaused }}" hint-placeholder-val="{{ true }}">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
-                  <rect x="6" y="4" width="4" height="16"></rect>
-                  <rect x="14" y="4" width="4" height="16"></rect>
-                </svg>
-              </sc-if>
-            </button>
-          </div>
-        </div>
-
-        <!-- Video Narrative info -->
-        <div>
-          <div style="display: inline-block; background: var(--mint); color: var(--chip-ink); font-family: 'Space Mono', monospace; font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 999px; margin-bottom: 16px;">
-            STORY IN MOTION
-          </div>
-          <h3 style="margin: 0 0 16px; font-family: 'Archivo', Helvetica, sans-serif; font-size: clamp(20px, 2.2vw, 26px); font-weight: 600; letter-spacing: -0.01em;">
-            Fragmented reveals building into the grand date drop
-          </h3>
-          <p style="margin: 0 0 16px; font-size: 15.5px; line-height: 1.65; color: var(--ink-2);">
-            In the motion piece, each cultural artifact gently drops and weaves into the frame: the hanging bells sway, the rich draped cloth ripples into place, and the custom monogram unites Dhriti &amp; Prashant before unveiling the destination.
-          </p>
-          <p style="margin: 0 0 24px; font-size: 15.5px; line-height: 1.65; color: var(--ink-2);">
-            Crafted in a 9:16 vertical orientation optimized for WhatsApp and Instagram story delivery to wedding guests across both families.
-          </p>
-
-          <div style="display: flex; flex-wrap: wrap; gap: 8px;">
-            <span style="font-family: 'Space Mono', monospace; font-size: 11.5px; background: var(--bg); border: 1px solid var(--line); padding: 6px 12px; border-radius: 999px; color: var(--ink);">9:16 Vertical Video</span>
-            <span style="font-family: 'Space Mono', monospace; font-size: 11.5px; background: var(--bg); border: 1px solid var(--line); padding: 6px 12px; border-radius: 999px; color: var(--ink);">Layered Stems Animation</span>
-            <span style="font-family: 'Space Mono', monospace; font-size: 11.5px; background: var(--bg); border: 1px solid var(--line); padding: 6px 12px; border-radius: 999px; color: var(--ink);">Sound &amp; Rhythm Sync</span>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- Artwork & Storyboard Visual Showcase -->
-    <section style="margin-bottom: clamp(60px, 10vh, 120px);">
-      <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 20px; padding-bottom: 24px; border-bottom: 1px solid var(--line); margin-bottom: clamp(28px, 4vw, 44px);">
-        <div>
-          <span style="font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-2);">Illustration &amp; Layout</span>
-          <h2 style="margin: 6px 0 0; font-family: 'Archivo', Helvetica, sans-serif; font-weight: 600; font-size: clamp(22px, 2.8vw, 32px); letter-spacing: -0.01em;">Illustrated Stems &amp; Composition</h2>
-        </div>
-        <span style="font-family: 'Space Mono', monospace; font-size: 12px; color: var(--ink-2);">High-Resolution Artwork</span>
-      </div>
-
-      <!-- Side by Side Layout Artworks -->
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr)); gap: clamp(20px, 3vw, 36px); margin-bottom: clamp(24px, 4vw, 40px);">
-        
-        <!-- Artwork Card 1 -->
-        <article style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 18px 18px 24px; transition: transform 250ms ease;" style-hover="transform: translateY(-4px);">
-          <div style="border-radius: calc(var(--r) - 12px); overflow: hidden; background: #500a0e; border: 1px solid var(--line); display: flex; justify-content: center; align-items: center;">
-            <img 
-              src="./_assets/save-the-date/frame-1.png" 
-              alt="Dhriti & Prashant Save the date Frame 1 Date Drop and Monogram" 
-              loading="lazy"
-              style="width: 100%; height: auto; max-height: 720px; object-fit: contain; display: block;"
-            />
-          </div>
-          <div style="padding: 20px 10px 0;">
-            <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 6px;">
-              <h3 style="margin: 0; font-size: 18px; font-weight: 600; letter-spacing: -0.01em;">Frame 01 : Date Drop &amp; DP Monogram</h3>
-              <span style="font-family: 'Space Mono', monospace; font-size: 11px; background: var(--blush); color: var(--chip-ink); padding: 4px 10px; border-radius: 999px;">17 to 18 Dec 2026</span>
-            </div>
-            <p style="margin: 0; font-size: 14px; line-height: 1.6; color: var(--ink-2);">
-              Featuring the central &ldquo;DP&rdquo; couple monogram, vermillion silk drapes, brass Nandi &amp; Deepam, and hanging jasmine chandeliers.
-            </p>
-          </div>
-        </article>
-
-        <!-- Artwork Card 2 -->
-        <article style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 18px 18px 24px; transition: transform 250ms ease;" style-hover="transform: translateY(-4px);">
-          <div style="border-radius: calc(var(--r) - 12px); overflow: hidden; background: #500a0e; border: 1px solid var(--line); display: flex; justify-content: center; align-items: center;">
-            <img 
-              src="./_assets/save-the-date/frame-2.png" 
-              alt="Dhriti & Prashant Save the date Frame 2 Destination Hyderabad and Names" 
-              loading="lazy"
-              style="width: 100%; height: auto; max-height: 720px; object-fit: contain; display: block;"
-            />
-          </div>
-          <div style="padding: 20px 10px 0;">
-            <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 6px;">
-              <h3 style="margin: 0; font-size: 18px; font-weight: 600; letter-spacing: -0.01em;">Frame 02 : Names &amp; Hyderabad Destination</h3>
-              <span style="font-family: 'Space Mono', monospace; font-size: 11px; background: var(--mint); color: var(--chip-ink); padding: 4px 10px; border-radius: 999px;">HYD Reveal</span>
-            </div>
-            <p style="margin: 0; font-size: 14px; line-height: 1.6; color: var(--ink-2);">
-              The reveal of the couple names &ldquo;Dhriti &amp; Prashant&rdquo; flanked by golden zari textiles, royal baithak seating, and the floral Hyderabad mandap.
-            </p>
-          </div>
-        </article>
-
-      </div>
-
-      <!-- Full Moodboard & Side by side Artboard Showcase -->
       <div style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: clamp(20px, 4vw, 36px);">
-        <div style="margin-bottom: 18px; display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 12px;">
+        <div style="margin-bottom: 20px; display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 12px;">
           <div>
             <h3 style="margin: 0; font-family: 'Archivo', Helvetica, sans-serif; font-size: 20px; font-weight: 600; letter-spacing: -0.01em;">
-              Side by Side Canvas Composition
+              Tactile Linen &amp; Paper Curation
             </h3>
             <p style="margin: 4px 0 0; font-size: 14px; color: var(--ink-2);">
-              Dual frame visual continuity showing how shared motifs anchor both sequences on the rich crimson damask canvas.
+              The complete suite resting on deep green woven cloth, captured under natural sunlight showing the warm paper tone and layered layout.
             </p>
           </div>
           <span style="font-family: 'Space Mono', monospace; font-size: 11px; color: var(--ink-2); background: var(--bg); padding: 6px 12px; border-radius: 999px; border: 1px solid var(--line);">
-            Artboard Overview
+            Printed Stationery
           </span>
         </div>
 
-        <div style="border-radius: calc(var(--r) - 12px); overflow: hidden; background: #222; border: 1px solid var(--line);">
+        <div style="border-radius: calc(var(--r) - 12px); overflow: hidden; background: #1b261b; border: 1px solid var(--line); box-shadow: 0 12px 32px rgba(0,0,0,0.08);">
           <img 
-            src="./_assets/save-the-date/artboard.png" 
-            alt="Dhriti & Prashant Save the Date Dual Artboard Comparison" 
+            src="./_assets/invitation/4.png" 
+            alt="Vivek &amp; Nisergini Printed Wedding Invitation Suite photographed on green linen fabric" 
             loading="lazy"
-            style="width: 100%; height: auto; display: block; object-fit: contain;"
+            style="width: 100%; height: auto; max-height: 850px; display: block; object-fit: contain; margin: 0 auto;"
           />
         </div>
+      </div>
+    </section>
+
+    <!-- Artwork & Card Layouts Showcase -->
+    <section style="margin-bottom: clamp(60px, 10vh, 120px);">
+      <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 20px; padding-bottom: 24px; border-bottom: 1px solid var(--line); margin-bottom: clamp(28px, 4vw, 44px);">
+        <div>
+          <span style="font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-2);">Stationery Architecture</span>
+          <h2 style="margin: 6px 0 0; font-family: 'Archivo', Helvetica, sans-serif; font-weight: 600; font-size: clamp(22px, 2.8vw, 32px); letter-spacing: -0.01em;">Suite Inserts &amp; Typography</h2>
+        </div>
+        <span style="font-family: 'Space Mono', monospace; font-size: 12px; color: var(--ink-2);">High-Resolution Inserts</span>
+      </div>
+
+      <!-- 3-Column Grid for the 3 individual cards -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: clamp(20px, 3vw, 32px);">
+        
+        <!-- Card 1: Cover Folio -->
+        <article class="zoom-card" style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 18px 18px 24px;">
+          <div style="border-radius: calc(var(--r) - 12px); overflow: hidden; background: #FAF7F0; border: 1px solid var(--line); display: flex; justify-content: center; align-items: center; aspect-ratio: 3/4;">
+            <img 
+              src="./_assets/invitation/1.png" 
+              alt="Vivek &amp; Nisergini : Cover Card with NV Monogram and Umbrella" 
+              loading="lazy"
+              style="width: 100%; height: 100%; object-fit: contain; display: block; padding: 12px;"
+            />
+          </div>
+          <div style="padding: 20px 10px 0;">
+            <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 6px;">
+              <h3 style="margin: 0; font-size: 18px; font-weight: 600; letter-spacing: -0.01em;">Cover &amp; Monogram</h3>
+              <span style="font-family: 'Space Mono', monospace; font-size: 11px; background: var(--cream); color: var(--chip-ink); padding: 4px 10px; border-radius: 999px;">Folio</span>
+            </div>
+            <p style="margin: 0; font-size: 14px; line-height: 1.6; color: var(--ink-2);">
+              The formal outer card presenting the intertwined cursive NV monogram layered over the golden Kerala ceremonial parasol, with clean recipient addressing lines.
+            </p>
+          </div>
+        </article>
+
+        <!-- Card 2: Mumbai Wedding -->
+        <article class="zoom-card" style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 18px 18px 24px;">
+          <div style="border-radius: calc(var(--r) - 12px); overflow: hidden; background: #FAF7F0; border: 1px solid var(--line); display: flex; justify-content: center; align-items: center; aspect-ratio: 3/4;">
+            <img 
+              src="./_assets/invitation/2.png" 
+              alt="Vivek &amp; Nisergini : Mumbai Wedding Invitation Card" 
+              loading="lazy"
+              style="width: 100%; height: 100%; object-fit: contain; display: block; padding: 12px;"
+            />
+          </div>
+          <div style="padding: 20px 10px 0;">
+            <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 6px;">
+              <h3 style="margin: 0; font-size: 18px; font-weight: 600; letter-spacing: -0.01em;">Mumbai Wedding Card</h3>
+              <span style="font-family: 'Space Mono', monospace; font-size: 11px; background: var(--mint); color: var(--chip-ink); padding: 4px 10px; border-radius: 999px;">23 Jan 2022</span>
+            </div>
+            <p style="margin: 0; font-size: 14px; line-height: 1.6; color: var(--ink-2);">
+              Sunday, 23rd January at Hotel Kohinoor Park, Mumbai. Harmoniously structures the Kerala Muhurtham at 10:00 AM, Maharashtrian Wedding at 11:30 AM, and Evening Reception.
+            </p>
+          </div>
+        </article>
+
+        <!-- Card 3: Kerala Reception -->
+        <article class="zoom-card" style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 18px 18px 24px;">
+          <div style="border-radius: calc(var(--r) - 12px); overflow: hidden; background: #FAF7F0; border: 1px solid var(--line); display: flex; justify-content: center; align-items: center; aspect-ratio: 3/4;">
+            <img 
+              src="./_assets/invitation/3.png" 
+              alt="Vivek &amp; Nisergini : Kerala Reception Card" 
+              loading="lazy"
+              style="width: 100%; height: 100%; object-fit: contain; display: block; padding: 12px;"
+            />
+          </div>
+          <div style="padding: 20px 10px 0;">
+            <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 6px;">
+              <h3 style="margin: 0; font-size: 18px; font-weight: 600; letter-spacing: -0.01em;">Kerala Reception Card</h3>
+              <span style="font-family: 'Space Mono', monospace; font-size: 11px; background: var(--blush); color: var(--chip-ink); padding: 4px 10px; border-radius: 999px;">30 Jan 2022</span>
+            </div>
+            <p style="margin: 0; font-size: 14px; line-height: 1.6; color: var(--ink-2);">
+              Sunday, 30th January at &ldquo;CP House&rdquo;, Pookkottukavu, Kerala. Balanced with mirrored ceremonial parasols and banana leaf corners for the couple&rsquo;s homecoming celebration.
+            </p>
+          </div>
+        </article>
+
       </div>
     </section>
 
@@ -555,10 +499,10 @@
     <section style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: clamp(30px, 5vw, 54px); margin-bottom: clamp(56px, 9vh, 100px); display: flex; flex-wrap: wrap; gap: 24px; align-items: center; justify-content: space-between;">
       <div>
         <h2 style="margin: 0; max-width: 22ch; font-family: 'Archivo', Helvetica, sans-serif; font-weight: 600; font-size: clamp(22px, 3vw, 34px); line-height: 1.15; letter-spacing: -0.02em; text-wrap: pretty;">
-          Planning a meaningful celebration or visual identity?
+          Planning a bespoke wedding suite or cultural celebration?
         </h2>
         <p style="margin: 12px 0 0; font-size: 15px; color: var(--ink-2);">
-          Crafting thoughtful bespoke invitations, print systems, and digital motion.
+          Creating intentional wedding stationery, tactile print systems, and bespoke identity narratives.
         </p>
       </div>
       <div style="display: flex; flex-wrap: wrap; gap: 12px;">
@@ -603,8 +547,7 @@ class Component extends DCLogic {
       } catch (e) {
         return 'light';
       }
-    })(),
-    isPaused: false
+    })()
   };
 
   componentDidMount() {
@@ -620,19 +563,6 @@ class Component extends DCLogic {
     this.applyTheme(t);
 
     window.addEventListener('storage', this.onStorage);
-
-    const vid = document.getElementById('std-video');
-    if (vid) {
-      vid.addEventListener('play', () => this.setState({ isPaused: false }));
-      vid.addEventListener('pause', () => this.setState({ isPaused: true }));
-      vid.addEventListener('click', (e) => {
-        if (vid.paused) {
-          vid.play();
-        } else {
-          vid.pause();
-        }
-      });
-    }
   }
 
   componentWillUnmount() {
@@ -657,25 +587,12 @@ class Component extends DCLogic {
     try { localStorage.setItem('me-portfolio-theme', next); } catch (e) {}
   };
 
-  toggleVideoPlay = (e) => {
-    if (e && e.stopPropagation) e.stopPropagation();
-    const vid = document.getElementById('std-video');
-    if (!vid) return;
-    if (vid.paused) {
-      vid.play();
-    } else {
-      vid.pause();
-    }
-  };
-
   renderVals() {
     return {
       toggleTheme: this.toggleTheme,
-      toggleVideoPlay: this.toggleVideoPlay,
       themeLabel: this.state.theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode',
       isDark: this.state.theme === 'dark',
-      isLight: this.state.theme !== 'dark',
-      isPaused: this.state.isPaused
+      isLight: this.state.theme !== 'dark'
     };
   }
 }
