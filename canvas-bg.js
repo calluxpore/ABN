@@ -707,15 +707,34 @@
     }
 
     window.__bgCanvas = { mouse, elements };
-    animId = requestAnimationFrame(render);
+
+    const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (motionQuery.matches) {
+      render(performance.now());
+    } else {
+      animId = requestAnimationFrame(render);
+    }
+
+    if (motionQuery.addEventListener) {
+      motionQuery.addEventListener('change', (e) => {
+        if (e.matches) {
+          if (animId) cancelAnimationFrame(animId);
+        } else {
+          lastTime = performance.now();
+          animId = requestAnimationFrame(render);
+        }
+      });
+    }
 
     // Handle tab visibility to save power when inactive
     document.addEventListener('visibilitychange', () => {
       if (document.hidden) {
         if (animId) cancelAnimationFrame(animId);
       } else {
-        lastTime = performance.now();
-        animId = requestAnimationFrame(render);
+        if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          lastTime = performance.now();
+          animId = requestAnimationFrame(render);
+        }
       }
     });
   }
