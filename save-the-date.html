@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
 <title>Save the Date : Dhriti &amp; Prashant | Anadhya Badri Narayan</title>
 <meta name="description" content="A visual teaser for Dhriti & Prashant's two states Gujju and Telugu wedding in Hyderabad, bringing cultural fragments into motion.">
 <script>
@@ -27,7 +28,7 @@
     color: #262421;
   }
 </style>
-<script src="./lenis.min.js"></script>
+<script src="./lenis.min.js" defer></script>
 <script>
   (function () {
     function initLenis() {
@@ -626,6 +627,8 @@ class Component extends DCLogic {
       vid.addEventListener('play', () => this.setState({ isPaused: false }));
       vid.addEventListener('pause', () => this.setState({ isPaused: true }));
       vid.addEventListener('click', (e) => {
+        // preventDefault stops browsers that also toggle natively (e.g. Firefox) from undoing this toggle
+        e.preventDefault();
         if (vid.paused) {
           vid.play();
         } else {

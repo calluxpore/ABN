@@ -110,8 +110,6 @@
       clientY: -9999,
       active: false
     };
-    let scrollY = window.pageYOffset || 0;
-    let targetScrollY = scrollY;
 
     function onPointerMove(clientX, clientY) {
       if (typeof clientX !== 'number' || typeof clientY !== 'number') return;
@@ -158,10 +156,6 @@
     window.addEventListener('touchend', () => {
       mouse.active = false;
     });
-
-    window.addEventListener('scroll', () => {
-      targetScrollY = window.pageYOffset || document.documentElement.scrollTop;
-    }, { passive: true });
 
     window.addEventListener('resize', resize);
     resize();
@@ -595,7 +589,10 @@
     // Main Animation Loop
     function render(currentTime) {
       animId = requestAnimationFrame(render);
+      drawFrame(currentTime);
+    }
 
+    function drawFrame(currentTime) {
       const dt = Math.min(currentTime - lastTime, 64); // clamp for tab switching
       lastTime = currentTime;
 
@@ -612,9 +609,6 @@
 
       // Decay mouse movement momentum
       mouseSpeed *= 0.88;
-
-      // Smooth scroll interpolation
-      scrollY += (targetScrollY - scrollY) * 0.1;
 
       // Clear Canvas
       ctx.save();
@@ -705,34 +699,45 @@
 
     window.__bgCanvas = { mouse, elements };
 
+    // Loop control: always cancel before starting so only one loop can run
+    function start() {
+      if (animId) cancelAnimationFrame(animId);
+      lastTime = performance.now();
+      animId = requestAnimationFrame(render);
+    }
+    function stop() {
+      if (animId) cancelAnimationFrame(animId);
+      animId = null;
+    }
+
     const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
     if (motionQuery.matches) {
-      render(performance.now());
+      drawFrame(performance.now()); // single static frame, no loop
     } else {
-      animId = requestAnimationFrame(render);
+      start();
     }
 
     if (motionQuery.addEventListener) {
       motionQuery.addEventListener('change', (e) => {
-        if (e.matches) {
-          if (animId) cancelAnimationFrame(animId);
-        } else {
-          lastTime = performance.now();
-          animId = requestAnimationFrame(render);
-        }
+        if (e.matches) stop(); else start();
       });
     }
 
+    // Reduced motion: redraw the static frame when the canvas is cleared or the theme changes
+    window.addEventListener('resize', () => {
+      if (motionQuery.matches) drawFrame(performance.now());
+    });
+    new MutationObserver(() => {
+      if (motionQuery.matches) {
+        themeTransition = targetThemeTransition;
+        drawFrame(performance.now());
+      }
+    }).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+
     // Handle tab visibility to save power when inactive
     document.addEventListener('visibilitychange', () => {
-      if (document.hidden) {
-        if (animId) cancelAnimationFrame(animId);
-      } else {
-        if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-          lastTime = performance.now();
-          animId = requestAnimationFrame(render);
-        }
-      }
+      if (document.hidden) stop();
+      else if (!motionQuery.matches) start();
     });
   }
 

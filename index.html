@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
 <title>Anadhya Badri Narayan | Graphic Designer</title>
 <meta name="description" content="Portfolio of Anadhya Badri Narayan, Senior Graphic Designer at Kiana Bespoke Invitations, Bengaluru. Crafting bespoke stationery, visual identities, and narratives.">
 <script>
@@ -40,7 +41,7 @@
     z-index: 1;
   }
 </style>
-<script src="./lenis.min.js"></script>
+<script src="./lenis.min.js" defer></script>
 <script>
   (function () {
     function initLenis() {
@@ -89,7 +90,7 @@
     }
   })();
 </script>
-<script src="./canvas-bg.js?v=15"></script>
+<script src="./canvas-bg.js?v=16" defer></script>
 <script src="./support.js"></script>
 </head>
 <body>
@@ -292,20 +293,6 @@
     .skip-link {
       transition: none !important;
     }
-  }
-
-  #bg-canvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    pointer-events: none;
-    z-index: 0;
-  }
-  #dc-root, x-dc {
-    position: relative;
-    z-index: 1;
   }
 </style>
 </helmet>
