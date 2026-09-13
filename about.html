@@ -445,9 +445,9 @@
     </section>
 
     <section style="padding-bottom: clamp(64px, 11vh, 120px);">
-      <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 20px; padding-bottom: 34px; border-bottom: 1px solid var(--line);">
+      <div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 20px; padding-bottom: 34px; border-bottom: 1px solid var(--line);">
         <h2 style="margin: 0; font-family: 'Archivo', Helvetica, sans-serif; font-weight: 600; font-size: clamp(22px, 2.8vw, 32px); letter-spacing: -0.015em;">How I work</h2>
-        <span style="font-family: 'Space Mono', monospace; font-size: 12px; color: var(--ink-2);">Three steps</span>
+        <span style="font-family: 'Space Mono', monospace; font-size: 12px; color: var(--ink-2); white-space: nowrap;">Three steps</span>
       </div>
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); gap: clamp(18px, 2.6vw, 28px); padding-top: clamp(24px, 4vw, 40px);">
         <sc-for list="{{ steps }}" as="s" hint-placeholder-count="3">
@@ -461,13 +461,13 @@
     </section>
 
     <section style="padding-bottom: clamp(64px, 11vh, 120px);">
-      <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 20px; padding-bottom: 10px; border-bottom: 1px solid var(--line);">
+      <div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 20px; padding-bottom: 10px; border-bottom: 1px solid var(--line);">
         <h2 style="margin: 0; font-family: 'Archivo', Helvetica, sans-serif; font-weight: 600; font-size: clamp(22px, 2.8vw, 32px); letter-spacing: -0.015em;">Experience</h2>
-        <span style="font-family: 'Space Mono', monospace; font-size: 12px; color: var(--ink-2);">2018 to Present</span>
+        <span style="font-family: 'Space Mono', monospace; font-size: 12px; color: var(--ink-2); white-space: nowrap;">2018 to Present</span>
       </div>
       <sc-for list="{{ roles }}" as="r" hint-placeholder-count="4">
-        <div style="display: grid; grid-template-columns: clamp(110px, 16vw, 150px) minmax(0, 1fr); gap: 12px 24px; align-items: baseline; padding: 24px 0; border-bottom: 1px solid var(--line);">
-          <span style="font-family: 'Space Mono', monospace; font-size: 12px; color: var(--ink-2);">{{ r.years }}</span>
+        <div style="display: grid; grid-template-columns: clamp(132px, 16vw, 150px) minmax(0, 1fr); gap: 12px 24px; align-items: baseline; padding: 24px 0; border-bottom: 1px solid var(--line);">
+          <span style="font-family: 'Space Mono', monospace; font-size: 12px; color: var(--ink-2); white-space: nowrap;">{{ r.years }}</span>
           <div>
             <p style="margin: 0; font-size: 16.5px; font-weight: 600; letter-spacing: -0.01em;">{{ r.role }}</p>
             <p style="margin: 6px 0 0; font-size: 14.5px; line-height: 1.6; color: var(--ink-2); text-wrap: pretty;">{{ r.place }}</p>
@@ -477,13 +477,13 @@
     </section>
 
     <section style="padding-bottom: clamp(64px, 11vh, 120px);">
-      <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 20px; padding-bottom: 10px; border-bottom: 1px solid var(--line);">
+      <div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 20px; padding-bottom: 10px; border-bottom: 1px solid var(--line);">
         <h2 style="margin: 0; font-family: 'Archivo', Helvetica, sans-serif; font-weight: 600; font-size: clamp(22px, 2.8vw, 32px); letter-spacing: -0.015em;">Education</h2>
-        <span style="font-family: 'Space Mono', monospace; font-size: 12px; color: var(--ink-2);">2013 to 2018</span>
+        <span style="font-family: 'Space Mono', monospace; font-size: 12px; color: var(--ink-2); white-space: nowrap;">2013 to 2018</span>
       </div>
       <sc-for list="{{ education }}" as="e" hint-placeholder-count="1">
-        <div style="display: grid; grid-template-columns: clamp(110px, 16vw, 150px) minmax(0, 1fr); gap: 12px 24px; align-items: baseline; padding: 24px 0; border-bottom: 1px solid var(--line);">
-          <span style="font-family: 'Space Mono', monospace; font-size: 12px; color: var(--ink-2);">{{ e.years }}</span>
+        <div style="display: grid; grid-template-columns: clamp(132px, 16vw, 150px) minmax(0, 1fr); gap: 12px 24px; align-items: baseline; padding: 24px 0; border-bottom: 1px solid var(--line);">
+          <span style="font-family: 'Space Mono', monospace; font-size: 12px; color: var(--ink-2); white-space: nowrap;">{{ e.years }}</span>
           <div>
             <p style="margin: 0; font-size: 16.5px; font-weight: 600; letter-spacing: -0.01em;">{{ e.degree }}</p>
             <p style="margin: 6px 0 0; font-size: 14.5px; line-height: 1.6; color: var(--ink-2); text-wrap: pretty;">{{ e.place }}</p>
@@ -530,7 +530,7 @@
     <footer style="border-top: 1px solid var(--line); padding: clamp(36px, 6vw, 60px) 0 44px; display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-end; justify-content: space-between;">
       <div>
         <p style="margin: 0; font-family: 'Archivo', Helvetica, sans-serif; font-weight: 600; font-size: clamp(20px, 2.6vw, 27px); letter-spacing: -0.02em;">Let's make something calm.</p>
-        <p style="margin: 10px 0 0; font-family: 'Space Mono', monospace; font-size: 12px; color: var(--ink-2);">© 2026 Anadhya Badri Narayan, Bengaluru, India</p>
+        <p style="margin: 10px 0 0; font-family: 'Space Mono', monospace; font-size: 12px; color: var(--ink-2);">© 2026 Anadhya Badri Narayan, Bengaluru</p>
       </div>
       <div style="display: flex; flex-wrap: wrap; gap: 10px;">
         <a href="mailto:anadhya94@gmail.com" style="border: 1px solid var(--line); background: var(--bg-2); border-radius: 999px; padding: 12px 22px; font-size: 13.5px; font-weight: 500; transition: background 200ms ease;" style-hover="background: var(--mint); color: var(--chip-ink);">Email</a>
@@ -623,10 +623,10 @@ class Component extends DCLogic {
         { no: '03', title: 'Make it real', body: 'Print proofs, dielines and files a small team can pick up without me in the room.', tint: 'var(--powder)' }
       ],
       roles: [
-        { years: 'Feb 2023 to Present', role: 'Senior Graphic Designer', place: 'Kiana Bespoke Invitations Stationery, Bengaluru' },
-        { years: 'Aug 2019 to Oct 2019', role: 'Graphic Designer', place: 'ARN Square, Bengaluru' },
-        { years: 'Dec 2018 to Jun 2019', role: 'Event Designer', place: 'With Love Nilma, Bangalore' },
-        { years: 'Nov 2018 to Dec 2018', role: 'Visual Merchandiser', place: 'Studio J, Bangalore' }
+        { years: 'Feb ’23 to Now', role: 'Senior Graphic Designer', place: 'Kiana Bespoke Invitations Stationery, Bengaluru' },
+        { years: 'Aug to Oct ’19', role: 'Graphic Designer', place: 'ARN Square, Bengaluru' },
+        { years: 'Dec ’18 to Jun ’19', role: 'Event Designer', place: 'With Love Nilma, Bangalore' },
+        { years: 'Nov to Dec ’18', role: 'Visual Merchandiser', place: 'Studio J, Bangalore' }
       ],
       education: [
         { years: '2013 to 2018', degree: 'Bachelor of Arts (BA), Industrial and Product Design', place: 'Raffles Design Institute' }
