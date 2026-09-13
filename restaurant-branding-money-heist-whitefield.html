@@ -78,7 +78,7 @@
 <helmet>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&amp;family=Karla:ital,wght@0,400;0,500;0,600;1,400&amp;family=Space+Mono:wght@400;700&amp;family=Cinzel:wght@500;600;700&amp;display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&amp;family=Karla:ital,wght@0,400;0,500;0,600;1,400&amp;family=Space+Mono:wght@400;700&amp;display=swap" rel="stylesheet" />
 <style>
   :root {
     --r: 28px;
@@ -245,7 +245,7 @@
         Restaurant Branding : Money Heist EN Whitefield
       </h1>
 
-      <p style="margin: 20px 0 0; font-family: 'Karla', sans-serif; font-size: clamp(16px, 1.75vw, 21px); line-height: 1.5; color: var(--ink-2); max-width: 100%;">
+      <p style="margin: 20px 0 0; font-size: clamp(16px, 1.75vw, 21px); line-height: 1.5; color: var(--ink-2); max-width: 100%;">
         <em>&ldquo;Where every guest becomes a member of the crew&rdquo;</em> : A full character illustration suite and branded day offer graphics for a boldly themed bar and kitchen in Whitefield.
       </p>
 
@@ -285,7 +285,7 @@
           </p>
 
           <p style="margin: 0; font-size: clamp(16px, 1.4vw, 18px); line-height: 1.7; color: var(--ink-2); text-wrap: pretty;">
-            Starting from detailed character study of the original cast, each portrait was built in a bold, graphic flat vector style capturing the recognisable red jumpsuit, the individual personality cues, and the attitude. The Professor received his signature chain and character card finish, Tokyo her choker and braided counterpart, and the muscle of the crew their crossed rifles and intense stares. The result is a crew portrait gallery that doubles as a visual identity for the venue.
+            Starting from detailed character study of the original cast, each portrait was built in a bold, graphic flat vector style capturing the recognisable red jumpsuit, the individual personality cues, and the attitude. The Professor received his signature chain and character card finish, Tokyo her choker and bob cut, Nairobi her braided pigtails and feather earrings, and the muscle of the crew their crossed rifles and intense stares. The result is a crew portrait gallery that doubles as a visual identity for the venue.
           </p>
         </div>
 
@@ -330,8 +330,8 @@
         <span style="font-family: 'Space Mono', monospace; font-size: 12px; color: var(--ink-2);">10 Portraits</span>
       </div>
 
-      <!-- Row 1 -->
-      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 180px), 1fr)); gap: clamp(16px, 2.5vw, 24px); margin-bottom: clamp(16px, 2.5vw, 24px);">
+      <!-- Portrait Grid : all 10 characters -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 180px), 1fr)); gap: clamp(16px, 2.5vw, 24px);">
 
         <article style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 14px 14px 18px; transition: transform 250ms ease;" style-hover="transform: translateY(-4px);">
           <div style="border-radius: calc(var(--r) - 14px); overflow: hidden; background: var(--heist-cream); border: 1px solid var(--line); aspect-ratio: 1 / 1;">
@@ -382,11 +382,6 @@
             <p style="margin: 0; font-size: 12.5px; line-height: 1.5; color: var(--ink-2);">Short dark crop, leather braces, and a steely gaze. Transformed by circumstance.</p>
           </div>
         </article>
-
-      </div>
-
-      <!-- Row 2 -->
-      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 180px), 1fr)); gap: clamp(16px, 2.5vw, 24px);">
 
         <article style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 14px 14px 18px; transition: transform 250ms ease;" style-hover="transform: translateY(-4px);">
           <div style="border-radius: calc(var(--r) - 14px); overflow: hidden; background: var(--heist-cream); border: 1px solid var(--line); aspect-ratio: 1 / 1;">
@@ -500,7 +495,7 @@
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); gap: clamp(24px, 4vw, 48px); align-items: center;">
 
           <div style="border-radius: calc(var(--r) - 12px); overflow: hidden; background: #3D6B3A; border: 1px solid var(--line);">
-            <img src="./_assets/covers/restaurant_cover.jpg" alt="Money Heist EN Whitefield Professor Character Cards printed flatlay on grass with gold butterfly charms" loading="lazy" style="width: 100%; height: auto; display: block; object-fit: cover;" />
+            <img src="./_assets/covers/restaurant_cover.jpg" alt="Money Heist EN Whitefield Professor Character Cards printed flatlay on grass with gold butterfly charms" loading="eager" fetchpriority="high" style="width: 100%; height: auto; display: block; object-fit: cover;" />
           </div>
 
           <div>
