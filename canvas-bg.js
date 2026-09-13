@@ -129,12 +129,9 @@
       mouse.active = true;
     }
 
-    // Track mouse & touch with capture to guarantee receiving all events
+    // Track mouse & pen with a single capturing listener (pointermove covers mousemove)
     const opts = { passive: true, capture: true };
     window.addEventListener('pointermove', (e) => onPointerMove(e.clientX, e.clientY), opts);
-    document.addEventListener('pointermove', (e) => onPointerMove(e.clientX, e.clientY), opts);
-    window.addEventListener('mousemove', (e) => onPointerMove(e.clientX, e.clientY), opts);
-    document.addEventListener('mousemove', (e) => onPointerMove(e.clientX, e.clientY), opts);
 
     document.addEventListener('mouseleave', () => {
       mouse.active = false;
