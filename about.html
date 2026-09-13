@@ -59,7 +59,7 @@
           var target = document.querySelector(anchor.getAttribute('href'));
           if (target) {
             e.preventDefault();
-            lenis.scrollTo(target, { offset: 0, duration: 1.2 });
+            lenis.scrollTo(target, { offset: -((document.querySelector('.site-nav') || {}).offsetHeight || 0), duration: 1.2 });
             if (!target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1');
             target.focus({ preventScroll: true });
           }
@@ -70,7 +70,7 @@
         setTimeout(function () {
           var target = document.querySelector(window.location.hash);
           if (target) {
-            lenis.scrollTo(target, { offset: 0, duration: 1.2 });
+            lenis.scrollTo(target, { offset: -((document.querySelector('.site-nav') || {}).offsetHeight || 0), duration: 1.2 });
           }
         }, 150);
       }
@@ -94,6 +94,7 @@
   :root {
     --r: 28px;
     --bg: #F7F4EF;
+    --nav-bg: rgba(247, 244, 239, 0.7);
     --bg-2: #FFFDFA;
     --surface: #FFFFFF;
     --ink: #262421;
@@ -115,6 +116,7 @@
   }
   html[data-theme="dark"] {
     --bg: #1C1C1A;
+    --nav-bg: rgba(28, 28, 26, 0.7);
     --bg-2: #212120;
     --surface: #262625;
     --ink: #EDE9E2;
@@ -187,6 +189,30 @@
   }
 
   main[tabindex="-1"]:focus { outline: none; }
+  /* Sticky, 70% opaque navigation bar (full width background behind the content column) */
+  html { scroll-padding-top: 88px; }
+  html, body { overflow-x: clip; }
+  .site-nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    padding-top: 14px;
+    padding-bottom: 14px;
+    margin-top: -14px;
+  }
+  .site-nav::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: calc(50% - 50vw);
+    width: 100vw;
+    z-index: -1;
+    background: var(--nav-bg);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    transition: background 300ms ease;
+  }
   .brand-short { display: none; }
   @media (max-width: 640px) {
     .brand-full { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
@@ -250,7 +276,7 @@
   <a href="#main-content" class="skip-link">Skip to main content</a>
   <div style="max-width: 1080px; margin: 0 auto;">
 
-    <nav aria-label="Main" style="display: flex; align-items: center; justify-content: space-between; gap: 20px; padding-bottom: clamp(48px, 9vh, 96px);">
+    <nav aria-label="Main" class="site-nav" style="display: flex; align-items: center; justify-content: space-between; gap: 20px; margin-bottom: calc(clamp(48px, 9vh, 96px) - 14px);">
       <a href="index.html" style="font-family: 'Archivo', Helvetica, sans-serif; font-size: 17px; font-weight: 600; letter-spacing: -0.01em;"><span class="brand-full">Anadhya Badri Narayan</span><span class="brand-short" aria-hidden="true">ABN</span></a>
       <div style="display: flex; align-items: center; gap: clamp(14px, 2.4vw, 28px);">
         <a href="index.html" style="font-size: 13.5px; font-weight: 500; color: var(--ink-2);" style-hover="color: var(--ink);">Home</a>
