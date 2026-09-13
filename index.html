@@ -3,9 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#F7F4EF">
 <link rel="icon" href="data:,">
 <title>Anadhya Badri Narayan | Graphic Designer</title>
-<meta name="description" content="Portfolio of Anadhya Badri Narayan, Senior Graphic Designer at Kiana Bespoke Invitations, Bengaluru. Crafting bespoke stationery, visual identities, and narratives.">
+<meta name="description" content="Portfolio of Anadhya Badri Narayan, Senior Graphic Designer at Kiana Bespoke Invitations in Bengaluru. Wedding stationery, illustration and visual identities.">
 <script>
   (function () {
     try {
@@ -13,6 +14,7 @@
       var saved = (urlTheme === 'dark' || urlTheme === 'light') ? urlTheme : localStorage.getItem('me-portfolio-theme');
       var theme = (saved === 'dark' || saved === 'light') ? saved : 'light';
       document.documentElement.setAttribute('data-theme', theme);
+      var tc = document.querySelector('meta[name="theme-color"]'); if (tc) tc.setAttribute('content', theme === 'dark' ? '#1C1C1A' : '#F7F4EF');
     } catch (e) {
       document.documentElement.setAttribute('data-theme', 'light');
     }
@@ -22,10 +24,12 @@
   html[data-theme="dark"] {
     background-color: #1C1C1A;
     color: #EDE9E2;
+    color-scheme: dark;
   }
   html[data-theme="light"], html:not([data-theme="dark"]) {
     background-color: #F7F4EF;
     color: #262421;
+    color-scheme: light;
   }
   #bg-canvas {
     position: fixed;
@@ -70,6 +74,8 @@
           if (target) {
             e.preventDefault();
             lenis.scrollTo(target, { offset: 0, duration: 1.2 });
+            if (!target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1');
+            target.focus({ preventScroll: true });
           }
         }
       });
@@ -90,12 +96,12 @@
     }
   })();
 </script>
-<script src="./canvas-bg.js?v=16" defer></script>
+<script src="./canvas-bg.js?v=17" defer></script>
 <script src="./support.js"></script>
 </head>
 <body>
 <a href="#main-content" class="skip-link">Skip to main content</a>
-<canvas id="bg-canvas"></canvas>
+<canvas id="bg-canvas" aria-hidden="true"></canvas>
 <x-dc>
 <helmet>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -109,7 +115,7 @@
     --surface: #FFFFFF;
     --ink: #262421;
     --ink-2: #524E46; /* High contrast AA/AAA compliant text */
-    --line: rgba(38,36,33,0.11);
+    --line: rgba(38,36,33,0.14);
     --mint: #CFE8DB;
     --blush: #F6DADF;
     --lav: #DFD9F3;
@@ -209,6 +215,12 @@
   }
 
   /* Screen Reader Only Utility */
+  main[tabindex="-1"]:focus { outline: none; }
+  .brand-short { display: none; }
+  @media (max-width: 640px) {
+    .brand-full { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+    .brand-short { display: inline; }
+  }
   .sr-only {
     position: absolute;
     width: 1px;
@@ -299,14 +311,14 @@
 <div style="min-height: 100vh; padding: 28px clamp(20px, 5vw, 56px) 0;">
   <div style="max-width: 1080px; margin: 0 auto;">
 
-    <nav aria-label="Main Navigation" style="display: flex; align-items: center; justify-content: space-between; gap: 20px; padding-bottom: clamp(60px, 12vh, 130px);">
-      <a href="index.html" style="font-family: 'Archivo', Helvetica, sans-serif; font-size: 17px; font-weight: 600; letter-spacing: -0.01em;" aria-current="page">Anadhya Badri Narayan</a>
+    <nav aria-label="Main" style="display: flex; align-items: center; justify-content: space-between; gap: 20px; padding-bottom: clamp(60px, 12vh, 130px);">
+      <a href="index.html" style="font-family: 'Archivo', Helvetica, sans-serif; font-size: 17px; font-weight: 600; letter-spacing: -0.01em;" aria-current="page"><span class="brand-full">Anadhya Badri Narayan</span><span class="brand-short" aria-hidden="true">ABN</span></a>
       <div style="display: flex; align-items: center; gap: clamp(14px, 2.4vw, 28px);">
         <a href="index.html" style="font-size: 13.5px; font-weight: 500; color: var(--ink-2); padding: 8px 4px;" style-hover="color: var(--ink);">Home</a>
         <a href="about.html" style="font-size: 13.5px; font-weight: 500; color: var(--ink-2); padding: 8px 4px;" style-hover="color: var(--ink);">About</a>
         <a href="https://www.linkedin.com/in/anadhyanarayan/" target="_blank" rel="noopener noreferrer" style="font-size: 13.5px; font-weight: 500; color: var(--ink-2); padding: 8px 4px;" style-hover="color: var(--ink);">LinkedIn<span class="sr-only"> (opens in a new tab)</span></a>
         <a href="./_assets/CV/Profile.pdf" target="_blank" rel="noopener noreferrer" style="font-size: 13.5px; font-weight: 500; color: var(--ink-2); padding: 8px 4px;" style-hover="color: var(--ink);">CV<span class="sr-only"> (PDF document, opens in a new tab)</span></a>
-        <button onClick="{{ toggleTheme }}" aria-label="Toggle dark and light theme" title="Toggle dark and light theme" style="display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border: 1px solid var(--line); background: var(--bg-2); color: var(--ink); border-radius: 999px; padding: 0; cursor: pointer; transition: background 200ms ease, transform 200ms ease;" style-hover="background: var(--surface);">
+        <button onClick="{{ toggleTheme }}" aria-label="{{ themeLabel }}" title="{{ themeLabel }}" style="display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border: 1px solid var(--line); background: var(--bg-2); color: var(--ink); border-radius: 999px; padding: 0; cursor: pointer; transition: background 200ms ease, transform 200ms ease;" style-hover="background: var(--surface);">
         <sc-if value="{{ isDark }}" hint-placeholder-val="{{ false }}">
           <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">
             <circle cx="12" cy="12" r="4.2"></circle>
@@ -335,9 +347,9 @@
 
     <main id="main-content">
     <header style="max-width: 780px; padding-bottom: clamp(70px, 14vh, 150px);">
-      <p style="margin: 0 0 22px; font-family: 'Space Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-2);">Senior Graphic Designer &middot; Bengaluru</p>
+      <p style="margin: 0 0 22px; font-family: 'Space Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-2);">Senior Graphic Designer, Bengaluru</p>
       <h1 style="margin: 0; font-family: 'Archivo', Helvetica, sans-serif; font-weight: 600; font-size: clamp(40px, 7vw, 78px); line-height: 1.04; letter-spacing: -0.02em; text-wrap: pretty;">Design that says less, and means more.</h1>
-      <p style="margin: 26px 0 0; max-width: 48ch; font-size: clamp(15px, 1.5vw, 18px); line-height: 1.65; color: var(--ink-2); text-wrap: pretty;">I'm Anadhya Badri Narayan, Senior Graphic Designer at Kiana Bespoke Invitations. I build bespoke wedding stationery, visual identities, and narratives rooted in craft, typography, and tactile materiality.</p>
+      <p style="margin: 26px 0 0; max-width: 48ch; font-size: clamp(15px, 1.5vw, 18px); line-height: 1.65; color: var(--ink-2); text-wrap: pretty;">I'm Anadhya Badri Narayan, a Senior Graphic Designer at Kiana Bespoke Invitations. I design wedding stationery and visual identities, with a lot of care for type, paper and the details you notice when you hold something.</p>
       <div style="display: flex; flex-wrap: wrap; gap: 12px; margin-top: 38px;">
         <a href="#work" class="hero-cta-btn" style="background: var(--btn-bg); color: var(--btn-ink); border-radius: 999px; padding: 15px 32px; font-size: 14px; font-weight: 600; letter-spacing: 0.01em; display: inline-flex; align-items: center; justify-content: center; min-height: 48px;">View selected work</a>
         <a href="mailto:anadhya94@gmail.com" class="hero-cta-btn" style="border: 1px solid var(--line); border-radius: 999px; padding: 15px 30px; font-size: 14px; font-weight: 500; color: var(--ink); background: var(--surface); display: inline-flex; align-items: center; justify-content: center; min-height: 48px;">Get in touch</a>
@@ -348,7 +360,7 @@
     <section id="work" style="padding-bottom: clamp(70px, 12vh, 130px);">
       <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 20px; padding-bottom: 34px; border-bottom: 1px solid var(--line);">
         <h2 style="margin: 0; font-family: 'Archivo', Helvetica, sans-serif; font-weight: 600; font-size: clamp(24px, 3vw, 34px); letter-spacing: -0.01em;">Selected work</h2>
-        <span style="font-family: 'Space Mono', monospace; font-size: 12px; color: var(--ink-2);">Bespoke Stationery &amp; Projects</span>
+        <span style="font-family: 'Space Mono', monospace; font-size: 12px; color: var(--ink-2);">Stationery &amp; Projects</span>
       </div>
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: clamp(20px, 3vw, 34px); padding-top: clamp(24px, 4vw, 40px);">
         <sc-for list="{{ projects }}" as="p" hint-placeholder-count="6">
@@ -356,7 +368,7 @@
             <a href="{{ p.link }}" target="{{ p.target }}" rel="{{ p.rel }}" style="display: block; text-decoration: none; color: inherit;">
               <article style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 16px 16px 26px; cursor: pointer; height: 100%; display: flex; flex-direction: column;" style-hover="transform: translateY(-4px); border-color: var(--ink-2);">
                 <sc-if value="{{ p.image }}" hint-placeholder-val="{{ true }}">
-                  <div style="border-radius: calc(var(--r) - 12px); aspect-ratio: 1 / 1; overflow: hidden; background-color: {{ p.tint }};"><img src="{{ p.image }}" alt="{{ p.title }}" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block;" /></div>
+                  <div style="border-radius: calc(var(--r) - 12px); aspect-ratio: 1 / 1; overflow: hidden; background-color: {{ p.tint }};"><img src="{{ p.image }}" alt="" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block;" /></div>
                 </sc-if>
                 <sc-if value="{{ !p.image }}" hint-placeholder-val="{{ false }}">
                   <div role="img" aria-label="{{ p.title }} concept placeholder" style="border-radius: calc(var(--r) - 12px); aspect-ratio: 1 / 1; background-color: {{ p.tint }}; background-image: repeating-linear-gradient(45deg, var(--stripe) 0 7px, transparent 7px 14px);"></div>
@@ -386,7 +398,7 @@
           <sc-if value="{{ !p.link }}" hint-placeholder-val="{{ false }}">
             <article style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 16px 16px 26px; height: 100%; display: flex; flex-direction: column;" style-hover="transform: translateY(-4px);">
               <sc-if value="{{ p.image }}" hint-placeholder-val="{{ false }}">
-                <div style="border-radius: calc(var(--r) - 12px); aspect-ratio: 1 / 1; overflow: hidden; background-color: {{ p.tint }};"><img src="{{ p.image }}" alt="{{ p.title }}" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block;" /></div>
+                <div style="border-radius: calc(var(--r) - 12px); aspect-ratio: 1 / 1; overflow: hidden; background-color: {{ p.tint }};"><img src="{{ p.image }}" alt="" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block;" /></div>
               </sc-if>
               <sc-if value="{{ !p.image }}" hint-placeholder-val="{{ true }}">
                 <div role="img" aria-label="{{ p.title }} concept placeholder" style="border-radius: calc(var(--r) - 12px); aspect-ratio: 1 / 1; background-color: {{ p.tint }}; background-image: repeating-linear-gradient(45deg, var(--stripe) 0 7px, transparent 7px 14px);"></div>
@@ -419,7 +431,7 @@
             <a href="{{ p.link }}" target="{{ p.target }}" rel="{{ p.rel }}" style="display: block; text-decoration: none; color: inherit;">
               <article style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 16px 16px 26px; cursor: pointer; height: 100%; display: flex; flex-direction: column;" style-hover="transform: translateY(-4px); border-color: var(--ink-2);">
                 <sc-if value="{{ p.image }}" hint-placeholder-val="{{ true }}">
-                  <div style="border-radius: calc(var(--r) - 12px); aspect-ratio: 1 / 1; overflow: hidden; background-color: {{ p.tint }};"><img src="{{ p.image }}" alt="{{ p.title }}" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; object-position: center; display: block;" /></div>
+                  <div style="border-radius: calc(var(--r) - 12px); aspect-ratio: 1 / 1; overflow: hidden; background-color: {{ p.tint }};"><img src="{{ p.image }}" alt="" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; object-position: center; display: block;" /></div>
                 </sc-if>
                 <sc-if value="{{ !p.image }}" hint-placeholder-val="{{ false }}">
                   <div role="img" aria-label="{{ p.title }} illustration study" style="border-radius: calc(var(--r) - 12px); aspect-ratio: 1 / 1; background-color: {{ p.tint }}; background-image: repeating-linear-gradient(45deg, var(--stripe) 0 7px, transparent 7px 14px);"></div>
@@ -449,7 +461,7 @@
           <sc-if value="{{ !p.link }}" hint-placeholder-val="{{ false }}">
             <article style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 16px 16px 26px; height: 100%; display: flex; flex-direction: column;" style-hover="transform: translateY(-4px);">
               <sc-if value="{{ p.image }}" hint-placeholder-val="{{ false }}">
-                <div style="border-radius: calc(var(--r) - 12px); aspect-ratio: 1 / 1; overflow: hidden; background-color: {{ p.tint }};"><img src="{{ p.image }}" alt="{{ p.title }}" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; object-position: center; display: block;" /></div>
+                <div style="border-radius: calc(var(--r) - 12px); aspect-ratio: 1 / 1; overflow: hidden; background-color: {{ p.tint }};"><img src="{{ p.image }}" alt="" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; object-position: center; display: block;" /></div>
               </sc-if>
               <sc-if value="{{ !p.image }}" hint-placeholder-val="{{ true }}">
                 <div role="img" aria-label="{{ p.title }} illustration study" style="border-radius: calc(var(--r) - 12px); aspect-ratio: 1 / 1; background-color: {{ p.tint }}; background-image: repeating-linear-gradient(45deg, var(--stripe) 0 7px, transparent 7px 14px);"></div>
@@ -482,7 +494,7 @@
             <a href="{{ p.link }}" target="{{ p.target }}" rel="{{ p.rel }}" style="display: block; text-decoration: none; color: inherit;">
               <article style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 16px 16px 26px; cursor: pointer; height: 100%; display: flex; flex-direction: column;" style-hover="transform: translateY(-4px); border-color: var(--ink-2);">
                 <sc-if value="{{ p.image }}" hint-placeholder-val="{{ true }}">
-                  <div style="border-radius: calc(var(--r) - 12px); aspect-ratio: 1 / 1; overflow: hidden; background-color: {{ p.tint }};"><img src="{{ p.image }}" alt="{{ p.title }}" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block;" /></div>
+                  <div style="border-radius: calc(var(--r) - 12px); aspect-ratio: 1 / 1; overflow: hidden; background-color: {{ p.tint }};"><img src="{{ p.image }}" alt="" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block;" /></div>
                 </sc-if>
                 <sc-if value="{{ !p.image }}" hint-placeholder-val="{{ false }}">
                   <div role="img" aria-label="{{ p.title }} concept placeholder" style="border-radius: calc(var(--r) - 12px); aspect-ratio: 1 / 1; background-color: {{ p.tint }}; background-image: repeating-linear-gradient(45deg, var(--stripe) 0 7px, transparent 7px 14px);"></div>
@@ -512,7 +524,7 @@
           <sc-if value="{{ !p.link }}" hint-placeholder-val="{{ false }}">
             <article style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 16px 16px 26px; height: 100%; display: flex; flex-direction: column;" style-hover="transform: translateY(-4px);">
               <sc-if value="{{ p.image }}" hint-placeholder-val="{{ false }}">
-                <div style="border-radius: calc(var(--r) - 12px); aspect-ratio: 1 / 1; overflow: hidden; background-color: {{ p.tint }};"><img src="{{ p.image }}" alt="{{ p.title }}" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block;" /></div>
+                <div style="border-radius: calc(var(--r) - 12px); aspect-ratio: 1 / 1; overflow: hidden; background-color: {{ p.tint }};"><img src="{{ p.image }}" alt="" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block;" /></div>
               </sc-if>
               <sc-if value="{{ !p.image }}" hint-placeholder-val="{{ true }}">
                 <div role="img" aria-label="{{ p.title }} concept placeholder" style="border-radius: calc(var(--r) - 12px); aspect-ratio: 1 / 1; background-color: {{ p.tint }}; background-image: repeating-linear-gradient(45deg, var(--stripe) 0 7px, transparent 7px 14px);"></div>
@@ -538,7 +550,7 @@
     <footer style="border-top: 1px solid var(--line); padding: clamp(36px, 6vw, 60px) 0 44px; display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-end; justify-content: space-between;">
       <div>
         <p style="margin: 0; font-family: 'Archivo', Helvetica, sans-serif; font-weight: 600; font-size: clamp(20px, 2.6vw, 27px); letter-spacing: -0.02em;">Let's make something calm.</p>
-        <p style="margin: 10px 0 0; font-family: 'Space Mono', monospace; font-size: 12px; color: var(--ink-2);">&copy; 2026 Anadhya Badri Narayan &middot; Bengaluru, India</p>
+        <p style="margin: 10px 0 0; font-family: 'Space Mono', monospace; font-size: 12px; color: var(--ink-2);">© 2026 Anadhya Badri Narayan, Bengaluru, India</p>
       </div>
       <div style="display: flex; flex-wrap: wrap; gap: 10px;">
         <a href="mailto:anadhya94@gmail.com" style="border: 1px solid var(--line); background: var(--bg-2); border-radius: 999px; padding: 12px 22px; font-size: 13.5px; font-weight: 500; min-height: 44px; display: inline-flex; align-items: center; justify-content: center; transition: background 200ms ease;" style-hover="background: var(--mint); color: var(--chip-ink);">Email</a>
@@ -564,6 +576,8 @@
           }
         }, { passive: true });
         btn.addEventListener('click', function() {
+          var firstLink = document.querySelector('nav a');
+          if (firstLink) firstLink.focus({ preventScroll: true });
           if (window.lenis) {
             window.lenis.scrollTo(0, { duration: 1.0 });
           } else {
@@ -623,6 +637,7 @@ class Component extends DCLogic {
 
   applyTheme(t) {
     document.documentElement.setAttribute('data-theme', t);
+    var tc = document.querySelector('meta[name="theme-color"]'); if (tc) tc.setAttribute('content', t === 'dark' ? '#1C1C1A' : '#F7F4EF');
   }
 
   applyRadius() {
@@ -647,8 +662,8 @@ class Component extends DCLogic {
       showTags: this.props.showTags !== false,
       projects: [
         {
-          title: 'Save the Date : Dhriti & Prashant',
-          blurb: 'A visual teaser for a two states Gujju & Telugu wedding in Hyderabad, bringing cultural fragments into motion.',
+          title: 'Dhriti & Prashant\'s Save the Date',
+          blurb: 'A little animated teaser for a Gujarati and Telugu wedding in Hyderabad, built from bits of both cultures.',
           slot: 'featured project',
           tint: 'var(--blush)',
           image: './_assets/covers/save%20the%20date_cover.jpg',
@@ -659,8 +674,8 @@ class Component extends DCLogic {
           tags: [tag('Wedding Identity', 'blush'), tag('Illustration', 'mint'), tag('Motion', 'lav')]
         },
         {
-          title: 'Wedding Invitation : Vivek & Nisergini',
-          blurb: 'A bilingual Kerala & Maharashtrian wedding invitation suite with bespoke typography, traditional Muthukkuda umbrella motifs, and custom NV monogram.',
+          title: 'Vivek & Nisergini\'s Wedding Invitation',
+          blurb: 'A Kerala and Maharashtrian wedding suite with custom lettering, Muthukkuda umbrellas and an NV monogram drawn for the couple.',
           slot: 'bespoke suite',
           tint: 'var(--mint)',
           image: './_assets/invitation/4.webp',
@@ -671,8 +686,8 @@ class Component extends DCLogic {
           tags: [tag('Wedding Stationery', 'mint'), tag('Print & Foliage', 'cream'), tag('Monogram', 'blush')]
         },
         {
-          title: 'Shashtiabdapoorthi : Sri. Sampath Badri Narayan',
-          blurb: 'An heirloom milestone celebration suite for her father\'s 60th birthday and parental vow renewal at Bangalore Palace.',
+          title: 'Shashtiabdapoorthi for Sri. Sampath Badri Narayan',
+          blurb: 'The invitations I made for my father\'s 60th birthday and my parents\' vow renewal at Bangalore Palace.',
           slot: 'milestone suite',
           tint: 'var(--cream)',
           image: './_assets/covers/Sampath_cover.jpg',
@@ -683,8 +698,8 @@ class Component extends DCLogic {
           tags: [tag('Milestone Stationery', 'cream'), tag('Marigold & Bells', 'mint'), tag('Bangalore Palace', 'blush')]
         },
         {
-          title: 'Wedding Stationery : Akshatha & Bhargav',
-          blurb: 'An elegant botanical wedding invitation suite featuring soft blush florals, custom gold foil calligraphy monogram, and fluid watercolor washes across Le Méridien and Ebisu Palace celebrations.',
+          title: 'Akshatha & Bhargav\'s Wedding Stationery',
+          blurb: 'Blush florals, a gold foil monogram and loose watercolour for four wedding events at Le Méridien and Ebisu Palace.',
           slot: 'bespoke suite',
           tint: 'var(--powder)',
           image: './_assets/covers/Bhargav_cover.jpg',
@@ -695,8 +710,8 @@ class Component extends DCLogic {
           tags: [tag('Wedding Stationery', 'powder'), tag('Botanical Watercolour', 'blush'), tag('Ebisu Palace', 'mint')]
         },
         {
-          title: 'Celebration Stationery : The Paul & Milestone Suites',
-          blurb: 'A curated collection of bespoke ceremonial invitations spanning betrothals at The Paul, Vedic housewarming homams, and intimate baby shower celebrations.',
+          title: 'The Paul & Milestone Invitations',
+          blurb: 'A mix of invitations for a betrothal at The Paul, a housewarming homam and a few baby showers.',
           slot: 'bespoke suite',
           tint: 'var(--mint)',
           image: './_assets/covers/Paul_cover.jpg',
@@ -704,11 +719,11 @@ class Component extends DCLogic {
           target: '_self',
           rel: '',
           isExternal: false,
-          tags: [tag('Event Stationery', 'mint'), tag('Milestone Suites', 'powder'), tag('Bespoke Print', 'blush')]
+          tags: [tag('Event Stationery', 'mint'), tag('Milestone Suites', 'powder'), tag('Custom Print', 'blush')]
         },
         {
-          title: 'Restaurant Branding : Money Heist EN Whitefield',
-          blurb: 'A bold themed character illustration set for a Bangalore bar and kitchen, translating La Casa de Papel\u2019s iconic cast into a bespoke flat vector portrait series with custom day offer graphics.',
+          title: 'Money Heist EN Whitefield Restaurant Branding',
+          blurb: 'Flat vector portraits of the La Casa de Papel cast for a Bangalore bar and kitchen, plus graphics for their daily offers.',
           slot: 'brand illustration',
           tint: 'var(--blush)',
           image: './_assets/covers/restaurant_cover.jpg',
@@ -722,7 +737,7 @@ class Component extends DCLogic {
       industrialDesign: [
         {
           title: 'Parametric Prosthesis',
-          blurb: 'Reimagining the design of braces and prosthetics by utilizing advanced 3D modeling technologies to better meet user needs (collaboration with ABN).',
+          blurb: 'Braces and prosthetics redesigned with 3D modelling so they fit the people who wear them better. A collaboration with ABN.',
           slot: 'applied research',
           tint: 'var(--powder)',
           image: './_assets/covers/Prosthetic Prosthesis_cover.jpg',
@@ -734,7 +749,7 @@ class Component extends DCLogic {
         },
         {
           title: 'Blaisse Tableware',
-          blurb: 'A contemporary tableware collection exploring tactile form, refined geometry, and everyday dining rituals.',
+          blurb: 'A tableware set built around simple shapes, how they feel in your hands and how people actually eat every day.',
           slot: 'tableware design',
           tint: 'var(--cream)',
           image: './_assets/covers/Blaisse_cover.jpg',
@@ -746,7 +761,7 @@ class Component extends DCLogic {
         },
         {
           title: 'Aston Martin Retail Store',
-          blurb: 'A futuristic concept retail showroom and spatial experience shaped around aerodynamic curves, performance, and brand presence.',
+          blurb: 'A concept showroom for Aston Martin, shaped by the curves and speed of the cars.',
           slot: 'spatial & retail',
           tint: 'var(--mint)',
           image: './_assets/covers/Aston_martin_Store_cover.jpg',
@@ -760,7 +775,7 @@ class Component extends DCLogic {
       illustrations: [
         {
           title: 'Bigeyes',
-          blurb: 'A playful character design series bringing expressive, wide eyed personality to a charming menagerie including tortoise, beaver, snail, frog, cat, squirrel, bird, seal, squid, and pig.',
+          blurb: 'A set of big eyed animal characters, from a tortoise and a snail to a squid and a very round pig.',
           slot: 'character series',
           tint: 'var(--powder)',
           image: './_assets/covers/Octopus_cover.jpg',
@@ -772,7 +787,7 @@ class Component extends DCLogic {
         },
         {
           title: 'Baby Milestone Cards',
-          blurb: 'A tender illustrated collection of milestone cards celebrating first year moments with whimsical storybook animals and soft watercolor textures.',
+          blurb: 'Cards for a baby\'s first year milestones, with storybook animals and soft watercolour.',
           slot: 'stationery illustration',
           tint: 'var(--cream)',
           image: './_assets/covers/Babymilestone_cover.jpg',
@@ -784,7 +799,7 @@ class Component extends DCLogic {
         },
         {
           title: 'General Illustrations',
-          blurb: 'A digital illustration and portrait series exploring stylized female figures, minimalist line art, and organic botanical silhouettes.',
+          blurb: 'Digital portraits of women, simple line drawings and plant shapes I\'ve drawn over the years.',
           slot: 'digital portraits',
           tint: 'var(--mint)',
           image: './_assets/covers/General_illustrations_cover.jpg',

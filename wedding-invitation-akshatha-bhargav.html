@@ -3,9 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#F7F4EF">
 <link rel="icon" href="data:,">
-<title>Wedding Stationery : Akshatha &amp; Bhargav | Anadhya Badri Narayan</title>
-<meta name="description" content="A bespoke botanical wedding invitation suite designed by Anadhya for Akshatha &amp; Bhargav, featuring gold foil monogram and watercolor artwork for Le Méridien and Ebisu Palace celebrations.">
+<title>Akshatha &amp; Bhargav's Wedding Stationery | Anadhya Badri Narayan</title>
+<meta name="description" content="Wedding stationery for Akshatha and Bhargav, with a gold foil monogram and watercolour florals for events at Le Méridien and Ebisu Palace.">
 <script>
   (function () {
     try {
@@ -13,6 +14,7 @@
       var saved = (urlTheme === 'dark' || urlTheme === 'light') ? urlTheme : localStorage.getItem('me-portfolio-theme');
       var theme = (saved === 'dark' || saved === 'light') ? saved : 'light';
       document.documentElement.setAttribute('data-theme', theme);
+      var tc = document.querySelector('meta[name="theme-color"]'); if (tc) tc.setAttribute('content', theme === 'dark' ? '#1C1C1A' : '#F7F4EF');
     } catch (e) {
       document.documentElement.setAttribute('data-theme', 'light');
     }
@@ -22,10 +24,12 @@
   html[data-theme="dark"] {
     background-color: #1C1C1A;
     color: #EDE9E2;
+    color-scheme: dark;
   }
   html[data-theme="light"], html:not([data-theme="dark"]) {
     background-color: #F7F4EF;
     color: #262421;
+    color-scheme: light;
   }
 </style>
 <script src="./lenis.min.js" defer></script>
@@ -56,6 +60,8 @@
           if (target) {
             e.preventDefault();
             lenis.scrollTo(target, { offset: 0, duration: 1.2 });
+            if (!target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1');
+            target.focus({ preventScroll: true });
           }
         }
       });
@@ -92,7 +98,7 @@
     --surface: #FFFFFF;
     --ink: #262421;
     --ink-2: #524E46;
-    --line: rgba(38,36,33,0.10);
+    --line: rgba(38,36,33,0.14);
     --mint: #CFE8DB;
     --blush: #F6DADF;
     --lav: #DFD9F3;
@@ -104,6 +110,7 @@
     --btn-bg: #262421;
     --btn-ink: #FBF9F5;
     --stripe: rgba(38,36,33,0.05);
+    --plate: #FAF7F0;
     --card-shadow: 0 4px 14px rgba(38,36,33,0.04), 0 1px 3px rgba(38,36,33,0.03);
     --card-shadow-hover: 0 16px 36px rgba(38,36,33,0.08), 0 4px 10px rgba(38,36,33,0.04);
   }
@@ -125,6 +132,7 @@
     --btn-bg: #CFE8DB;
     --btn-ink: #1C1C1A;
     --stripe: rgba(237,233,226,0.06);
+    --plate: #2E2D2A;
     --card-shadow: 0 4px 14px rgba(0,0,0,0.22);
     --card-shadow-hover: 0 16px 36px rgba(0,0,0,0.38), 0 4px 10px rgba(0,0,0,0.25);
   }
@@ -180,6 +188,12 @@
     top: 20px;
   }
 
+  main[tabindex="-1"]:focus { outline: none; }
+  .brand-short { display: none; }
+  @media (max-width: 640px) {
+    .brand-full { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+    .brand-short { display: inline; }
+  }
   .sr-only {
     position: absolute;
     width: 1px;
@@ -210,13 +224,14 @@
     z-index: 100;
     opacity: 0;
     transform: translateY(16px);
-    transition: opacity 240ms ease, transform 240ms cubic-bezier(0.2, 0.9, 0.3, 1), background 200ms ease;
+    transition: opacity 240ms ease, transform 240ms cubic-bezier(0.2, 0.9, 0.3, 1), background 200ms ease, visibility 240ms;
     pointer-events: none;
+    visibility: hidden;
   }
   .back-to-top-btn.is-visible {
     opacity: 1;
     transform: translateY(0);
-    pointer-events: auto;
+    pointer-events: auto; visibility: visible;
   }
   .back-to-top-btn:hover {
     background: var(--mint);
@@ -247,9 +262,9 @@
   <div style="max-width: 1080px; margin: 0 auto;">
 
     <!-- Navigation -->
-    <nav aria-label="Main Navigation" style="display: flex; align-items: center; justify-content: space-between; gap: 20px; padding-bottom: clamp(40px, 8vh, 80px);">
+    <nav aria-label="Main" style="display: flex; align-items: center; justify-content: space-between; gap: 20px; padding-bottom: clamp(40px, 8vh, 80px);">
       <a href="index.html" style="font-family: 'Archivo', Helvetica, sans-serif; font-size: 17px; font-weight: 600; letter-spacing: -0.01em; display: inline-flex; align-items: center; gap: 8px;">
-        <span>Anadhya Badri Narayan</span>
+        <span class="brand-full">Anadhya Badri Narayan</span><span class="brand-short" aria-hidden="true">ABN</span>
       </a>
       <div style="display: flex; align-items: center; gap: clamp(14px, 2.4vw, 28px);">
         <a href="index.html" style="font-size: 13.5px; font-weight: 500; color: var(--ink-2);" style-hover="color: var(--ink);">Home</a>
@@ -297,15 +312,15 @@
       <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px;">
         <span style="background: var(--powder); color: var(--chip-ink); border-radius: 999px; padding: 6px 14px; font-size: 12.5px; font-weight: 600;">Wedding Stationery &amp; Print</span>
         <span style="background: var(--blush); color: var(--chip-ink); border-radius: 999px; padding: 6px 14px; font-size: 12.5px; font-weight: 600;">Botanical Watercolour</span>
-        <span style="background: var(--mint); color: var(--chip-ink); border-radius: 999px; padding: 6px 14px; font-size: 12.5px; font-weight: 600;">Bengaluru &middot; April 2019</span>
+        <span style="background: var(--mint); color: var(--chip-ink); border-radius: 999px; padding: 6px 14px; font-size: 12.5px; font-weight: 600;">Bengaluru, April 2019</span>
       </div>
       
       <h1 style="margin: 0; font-family: 'Archivo', Helvetica, sans-serif; font-weight: 600; font-size: clamp(34px, 5.5vw, 64px); line-height: 1.08; letter-spacing: -0.02em; text-wrap: balance;">
-        Wedding Stationery : Akshatha &amp; Bhargav
+        Akshatha &amp; Bhargav's Wedding Stationery
       </h1>
 
       <p style="margin: 20px 0 0; font-family: 'Karla', sans-serif; font-size: clamp(16px, 1.75vw, 21px); line-height: 1.5; color: var(--ink-2); max-width: 100%;">
-        <em>&ldquo;Blush florals, gold foil, and watercolor memories&rdquo;</em> : A bespoke wedding invitation suite uniting celebration cards across Le Méridien and Ebisu Palace.
+        <em>“Blush florals, gold foil and watercolour”</em>. One invitation suite for four events at Le Méridien and Ebisu Palace.
       </p>
 
       <!-- Project Metadata Grid -->
@@ -337,15 +352,15 @@
           <span style="font-family: 'Space Mono', monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-2); display: block; margin-bottom: 16px;">The Concept</span>
           
           <h2 style="margin: 0 0 24px; font-family: 'Archivo', Helvetica, sans-serif; font-weight: 600; font-size: clamp(24px, 3.2vw, 36px); line-height: 1.2; letter-spacing: -0.01em;">
-            Balancing lush botanical florals, shimmering gold foil calligraphy, and expressive watercolor washes.
+            Soft florals, a bit of gold and a lot of watercolour.
           </h2>
 
           <p style="margin: 0 0 20px; font-size: clamp(16px, 1.4vw, 18px); line-height: 1.7; color: var(--ink-2); text-wrap: pretty;">
-            Designed for Akshatha Nagendra and Bhargav Sosale, this bespoke wedding invitation suite weaves together the romance of botanical illustrations with the lively spirit of four distinct wedding celebrations in Bengaluru.
+            Akshatha Nagendra and Bhargav Sosale had four celebrations in Bengaluru, each with its own mood. I wanted the suite to feel romantic, but still fun enough for the cocktail party and the mehendi.
           </p>
 
           <p style="margin: 0; font-size: clamp(16px, 1.4vw, 18px); line-height: 1.7; color: var(--ink-2); text-wrap: pretty;">
-            The experience begins with a refined blush envelope folio graced by a shimmering gold foil calligraphy monogram "AB", opening into individual watercolor illustrated celebration cards tailored for each festive gathering across Le Méridien and Ebisu Palace.
+            It opens with a blush folio and a gold foil AB monogram. Inside there's a separate watercolour card for each event at Le Méridien and Ebisu Palace.
           </p>
         </div>
 
@@ -353,27 +368,27 @@
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px; margin-top: clamp(36px, 5vw, 54px);">
           
           <div style="padding: 18px; background: var(--bg); border-radius: calc(var(--r) - 14px);">
-            <div style="width: 36px; height: 36px; border-radius: 999px; background: var(--blush); display: flex; align-items: center; justify-content: center; font-size: 16px; margin-bottom: 12px;">🌸</div>
+            <div aria-hidden="true" style="width: 36px; height: 36px; border-radius: 999px; background: var(--blush); display: flex; align-items: center; justify-content: center; font-size: 16px; margin-bottom: 12px;">🌸</div>
             <h3 style="margin: 0 0 6px; font-size: 15px; font-weight: 600;">Peach &amp; Blush Florals</h3>
-            <p style="margin: 0; font-size: 13.5px; line-height: 1.55; color: var(--ink-2);">Delicate garden roses, leafy eucalyptus branches, and soft pastel petals framing ceremonial announcements with organic warmth.</p>
+            <p style="margin: 0; font-size: 13.5px; line-height: 1.55; color: var(--ink-2);">Garden roses, eucalyptus and pastel petals around the text.</p>
           </div>
 
           <div style="padding: 18px; background: var(--bg); border-radius: calc(var(--r) - 14px);">
-            <div style="width: 36px; height: 36px; border-radius: 999px; background: var(--cream); display: flex; align-items: center; justify-content: center; font-size: 16px; margin-bottom: 12px;">✨</div>
+            <div aria-hidden="true" style="width: 36px; height: 36px; border-radius: 999px; background: var(--cream); display: flex; align-items: center; justify-content: center; font-size: 16px; margin-bottom: 12px;">✨</div>
             <h3 style="margin: 0 0 6px; font-size: 15px; font-weight: 600;">Gold Foil Monogram</h3>
-            <p style="margin: 0; font-size: 13.5px; line-height: 1.55; color: var(--ink-2);">An elegant intertwined ligature monogram "AB" stamped with warm metallic foil on premium cotton cardstock.</p>
+            <p style="margin: 0; font-size: 13.5px; line-height: 1.55; color: var(--ink-2);">An AB monogram stamped in gold foil on thick cotton card.</p>
           </div>
 
           <div style="padding: 18px; background: var(--bg); border-radius: calc(var(--r) - 14px);">
-            <div style="width: 36px; height: 36px; border-radius: 999px; background: var(--mint); display: flex; align-items: center; justify-content: center; font-size: 16px; margin-bottom: 12px;">🎨</div>
-            <h3 style="margin: 0 0 6px; font-size: 15px; font-weight: 600;">Fluid Watercolor Washes</h3>
-            <p style="margin: 0; font-size: 13.5px; line-height: 1.55; color: var(--ink-2);">Fluid turquoise and sunset orange gouache washes capturing the exuberant spirit of the Cocktail Party and Mehendi.</p>
+            <div aria-hidden="true" style="width: 36px; height: 36px; border-radius: 999px; background: var(--mint); display: flex; align-items: center; justify-content: center; font-size: 16px; margin-bottom: 12px;">🎨</div>
+            <h3 style="margin: 0 0 6px; font-size: 15px; font-weight: 600;">Loose Watercolour Washes</h3>
+            <p style="margin: 0; font-size: 13.5px; line-height: 1.55; color: var(--ink-2);">Turquoise for the cocktail party and sunset orange for the mehendi, painted in gouache.</p>
           </div>
 
           <div style="padding: 18px; background: var(--bg); border-radius: calc(var(--r) - 14px);">
-            <div style="width: 36px; height: 36px; border-radius: 999px; background: var(--powder); display: flex; align-items: center; justify-content: center; font-size: 16px; margin-bottom: 12px;">🏰</div>
+            <div aria-hidden="true" style="width: 36px; height: 36px; border-radius: 999px; background: var(--powder); display: flex; align-items: center; justify-content: center; font-size: 16px; margin-bottom: 12px;">🏰</div>
             <h3 style="margin: 0 0 6px; font-size: 15px; font-weight: 600;">Ebisu Palace &amp; Le Méridien</h3>
-            <p style="margin: 0; font-size: 13.5px; line-height: 1.55; color: var(--ink-2);">Harmonizing modern city elegance with palace grounds architecture across four days of memorable rituals.</p>
+            <p style="margin: 0; font-size: 13.5px; line-height: 1.55; color: var(--ink-2);">A modern hotel and the palace grounds, four days of events that still needed to look like one wedding.</p>
           </div>
 
         </div>
@@ -389,23 +404,23 @@
           <div>
             <span style="font-family: 'Space Mono', monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-2); display: block; margin-bottom: 8px;">The Suite Flatlay</span>
             <h2 style="margin: 0; font-family: 'Archivo', Helvetica, sans-serif; font-weight: 600; font-size: clamp(22px, 3vw, 32px); letter-spacing: -0.01em;">
-              A tactile arrangement of foil, botanical artwork, and candlelight
+              Foil, flowers and a little candlelight
             </h2>
           </div>
           <span style="font-family: 'Space Mono', monospace; font-size: 12px; background: var(--powder); color: var(--chip-ink); padding: 6px 14px; border-radius: 999px; font-weight: 600;">Printed Suite</span>
         </div>
 
-        <div style="border-radius: calc(var(--r) - 10px); overflow: hidden; border: 1px solid var(--line); background: #FAF7F0;">
+        <div style="border-radius: calc(var(--r) - 10px); overflow: hidden; border: 1px solid var(--line); background: var(--plate);">
           <img 
             src="./_assets/covers/Bhargav_cover.jpg" 
-            alt="Akshatha &amp; Bhargav : Complete Wedding Stationery Suite Flatlay" 
+            alt="Akshatha and Bhargav's full wedding stationery suite laid out" 
             loading="lazy"
             style="width: 100%; height: auto; max-height: 640px; object-fit: cover; display: block;"
           />
         </div>
 
         <p style="margin: 18px 0 0; font-size: 14.5px; line-height: 1.6; color: var(--ink-2);">
-          The complete wedding stationery suite composed in natural daylight on polished wood, featuring the warm glow of a votive candle, soft blush envelope folio, individual celebration inserts, and delicate rose gold ribbon.
+          The whole suite on a wooden table in daylight, with a candle, the blush folio, each event card and a rose gold ribbon.
         </p>
 
       </div>
@@ -417,10 +432,10 @@
       <div style="margin-bottom: clamp(28px, 4vw, 44px);">
         <span style="font-family: 'Space Mono', monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-2); display: block; margin-bottom: 8px;">Celebration Inserts</span>
         <h2 style="margin: 0; font-family: 'Archivo', Helvetica, sans-serif; font-weight: 600; font-size: clamp(24px, 3.2vw, 36px); letter-spacing: -0.01em;">
-          Individual celebration cards tailored for every ritual
+          A card for every event
         </h2>
         <p style="margin: 10px 0 0; font-size: clamp(15px, 1.3vw, 17px); color: var(--ink-2); max-width: 68ch;">
-          Each event received its own tailored visual treatment, coordinating watercolor washes, typography, and botanical framing to reflect the tone of the occasion.
+          Each event got its own colours and florals, depending on how dressy or relaxed it was.
         </p>
       </div>
 
@@ -428,10 +443,10 @@
         
         <!-- Card 1: Cover Monogram Folio -->
         <article class="zoom-card" style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 18px 18px 24px; display: flex; flex-direction: column;">
-          <div style="border-radius: calc(var(--r) - 12px); overflow: hidden; background: #FAF7F0; border: 1px solid var(--line); display: flex; justify-content: center; align-items: center; aspect-ratio: 3/4;">
+          <div style="border-radius: calc(var(--r) - 12px); overflow: hidden; background: var(--plate); border: 1px solid var(--line); display: flex; justify-content: center; align-items: center; aspect-ratio: 3/4;">
             <img 
               src="./_assets/Bhargav_cover/1.webp" 
-              alt="Akshatha &amp; Bhargav : Gold Foil Calligraphy Monogram Cover Folio" 
+              alt="Cover folio with the gold foil AB monogram" 
               loading="lazy"
               style="width: 100%; height: 100%; object-fit: contain; display: block; padding: 12px;"
             />
@@ -442,17 +457,17 @@
               <span style="font-family: 'Space Mono', monospace; font-size: 11px; background: var(--cream); color: var(--chip-ink); padding: 4px 10px; border-radius: 999px;">Folio</span>
             </div>
             <p style="margin: 0; font-size: 14px; line-height: 1.6; color: var(--ink-2); flex: 1;">
-              The formal outer card displaying the gold foil calligraphy monogram "AB", botanical branch accents, and the names Akshatha Nagendra &amp; Bhargav Sosale on tactile blush cardstock.
+              The outer card, with the gold AB monogram, a few branches and the names Akshatha Nagendra &amp; Bhargav Sosale on blush card.
             </p>
           </div>
         </article>
 
         <!-- Card 2: Cocktail Party Card -->
         <article class="zoom-card" style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 18px 18px 24px; display: flex; flex-direction: column;">
-          <div style="border-radius: calc(var(--r) - 12px); overflow: hidden; background: #FAF7F0; border: 1px solid var(--line); display: flex; justify-content: center; align-items: center; aspect-ratio: 3/4;">
+          <div style="border-radius: calc(var(--r) - 12px); overflow: hidden; background: var(--plate); border: 1px solid var(--line); display: flex; justify-content: center; align-items: center; aspect-ratio: 3/4;">
             <img 
               src="./_assets/Bhargav_cover/5.webp" 
-              alt="Akshatha &amp; Bhargav : Cocktail Party Card at Le Méridien" 
+              alt="Cocktail party card for Le Méridien" 
               loading="lazy"
               style="width: 100%; height: 100%; object-fit: contain; display: block; padding: 12px;"
             />
@@ -463,17 +478,17 @@
               <span style="font-family: 'Space Mono', monospace; font-size: 11px; background: var(--powder); color: var(--chip-ink); padding: 4px 10px; border-radius: 999px;">19 April 2019</span>
             </div>
             <p style="margin: 0; font-size: 14px; line-height: 1.6; color: var(--ink-2); flex: 1;">
-              Friday, 19th April at Le Méridien, Bengaluru, 7:00 PM onwards. Expressive fluid turquoise watercolor wash symbolizing celebration and lively evening revelry.
+              Friday, 19th April at Le Méridien, Bengaluru, 7:00 PM onwards. A bright turquoise wash for a fun night out.
             </p>
           </div>
         </article>
 
         <!-- Card 3: Mehendi Card -->
         <article class="zoom-card" style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 18px 18px 24px; display: flex; flex-direction: column;">
-          <div style="border-radius: calc(var(--r) - 12px); overflow: hidden; background: #FAF7F0; border: 1px solid var(--line); display: flex; justify-content: center; align-items: center; aspect-ratio: 3/4;">
+          <div style="border-radius: calc(var(--r) - 12px); overflow: hidden; background: var(--plate); border: 1px solid var(--line); display: flex; justify-content: center; align-items: center; aspect-ratio: 3/4;">
             <img 
               src="./_assets/Bhargav_cover/6.webp" 
-              alt="Akshatha &amp; Bhargav : Mehendi Celebration Card at Le Méridien" 
+              alt="Mehendi card for Le Méridien" 
               loading="lazy"
               style="width: 100%; height: 100%; object-fit: contain; display: block; padding: 12px;"
             />
@@ -484,17 +499,17 @@
               <span style="font-family: 'Space Mono', monospace; font-size: 11px; background: var(--mint); color: var(--chip-ink); padding: 4px 10px; border-radius: 999px;">20 April 2019</span>
             </div>
             <p style="margin: 0; font-size: 14px; line-height: 1.6; color: var(--ink-2); flex: 1;">
-              Saturday, 20th April at Le Méridien, Bengaluru, 12:00 PM onwards. Warm sunset orange and coral watercolor wash evoking sunlit afternoon music and henna artistry.
+              Saturday, 20th April at Le Méridien, Bengaluru, 12:00 PM onwards. Orange and coral, for an afternoon of music and henna.
             </p>
           </div>
         </article>
 
         <!-- Card 4: Reception Card -->
         <article class="zoom-card" style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 18px 18px 24px; display: flex; flex-direction: column;">
-          <div style="border-radius: calc(var(--r) - 12px); overflow: hidden; background: #FAF7F0; border: 1px solid var(--line); display: flex; justify-content: center; align-items: center; aspect-ratio: 3/4;">
+          <div style="border-radius: calc(var(--r) - 12px); overflow: hidden; background: var(--plate); border: 1px solid var(--line); display: flex; justify-content: center; align-items: center; aspect-ratio: 3/4;">
             <img 
               src="./_assets/Bhargav_cover/3.webp" 
-              alt="Akshatha &amp; Bhargav : Wedding Reception Card at Ebisu Palace" 
+              alt="Reception card for Ebisu Palace" 
               loading="lazy"
               style="width: 100%; height: 100%; object-fit: contain; display: block; padding: 12px;"
             />
@@ -505,17 +520,17 @@
               <span style="font-family: 'Space Mono', monospace; font-size: 11px; background: var(--blush); color: var(--chip-ink); padding: 4px 10px; border-radius: 999px;">21 April 2019</span>
             </div>
             <p style="margin: 0; font-size: 14px; line-height: 1.6; color: var(--ink-2); flex: 1;">
-              Sunday, 21st April at Ebisu Palace, Palace Grounds, Bengaluru, 7:00 PM onwards. Encased within an intricate perimeter wreath of watercolor peach roses and wild greenery.
+              Sunday, 21st April at Ebisu Palace, Palace Grounds, Bengaluru, 7:00 PM onwards. Framed with a wreath of peach roses and wild greens.
             </p>
           </div>
         </article>
 
         <!-- Card 5: Wedding Muhurtham Card -->
         <article class="zoom-card" style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 18px 18px 24px; display: flex; flex-direction: column;">
-          <div style="border-radius: calc(var(--r) - 12px); overflow: hidden; background: #FAF7F0; border: 1px solid var(--line); display: flex; justify-content: center; align-items: center; aspect-ratio: 3/4;">
+          <div style="border-radius: calc(var(--r) - 12px); overflow: hidden; background: var(--plate); border: 1px solid var(--line); display: flex; justify-content: center; align-items: center; aspect-ratio: 3/4;">
             <img 
               src="./_assets/Bhargav_cover/2.webp" 
-              alt="Akshatha &amp; Bhargav : Wedding Muhurtham Card at Ebisu Palace" 
+              alt="Muhurtham card for Ebisu Palace" 
               loading="lazy"
               style="width: 100%; height: 100%; object-fit: contain; display: block; padding: 12px;"
             />
@@ -526,17 +541,17 @@
               <span style="font-family: 'Space Mono', monospace; font-size: 11px; background: var(--cream); color: var(--chip-ink); padding: 4px 10px; border-radius: 999px;">22 April 2019</span>
             </div>
             <p style="margin: 0; font-size: 14px; line-height: 1.6; color: var(--ink-2); flex: 1;">
-              Monday, 22nd April at Ebisu Palace, Palace Grounds, Bengaluru. Muhurtham 11:53 AM to 12:30 PM, topped with a delicate floral bouquet and the "a + b" ligature.
+              Monday, 22nd April at Ebisu Palace, Palace Grounds, Bengaluru. Muhurtham 11:53 AM to 12:30 PM, with a small bouquet on top and the "a + b" ligature.
             </p>
           </div>
         </article>
 
         <!-- Card 6: Printed Suite Flatlay -->
         <article class="zoom-card" style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 18px 18px 24px; display: flex; flex-direction: column;">
-          <div style="border-radius: calc(var(--r) - 12px); overflow: hidden; background: #FAF7F0; border: 1px solid var(--line); display: flex; justify-content: center; align-items: center; aspect-ratio: 3/4;">
+          <div style="border-radius: calc(var(--r) - 12px); overflow: hidden; background: var(--plate); border: 1px solid var(--line); display: flex; justify-content: center; align-items: center; aspect-ratio: 3/4;">
             <img 
               src="./_assets/Bhargav_cover/4.webp" 
-              alt="Akshatha &amp; Bhargav : Printed Suite Presentation Flatlay" 
+              alt="The printed suite laid out with ribbon and candlelight" 
               loading="lazy"
               style="width: 100%; height: 100%; object-fit: cover; display: block;"
             />
@@ -547,7 +562,7 @@
               <span style="font-family: 'Space Mono', monospace; font-size: 11px; background: var(--powder); color: var(--chip-ink); padding: 4px 10px; border-radius: 999px;">Flatlay</span>
             </div>
             <p style="margin: 0; font-size: 14px; line-height: 1.6; color: var(--ink-2); flex: 1;">
-              Tactile showcase displaying the entire suite of printed cards, rose gold ribbon, and ambient candlelight arranged for keepsake documentation.
+              All the printed cards together with the rose gold ribbon and a candle, photographed as a keepsake.
             </p>
           </div>
         </article>
@@ -559,10 +574,10 @@
     <section style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: clamp(30px, 5vw, 54px); margin-bottom: clamp(56px, 9vh, 100px); display: flex; flex-wrap: wrap; gap: 24px; align-items: center; justify-content: space-between;">
       <div>
         <h2 style="margin: 0; max-width: 22ch; font-family: 'Archivo', Helvetica, sans-serif; font-weight: 600; font-size: clamp(22px, 3vw, 34px); line-height: 1.15; letter-spacing: -0.02em; text-wrap: pretty;">
-          Planning a bespoke wedding suite or cultural celebration?
+          Planning a wedding?
         </h2>
         <p style="margin: 12px 0 0; font-size: 15px; color: var(--ink-2);">
-          Creating heirloom celebration suites, tactile invitations, and personal visual narratives.
+          I make invitations people hold on to long after the day.
         </p>
       </div>
       <div style="display: flex; flex-wrap: wrap; gap: 12px;">
@@ -577,7 +592,7 @@
     <footer style="border-top: 1px solid var(--line); padding: clamp(36px, 6vw, 60px) 0 44px; display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-end; justify-content: space-between;">
       <div>
         <p style="margin: 0; font-family: 'Archivo', Helvetica, sans-serif; font-weight: 600; font-size: clamp(20px, 2.6vw, 27px); letter-spacing: -0.02em;">Let's make something calm.</p>
-        <p style="margin: 10px 0 0; font-family: 'Space Mono', monospace; font-size: 12px; color: var(--ink-2);">&copy; 2026 Anadhya Badri Narayan &middot; Bengaluru, India</p>
+        <p style="margin: 10px 0 0; font-family: 'Space Mono', monospace; font-size: 12px; color: var(--ink-2);">© 2026 Anadhya Badri Narayan, Bengaluru, India</p>
       </div>
       <div style="display: flex; flex-wrap: wrap; gap: 10px;">
         <a href="mailto:anadhya94@gmail.com" style="border: 1px solid var(--line); background: var(--bg-2); border-radius: 999px; padding: 12px 22px; font-size: 13.5px; font-weight: 500; min-height: 44px; display: inline-flex; align-items: center; justify-content: center; transition: background 200ms ease;" style-hover="background: var(--mint); color: var(--chip-ink);">Email</a>
@@ -638,6 +653,7 @@ class Component extends DCLogic {
 
   applyTheme(t) {
     document.documentElement.setAttribute('data-theme', t);
+    var tc = document.querySelector('meta[name="theme-color"]'); if (tc) tc.setAttribute('content', t === 'dark' ? '#1C1C1A' : '#F7F4EF');
   }
 
   toggleTheme = () => {
@@ -671,6 +687,8 @@ class Component extends DCLogic {
     window.addEventListener('scroll', toggleBtt, { passive: true });
     toggleBtt();
     btt.addEventListener('click', function() {
+      var firstLink = document.querySelector('nav a');
+      if (firstLink) firstLink.focus({ preventScroll: true });
       if (window.lenis) {
         window.lenis.scrollTo(0, { duration: 1.2 });
       } else {

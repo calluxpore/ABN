@@ -3,9 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#F7F4EF">
 <link rel="icon" href="data:,">
-<title>Restaurant Branding : Money Heist EN Whitefield | Anadhya Badri Narayan</title>
-<meta name="description" content="A bold themed character illustration set for Money Heist EN Whitefield Bar and Kitchen in Bangalore, translating the iconic cast into bespoke flat vector portraits with custom day offer graphics.">
+<title>Money Heist EN Whitefield Restaurant Branding | Anadhya Badri Narayan</title>
+<meta name="description" content="Character portraits and offer graphics for Money Heist EN Whitefield, a La Casa de Papel themed bar and kitchen in Bangalore.">
 <script>
   (function () {
     try {
@@ -13,6 +14,7 @@
       var saved = (urlTheme === 'dark' || urlTheme === 'light') ? urlTheme : localStorage.getItem('me-portfolio-theme');
       var theme = (saved === 'dark' || saved === 'light') ? saved : 'light';
       document.documentElement.setAttribute('data-theme', theme);
+      var tc = document.querySelector('meta[name="theme-color"]'); if (tc) tc.setAttribute('content', theme === 'dark' ? '#1C1C1A' : '#F7F4EF');
     } catch (e) {
       document.documentElement.setAttribute('data-theme', 'light');
     }
@@ -22,10 +24,12 @@
   html[data-theme="dark"] {
     background-color: #1C1C1A;
     color: #EDE9E2;
+    color-scheme: dark;
   }
   html[data-theme="light"], html:not([data-theme="dark"]) {
     background-color: #F7F4EF;
     color: #262421;
+    color-scheme: light;
   }
 </style>
 <script src="./lenis.min.js" defer></script>
@@ -55,6 +59,8 @@
           if (target) {
             e.preventDefault();
             lenis.scrollTo(target, { offset: 0, duration: 1.2 });
+            if (!target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1');
+            target.focus({ preventScroll: true });
           }
         }
       });
@@ -88,7 +94,7 @@
     --surface: #FFFFFF;
     --ink: #262421;
     --ink-2: #524E46;
-    --line: rgba(38,36,33,0.10);
+    --line: rgba(38,36,33,0.14);
     --mint: #CFE8DB;
     --blush: #F6DADF;
     --lav: #DFD9F3;
@@ -154,6 +160,12 @@
     border-radius: 8px; z-index: 9999; transition: top 180ms ease; text-decoration: none;
   }
   .skip-link:focus { top: 20px; }
+  main[tabindex="-1"]:focus { outline: none; }
+  .brand-short { display: none; }
+  @media (max-width: 640px) {
+    .brand-full { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+    .brand-short { display: inline; }
+  }
   .sr-only {
     position: absolute; width: 1px; height: 1px; padding: 0;
     margin: -1px; overflow: hidden; clip: rect(0,0,0,0);
@@ -168,10 +180,11 @@
     display: flex; align-items: center; justify-content: center;
     cursor: pointer; z-index: 100;
     opacity: 0; transform: translateY(16px);
-    transition: opacity 240ms ease, transform 240ms cubic-bezier(0.2,0.9,0.3,1), background 200ms ease;
+    transition: opacity 240ms ease, transform 240ms cubic-bezier(0.2,0.9,0.3,1), background 200ms ease, visibility 240ms;
     pointer-events: none;
+    visibility: hidden;
   }
-  .back-to-top-btn.is-visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
+  .back-to-top-btn.is-visible { opacity: 1; transform: translateY(0); pointer-events: auto; visibility: visible; }
   .back-to-top-btn:hover { background: var(--mint); color: var(--chip-ink); }
   @media (prefers-reduced-motion: reduce) {
     *, ::before, ::after {
@@ -189,9 +202,9 @@
   <div style="max-width: 1080px; margin: 0 auto;">
 
     <!-- Navigation -->
-    <nav aria-label="Main Navigation" style="display: flex; align-items: center; justify-content: space-between; gap: 20px; padding-bottom: clamp(40px, 8vh, 80px);">
+    <nav aria-label="Main" style="display: flex; align-items: center; justify-content: space-between; gap: 20px; padding-bottom: clamp(40px, 8vh, 80px);">
       <a href="index.html" style="font-family: 'Archivo', Helvetica, sans-serif; font-size: 17px; font-weight: 600; letter-spacing: -0.01em; display: inline-flex; align-items: center; gap: 8px;">
-        <span>Anadhya Badri Narayan</span>
+        <span class="brand-full">Anadhya Badri Narayan</span><span class="brand-short" aria-hidden="true">ABN</span>
       </a>
       <div style="display: flex; align-items: center; gap: clamp(14px, 2.4vw, 28px);">
         <a href="index.html" style="font-size: 13.5px; font-weight: 500; color: var(--ink-2);" style-hover="color: var(--ink);">Home</a>
@@ -239,15 +252,15 @@
       <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px;">
         <span style="background: var(--blush); color: var(--chip-ink); border-radius: 999px; padding: 6px 14px; font-size: 12.5px; font-weight: 600;">Restaurant Branding</span>
         <span style="background: var(--mint); color: var(--chip-ink); border-radius: 999px; padding: 6px 14px; font-size: 12.5px; font-weight: 600;">Character Illustration</span>
-        <span style="background: var(--cream); color: var(--chip-ink); border-radius: 999px; padding: 6px 14px; font-size: 12.5px; font-weight: 600;">Whitefield &middot; Bangalore</span>
+        <span style="background: var(--cream); color: var(--chip-ink); border-radius: 999px; padding: 6px 14px; font-size: 12.5px; font-weight: 600;">Whitefield, Bangalore</span>
       </div>
 
       <h1 style="margin: 0; font-family: 'Archivo', Helvetica, sans-serif; font-weight: 600; font-size: clamp(34px, 5.5vw, 64px); line-height: 1.08; letter-spacing: -0.02em; text-wrap: balance;">
-        Restaurant Branding : Money Heist EN Whitefield
+        Money Heist EN Whitefield Restaurant Branding
       </h1>
 
       <p style="margin: 20px 0 0; font-size: clamp(16px, 1.75vw, 21px); line-height: 1.5; color: var(--ink-2); max-width: 100%;">
-        <em>&ldquo;Where every guest becomes a member of the crew&rdquo;</em> : A full character illustration suite and branded day offer graphics for a boldly themed bar and kitchen in Whitefield.
+        <em>&ldquo;Where every guest becomes a member of the crew&rdquo;</em>. Character portraits and daily offer graphics for a themed bar and kitchen in Whitefield.
       </p>
 
       <!-- Metadata Grid -->
@@ -258,7 +271,7 @@
         </div>
         <div>
           <span style="font-family: 'Space Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-2); display: block; margin-bottom: 6px;">Theme</span>
-          <span style="font-weight: 600; font-size: 15px;">La Casa de Papel Universe</span>
+          <span style="font-weight: 600; font-size: 15px;">La Casa de Papel</span>
         </div>
         <div>
           <span style="font-family: 'Space Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-2); display: block; margin-bottom: 6px;">Deliverables</span>
@@ -282,11 +295,11 @@
           </h2>
 
           <p style="margin: 0 0 20px; font-size: clamp(16px, 1.4vw, 18px); line-height: 1.7; color: var(--ink-2); text-wrap: pretty;">
-            Money Heist EN Whitefield approached the brief with a clear vision: the restaurant would embody the world of La Casa de Papel, with the crew as brand ambassadors and every touch point a nod to the show. The brief called for a full set of character portraits that felt authentically rooted in the flat vector aesthetic of the series, translated into a cohesive illustration language suited for print, digital, and in venue display.
+            Money Heist EN Whitefield knew exactly what they wanted. The whole place would feel like La Casa de Papel, with the crew as the faces of the brand and little nods to the show everywhere. They needed a full set of character portraits in a flat vector style that would work in print, on Instagram and on the walls.
           </p>
 
           <p style="margin: 0; font-size: clamp(16px, 1.4vw, 18px); line-height: 1.7; color: var(--ink-2); text-wrap: pretty;">
-            Starting from detailed character study of the original cast, each portrait was built in a bold, graphic flat vector style capturing the recognisable red jumpsuit, the individual personality cues, and the attitude. The Professor received his signature chain and character card finish, Tokyo her choker and bob cut, Nairobi her braided pigtails and feather earrings, and the muscle of the crew their crossed rifles and intense stares. The result is a crew portrait gallery that doubles as a visual identity for the venue.
+            I started by studying the cast closely. Every portrait has the red jumpsuit, but the small details make each one recognisable, like the Professor's glasses, Tokyo's choker and bob, Nairobi's braids and feather earrings, and the crossed rifles and hard stares of the crew's muscle. Together they became the look of the whole venue.
           </p>
         </div>
 
@@ -294,27 +307,27 @@
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px; margin-top: clamp(36px, 5vw, 54px);">
 
           <div style="padding: 18px; background: var(--bg); border-radius: calc(var(--r) - 14px);">
-            <div style="width: 36px; height: 36px; border-radius: 999px; background: var(--blush); display: flex; align-items: center; justify-content: center; font-size: 16px; margin-bottom: 12px;">🎭</div>
+            <div aria-hidden="true" style="width: 36px; height: 36px; border-radius: 999px; background: var(--blush); display: flex; align-items: center; justify-content: center; font-size: 16px; margin-bottom: 12px;">🎭</div>
             <h3 style="margin: 0 0 6px; font-size: 15px; font-weight: 600;">Flat Vector Portraits</h3>
-            <p style="margin: 0; font-size: 13.5px; line-height: 1.55; color: var(--ink-2);">Each character built from scratch as a clean, bold flat vector illustration capturing personality, costume detail, and attitude.</p>
+            <p style="margin: 0; font-size: 13.5px; line-height: 1.55; color: var(--ink-2);">Every character drawn from scratch in clean flat vector, costume, attitude and all.</p>
           </div>
 
           <div style="padding: 18px; background: var(--bg); border-radius: calc(var(--r) - 14px);">
-            <div style="width: 36px; height: 36px; border-radius: 999px; background: var(--mint); display: flex; align-items: center; justify-content: center; font-size: 16px; margin-bottom: 12px;">🔴</div>
-            <h3 style="margin: 0 0 6px; font-size: 15px; font-weight: 600;">The Red Jumpsuit Identity</h3>
-            <p style="margin: 0; font-size: 13.5px; line-height: 1.55; color: var(--ink-2);">The iconic crimson jumpsuit and Dali mask become the brand anchor, unified across the entire crew in a cohesive colour system.</p>
+            <div aria-hidden="true" style="width: 36px; height: 36px; border-radius: 999px; background: var(--mint); display: flex; align-items: center; justify-content: center; font-size: 16px; margin-bottom: 12px;">🔴</div>
+            <h3 style="margin: 0 0 6px; font-size: 15px; font-weight: 600;">The Red Jumpsuit</h3>
+            <p style="margin: 0; font-size: 13.5px; line-height: 1.55; color: var(--ink-2);">The red jumpsuit and Dali mask tie the whole crew together and set the colours for the brand.</p>
           </div>
 
           <div style="padding: 18px; background: var(--bg); border-radius: calc(var(--r) - 14px);">
-            <div style="width: 36px; height: 36px; border-radius: 999px; background: var(--cream); display: flex; align-items: center; justify-content: center; font-size: 16px; margin-bottom: 12px;">📋</div>
+            <div aria-hidden="true" style="width: 36px; height: 36px; border-radius: 999px; background: var(--cream); display: flex; align-items: center; justify-content: center; font-size: 16px; margin-bottom: 12px;">📋</div>
             <h3 style="margin: 0 0 6px; font-size: 15px; font-weight: 600;">Branded Offer Graphics</h3>
-            <p style="margin: 0; font-size: 13.5px; line-height: 1.55; color: var(--ink-2);">Day specific promotions named after show characters: Moscow Mondays, Oslo Wednesdays, Tokio Thursdays, and weekend deals.</p>
+            <p style="margin: 0; font-size: 13.5px; line-height: 1.55; color: var(--ink-2);">Offers named after the crew, like Moscow Mondays, Oslo Wednesdays and Tokio Thursdays.</p>
           </div>
 
           <div style="padding: 18px; background: var(--bg); border-radius: calc(var(--r) - 14px);">
-            <div style="width: 36px; height: 36px; border-radius: 999px; background: var(--powder); display: flex; align-items: center; justify-content: center; font-size: 16px; margin-bottom: 12px;">💰</div>
-            <h3 style="margin: 0 0 6px; font-size: 15px; font-weight: 600;">Currency Motif System</h3>
-            <p style="margin: 0; font-size: 13.5px; line-height: 1.55; color: var(--ink-2);">Flying illustrated banknotes and the Dali mask form a recurring motif language across all printed and digital brand collateral.</p>
+            <div aria-hidden="true" style="width: 36px; height: 36px; border-radius: 999px; background: var(--powder); display: flex; align-items: center; justify-content: center; font-size: 16px; margin-bottom: 12px;">💰</div>
+            <h3 style="margin: 0 0 6px; font-size: 15px; font-weight: 600;">Money Everywhere</h3>
+            <p style="margin: 0; font-size: 13.5px; line-height: 1.55; color: var(--ink-2);">Flying banknotes and the Dali mask show up on everything, printed or online.</p>
           </div>
 
         </div>
@@ -326,7 +339,7 @@
       <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 20px; padding-bottom: 24px; border-bottom: 1px solid var(--line); margin-bottom: clamp(28px, 4vw, 44px);">
         <div>
           <span style="font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-2);">Illustration Suite</span>
-          <h2 style="margin: 6px 0 0; font-family: 'Archivo', Helvetica, sans-serif; font-weight: 600; font-size: clamp(22px, 2.8vw, 32px); letter-spacing: -0.01em;">The Crew : Character Portraits</h2>
+          <h2 style="margin: 6px 0 0; font-family: 'Archivo', Helvetica, sans-serif; font-weight: 600; font-size: clamp(22px, 2.8vw, 32px); letter-spacing: -0.01em;">The Crew</h2>
         </div>
         <span style="font-family: 'Space Mono', monospace; font-size: 12px; color: var(--ink-2);">10 Portraits</span>
       </div>
@@ -442,7 +455,7 @@
       <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 20px; padding-bottom: 24px; border-bottom: 1px solid var(--line); margin-bottom: clamp(28px, 4vw, 44px);">
         <div>
           <span style="font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-2);">Brand Collateral</span>
-          <h2 style="margin: 6px 0 0; font-family: 'Archivo', Helvetica, sans-serif; font-weight: 600; font-size: clamp(22px, 2.8vw, 32px); letter-spacing: -0.01em;">Identity Banner and Day Offer Graphics</h2>
+          <h2 style="margin: 6px 0 0; font-family: 'Archivo', Helvetica, sans-serif; font-weight: 600; font-size: clamp(22px, 2.8vw, 32px); letter-spacing: -0.01em;">Banner and Offer Graphics</h2>
         </div>
         <span style="font-family: 'Space Mono', monospace; font-size: 12px; color: var(--ink-2);">Print and Digital</span>
       </div>
@@ -451,8 +464,8 @@
       <div style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: clamp(20px, 4vw, 36px); margin-bottom: clamp(20px, 3vw, 32px);">
         <div style="margin-bottom: 18px; display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 12px;">
           <div>
-            <h3 style="margin: 0; font-family: 'Archivo', Helvetica, sans-serif; font-size: 20px; font-weight: 600; letter-spacing: -0.01em;">Money Heist EN Whitefield : Primary Identity Banner</h3>
-            <p style="margin: 4px 0 0; font-size: 14px; color: var(--ink-2);">The core venue identity graphic featuring the Dali mask, flying banknotes, and the full restaurant name lockup.</p>
+            <h3 style="margin: 0; font-family: 'Archivo', Helvetica, sans-serif; font-size: 20px; font-weight: 600; letter-spacing: -0.01em;">The Main Banner</h3>
+            <p style="margin: 4px 0 0; font-size: 14px; color: var(--ink-2);">The main graphic for the venue, with the Dali mask, flying banknotes and the full restaurant name.</p>
           </div>
           <span style="font-family: 'Space Mono', monospace; font-size: 11px; color: var(--ink-2); background: var(--bg); padding: 6px 12px; border-radius: 999px; border: 1px solid var(--line);">Brand Banner</span>
         </div>
@@ -465,8 +478,8 @@
       <div style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: clamp(20px, 4vw, 36px);">
         <div style="margin-bottom: 18px; display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 12px;">
           <div>
-            <h3 style="margin: 0; font-family: 'Archivo', Helvetica, sans-serif; font-size: 20px; font-weight: 600; letter-spacing: -0.01em;">Weekly Offer Breakdown : Character Named Days</h3>
-            <p style="margin: 4px 0 0; font-size: 14px; color: var(--ink-2);">Each day is assigned a crew member name. Moscow Mondays for MRP drinks, Oslo Wednesdays for ladies night, Tokio Thursdays for discounts, and Friday to Sunday weekend deals.</p>
+            <h3 style="margin: 0; font-family: 'Archivo', Helvetica, sans-serif; font-size: 20px; font-weight: 600; letter-spacing: -0.01em;">A Week Named After the Crew</h3>
+            <p style="margin: 4px 0 0; font-size: 14px; color: var(--ink-2);">Every day belongs to someone in the crew. Moscow Mondays for drinks at MRP, Oslo Wednesdays for ladies night, Tokio Thursdays for discounts, and deals from Friday to Sunday.</p>
           </div>
           <span style="font-family: 'Space Mono', monospace; font-size: 11px; color: var(--ink-2); background: var(--bg); padding: 6px 12px; border-radius: 999px; border: 1px solid var(--line);">Promotional Graphic</span>
         </div>
@@ -474,10 +487,10 @@
           <img src="./_assets/restaurant/12.webp" alt="Money Heist EN Whitefield weekly offer graphic showing Moscow Mondays, Oslo Wednesdays, Tokio Thursdays, and weekend deals" loading="lazy" style="width: 100%; height: auto; display: block; object-fit: contain;" />
         </div>
         <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px;">
-          <span style="font-family: 'Space Mono', monospace; font-size: 12px; background: var(--heist-cream); border: 1px solid var(--line); padding: 8px 16px; border-radius: 999px; color: var(--ink);">Moscow Mon and Tue : Drinks at MRP</span>
-          <span style="font-family: 'Space Mono', monospace; font-size: 12px; background: var(--heist-cream); border: 1px solid var(--line); padding: 8px 16px; border-radius: 999px; color: var(--ink);">Oslo Wed : Ladies Night</span>
-          <span style="font-family: 'Space Mono', monospace; font-size: 12px; background: var(--heist-cream); border: 1px solid var(--line); padding: 8px 16px; border-radius: 999px; color: var(--ink);">Tokio Thu : 15% Off</span>
-          <span style="font-family: 'Space Mono', monospace; font-size: 12px; background: var(--heist-cream); border: 1px solid var(--line); padding: 8px 16px; border-radius: 999px; color: var(--ink);">Fri to Sun : Weekend Deals</span>
+          <span style="font-family: 'Space Mono', monospace; font-size: 12px; background: var(--heist-cream); border: 1px solid var(--line); padding: 8px 16px; border-radius: 999px; color: var(--ink);">Moscow Mon and Tue, Drinks at MRP</span>
+          <span style="font-family: 'Space Mono', monospace; font-size: 12px; background: var(--heist-cream); border: 1px solid var(--line); padding: 8px 16px; border-radius: 999px; color: var(--ink);">Oslo Wed, Ladies Night</span>
+          <span style="font-family: 'Space Mono', monospace; font-size: 12px; background: var(--heist-cream); border: 1px solid var(--line); padding: 8px 16px; border-radius: 999px; color: var(--ink);">Tokio Thu, 15% Off</span>
+          <span style="font-family: 'Space Mono', monospace; font-size: 12px; background: var(--heist-cream); border: 1px solid var(--line); padding: 8px 16px; border-radius: 999px; color: var(--ink);">Fri to Sun, Weekend Deals</span>
         </div>
       </div>
     </section>
@@ -487,7 +500,7 @@
       <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 20px; padding-bottom: 24px; border-bottom: 1px solid var(--line); margin-bottom: clamp(28px, 4vw, 44px);">
         <div>
           <span style="font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-2);">Print Finish</span>
-          <h2 style="margin: 6px 0 0; font-family: 'Archivo', Helvetica, sans-serif; font-weight: 600; font-size: clamp(22px, 2.8vw, 32px); letter-spacing: -0.01em;">The Professor Character Card : Printed Flatlay</h2>
+          <h2 style="margin: 6px 0 0; font-family: 'Archivo', Helvetica, sans-serif; font-weight: 600; font-size: clamp(22px, 2.8vw, 32px); letter-spacing: -0.01em;">The Professor Cards, Printed</h2>
         </div>
         <span style="font-family: 'Space Mono', monospace; font-size: 12px; color: var(--ink-2);">Card with Gold Charm</span>
       </div>
@@ -504,13 +517,13 @@
               PRINTED DELIVERABLE
             </div>
             <h3 style="margin: 0 0 16px; font-family: 'Archivo', Helvetica, sans-serif; font-size: clamp(20px, 2.2vw, 26px); font-weight: 600; letter-spacing: -0.01em;">
-              Fanned character cards with gold charm and label finish
+              Printed cards with a gold charm
             </h3>
             <p style="margin: 0 0 16px; font-size: 15.5px; line-height: 1.65; color: var(--ink-2);">
-              The Professor character cards were printed as a fanned set, each bearing the character illustration on the front with a gold chain charm and a small character label card. The butterfly gold sticker adds a collectible quality to the printed piece.
+              The Professor cards were printed as a set, each with his portrait on the front, a gold chain charm and a small name tag. The gold butterfly sticker makes them feel like something you'd want to keep.
             </p>
             <p style="margin: 0 0 24px; font-size: 15.5px; line-height: 1.65; color: var(--ink-2);">
-              Shot against natural green grass to contrast the clean white card stock, the flatlay communicates a premium, giftable feel appropriate for the venue's immersive theme positioning.
+              I shot them on grass so the white card really stands out. It makes them look like a little gift, which suits the place.
             </p>
             <div style="display: flex; flex-wrap: wrap; gap: 8px;">
               <span style="font-family: 'Space Mono', monospace; font-size: 11.5px; background: var(--bg); border: 1px solid var(--line); padding: 6px 12px; border-radius: 999px; color: var(--ink);">Character Card Sets</span>
@@ -527,10 +540,10 @@
     <section style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: clamp(30px, 5vw, 54px); margin-bottom: clamp(56px, 9vh, 100px); display: flex; flex-wrap: wrap; gap: 24px; align-items: center; justify-content: space-between;">
       <div>
         <h2 style="margin: 0; max-width: 22ch; font-family: 'Archivo', Helvetica, sans-serif; font-weight: 600; font-size: clamp(22px, 3vw, 34px); line-height: 1.15; letter-spacing: -0.02em; text-wrap: pretty;">
-          Planning a restaurant identity or themed brand illustration project?
+          Opening a restaurant or building a themed brand?
         </h2>
         <p style="margin: 12px 0 0; font-size: 15px; color: var(--ink-2);">
-          Crafting cohesive character systems, venue branding, and bespoke illustration suites.
+          I design characters, venue branding and illustration sets.
         </p>
       </div>
       <div style="display: flex; flex-wrap: wrap; gap: 12px;">
@@ -545,7 +558,7 @@
     <footer style="border-top: 1px solid var(--line); padding: clamp(36px, 6vw, 60px) 0 44px; display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-end; justify-content: space-between;">
       <div>
         <p style="margin: 0; font-family: 'Archivo', Helvetica, sans-serif; font-weight: 600; font-size: clamp(20px, 2.6vw, 27px); letter-spacing: -0.02em;">Let's make something calm.</p>
-        <p style="margin: 10px 0 0; font-family: 'Space Mono', monospace; font-size: 12px; color: var(--ink-2);">&copy; 2026 Anadhya Badri Narayan &middot; Bengaluru, India</p>
+        <p style="margin: 10px 0 0; font-family: 'Space Mono', monospace; font-size: 12px; color: var(--ink-2);">© 2026 Anadhya Badri Narayan, Bengaluru, India</p>
       </div>
       <div style="display: flex; flex-wrap: wrap; gap: 10px;">
         <a href="mailto:anadhya94@gmail.com" style="border: 1px solid var(--line); background: var(--bg-2); border-radius: 999px; padding: 12px 22px; font-size: 13.5px; font-weight: 500; transition: background 200ms ease;" style-hover="background: var(--mint); color: var(--chip-ink);">Email</a>
@@ -603,6 +616,7 @@ class Component extends DCLogic {
 
   applyTheme(t) {
     document.documentElement.setAttribute('data-theme', t);
+    var tc = document.querySelector('meta[name="theme-color"]'); if (tc) tc.setAttribute('content', t === 'dark' ? '#1C1C1A' : '#F7F4EF');
   }
 
   toggleTheme = () => {
@@ -633,6 +647,8 @@ class Component extends DCLogic {
     window.addEventListener('scroll', toggleBtt, { passive: true });
     toggleBtt();
     btt.addEventListener('click', function() {
+      var firstLink = document.querySelector('nav a');
+      if (firstLink) firstLink.focus({ preventScroll: true });
       if (window.lenis) { window.lenis.scrollTo(0, { duration: 1.2 }); }
       else { window.scrollTo({ top: 0, behavior: 'smooth' }); }
     });

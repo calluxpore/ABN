@@ -3,9 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#F7F4EF">
 <link rel="icon" href="data:,">
-<title>Save the Date : Dhriti &amp; Prashant | Anadhya Badri Narayan</title>
-<meta name="description" content="A visual teaser for Dhriti & Prashant's two states Gujju and Telugu wedding in Hyderabad, bringing cultural fragments into motion.">
+<title>Dhriti &amp; Prashant's Save the Date | Anadhya Badri Narayan</title>
+<meta name="description" content="An animated save the date for Dhriti and Prashant's Gujarati and Telugu wedding in Hyderabad.">
 <script>
   (function () {
     try {
@@ -13,6 +14,7 @@
       var saved = (urlTheme === 'dark' || urlTheme === 'light') ? urlTheme : localStorage.getItem('me-portfolio-theme');
       var theme = (saved === 'dark' || saved === 'light') ? saved : 'light';
       document.documentElement.setAttribute('data-theme', theme);
+      var tc = document.querySelector('meta[name="theme-color"]'); if (tc) tc.setAttribute('content', theme === 'dark' ? '#1C1C1A' : '#F7F4EF');
     } catch (e) {
       document.documentElement.setAttribute('data-theme', 'light');
     }
@@ -22,10 +24,12 @@
   html[data-theme="dark"] {
     background-color: #1C1C1A;
     color: #EDE9E2;
+    color-scheme: dark;
   }
   html[data-theme="light"], html:not([data-theme="dark"]) {
     background-color: #F7F4EF;
     color: #262421;
+    color-scheme: light;
   }
 </style>
 <script src="./lenis.min.js" defer></script>
@@ -56,6 +60,8 @@
           if (target) {
             e.preventDefault();
             lenis.scrollTo(target, { offset: 0, duration: 1.2 });
+            if (!target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1');
+            target.focus({ preventScroll: true });
           }
         }
       });
@@ -92,7 +98,7 @@
     --surface: #FFFFFF;
     --ink: #262421;
     --ink-2: #524E46;
-    --line: rgba(38,36,33,0.10);
+    --line: rgba(38,36,33,0.14);
     --mint: #CFE8DB;
     --blush: #F6DADF;
     --lav: #DFD9F3;
@@ -184,6 +190,12 @@
     top: 20px;
   }
 
+  main[tabindex="-1"]:focus { outline: none; }
+  .brand-short { display: none; }
+  @media (max-width: 640px) {
+    .brand-full { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+    .brand-short { display: inline; }
+  }
   .sr-only {
     position: absolute;
     width: 1px;
@@ -214,13 +226,14 @@
     z-index: 100;
     opacity: 0;
     transform: translateY(16px);
-    transition: opacity 240ms ease, transform 240ms cubic-bezier(0.2, 0.9, 0.3, 1), background 200ms ease;
+    transition: opacity 240ms ease, transform 240ms cubic-bezier(0.2, 0.9, 0.3, 1), background 200ms ease, visibility 240ms;
     pointer-events: none;
+    visibility: hidden;
   }
   .back-to-top-btn.is-visible {
     opacity: 1;
     transform: translateY(0);
-    pointer-events: auto;
+    pointer-events: auto; visibility: visible;
   }
   .back-to-top-btn:hover {
     background: var(--mint);
@@ -254,9 +267,9 @@
   <div style="max-width: 1080px; margin: 0 auto;">
 
     <!-- Navigation -->
-    <nav aria-label="Main Navigation" style="display: flex; align-items: center; justify-content: space-between; gap: 20px; padding-bottom: clamp(40px, 8vh, 80px);">
+    <nav aria-label="Main" style="display: flex; align-items: center; justify-content: space-between; gap: 20px; padding-bottom: clamp(40px, 8vh, 80px);">
       <a href="index.html" style="font-family: 'Archivo', Helvetica, sans-serif; font-size: 17px; font-weight: 600; letter-spacing: -0.01em; display: inline-flex; align-items: center; gap: 8px;">
-        <span>Anadhya Badri Narayan</span>
+        <span class="brand-full">Anadhya Badri Narayan</span><span class="brand-short" aria-hidden="true">ABN</span>
       </a>
       <div style="display: flex; align-items: center; gap: clamp(14px, 2.4vw, 28px);">
         <a href="index.html" style="font-size: 13.5px; font-weight: 500; color: var(--ink-2);" style-hover="color: var(--ink);">Home</a>
@@ -303,16 +316,16 @@
     <header style="padding-bottom: clamp(48px, 9vh, 90px);">
       <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px;">
         <span style="background: var(--blush); color: var(--chip-ink); border-radius: 999px; padding: 6px 14px; font-size: 12.5px; font-weight: 600;">Wedding Identity &amp; Motion</span>
-        <span style="background: var(--mint); color: var(--chip-ink); border-radius: 999px; padding: 6px 14px; font-size: 12.5px; font-weight: 600;">2 States &middot; Gujju + Telugu</span>
-        <span style="background: var(--cream); color: var(--chip-ink); border-radius: 999px; padding: 6px 14px; font-size: 12.5px; font-weight: 600;">Hyderabad &middot; Dec 2026</span>
+        <span style="background: var(--mint); color: var(--chip-ink); border-radius: 999px; padding: 6px 14px; font-size: 12.5px; font-weight: 600;">Gujarati and Telugu</span>
+        <span style="background: var(--cream); color: var(--chip-ink); border-radius: 999px; padding: 6px 14px; font-size: 12.5px; font-weight: 600;">Hyderabad, Dec 2026</span>
       </div>
       
       <h1 style="margin: 0; font-family: 'Archivo', Helvetica, sans-serif; font-weight: 600; font-size: clamp(34px, 5.5vw, 64px); line-height: 1.08; letter-spacing: -0.02em; text-wrap: balance;">
-        Save the Date : Dhriti &amp; Prashant
+        Dhriti &amp; Prashant's Save the Date
       </h1>
 
       <p style="margin: 20px 0 0; font-family: 'Karla', sans-serif; font-size: clamp(16px, 1.75vw, 21px); line-height: 1.5; color: var(--ink-2); max-width: 100%;">
-        <em>&ldquo;Teasing the main event&rdquo;</em> : A cross cultural wedding invite celebrating Gujarati and Telugu heritage.
+        <em>&ldquo;Teasing the main event&rdquo;</em>. A save the date for a wedding that brings Gujarati and Telugu families together.
       </p>
 
       <!-- Project Metadata Grid -->
@@ -323,7 +336,7 @@
         </div>
         <div>
           <span style="font-family: 'Space Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-2); display: block; margin-bottom: 6px;">Theme</span>
-          <span style="font-weight: 600; font-size: 15px;">2 States (Gujarati + Telugu)</span>
+          <span style="font-weight: 600; font-size: 15px;">Gujarati and Telugu</span>
         </div>
         <div>
           <span style="font-family: 'Space Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-2); display: block; margin-bottom: 6px;">Format</span>
@@ -360,27 +373,27 @@
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px; margin-top: clamp(36px, 5vw, 54px);">
           
           <div style="padding: 18px; background: var(--bg); border-radius: calc(var(--r) - 14px);">
-            <div style="width: 36px; height: 36px; border-radius: 999px; background: var(--mint); display: flex; align-items: center; justify-content: center; font-size: 16px; margin-bottom: 12px;">🌿</div>
+            <div aria-hidden="true" style="width: 36px; height: 36px; border-radius: 999px; background: var(--mint); display: flex; align-items: center; justify-content: center; font-size: 16px; margin-bottom: 12px;">🌿</div>
             <h3 style="margin: 0 0 6px; font-size: 15px; font-weight: 600;">Banana Leaves &amp; Brass Lamps</h3>
-            <p style="margin: 0; font-size: 13.5px; line-height: 1.55; color: var(--ink-2);">Auspicious South Indian &amp; Telugu wedding motifs evoking warm heritage and sacred light.</p>
+            <p style="margin: 0; font-size: 13.5px; line-height: 1.55; color: var(--ink-2);">Two things you see at every Telugu wedding, so they had to be in there.</p>
           </div>
 
           <div style="padding: 18px; background: var(--bg); border-radius: calc(var(--r) - 14px);">
-            <div style="width: 36px; height: 36px; border-radius: 999px; background: var(--cream); display: flex; align-items: center; justify-content: center; font-size: 16px; margin-bottom: 12px;">🌼</div>
+            <div aria-hidden="true" style="width: 36px; height: 36px; border-radius: 999px; background: var(--cream); display: flex; align-items: center; justify-content: center; font-size: 16px; margin-bottom: 12px;">🌼</div>
             <h3 style="margin: 0 0 6px; font-size: 15px; font-weight: 600;">Marigolds &amp; Draped Textiles</h3>
-            <p style="margin: 0; font-size: 13.5px; line-height: 1.55; color: var(--ink-2);">Vibrant Gujarati textiles, rich bandhani patterns, fresh mogra garlands, and layered gold accents.</p>
+            <p style="margin: 0; font-size: 13.5px; line-height: 1.55; color: var(--ink-2);">Bandhani prints, mogra garlands and plenty of gold from the Gujarati side.</p>
           </div>
 
           <div style="padding: 18px; background: var(--bg); border-radius: calc(var(--r) - 14px);">
-            <div style="width: 36px; height: 36px; border-radius: 999px; background: var(--blush); display: flex; align-items: center; justify-content: center; font-size: 16px; margin-bottom: 12px;">🏛️</div>
+            <div aria-hidden="true" style="width: 36px; height: 36px; border-radius: 999px; background: var(--blush); display: flex; align-items: center; justify-content: center; font-size: 16px; margin-bottom: 12px;">🏛️</div>
             <h3 style="margin: 0 0 6px; font-size: 15px; font-weight: 600;">Arches &amp; Destination Mandap</h3>
-            <p style="margin: 0; font-size: 13.5px; line-height: 1.55; color: var(--ink-2);">Regal Hyderabad architectural arches framing the celebratory date drop with poise.</p>
+            <p style="margin: 0; font-size: 13.5px; line-height: 1.55; color: var(--ink-2);">Arches borrowed from Hyderabad's old buildings, framing the moment the date appears.</p>
           </div>
 
           <div style="padding: 18px; background: var(--bg); border-radius: calc(var(--r) - 14px);">
-            <div style="width: 36px; height: 36px; border-radius: 999px; background: var(--powder); display: flex; align-items: center; justify-content: center; font-size: 16px; margin-bottom: 12px;">🕊️</div>
+            <div aria-hidden="true" style="width: 36px; height: 36px; border-radius: 999px; background: var(--powder); display: flex; align-items: center; justify-content: center; font-size: 16px; margin-bottom: 12px;">🕊️</div>
             <h3 style="margin: 0 0 6px; font-size: 15px; font-weight: 600;">Doves &amp; Temple Bells</h3>
-            <p style="margin: 0; font-size: 13.5px; line-height: 1.55; color: var(--ink-2);">Floating white doves and hanging bells setting an uplifting, joyful celebratory cadence.</p>
+            <p style="margin: 0; font-size: 13.5px; line-height: 1.55; color: var(--ink-2);">White doves and swinging bells to keep the whole thing light and happy.</p>
           </div>
 
         </div>
@@ -406,7 +419,7 @@
             style="position: relative; width: 100%; max-width: 340px; border-radius: 24px; overflow: hidden; background: #000; box-shadow: 0 20px 48px rgba(0,0,0,0.18); border: 1px solid var(--line); user-select: none;"
           >
             <video 
-              id="std-video"
+              id="std-video" aria-label="Animated save the date teaser for Dhriti and Prashant"
               src="./_assets/save-the-date/video.mp4" 
               controls 
               autoplay
@@ -423,18 +436,18 @@
             <button
               id="std-play-btn"
               onClick="{{ toggleVideoPlay }}"
-              aria-label="Toggle video playback"
-              title="Click to play or pause"
+              aria-label="{{ videoLabel }}"
+              title="{{ videoLabel }}"
               style="position: absolute; top: 16px; right: 16px; width: 38px; height: 38px; border-radius: 999px; background: rgba(0,0,0,0.65); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.25); color: #fff; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: transform 150ms ease, background 150ms ease; z-index: 10; padding: 0;"
               style-hover="transform: scale(1.08); background: rgba(0,0,0,0.85);"
             >
               <sc-if value="{{ isPaused }}" hint-placeholder-val="{{ false }}">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" style="margin-left: 2px;">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false" style="margin-left: 2px;">
                   <polygon points="5 3 19 12 5 21 5 3"></polygon>
                 </svg>
               </sc-if>
               <sc-if value="{{ !isPaused }}" hint-placeholder-val="{{ true }}">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">
                   <rect x="6" y="4" width="4" height="16"></rect>
                   <rect x="14" y="4" width="4" height="16"></rect>
                 </svg>
@@ -449,13 +462,13 @@
             STORY IN MOTION
           </div>
           <h3 style="margin: 0 0 16px; font-family: 'Archivo', Helvetica, sans-serif; font-size: clamp(20px, 2.2vw, 26px); font-weight: 600; letter-spacing: -0.01em;">
-            Fragmented reveals building into the grand date drop
+            Small pieces that add up to the date
           </h3>
           <p style="margin: 0 0 16px; font-size: 15.5px; line-height: 1.65; color: var(--ink-2);">
-            In the motion piece, each cultural artifact gently drops and weaves into the frame: the hanging bells sway, the rich draped cloth ripples into place, and the custom monogram unites Dhriti &amp; Prashant before unveiling the destination.
+            In the animation each piece drops into the frame one at a time. The bells swing, the fabric settles and the DP monogram comes together before the city is revealed.
           </p>
           <p style="margin: 0 0 24px; font-size: 15.5px; line-height: 1.65; color: var(--ink-2);">
-            Crafted in a 9:16 vertical orientation optimized for WhatsApp and Instagram story delivery to wedding guests across both families.
+            It's made in a 9:16 vertical format so both families could share it easily on WhatsApp and Instagram stories.
           </p>
 
           <div style="display: flex; flex-wrap: wrap; gap: 8px;">
@@ -475,7 +488,7 @@
           <span style="font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-2);">Illustration &amp; Layout</span>
           <h2 style="margin: 6px 0 0; font-family: 'Archivo', Helvetica, sans-serif; font-weight: 600; font-size: clamp(22px, 2.8vw, 32px); letter-spacing: -0.01em;">Illustrated Stems &amp; Composition</h2>
         </div>
-        <span style="font-family: 'Space Mono', monospace; font-size: 12px; color: var(--ink-2);">High-Resolution Artwork</span>
+        <span style="font-family: 'Space Mono', monospace; font-size: 12px; color: var(--ink-2);">High Resolution Artwork</span>
       </div>
 
       <!-- Side by Side Layout Artworks -->
@@ -486,18 +499,18 @@
           <div style="border-radius: calc(var(--r) - 12px); overflow: hidden; background: #500a0e; border: 1px solid var(--line); display: flex; justify-content: center; align-items: center;">
             <img 
               src="./_assets/save-the-date/frame-1.webp" 
-              alt="Dhriti & Prashant Save the date Frame 1 Date Drop and Monogram" 
+              alt="First frame of Dhriti and Prashant's save the date, with the date and DP monogram" 
               loading="lazy"
               style="width: 100%; height: auto; max-height: 720px; object-fit: contain; display: block;"
             />
           </div>
           <div style="padding: 20px 10px 0;">
             <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 6px;">
-              <h3 style="margin: 0; font-size: 18px; font-weight: 600; letter-spacing: -0.01em;">Frame 01 : Date Drop &amp; DP Monogram</h3>
+              <h3 style="margin: 0; font-size: 18px; font-weight: 600; letter-spacing: -0.01em;">Frame 01, Date &amp; DP Monogram</h3>
               <span style="font-family: 'Space Mono', monospace; font-size: 11px; background: var(--blush); color: var(--chip-ink); padding: 4px 10px; border-radius: 999px;">17 to 18 Dec 2026</span>
             </div>
             <p style="margin: 0; font-size: 14px; line-height: 1.6; color: var(--ink-2);">
-              Featuring the central &ldquo;DP&rdquo; couple monogram, vermillion silk drapes, brass Nandi &amp; Deepam, and hanging jasmine chandeliers.
+              The DP monogram in the middle, with vermillion silk, a brass Nandi and deepam, and strings of jasmine hanging down.
             </p>
           </div>
         </article>
@@ -507,18 +520,18 @@
           <div style="border-radius: calc(var(--r) - 12px); overflow: hidden; background: #500a0e; border: 1px solid var(--line); display: flex; justify-content: center; align-items: center;">
             <img 
               src="./_assets/save-the-date/frame-2.webp" 
-              alt="Dhriti & Prashant Save the date Frame 2 Destination Hyderabad and Names" 
+              alt="Second frame of the save the date, with the couple's names and Hyderabad" 
               loading="lazy"
               style="width: 100%; height: auto; max-height: 720px; object-fit: contain; display: block;"
             />
           </div>
           <div style="padding: 20px 10px 0;">
             <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 6px;">
-              <h3 style="margin: 0; font-size: 18px; font-weight: 600; letter-spacing: -0.01em;">Frame 02 : Names &amp; Hyderabad Destination</h3>
+              <h3 style="margin: 0; font-size: 18px; font-weight: 600; letter-spacing: -0.01em;">Frame 02, Names &amp; Hyderabad</h3>
               <span style="font-family: 'Space Mono', monospace; font-size: 11px; background: var(--mint); color: var(--chip-ink); padding: 4px 10px; border-radius: 999px;">HYD Reveal</span>
             </div>
             <p style="margin: 0; font-size: 14px; line-height: 1.6; color: var(--ink-2);">
-              The reveal of the couple names &ldquo;Dhriti &amp; Prashant&rdquo; flanked by golden zari textiles, royal baithak seating, and the floral Hyderabad mandap.
+              Dhriti and Prashant's names, with gold zari fabric, baithak seating and the flower mandap in Hyderabad.
             </p>
           </div>
         </article>
@@ -530,10 +543,10 @@
         <div style="margin-bottom: 18px; display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 12px;">
           <div>
             <h3 style="margin: 0; font-family: 'Archivo', Helvetica, sans-serif; font-size: 20px; font-weight: 600; letter-spacing: -0.01em;">
-              Side by Side Canvas Composition
+              Both Frames Side by Side
             </h3>
             <p style="margin: 4px 0 0; font-size: 14px; color: var(--ink-2);">
-              Dual frame visual continuity showing how shared motifs anchor both sequences on the rich crimson damask canvas.
+              The two frames next to each other, so you can see how the same motifs carry across on the red damask background.
             </p>
           </div>
           <span style="font-family: 'Space Mono', monospace; font-size: 11px; color: var(--ink-2); background: var(--bg); padding: 6px 12px; border-radius: 999px; border: 1px solid var(--line);">
@@ -544,7 +557,7 @@
         <div style="border-radius: calc(var(--r) - 12px); overflow: hidden; background: #222; border: 1px solid var(--line);">
           <img 
             src="./_assets/save-the-date/artboard.webp" 
-            alt="Dhriti & Prashant Save the Date Dual Artboard Comparison" 
+            alt="Both save the date frames side by side" 
             loading="lazy"
             style="width: 100%; height: auto; display: block; object-fit: contain;"
           />
@@ -556,10 +569,10 @@
     <section style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: clamp(30px, 5vw, 54px); margin-bottom: clamp(56px, 9vh, 100px); display: flex; flex-wrap: wrap; gap: 24px; align-items: center; justify-content: space-between;">
       <div>
         <h2 style="margin: 0; max-width: 22ch; font-family: 'Archivo', Helvetica, sans-serif; font-weight: 600; font-size: clamp(22px, 3vw, 34px); line-height: 1.15; letter-spacing: -0.02em; text-wrap: pretty;">
-          Planning a meaningful celebration or visual identity?
+          Planning a wedding or working on a brand?
         </h2>
         <p style="margin: 12px 0 0; font-size: 15px; color: var(--ink-2);">
-          Crafting thoughtful bespoke invitations, print systems, and digital motion.
+          I make invitations, printed pieces and small animations.
         </p>
       </div>
       <div style="display: flex; flex-wrap: wrap; gap: 12px;">
@@ -574,7 +587,7 @@
     <footer style="border-top: 1px solid var(--line); padding: clamp(36px, 6vw, 60px) 0 44px; display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-end; justify-content: space-between;">
       <div>
         <p style="margin: 0; font-family: 'Archivo', Helvetica, sans-serif; font-weight: 600; font-size: clamp(20px, 2.6vw, 27px); letter-spacing: -0.02em;">Let's make something calm.</p>
-        <p style="margin: 10px 0 0; font-family: 'Space Mono', monospace; font-size: 12px; color: var(--ink-2);">&copy; 2026 Anadhya Badri Narayan &middot; Bengaluru, India</p>
+        <p style="margin: 10px 0 0; font-family: 'Space Mono', monospace; font-size: 12px; color: var(--ink-2);">© 2026 Anadhya Badri Narayan, Bengaluru, India</p>
       </div>
       <div style="display: flex; flex-wrap: wrap; gap: 10px;">
         <a href="mailto:anadhya94@gmail.com" style="border: 1px solid var(--line); background: var(--bg-2); border-radius: 999px; padding: 12px 22px; font-size: 13.5px; font-weight: 500; transition: background 200ms ease;" style-hover="background: var(--mint); color: var(--chip-ink);">Email</a>
@@ -624,6 +637,12 @@ class Component extends DCLogic {
 
     const vid = document.getElementById('std-video');
     if (vid) {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        vid.autoplay = false;
+        vid.removeAttribute('autoplay');
+        vid.pause();
+        this.setState({ isPaused: true });
+      }
       vid.addEventListener('play', () => this.setState({ isPaused: false }));
       vid.addEventListener('pause', () => this.setState({ isPaused: true }));
       vid.addEventListener('click', (e) => {
@@ -651,6 +670,7 @@ class Component extends DCLogic {
 
   applyTheme(t) {
     document.documentElement.setAttribute('data-theme', t);
+    var tc = document.querySelector('meta[name="theme-color"]'); if (tc) tc.setAttribute('content', t === 'dark' ? '#1C1C1A' : '#F7F4EF');
   }
 
   toggleTheme = () => {
@@ -678,7 +698,8 @@ class Component extends DCLogic {
       themeLabel: this.state.theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode',
       isDark: this.state.theme === 'dark',
       isLight: this.state.theme !== 'dark',
-      isPaused: this.state.isPaused
+      isPaused: this.state.isPaused,
+      videoLabel: this.state.isPaused ? 'Play video' : 'Pause video'
     };
   }
 }
@@ -697,6 +718,8 @@ class Component extends DCLogic {
     window.addEventListener('scroll', toggleBtt, { passive: true });
     toggleBtt();
     btt.addEventListener('click', function() {
+      var firstLink = document.querySelector('nav a');
+      if (firstLink) firstLink.focus({ preventScroll: true });
       if (window.lenis) {
         window.lenis.scrollTo(0, { duration: 1.2 });
       } else {

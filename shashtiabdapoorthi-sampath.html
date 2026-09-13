@@ -3,9 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#F7F4EF">
 <link rel="icon" href="data:,">
-<title>Shashtiabdapoorthi : Sri. Sampath Badri Narayan | Anadhya Badri Narayan</title>
-<meta name="description" content="An heirloom milestone stationery suite designed by Anadhya for her father's 60th birthday (Shashtiabdapoorthi) and parental vow renewal at Bangalore Palace.">
+<title>Shashtiabdapoorthi for Sri. Sampath Badri Narayan | Anadhya Badri Narayan</title>
+<meta name="description" content="Invitations Anadhya designed for Sri. Sampath Badri Narayan's 60th birthday (Shashtiabdapoorthi) and vow renewal at Bangalore Palace.">
 <script>
   (function () {
     try {
@@ -13,6 +14,7 @@
       var saved = (urlTheme === 'dark' || urlTheme === 'light') ? urlTheme : localStorage.getItem('me-portfolio-theme');
       var theme = (saved === 'dark' || saved === 'light') ? saved : 'light';
       document.documentElement.setAttribute('data-theme', theme);
+      var tc = document.querySelector('meta[name="theme-color"]'); if (tc) tc.setAttribute('content', theme === 'dark' ? '#1C1C1A' : '#F7F4EF');
     } catch (e) {
       document.documentElement.setAttribute('data-theme', 'light');
     }
@@ -22,10 +24,12 @@
   html[data-theme="dark"] {
     background-color: #1C1C1A;
     color: #EDE9E2;
+    color-scheme: dark;
   }
   html[data-theme="light"], html:not([data-theme="dark"]) {
     background-color: #F7F4EF;
     color: #262421;
+    color-scheme: light;
   }
 </style>
 <script src="./lenis.min.js" defer></script>
@@ -56,6 +60,8 @@
           if (target) {
             e.preventDefault();
             lenis.scrollTo(target, { offset: 0, duration: 1.2 });
+            if (!target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1');
+            target.focus({ preventScroll: true });
           }
         }
       });
@@ -92,7 +98,7 @@
     --surface: #FFFFFF;
     --ink: #262421;
     --ink-2: #524E46;
-    --line: rgba(38,36,33,0.10);
+    --line: rgba(38,36,33,0.14);
     --mint: #CFE8DB;
     --blush: #F6DADF;
     --lav: #DFD9F3;
@@ -104,6 +110,7 @@
     --btn-bg: #262421;
     --btn-ink: #FBF9F5;
     --stripe: rgba(38,36,33,0.05);
+    --plate: #FAF7F0;
     --card-shadow: 0 4px 14px rgba(38,36,33,0.04), 0 1px 3px rgba(38,36,33,0.03);
     --card-shadow-hover: 0 16px 36px rgba(38,36,33,0.08), 0 4px 10px rgba(38,36,33,0.04);
   }
@@ -125,6 +132,7 @@
     --btn-bg: #CFE8DB;
     --btn-ink: #1C1C1A;
     --stripe: rgba(237,233,226,0.06);
+    --plate: #2E2D2A;
     --card-shadow: 0 4px 14px rgba(0,0,0,0.22);
     --card-shadow-hover: 0 16px 36px rgba(0,0,0,0.38), 0 4px 10px rgba(0,0,0,0.25);
   }
@@ -180,6 +188,12 @@
     top: 20px;
   }
 
+  main[tabindex="-1"]:focus { outline: none; }
+  .brand-short { display: none; }
+  @media (max-width: 640px) {
+    .brand-full { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+    .brand-short { display: inline; }
+  }
   .sr-only {
     position: absolute;
     width: 1px;
@@ -210,13 +224,14 @@
     z-index: 100;
     opacity: 0;
     transform: translateY(16px);
-    transition: opacity 240ms ease, transform 240ms cubic-bezier(0.2, 0.9, 0.3, 1), background 200ms ease;
+    transition: opacity 240ms ease, transform 240ms cubic-bezier(0.2, 0.9, 0.3, 1), background 200ms ease, visibility 240ms;
     pointer-events: none;
+    visibility: hidden;
   }
   .back-to-top-btn.is-visible {
     opacity: 1;
     transform: translateY(0);
-    pointer-events: auto;
+    pointer-events: auto; visibility: visible;
   }
   .back-to-top-btn:hover {
     background: var(--mint);
@@ -247,9 +262,9 @@
   <div style="max-width: 1080px; margin: 0 auto;">
 
     <!-- Navigation -->
-    <nav aria-label="Main Navigation" style="display: flex; align-items: center; justify-content: space-between; gap: 20px; padding-bottom: clamp(40px, 8vh, 80px);">
+    <nav aria-label="Main" style="display: flex; align-items: center; justify-content: space-between; gap: 20px; padding-bottom: clamp(40px, 8vh, 80px);">
       <a href="index.html" style="font-family: 'Archivo', Helvetica, sans-serif; font-size: 17px; font-weight: 600; letter-spacing: -0.01em; display: inline-flex; align-items: center; gap: 8px;">
-        <span>Anadhya Badri Narayan</span>
+        <span class="brand-full">Anadhya Badri Narayan</span><span class="brand-short" aria-hidden="true">ABN</span>
       </a>
       <div style="display: flex; align-items: center; gap: clamp(14px, 2.4vw, 28px);">
         <a href="index.html" style="font-size: 13.5px; font-weight: 500; color: var(--ink-2);" style-hover="color: var(--ink);">Home</a>
@@ -296,16 +311,16 @@
     <header style="padding-bottom: clamp(48px, 9vh, 90px);">
       <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px;">
         <span style="background: var(--cream); color: var(--chip-ink); border-radius: 999px; padding: 6px 14px; font-size: 12.5px; font-weight: 600;">Milestone Stationery &amp; Print</span>
-        <span style="background: var(--blush); color: var(--chip-ink); border-radius: 999px; padding: 6px 14px; font-size: 12.5px; font-weight: 600;">Shashtiabdapoorthi &middot; 60th Year</span>
-        <span style="background: var(--mint); color: var(--chip-ink); border-radius: 999px; padding: 6px 14px; font-size: 12.5px; font-weight: 600;">Bangalore Palace &middot; July 2018</span>
+        <span style="background: var(--blush); color: var(--chip-ink); border-radius: 999px; padding: 6px 14px; font-size: 12.5px; font-weight: 600;">Shashtiabdapoorthi, 60th Year</span>
+        <span style="background: var(--mint); color: var(--chip-ink); border-radius: 999px; padding: 6px 14px; font-size: 12.5px; font-weight: 600;">Bangalore Palace, July 2018</span>
       </div>
       
       <h1 style="margin: 0; font-family: 'Archivo', Helvetica, sans-serif; font-weight: 600; font-size: clamp(34px, 5.5vw, 64px); line-height: 1.08; letter-spacing: -0.02em; text-wrap: balance;">
-        Shashtiabdapoorthi : Sri. Sampath Badri Narayan
+        Shashtiabdapoorthi for Sri. Sampath Badri Narayan
       </h1>
 
       <p style="margin: 20px 0 0; font-family: 'Karla', sans-serif; font-size: clamp(16px, 1.75vw, 21px); line-height: 1.5; color: var(--ink-2); max-width: 100%;">
-        <em>&ldquo;Honouring sixty years of grace&rdquo;</em> : An heirloom milestone stationery suite designed by Anadhya for her beloved father&rsquo;s 60th milestone birthday and parental vow renewal at Bangalore Palace.
+        <em>“Honouring sixty years”</em>. The invitations I designed for my father's 60th birthday and my parents' vow renewal at Bangalore Palace.
       </p>
 
       <!-- Project Metadata Grid -->
@@ -337,15 +352,15 @@
           <span style="font-family: 'Space Mono', monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-2); display: block; margin-bottom: 16px;">The Concept</span>
           
           <h2 style="margin: 0 0 24px; font-family: 'Archivo', Helvetica, sans-serif; font-weight: 600; font-size: clamp(24px, 3.2vw, 36px); line-height: 1.2; letter-spacing: -0.01em;">
-            A personal tribute uniting Vedic rituals, festive warmth, and royal heritage.
+            A very personal project, for a very big day in our family.
           </h2>
 
           <p style="margin: 0 0 20px; font-size: clamp(16px, 1.4vw, 18px); line-height: 1.7; color: var(--ink-2); text-wrap: pretty;">
-            In South Indian Vedic traditions, <em>Shashtiabdapoorthi</em> marks the milestone completion of sixty years : celebrating longevity, spiritual wisdom, and the resolemnization of marital bonds through <em>Mangalyadharanam</em>.
+            In South Indian Vedic traditions, <em>Shashtiabdapoorthi</em> marks the completion of sixty years. It celebrates a long life, and the couple renew their marriage vows through <em>Mangalyadharanam</em>.
           </p>
 
           <p style="margin: 0; font-size: clamp(16px, 1.4vw, 18px); line-height: 1.7; color: var(--ink-2); text-wrap: pretty;">
-            Designed by Anadhya alongside her family for her father Sri. Sampath Badri Narayan, this bespoke invitation suite pairs handcrafted traditional motifs : vibrant marigold torans, bronze temple bells, and emerald Indian ringneck parrots : with elegant classical serif typography on warm, tactile textured stock for their celebration at Bangalore Palace.
+            I designed this with my family for my father, Sri. Sampath Badri Narayan. It pairs traditional motifs we grew up with, like marigold torans, bronze temple bells and green ringneck parrots, with classic serif type on warm textured paper.
           </p>
         </div>
 
@@ -353,27 +368,27 @@
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px; margin-top: clamp(36px, 5vw, 54px);">
           
           <div style="padding: 18px; background: var(--bg); border-radius: calc(var(--r) - 14px);">
-            <div style="width: 36px; height: 36px; border-radius: 999px; background: var(--cream); display: flex; align-items: center; justify-content: center; font-size: 16px; margin-bottom: 12px;">🌼</div>
+            <div aria-hidden="true" style="width: 36px; height: 36px; border-radius: 999px; background: var(--cream); display: flex; align-items: center; justify-content: center; font-size: 16px; margin-bottom: 12px;">🌼</div>
             <h3 style="margin: 0 0 6px; font-size: 15px; font-weight: 600;">Marigold Toran (Chendumalli)</h3>
-            <p style="margin: 0; font-size: 13.5px; line-height: 1.55; color: var(--ink-2);">Strings of golden-yellow and saffron marigolds cascading across the cards, symbolizing auspicious divine light and renewal.</p>
+            <p style="margin: 0; font-size: 13.5px; line-height: 1.55; color: var(--ink-2);">Strings of yellow and saffron marigolds running across the cards, for light and new beginnings.</p>
           </div>
 
           <div style="padding: 18px; background: var(--bg); border-radius: calc(var(--r) - 14px);">
-            <div style="width: 36px; height: 36px; border-radius: 999px; background: var(--mint); display: flex; align-items: center; justify-content: center; font-size: 16px; margin-bottom: 12px;">🔔</div>
+            <div aria-hidden="true" style="width: 36px; height: 36px; border-radius: 999px; background: var(--mint); display: flex; align-items: center; justify-content: center; font-size: 16px; margin-bottom: 12px;">🔔</div>
             <h3 style="margin: 0 0 6px; font-size: 15px; font-weight: 600;">Sacred Temple Bells (Mani)</h3>
-            <p style="margin: 0; font-size: 13.5px; line-height: 1.55; color: var(--ink-2);">Suspended bronze ritual bells with foaming sacred milk offerings, evoking the uplifting reverberations of Vedic chants.</p>
+            <p style="margin: 0; font-size: 13.5px; line-height: 1.55; color: var(--ink-2);">Bronze bells and milk offerings, the sounds and sights of the pooja.</p>
           </div>
 
           <div style="padding: 18px; background: var(--bg); border-radius: calc(var(--r) - 14px);">
-            <div style="width: 36px; height: 36px; border-radius: 999px; background: var(--powder); display: flex; align-items: center; justify-content: center; font-size: 16px; margin-bottom: 12px;">🦜</div>
+            <div aria-hidden="true" style="width: 36px; height: 36px; border-radius: 999px; background: var(--powder); display: flex; align-items: center; justify-content: center; font-size: 16px; margin-bottom: 12px;">🦜</div>
             <h3 style="margin: 0 0 6px; font-size: 15px; font-weight: 600;">Indian Ringneck Parrots (Kili)</h3>
-            <p style="margin: 0; font-size: 13.5px; line-height: 1.55; color: var(--ink-2);">Graceful emerald parrots perched amongst the floral garlands, an auspicious symbol of devotion, family joy, and eloquence.</p>
+            <p style="margin: 0; font-size: 13.5px; line-height: 1.55; color: var(--ink-2);">Green parrots sitting in the garlands, a lucky sign for love and a happy family.</p>
           </div>
 
           <div style="padding: 18px; background: var(--bg); border-radius: calc(var(--r) - 14px);">
-            <div style="width: 36px; height: 36px; border-radius: 999px; background: var(--blush); display: flex; align-items: center; justify-content: center; font-size: 16px; margin-bottom: 12px;">🏛️</div>
+            <div aria-hidden="true" style="width: 36px; height: 36px; border-radius: 999px; background: var(--blush); display: flex; align-items: center; justify-content: center; font-size: 16px; margin-bottom: 12px;">🏛️</div>
             <h3 style="margin: 0 0 6px; font-size: 15px; font-weight: 600;">Bangalore Palace Setting</h3>
-            <p style="margin: 0; font-size: 13.5px; line-height: 1.55; color: var(--ink-2);">Set against the historic Tennis Pavilion at Bangalore Palace, pairing classical heritage with intimate celebratory grandeur.</p>
+            <p style="margin: 0; font-size: 13.5px; line-height: 1.55; color: var(--ink-2);">The celebration was at the Tennis Pavilion in Bangalore Palace, so the cards needed to feel a little grand.</p>
           </div>
 
         </div>
@@ -385,7 +400,7 @@
     <section style="margin-bottom: clamp(60px, 10vh, 120px);">
       <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 20px; padding-bottom: 24px; border-bottom: 1px solid var(--line); margin-bottom: clamp(28px, 4vw, 44px);">
         <div>
-          <span style="font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-2);">Print &amp; Materiality</span>
+          <span style="font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-2);">Print &amp; Paper</span>
           <h2 style="margin: 6px 0 0; font-family: 'Archivo', Helvetica, sans-serif; font-weight: 600; font-size: clamp(22px, 2.8vw, 32px); letter-spacing: -0.01em;">The Printed Invitation Suite</h2>
         </div>
         <span style="font-family: 'Space Mono', monospace; font-size: 12px; color: var(--ink-2);">Flatlay Photography</span>
@@ -395,10 +410,10 @@
         <div style="margin-bottom: 20px; display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 12px;">
           <div>
             <h3 style="margin: 0; font-family: 'Archivo', Helvetica, sans-serif; font-size: 20px; font-weight: 600; letter-spacing: -0.01em;">
-              Heirloom Paper Stock on Deep Moss Fabric
+              The Suite on Green Cloth
             </h3>
             <p style="margin: 4px 0 0; font-size: 14px; color: var(--ink-2);">
-              The complete suite photographed under warm morning light, showing the tactile felt paper texture, rich saffron inks, and fanned presentation.
+              The whole suite in soft morning light, fanned out so you can see the felt paper and saffron ink.
             </p>
           </div>
           <span style="font-family: 'Space Mono', monospace; font-size: 11px; color: var(--ink-2); background: var(--bg); padding: 6px 12px; border-radius: 999px; border: 1px solid var(--line);">
@@ -409,7 +424,7 @@
         <div style="border-radius: calc(var(--r) - 12px); overflow: hidden; background: #1a241b; border: 1px solid var(--line); box-shadow: 0 12px 32px rgba(0,0,0,0.08);">
           <img 
             src="./_assets/Sampath_cover/4.webp" 
-            alt="Sri. Sampath Badri Narayan Printed Shashtiabdapoorthi Suite photographed on green cloth" 
+            alt="The printed Shashtiabdapoorthi suite for Sri. Sampath Badri Narayan on green cloth" 
             loading="lazy"
             style="width: 100%; height: auto; max-height: 850px; display: block; object-fit: contain; margin: 0 auto;"
           />
@@ -424,7 +439,7 @@
           <span style="font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-2);">Stationery Architecture</span>
           <h2 style="margin: 6px 0 0; font-family: 'Archivo', Helvetica, sans-serif; font-weight: 600; font-size: clamp(22px, 2.8vw, 32px); letter-spacing: -0.01em;">Suite Inserts &amp; Typography</h2>
         </div>
-        <span style="font-family: 'Space Mono', monospace; font-size: 12px; color: var(--ink-2);">High-Resolution Inserts</span>
+        <span style="font-family: 'Space Mono', monospace; font-size: 12px; color: var(--ink-2);">High Resolution Inserts</span>
       </div>
 
       <!-- 3-Column Grid for the 3 individual cards -->
@@ -432,10 +447,10 @@
         
         <!-- Card 1: Cover Folio -->
         <article class="zoom-card" style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 18px 18px 24px;">
-          <div style="border-radius: calc(var(--r) - 12px); overflow: hidden; background: #FAF7F0; border: 1px solid var(--line); display: flex; justify-content: center; align-items: center; aspect-ratio: 1/1;">
+          <div style="border-radius: calc(var(--r) - 12px); overflow: hidden; background: var(--plate); border: 1px solid var(--line); display: flex; justify-content: center; align-items: center; aspect-ratio: 1/1;">
             <img 
               src="./_assets/Sampath_cover/1.webp" 
-              alt="Sri. Sampath Badri Narayan : Cover Folio with Golden 60 Numeral" 
+              alt="Cover folio with a gold 60 for Sri. Sampath Badri Narayan" 
               loading="lazy"
               style="width: 100%; height: 100%; object-fit: contain; display: block; padding: 12px;"
             />
@@ -446,17 +461,17 @@
               <span style="font-family: 'Space Mono', monospace; font-size: 11px; background: var(--cream); color: var(--chip-ink); padding: 4px 10px; border-radius: 999px;">Cover</span>
             </div>
             <p style="margin: 0; font-size: 14px; line-height: 1.6; color: var(--ink-2);">
-              The outer celebratory folio displaying a bold calligraphic golden &ldquo;60&rdquo;, marigold garlands, bronze bell, and vibrant magenta script for Sri. Sampath Badri Narayan.
+              The outer folio, with a big hand lettered gold “60”, marigold garlands, a bronze bell and his name in magenta script.
             </p>
           </div>
         </article>
 
         <!-- Card 2: Main Ceremony Invitation -->
         <article class="zoom-card" style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 18px 18px 24px;">
-          <div style="border-radius: calc(var(--r) - 12px); overflow: hidden; background: #FAF7F0; border: 1px solid var(--line); display: flex; justify-content: center; align-items: center; aspect-ratio: 1/1;">
+          <div style="border-radius: calc(var(--r) - 12px); overflow: hidden; background: var(--plate); border: 1px solid var(--line); display: flex; justify-content: center; align-items: center; aspect-ratio: 1/1;">
             <img 
               src="./_assets/Sampath_cover/2.webp" 
-              alt="Sri. Sampath Badri Narayan : Shashtiabdapoorthi Invitation Card" 
+              alt="Shashtiabdapoorthi invitation card for Sri. Sampath Badri Narayan" 
               loading="lazy"
               style="width: 100%; height: 100%; object-fit: contain; display: block; padding: 12px;"
             />
@@ -467,17 +482,17 @@
               <span style="font-family: 'Space Mono', monospace; font-size: 11px; background: var(--blush); color: var(--chip-ink); padding: 4px 10px; border-radius: 999px;">Invitation</span>
             </div>
             <p style="margin: 0; font-size: 14px; line-height: 1.6; color: var(--ink-2);">
-              Formal invitation under &ldquo;Sri Rama Jayam&rdquo; extended with love by children Ananya, Vaishak, and Anadhya for the Shashtiabdapoorthi and parental Mangalyadharanam.
+              The main invitation, opening with “Sri Rama Jayam” and sent with love from us kids, Ananya, Vaishak and Anadhya.
             </p>
           </div>
         </article>
 
         <!-- Card 3: Two-Day Program & Venue -->
         <article class="zoom-card" style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 18px 18px 24px;">
-          <div style="border-radius: calc(var(--r) - 12px); overflow: hidden; background: #FAF7F0; border: 1px solid var(--line); display: flex; justify-content: center; align-items: center; aspect-ratio: 1/1;">
+          <div style="border-radius: calc(var(--r) - 12px); overflow: hidden; background: var(--plate); border: 1px solid var(--line); display: flex; justify-content: center; align-items: center; aspect-ratio: 1/1;">
             <img 
               src="./_assets/Sampath_cover/3.webp" 
-              alt="Sri. Sampath Badri Narayan : Ceremony Program & Bangalore Palace Venue" 
+              alt="Ceremony programme and Bangalore Palace venue card" 
               loading="lazy"
               style="width: 100%; height: 100%; object-fit: contain; display: block; padding: 12px;"
             />
@@ -488,7 +503,7 @@
               <span style="font-family: 'Space Mono', monospace; font-size: 11px; background: var(--mint); color: var(--chip-ink); padding: 4px 10px; border-radius: 999px;">4 to 5 July 2018</span>
             </div>
             <p style="margin: 0; font-size: 14px; line-height: 1.6; color: var(--ink-2);">
-              Detailed two day schedule covering fusion music by Maalavika Sundar, Udagashanthi, Ayushomam, and Muhurtham at the Tennis Pavilion, Bangalore Palace.
+              The plan for both days, from fusion music by Maalavika Sundar to Udagashanthi, Ayushomam and the Muhurtham at the Tennis Pavilion.
             </p>
           </div>
         </article>
@@ -500,10 +515,10 @@
     <section style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: clamp(30px, 5vw, 54px); margin-bottom: clamp(56px, 9vh, 100px); display: flex; flex-wrap: wrap; gap: 24px; align-items: center; justify-content: space-between;">
       <div>
         <h2 style="margin: 0; max-width: 22ch; font-family: 'Archivo', Helvetica, sans-serif; font-weight: 600; font-size: clamp(22px, 3vw, 34px); line-height: 1.15; letter-spacing: -0.02em; text-wrap: pretty;">
-          Planning a milestone celebration or bespoke family stationery?
+          Got a family celebration coming up?
         </h2>
         <p style="margin: 12px 0 0; font-size: 15px; color: var(--ink-2);">
-          Creating heirloom celebration suites, tactile invitations, and personal visual narratives.
+          I make invitations people hold on to long after the day.
         </p>
       </div>
       <div style="display: flex; flex-wrap: wrap; gap: 12px;">
@@ -518,7 +533,7 @@
     <footer style="border-top: 1px solid var(--line); padding: clamp(36px, 6vw, 60px) 0 44px; display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-end; justify-content: space-between;">
       <div>
         <p style="margin: 0; font-family: 'Archivo', Helvetica, sans-serif; font-weight: 600; font-size: clamp(20px, 2.6vw, 27px); letter-spacing: -0.02em;">Let's make something calm.</p>
-        <p style="margin: 10px 0 0; font-family: 'Space Mono', monospace; font-size: 12px; color: var(--ink-2);">&copy; 2026 Anadhya Badri Narayan &middot; Bengaluru, India</p>
+        <p style="margin: 10px 0 0; font-family: 'Space Mono', monospace; font-size: 12px; color: var(--ink-2);">© 2026 Anadhya Badri Narayan, Bengaluru, India</p>
       </div>
       <div style="display: flex; flex-wrap: wrap; gap: 10px;">
         <a href="mailto:anadhya94@gmail.com" style="border: 1px solid var(--line); background: var(--bg-2); border-radius: 999px; padding: 12px 22px; font-size: 13.5px; font-weight: 500; transition: background 200ms ease;" style-hover="background: var(--mint); color: var(--chip-ink);">Email</a>
@@ -579,6 +594,7 @@ class Component extends DCLogic {
 
   applyTheme(t) {
     document.documentElement.setAttribute('data-theme', t);
+    var tc = document.querySelector('meta[name="theme-color"]'); if (tc) tc.setAttribute('content', t === 'dark' ? '#1C1C1A' : '#F7F4EF');
   }
 
   toggleTheme = () => {
@@ -612,6 +628,8 @@ class Component extends DCLogic {
     window.addEventListener('scroll', toggleBtt, { passive: true });
     toggleBtt();
     btt.addEventListener('click', function() {
+      var firstLink = document.querySelector('nav a');
+      if (firstLink) firstLink.focus({ preventScroll: true });
       if (window.lenis) {
         window.lenis.scrollTo(0, { duration: 1.2 });
       } else {

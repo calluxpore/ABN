@@ -3,9 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#F7F4EF">
 <link rel="icon" href="data:,">
-<title>Celebration Stationery : The Paul &amp; Milestone Suites | Anadhya Badri Narayan</title>
-<meta name="description" content="A curated collection of bespoke celebration invitations and milestone stationery designed by Anadhya, spanning betrothals at The Paul, housewarming homams, and baby showers.">
+<title>The Paul &amp; Milestone Invitations | Anadhya Badri Narayan</title>
+<meta name="description" content="Invitations Anadhya designed for a betrothal at The Paul, a housewarming homam and several baby showers.">
 <script>
   (function () {
     try {
@@ -13,6 +14,7 @@
       var saved = (urlTheme === 'dark' || urlTheme === 'light') ? urlTheme : localStorage.getItem('me-portfolio-theme');
       var theme = (saved === 'dark' || saved === 'light') ? saved : 'light';
       document.documentElement.setAttribute('data-theme', theme);
+      var tc = document.querySelector('meta[name="theme-color"]'); if (tc) tc.setAttribute('content', theme === 'dark' ? '#1C1C1A' : '#F7F4EF');
     } catch (e) {
       document.documentElement.setAttribute('data-theme', 'light');
     }
@@ -22,10 +24,12 @@
   html[data-theme="dark"] {
     background-color: #1C1C1A;
     color: #EDE9E2;
+    color-scheme: dark;
   }
   html[data-theme="light"], html:not([data-theme="dark"]) {
     background-color: #F7F4EF;
     color: #262421;
+    color-scheme: light;
   }
 </style>
 <script src="./lenis.min.js" defer></script>
@@ -56,6 +60,8 @@
           if (target) {
             e.preventDefault();
             lenis.scrollTo(target, { offset: 0, duration: 1.2 });
+            if (!target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1');
+            target.focus({ preventScroll: true });
           }
         }
       });
@@ -92,7 +98,7 @@
     --surface: #FFFFFF;
     --ink: #262421;
     --ink-2: #524E46;
-    --line: rgba(38,36,33,0.10);
+    --line: rgba(38,36,33,0.14);
     --mint: #CFE8DB;
     --blush: #F6DADF;
     --lav: #DFD9F3;
@@ -104,6 +110,7 @@
     --btn-bg: #262421;
     --btn-ink: #FBF9F5;
     --stripe: rgba(38,36,33,0.05);
+    --plate: #FAF7F0;
     --card-shadow: 0 4px 14px rgba(38,36,33,0.04), 0 1px 3px rgba(38,36,33,0.03);
     --card-shadow-hover: 0 16px 36px rgba(38,36,33,0.08), 0 4px 10px rgba(38,36,33,0.04);
   }
@@ -125,6 +132,7 @@
     --btn-bg: #CFE8DB;
     --btn-ink: #1C1C1A;
     --stripe: rgba(237,233,226,0.06);
+    --plate: #2E2D2A;
     --card-shadow: 0 4px 14px rgba(0,0,0,0.22);
     --card-shadow-hover: 0 16px 36px rgba(0,0,0,0.38), 0 4px 10px rgba(0,0,0,0.25);
   }
@@ -180,6 +188,12 @@
     top: 20px;
   }
 
+  main[tabindex="-1"]:focus { outline: none; }
+  .brand-short { display: none; }
+  @media (max-width: 640px) {
+    .brand-full { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+    .brand-short { display: inline; }
+  }
   .sr-only {
     position: absolute;
     width: 1px;
@@ -210,13 +224,14 @@
     z-index: 100;
     opacity: 0;
     transform: translateY(16px);
-    transition: opacity 240ms ease, transform 240ms cubic-bezier(0.2, 0.9, 0.3, 1), background 200ms ease;
+    transition: opacity 240ms ease, transform 240ms cubic-bezier(0.2, 0.9, 0.3, 1), background 200ms ease, visibility 240ms;
     pointer-events: none;
+    visibility: hidden;
   }
   .back-to-top-btn.is-visible {
     opacity: 1;
     transform: translateY(0);
-    pointer-events: auto;
+    pointer-events: auto; visibility: visible;
   }
   .back-to-top-btn:hover {
     background: var(--mint);
@@ -247,9 +262,9 @@
   <div style="max-width: 1080px; margin: 0 auto;">
 
     <!-- Navigation -->
-    <nav aria-label="Main Navigation" style="display: flex; align-items: center; justify-content: space-between; gap: 20px; padding-bottom: clamp(40px, 8vh, 80px);">
+    <nav aria-label="Main" style="display: flex; align-items: center; justify-content: space-between; gap: 20px; padding-bottom: clamp(40px, 8vh, 80px);">
       <a href="index.html" style="font-family: 'Archivo', Helvetica, sans-serif; font-size: 17px; font-weight: 600; letter-spacing: -0.01em; display: inline-flex; align-items: center; gap: 8px;">
-        <span>Anadhya Badri Narayan</span>
+        <span class="brand-full">Anadhya Badri Narayan</span><span class="brand-short" aria-hidden="true">ABN</span>
       </a>
       <div style="display: flex; align-items: center; gap: clamp(14px, 2.4vw, 28px);">
         <a href="index.html" style="font-size: 13.5px; font-weight: 500; color: var(--ink-2);" style-hover="color: var(--ink);">Home</a>
@@ -301,11 +316,11 @@
       </div>
       
       <h1 style="margin: 0; font-family: 'Archivo', Helvetica, sans-serif; font-weight: 600; font-size: clamp(34px, 5.5vw, 64px); line-height: 1.08; letter-spacing: -0.02em; text-wrap: balance;">
-        Celebration Stationery : The Paul &amp; Milestone Suites
+        The Paul &amp; Milestone Invitations
       </h1>
 
       <p style="margin: 20px 0 0; font-family: 'Karla', sans-serif; font-size: clamp(16px, 1.75vw, 21px); line-height: 1.5; color: var(--ink-2); max-width: 100%;">
-        <em>&ldquo;Cherishing life milestones through thoughtful design&rdquo;</em> : A curated collection of bespoke invitation suites celebrating betrothals, new homes, and new beginnings.
+        <em>“For the big days in between”</em>. Invitations for an engagement, a new home and a few new babies.
       </p>
 
       <!-- Project Metadata Grid -->
@@ -337,15 +352,15 @@
           <span style="font-family: 'Space Mono', monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-2); display: block; margin-bottom: 16px;">The Concept</span>
           
           <h2 style="margin: 0 0 24px; font-family: 'Archivo', Helvetica, sans-serif; font-weight: 600; font-size: clamp(24px, 3.2vw, 36px); line-height: 1.2; letter-spacing: -0.01em;">
-            Honouring life's most intimate milestones through personalized typography, traditional motifs, and playful illustrations.
+            Smaller family occasions, each with its own personality.
           </h2>
 
           <p style="margin: 0 0 20px; font-size: clamp(16px, 1.4vw, 18px); line-height: 1.7; color: var(--ink-2); text-wrap: pretty;">
-            Across life's most meaningful milestones, stationery acts as the tactile first whisper of a celebration. This curated collection brings together bespoke invitations created for intimate family gatherings, from a formal betrothal dinner at The Paul hotel in Bengaluru to sacred housewarming rituals and joyous baby shower announcements.
+            An invitation is usually the first thing guests hold before a celebration. These are a few I made for family occasions, from a formal betrothal dinner at The Paul in Bengaluru to a housewarming pooja and some very happy baby showers.
           </p>
 
           <p style="margin: 0; font-size: clamp(16px, 1.4vw, 18px); line-height: 1.7; color: var(--ink-2); text-wrap: pretty;">
-            Each design is approached as a reflection of the occasion's unique spirit, pairing refined serif typography and gold seal monograms for formal banquets with sacred Pichwai cows and vibrant balloon arches for welcoming home rituals and new arrivals.
+            I tried to match each one to the mood of the day. The dinner got serif type and gold seals, the housewarming got Pichwai cows, and the babies got balloons.
           </p>
         </div>
 
@@ -353,27 +368,27 @@
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px; margin-top: clamp(36px, 5vw, 54px);">
           
           <div style="padding: 18px; background: var(--bg); border-radius: calc(var(--r) - 14px);">
-            <div style="width: 36px; height: 36px; border-radius: 999px; background: var(--cream); display: flex; align-items: center; justify-content: center; font-size: 16px; margin-bottom: 12px;">🕊️</div>
+            <div aria-hidden="true" style="width: 36px; height: 36px; border-radius: 999px; background: var(--cream); display: flex; align-items: center; justify-content: center; font-size: 16px; margin-bottom: 12px;">🕊️</div>
             <h3 style="margin: 0 0 6px; font-size: 15px; font-weight: 600;">Betrothal at The Paul</h3>
-            <p style="margin: 0; font-size: 13.5px; line-height: 1.55; color: var(--ink-2);">Refined cursive calligraphy and gold botanical seal monograms celebrating Cicilla and Wilbur's betrothal reception at The Paul in Bengaluru.</p>
+            <p style="margin: 0; font-size: 13.5px; line-height: 1.55; color: var(--ink-2);">Cursive lettering and gold seals for Cicilla and Wilbur's betrothal dinner at The Paul, Bengaluru.</p>
           </div>
 
           <div style="padding: 18px; background: var(--bg); border-radius: calc(var(--r) - 14px);">
-            <div style="width: 36px; height: 36px; border-radius: 999px; background: var(--powder); display: flex; align-items: center; justify-content: center; font-size: 16px; margin-bottom: 12px;">🐄</div>
-            <h3 style="margin: 0 0 6px; font-size: 15px; font-weight: 600;">Pichwai Sacred Cows &amp; Homam</h3>
-            <p style="margin: 0; font-size: 13.5px; line-height: 1.55; color: var(--ink-2);">Ornate South Indian temple arches, sacred Kamadhenu cows, and pink lotus vines crafted for an auspicious new home blessing.</p>
+            <div aria-hidden="true" style="width: 36px; height: 36px; border-radius: 999px; background: var(--powder); display: flex; align-items: center; justify-content: center; font-size: 16px; margin-bottom: 12px;">🐄</div>
+            <h3 style="margin: 0 0 6px; font-size: 15px; font-weight: 600;">Pichwai Cows &amp; Homam</h3>
+            <p style="margin: 0; font-size: 13.5px; line-height: 1.55; color: var(--ink-2);">Temple arches, Kamadhenu cows and pink lotus vines for a new home blessing.</p>
           </div>
 
           <div style="padding: 18px; background: var(--bg); border-radius: calc(var(--r) - 14px);">
-            <div style="width: 36px; height: 36px; border-radius: 999px; background: var(--blush); display: flex; align-items: center; justify-content: center; font-size: 16px; margin-bottom: 12px;">🌸</div>
-            <h3 style="margin: 0 0 6px; font-size: 15px; font-weight: 600;">Delicate Botanical Roses</h3>
-            <p style="margin: 0; font-size: 13.5px; line-height: 1.55; color: var(--ink-2);">Lush watercolor rose garlands and soft powder blue washes creating an ethereal, heartwarming announcement for baby shower festivities.</p>
+            <div aria-hidden="true" style="width: 36px; height: 36px; border-radius: 999px; background: var(--blush); display: flex; align-items: center; justify-content: center; font-size: 16px; margin-bottom: 12px;">🌸</div>
+            <h3 style="margin: 0 0 6px; font-size: 15px; font-weight: 600;">Watercolour Roses</h3>
+            <p style="margin: 0; font-size: 13.5px; line-height: 1.55; color: var(--ink-2);">Rose garlands and soft blue washes for a baby shower.</p>
           </div>
 
           <div style="padding: 18px; background: var(--bg); border-radius: calc(var(--r) - 14px);">
-            <div style="width: 36px; height: 36px; border-radius: 999px; background: var(--mint); display: flex; align-items: center; justify-content: center; font-size: 16px; margin-bottom: 12px;">🎈</div>
+            <div aria-hidden="true" style="width: 36px; height: 36px; border-radius: 999px; background: var(--mint); display: flex; align-items: center; justify-content: center; font-size: 16px; margin-bottom: 12px;">🎈</div>
             <h3 style="margin: 0 0 6px; font-size: 15px; font-weight: 600;">Playful Nursery Art</h3>
-            <p style="margin: 0; font-size: 13.5px; line-height: 1.55; color: var(--ink-2);">Whimsical pastel balloon arches paired with hand drawn nursery cribs and plush companions for cheerful welcome celebrations.</p>
+            <p style="margin: 0; font-size: 13.5px; line-height: 1.55; color: var(--ink-2);">Pastel balloons, a little crib and soft toys, all drawn by hand.</p>
           </div>
 
         </div>
@@ -387,25 +402,25 @@
         
         <div style="margin-bottom: 24px; display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px;">
           <div>
-            <span style="font-family: 'Space Mono', monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-2); display: block; margin-bottom: 8px;">Featured Milestone Invitation</span>
+            <span style="font-family: 'Space Mono', monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-2); display: block; margin-bottom: 8px;">Featured Invitation</span>
             <h2 style="margin: 0; font-family: 'Archivo', Helvetica, sans-serif; font-weight: 600; font-size: clamp(22px, 3vw, 32px); letter-spacing: -0.01em;">
-              A botanical watercolor celebration of new beginnings
+              Roses for a new baby
             </h2>
           </div>
           <span style="font-family: 'Space Mono', monospace; font-size: 12px; background: var(--mint); color: var(--chip-ink); padding: 6px 14px; border-radius: 999px; font-weight: 600;">Baby Shower</span>
         </div>
 
-        <div style="border-radius: calc(var(--r) - 10px); overflow: hidden; border: 1px solid var(--line); background: #FAF7F0; display: flex; justify-content: center; align-items: center;">
+        <div style="border-radius: calc(var(--r) - 10px); overflow: hidden; border: 1px solid var(--line); background: var(--plate); display: flex; justify-content: center; align-items: center;">
           <img 
             src="./_assets/covers/Paul_cover.jpg" 
-            alt="Ananya : Baby Shower Botanical Watercolor Invitation" 
+            alt="Ananya's watercolour baby shower invitation" 
             loading="lazy"
             style="width: 100%; max-width: 680px; height: auto; object-fit: contain; display: block; margin: 0 auto; padding: 16px;"
           />
         </div>
 
         <p style="margin: 18px 0 0; font-size: 14.5px; line-height: 1.6; color: var(--ink-2);">
-          Bespoke invitation designed for Ananya's baby shower in Ardmore, Papakura, pairing rich gouache garden roses with soft sky watercolor washes and modern humanist calligraphy.
+          Made for Ananya's baby shower in Ardmore, Papakura, with gouache roses, a pale sky wash and handwritten style lettering.
         </p>
 
       </div>
@@ -417,10 +432,10 @@
       <div style="margin-bottom: clamp(28px, 4vw, 44px);">
         <span style="font-family: 'Space Mono', monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-2); display: block; margin-bottom: 8px;">The Collection</span>
         <h2 style="margin: 0; font-family: 'Archivo', Helvetica, sans-serif; font-weight: 600; font-size: clamp(24px, 3.2vw, 36px); letter-spacing: -0.01em;">
-          Seven bespoke milestones brought to life
+          Seven invitations, seven occasions
         </h2>
         <p style="margin: 10px 0 0; font-size: clamp(15px, 1.3vw, 17px); color: var(--ink-2); max-width: 68ch;">
-          From formal city banquets to sacred homam ceremonies and intimate family celebrations, each card tells its own story.
+          From a dinner in the city to a homam at home, every card is a little different.
         </p>
       </div>
 
@@ -428,10 +443,10 @@
         
         <!-- Card 1: The Paul Betrothal -->
         <article class="zoom-card" style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 18px 18px 24px; display: flex; flex-direction: column;">
-          <div style="border-radius: calc(var(--r) - 12px); overflow: hidden; background: #FAF7F0; border: 1px solid var(--line); display: flex; justify-content: center; align-items: center; aspect-ratio: 3/4;">
+          <div style="border-radius: calc(var(--r) - 12px); overflow: hidden; background: var(--plate); border: 1px solid var(--line); display: flex; justify-content: center; align-items: center; aspect-ratio: 3/4;">
             <img 
               src="./_assets/Paul/1.webp" 
-              alt="Cicilla &amp; Wilbur : Betrothal Reception at The Paul" 
+              alt="Cicilla and Wilbur's betrothal invitation for The Paul" 
               loading="lazy"
               style="width: 100%; height: 100%; object-fit: contain; display: block; padding: 12px;"
             />
@@ -442,17 +457,17 @@
               <span style="font-family: 'Space Mono', monospace; font-size: 11px; background: var(--cream); color: var(--chip-ink); padding: 4px 10px; border-radius: 999px;">6 July 2019</span>
             </div>
             <p style="margin: 0; font-size: 14px; line-height: 1.6; color: var(--ink-2); flex: 1;">
-              Formal dinner reception invitation for Cicilla Cyril &amp; Wilbur D'Souza at The Paul in Domlur, Bengaluru, featuring romantic cursive typography and refined editorial hierarchy.
+              Dinner invitation for Cicilla Cyril &amp; Wilbur D'Souza at The Paul in Domlur, Bengaluru, with romantic cursive and a clean, simple layout.
             </p>
           </div>
         </article>
 
         <!-- Card 2: CW Monogram Seals -->
         <article class="zoom-card" style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 18px 18px 24px; display: flex; flex-direction: column;">
-          <div style="border-radius: calc(var(--r) - 12px); overflow: hidden; background: #FAF7F0; border: 1px solid var(--line); display: flex; justify-content: center; align-items: center; aspect-ratio: 3/4;">
+          <div style="border-radius: calc(var(--r) - 12px); overflow: hidden; background: var(--plate); border: 1px solid var(--line); display: flex; justify-content: center; align-items: center; aspect-ratio: 3/4;">
             <img 
               src="./_assets/Paul/2.webp" 
-              alt="Cicilla &amp; Wilbur : CW Monogram and Botanical Seals" 
+              alt="CW monogram seals for Cicilla and Wilbur" 
               loading="lazy"
               style="width: 100%; height: 100%; object-fit: contain; display: block; padding: 12px;"
             />
@@ -463,17 +478,17 @@
               <span style="font-family: 'Space Mono', monospace; font-size: 11px; background: var(--powder); color: var(--chip-ink); padding: 4px 10px; border-radius: 999px;">Wax Seals</span>
             </div>
             <p style="margin: 0; font-size: 14px; line-height: 1.6; color: var(--ink-2); flex: 1;">
-              Circular gold foil and delicate linework seal stickers featuring intertwined initials "CW", delicate botanical flower branches, and the celebration date.
+              Round gold foil seal stickers with a CW monogram, small flower branches and the date.
             </p>
           </div>
         </article>
 
         <!-- Card 3: Reception Welcome Card -->
         <article class="zoom-card" style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 18px 18px 24px; display: flex; flex-direction: column;">
-          <div style="border-radius: calc(var(--r) - 12px); overflow: hidden; background: #FAF7F0; border: 1px solid var(--line); display: flex; justify-content: center; align-items: center; aspect-ratio: 3/4;">
+          <div style="border-radius: calc(var(--r) - 12px); overflow: hidden; background: var(--plate); border: 1px solid var(--line); display: flex; justify-content: center; align-items: center; aspect-ratio: 3/4;">
             <img 
               src="./_assets/Paul/3.webp" 
-              alt="Tara &amp; Shashidhar : Ceremonial Jasmine Welcome Card" 
+              alt="Welcome card with jasmine for Tara and Shashidhar" 
               loading="lazy"
               style="width: 100%; height: 100%; object-fit: contain; display: block; padding: 12px;"
             />
@@ -484,17 +499,17 @@
               <span style="font-family: 'Space Mono', monospace; font-size: 11px; background: var(--blush); color: var(--chip-ink); padding: 4px 10px; border-radius: 999px;">Welcome</span>
             </div>
             <p style="margin: 0; font-size: 14px; line-height: 1.6; color: var(--ink-2); flex: 1;">
-              Celebration welcome card for Tara, Shashidhar, Laxmi, and Prasanna Ganapati Gudigar, adorned with cascading sacred white jasmine and pink lotus bud garlands.
+              Welcome card for Tara, Shashidhar, Laxmi and Prasanna Ganapati Gudigar, with strings of white jasmine and pink lotus buds.
             </p>
           </div>
         </article>
 
         <!-- Card 4: Housewarming & Homam -->
         <article class="zoom-card" style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 18px 18px 24px; display: flex; flex-direction: column;">
-          <div style="border-radius: calc(var(--r) - 12px); overflow: hidden; background: #FAF7F0; border: 1px solid var(--line); display: flex; justify-content: center; align-items: center; aspect-ratio: 3/4;">
+          <div style="border-radius: calc(var(--r) - 12px); overflow: hidden; background: var(--plate); border: 1px solid var(--line); display: flex; justify-content: center; align-items: center; aspect-ratio: 3/4;">
             <img 
               src="./_assets/Paul/4.webp" 
-              alt="Artisane Forest Breeze : Housewarming and Homam Invitation" 
+              alt="Housewarming and homam invitation for Artisane Forest Breeze" 
               loading="lazy"
               style="width: 100%; height: 100%; object-fit: contain; display: block; padding: 12px;"
             />
@@ -505,17 +520,17 @@
               <span style="font-family: 'Space Mono', monospace; font-size: 11px; background: var(--mint); color: var(--chip-ink); padding: 4px 10px; border-radius: 999px;">20 Dec 2021</span>
             </div>
             <p style="margin: 0; font-size: 14px; line-height: 1.6; color: var(--ink-2); flex: 1;">
-              Auspicious Griha Pravesham invitation at Artisane Forest Breeze in Dollars Colony, featuring traditional temple archways, pink lotus vines, and sacred Pichwai style cows.
+              Griha Pravesham invitation for Artisane Forest Breeze in Dollars Colony, with temple arches, pink lotus vines and Pichwai style cows.
             </p>
           </div>
         </article>
 
         <!-- Card 5: Full Baby Shower Invitation -->
         <article class="zoom-card" style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 18px 18px 24px; display: flex; flex-direction: column;">
-          <div style="border-radius: calc(var(--r) - 12px); overflow: hidden; background: #FAF7F0; border: 1px solid var(--line); display: flex; justify-content: center; align-items: center; aspect-ratio: 3/4;">
+          <div style="border-radius: calc(var(--r) - 12px); overflow: hidden; background: var(--plate); border: 1px solid var(--line); display: flex; justify-content: center; align-items: center; aspect-ratio: 3/4;">
             <img 
               src="./_assets/Paul/5.webp" 
-              alt="Ananya : Botanical Baby Shower Floral Card" 
+              alt="Ananya's floral baby shower card" 
               loading="lazy"
               style="width: 100%; height: 100%; object-fit: contain; display: block; padding: 12px;"
             />
@@ -526,38 +541,38 @@
               <span style="font-family: 'Space Mono', monospace; font-size: 11px; background: var(--powder); color: var(--chip-ink); padding: 4px 10px; border-radius: 999px;">27 Jan 2019</span>
             </div>
             <p style="margin: 0; font-size: 14px; line-height: 1.6; color: var(--ink-2); flex: 1;">
-              Lush watercolor floral announcement for Ananya's baby shower in Ardmore, Papakura, bordered with blooming pink roses and soft serene mint washes.
+              Ananya's baby shower in Ardmore, Papakura, with pink roses around the edge and a soft mint wash.
             </p>
           </div>
         </article>
 
         <!-- Card 6: Whimsical Nursery Baby Shower -->
         <article class="zoom-card" style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 18px 18px 24px; display: flex; flex-direction: column;">
-          <div style="border-radius: calc(var(--r) - 12px); overflow: hidden; background: #FAF7F0; border: 1px solid var(--line); display: flex; justify-content: center; align-items: center; aspect-ratio: 3/4;">
+          <div style="border-radius: calc(var(--r) - 12px); overflow: hidden; background: var(--plate); border: 1px solid var(--line); display: flex; justify-content: center; align-items: center; aspect-ratio: 3/4;">
             <img 
               src="./_assets/Paul/6.webp" 
-              alt="Ananya : Whimsical Illustrated Nursery Baby Shower Card" 
+              alt="Ananya's illustrated nursery baby shower card" 
               loading="lazy"
               style="width: 100%; height: 100%; object-fit: contain; display: block; padding: 12px;"
             />
           </div>
           <div style="padding: 20px 10px 0; flex: 1; display: flex; flex-direction: column;">
             <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 6px;">
-              <h3 style="margin: 0; font-size: 18px; font-weight: 600; letter-spacing: -0.01em;">Whimsical Nursery Suite</h3>
+              <h3 style="margin: 0; font-size: 18px; font-weight: 600; letter-spacing: -0.01em;">Nursery Suite</h3>
               <span style="font-family: 'Space Mono', monospace; font-size: 11px; background: var(--cream); color: var(--chip-ink); padding: 4px 10px; border-radius: 999px;">26 Jan 2019</span>
             </div>
             <p style="margin: 0; font-size: 14px; line-height: 1.6; color: var(--ink-2); flex: 1;">
-              Illustrated celebration card with a watercolor pastel balloon garland, modern wooden crib, and hand drawn bunny and elephant plush companions.
+              Pastel balloons, a wooden crib and a hand drawn bunny and elephant.
             </p>
           </div>
         </article>
 
         <!-- Card 7: Traditional Seemantham -->
         <article class="zoom-card" style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 18px 18px 24px; display: flex; flex-direction: column;">
-          <div style="border-radius: calc(var(--r) - 12px); overflow: hidden; background: #FAF7F0; border: 1px solid var(--line); display: flex; justify-content: center; align-items: center; aspect-ratio: 3/4;">
+          <div style="border-radius: calc(var(--r) - 12px); overflow: hidden; background: var(--plate); border: 1px solid var(--line); display: flex; justify-content: center; align-items: center; aspect-ratio: 3/4;">
             <img 
               src="./_assets/Paul/7.webp" 
-              alt="Ananya : Traditional Seemantham Invitation Card" 
+              alt="Ananya's Seemantham invitation card" 
               loading="lazy"
               style="width: 100%; height: 100%; object-fit: contain; display: block; padding: 12px;"
             />
@@ -568,7 +583,7 @@
               <span style="font-family: 'Space Mono', monospace; font-size: 11px; background: var(--mint); color: var(--chip-ink); padding: 4px 10px; border-radius: 999px;">13 Jan 2019</span>
             </div>
             <p style="margin: 0; font-size: 14px; line-height: 1.6; color: var(--ink-2); flex: 1;">
-              Traditional Indian baby shower invitation for Ananya honoring the arrival of their baby girl, framed by rich dark teal and pink lotus arabesque borders with gold typography.
+              A traditional baby shower invitation for Ananya's baby girl, with dark teal and pink lotus borders and gold type.
             </p>
           </div>
         </article>
@@ -580,10 +595,10 @@
     <section style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: clamp(30px, 5vw, 54px); margin-bottom: clamp(56px, 9vh, 100px); display: flex; flex-wrap: wrap; gap: 24px; align-items: center; justify-content: space-between;">
       <div>
         <h2 style="margin: 0; max-width: 22ch; font-family: 'Archivo', Helvetica, sans-serif; font-weight: 600; font-size: clamp(22px, 3vw, 34px); line-height: 1.15; letter-spacing: -0.02em; text-wrap: pretty;">
-          Planning a bespoke celebration suite or family milestone?
+          Got a family celebration coming up?
         </h2>
         <p style="margin: 12px 0 0; font-size: 15px; color: var(--ink-2);">
-          Creating heirloom celebration suites, tactile invitations, and personal visual narratives.
+          I make invitations people hold on to long after the day.
         </p>
       </div>
       <div style="display: flex; flex-wrap: wrap; gap: 12px;">
@@ -598,7 +613,7 @@
     <footer style="border-top: 1px solid var(--line); padding: clamp(36px, 6vw, 60px) 0 44px; display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-end; justify-content: space-between;">
       <div>
         <p style="margin: 0; font-family: 'Archivo', Helvetica, sans-serif; font-weight: 600; font-size: clamp(20px, 2.6vw, 27px); letter-spacing: -0.02em;">Let's make something calm.</p>
-        <p style="margin: 10px 0 0; font-family: 'Space Mono', monospace; font-size: 12px; color: var(--ink-2);">&copy; 2026 Anadhya Badri Narayan &middot; Bengaluru, India</p>
+        <p style="margin: 10px 0 0; font-family: 'Space Mono', monospace; font-size: 12px; color: var(--ink-2);">© 2026 Anadhya Badri Narayan, Bengaluru, India</p>
       </div>
       <div style="display: flex; flex-wrap: wrap; gap: 10px;">
         <a href="mailto:anadhya94@gmail.com" style="border: 1px solid var(--line); background: var(--bg-2); border-radius: 999px; padding: 12px 22px; font-size: 13.5px; font-weight: 500; min-height: 44px; display: inline-flex; align-items: center; justify-content: center; transition: background 200ms ease;" style-hover="background: var(--mint); color: var(--chip-ink);">Email</a>
@@ -659,6 +674,7 @@ class Component extends DCLogic {
 
   applyTheme(t) {
     document.documentElement.setAttribute('data-theme', t);
+    var tc = document.querySelector('meta[name="theme-color"]'); if (tc) tc.setAttribute('content', t === 'dark' ? '#1C1C1A' : '#F7F4EF');
   }
 
   toggleTheme = () => {
@@ -692,6 +708,8 @@ class Component extends DCLogic {
     window.addEventListener('scroll', toggleBtt, { passive: true });
     toggleBtt();
     btt.addEventListener('click', function() {
+      var firstLink = document.querySelector('nav a');
+      if (firstLink) firstLink.focus({ preventScroll: true });
       if (window.lenis) {
         window.lenis.scrollTo(0, { duration: 1.2 });
       } else {
