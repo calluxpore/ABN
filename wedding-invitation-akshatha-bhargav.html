@@ -810,19 +810,21 @@ class Component extends DCLogic {
 </script>
 <script>
   (function() {
-    var btt = document.getElementById('back-to-top');
-    if (!btt) return;
-    var toggleBtt = function() {
-      if (window.scrollY > 380) {
+    function toggleBtt() {
+      var btt = document.getElementById('back-to-top');
+      if (!btt) return;
+      if ((window.pageYOffset || document.documentElement.scrollTop || window.scrollY || 0) > 380) {
         btt.classList.add('is-visible');
       } else {
         btt.classList.remove('is-visible');
       }
-    };
+    }
     window.addEventListener('scroll', toggleBtt, { passive: true });
     toggleBtt();
-    btt.addEventListener('click', function() {
-      var firstLink = document.querySelector('nav a');
+    document.addEventListener('click', function(e) {
+      var btn = e.target.closest('#back-to-top');
+      if (!btn) return;
+      var firstLink = document.querySelector('nav a, a[href="#main-content"]');
       if (firstLink) firstLink.focus({ preventScroll: true });
       if (window.lenis) {
         window.lenis.scrollTo(0, { duration: 1.2 });
