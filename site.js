@@ -25,3 +25,28 @@
   if (!current || strip.scrollWidth <= strip.clientWidth) return;
   strip.scrollLeft = current.offsetLeft - strip.offsetLeft - 16;
 })();
+
+// Light and dark mode. The choice is remembered; until one is made, the device setting decides.
+(() => {
+  const btn = document.querySelector('[data-theme-toggle]');
+  if (!btn) return;
+  const root = document.documentElement;
+  const meta = document.querySelector('meta[name="theme-color"]');
+  const apply = (t) => {
+    root.setAttribute('data-theme', t);
+    btn.setAttribute('aria-pressed', String(t === 'dark'));
+    if (meta) meta.setAttribute('content', t === 'dark' ? '#1f1d1b' : '#ddd3c4');
+  };
+  apply(root.getAttribute('data-theme') === 'dark' ? 'dark' : 'light');
+  btn.addEventListener('click', () => {
+    const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    apply(next);
+    try { localStorage.setItem('me-portfolio-theme', next); } catch (e) {}
+  });
+  // follow the device while the visitor has not chosen
+  matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+    let saved = null;
+    try { saved = localStorage.getItem('me-portfolio-theme'); } catch (err) {}
+    if (saved !== 'dark' && saved !== 'light') apply(e.matches ? 'dark' : 'light');
+  });
+})();

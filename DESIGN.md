@@ -150,6 +150,9 @@ A warm, quiet set of beiges, whites and charcoal greys, with no accent hue at al
 
 **The Discipline Tab Rule.** Tab colour encodes discipline and nothing else: white for stationery, pale beige for illustration, warm grey with cream text for industrial design.
 
+### Dark mode
+The same album bound in charcoal, still neutrals only. `:root[data-theme="dark"]` swaps the same tokens: cover #1f1d1b, back cover #171614, pages #2a2825, insets #34312d, text #ece7df, secondary text #b8b0a5, hairline #3d3a35, tabs #2a2825 / #3b3732 / #5a554d, button press #d6cfc4, picture edge at 10% bone. Buttons invert to bone fill with charcoal text. Every text pair stays at or above 6:1. The visitor's choice is stored in `localStorage` (`me-portfolio-theme`); with no choice the device's `prefers-color-scheme` decides, and an inline script in `<head>` sets the theme before first paint.
+
 ## Typography
 
 **Display Font:** Rozha One (with Bodoni Moda, serif)
@@ -213,7 +216,7 @@ The fore-edge of the album and the site's index.
 - **Back cover:** Linen Deep, top corners rounded, display-size sign-off left, email, LinkedIn and CV button right.
 
 ### Navigation
-Top bar on linen: the ABN mark in Rozha One 1.75rem with her full name beside it (hidden under 900px); Work, About and LinkedIn in Hind 500 at label size; the CV button last. Links underline with a 2px charcoal bar that scales in from the left over 240ms; the current page keeps it.
+Top bar on linen: the ABN mark in Rozha One 1.75rem with her full name beside it (hidden under 900px); Work, About and LinkedIn in Hind 500 at label size; the CV button, then the light/dark switch (a 48px rounded square with a sun or moon line icon, `aria-pressed` reflecting dark mode) at the far right. LinkedIn leaves the bar under 420px; it stays on the cover and in the footer. Links underline with a 2px charcoal bar that scales in from the left over 240ms; the current page keeps it.
 
 ### Facts list
 A two-column definition list at label size: Charcoal Soft terms, Hind 500 values, 4px by 20px gaps. Used for what, where, scope and dates on every spread and case head.

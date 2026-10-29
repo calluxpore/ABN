@@ -119,7 +119,15 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Hind:wght@400;500;600&family=Rozha+One&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="site.css?v=3">
-<script>document.documentElement.classList.add('js')</script>
+<script>
+(function () {
+  var d = document.documentElement, t = null;
+  d.classList.add('js');
+  try { t = localStorage.getItem('me-portfolio-theme'); } catch (e) {}
+  if (t !== 'dark' && t !== 'light') t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  d.setAttribute('data-theme', t);
+})();
+</script>
 <script src="site.js?v=3" defer></script>
 </head>
 <body>
@@ -129,8 +137,12 @@
   <nav aria-label="Main">
     <a href="index.html#work" class="hide-sm">Work</a>
     <a href="about.html">About</a>
-    <a href="https://www.linkedin.com/in/anadhyanarayan/" target="_blank" rel="noopener noreferrer">LinkedIn<span class="sr"> (opens in a new tab)</span></a>
+    <a href="https://www.linkedin.com/in/anadhyanarayan/" target="_blank" rel="noopener noreferrer" class="hide-xs">LinkedIn<span class="sr"> (opens in a new tab)</span></a>
     <a class="btn" href="./_assets/CV/Profile.pdf" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v10M5 9l5 5 5-5M4 17h12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square"/></svg>CV (PDF)<span class="sr"> (opens in a new tab)</span></a>
+    <button class="theme" type="button" data-theme-toggle aria-pressed="false" aria-label="Dark mode" title="Dark mode">
+      <svg class="sun" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.3M12 19.2v2.3M2.5 12h2.3M19.2 12h2.3M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></g></svg>
+      <svg class="moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.6A8 8 0 1 1 9.4 4a6.4 6.4 0 0 0 10.6 10.6Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+    </button>
   </nav>
 </header>
 <div class="case">
