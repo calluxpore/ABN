@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-IN">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#F7F4EF">
+<meta name="theme-color" content="#161c1a">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="icon" href="favicon-48.png" sizes="48x48" type="image/png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -111,847 +111,361 @@
   ]
 }
 </script>
-<script>
-  (function () {
-    try {
-      var urlTheme = new URLSearchParams(window.location.search).get('theme');
-      var saved = (urlTheme === 'dark' || urlTheme === 'light') ? urlTheme : localStorage.getItem('me-portfolio-theme');
-      var theme = (saved === 'dark' || saved === 'light') ? saved : 'light';
-      document.documentElement.setAttribute('data-theme', theme);
-      var tc = document.querySelector('meta[name="theme-color"]'); if (tc) tc.setAttribute('content', theme === 'dark' ? '#1C1C1A' : '#F7F4EF');
-    } catch (e) {
-      document.documentElement.setAttribute('data-theme', 'light');
-    }
-  })();
-</script>
-<style>
-  html[data-theme="dark"] {
-    background-color: #1C1C1A;
-    color: #EDE9E2;
-    color-scheme: dark;
-  }
-  html[data-theme="light"], html:not([data-theme="dark"]) {
-    background-color: #F7F4EF;
-    color: #262421;
-    color-scheme: light;
-  }
-  #bg-canvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    pointer-events: none;
-    z-index: 0;
-  }
-  #dc-root, x-dc {
-    position: relative;
-    z-index: 1;
-  }
-</style>
-<script src="./lenis.min.js" defer></script>
-<script src="./card-tilt.js" defer></script>
-<script>
-  (function () {
-    function initLenis() {
-      if (typeof Lenis === 'undefined') return;
-      var isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      if (isReducedMotion) return; // Respect user motion preference
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
 
-      var lenis = new Lenis({
-        duration: 1.1,
-        easing: function (t) { return Math.min(1, 1.001 - Math.pow(2, -10 * t)); },
-        smoothWheel: true,
-        wheelMultiplier: 1,
-        touchMultiplier: 2
-      });
-      window.lenis = lenis;
-      function raf(time) {
-        lenis.raf(time);
-        requestAnimationFrame(raf);
-      }
-      requestAnimationFrame(raf);
-
-      document.addEventListener('click', function (e) {
-        var anchor = e.target.closest('a[href^="#"]');
-        if (anchor && anchor.getAttribute('href').length > 1) {
-          var target = document.querySelector(anchor.getAttribute('href'));
-          if (target) {
-            e.preventDefault();
-            lenis.scrollTo(target, { offset: -((document.querySelector('.site-nav') || {}).offsetHeight || 0), duration: 1.2 });
-            if (!target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1');
-            target.focus({ preventScroll: true });
-          }
-        }
-      });
-
-      if (window.location.hash) {
-        setTimeout(function () {
-          var target = document.querySelector(window.location.hash);
-          if (target) {
-            lenis.scrollTo(target, { offset: -((document.querySelector('.site-nav') || {}).offsetHeight || 0), duration: 1.2 });
-          }
-        }, 150);
-      }
-    }
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initLenis);
-    } else {
-      initLenis();
-    }
-  })();
-</script>
-<script src="./canvas-bg.js?v=17" defer></script>
-<script src="./support.js"></script>
+<link rel="stylesheet" href="site.css?v=2">
+<script>document.documentElement.classList.add('js')</script>
+<script src="site.js?v=2" defer></script>
 </head>
 <body>
-<a href="#main-content" class="skip-link">Skip to main content</a>
-<canvas id="bg-canvas" aria-hidden="true"></canvas>
-<x-dc>
-<helmet>
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600&family=Karla:wght@400;500;600&family=Space+Mono:wght@400&display=swap" rel="stylesheet" />
-<style>
-  :root {
-    --r: 28px;
-    --bg: #F7F4EF;
-    --nav-bg: rgba(247, 244, 239, 0.7);
-    --bg-2: #FFFDFA;
-    --surface: #FFFFFF;
-    --ink: #262421;
-    --ink-2: #524E46; /* High contrast AA/AAA compliant text */
-    --line: rgba(38,36,33,0.14);
-    --mint: #CFE8DB;
-    --blush: #F6DADF;
-    --lav: #DFD9F3;
-    --powder: #D5E4F1;
-    --cream: #F3E9D8;
-    --chip-ink: #3A362F;
-    --pill-bg: #FFFFFF;
-    --pill-ink: #262421;
-    --btn-bg: #262421;
-    --btn-ink: #FBF9F5;
-    --stripe: rgba(38,36,33,0.05);
-    --focus-ring: #262421;
-    --card-shadow: 0 14px 34px -8px rgba(38,36,33, 0.08);
-  }
-  html[data-theme="dark"] {
-    --bg: #1C1C1A;
-    --nav-bg: rgba(28, 28, 26, 0.7);
-    --bg-2: #212120;
-    --surface: #262625;
-    --ink: #EDE9E2;
-    --ink-2: #ADA69C; /* High contrast AA compliant text */
-    --line: rgba(237,233,226,0.13);
-    --mint: #A9D3C2;
-    --blush: #E7BEC5;
-    --lav: #C4BBE4;
-    --powder: #B2CBE0;
-    --cream: #E1CFAE;
-    --chip-ink: #1C1C1A;
-    --pill-bg: #171716;
-    --pill-ink: #EDE9E2;
-    --btn-bg: #CFE8DB;
-    --btn-ink: #1C1C1A;
-    --stripe: rgba(237,233,226,0.06);
-    --focus-ring: #CFE8DB;
-    --card-shadow: 0 14px 34px -8px rgba(0,0,0, 0.40);
-  }
-  * { box-sizing: border-box; }
-  html {
-    scroll-behavior: smooth;
-    background: var(--bg);
-  }
-  html.lenis, html.lenis body {
-    height: auto;
-  }
-  .lenis.lenis-smooth {
-    scroll-behavior: auto !important;
-  }
-  .lenis.lenis-smooth [data-lenis-prevent] {
-    overscroll-behavior: contain;
-  }
-  .lenis.lenis-stopped {
-    overflow: hidden;
-  }
-  body {
-    margin: 0;
-    background: var(--bg);
-    color: var(--ink);
-    font-family: 'Karla', Helvetica, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    transition: background 300ms ease, color 300ms ease;
-  }
-  a {
-    color: var(--ink);
-    text-decoration: none;
-    transition: color 200ms ease, opacity 200ms ease;
-  }
-  a:hover { color: var(--ink-2); }
-
-  /* Accessibility Skip Link */
-  .skip-link {
-    position: fixed;
-    top: -999px;
-    left: 20px;
-    background: var(--btn-bg);
-    color: var(--btn-ink);
-    padding: 12px 24px;
-    border-radius: 999px;
-    font-weight: 600;
-    font-size: 14px;
-    z-index: 99999;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.25);
-    transition: top 200ms ease;
-  }
-  .skip-link:focus {
-    top: 20px;
-    outline: 2px solid var(--focus-ring);
-    outline-offset: 3px;
-  }
-
-  /* Keyboard Focus Visibility */
-  :focus-visible {
-    outline: 2px solid var(--focus-ring);
-    outline-offset: 3px;
-    border-radius: 4px;
-  }
-  button:focus-visible, a[style*="border-radius: 999px"]:focus-visible, .btn-pill:focus-visible {
-    border-radius: 999px !important;
-  }
-
-  /* Screen Reader Only Utility */
-  main[tabindex="-1"]:focus { outline: none; }
-  /* Sticky, 70% opaque navigation bar (full width background behind the content column) */
-  html { scroll-padding-top: 88px; }
-  html, body { overflow-x: clip; }
-  .site-nav {
-    position: sticky;
-    top: 0;
-    z-index: 50;
-    padding-top: 14px;
-    padding-bottom: 14px;
-    margin-top: -14px;
-  }
-  .site-nav::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: calc(50% - 50vw);
-    width: 100vw;
-    z-index: -1;
-    background: var(--nav-bg);
-    -webkit-backdrop-filter: blur(12px);
-    backdrop-filter: blur(12px);
-    transition: background 300ms ease;
-  }
-  .brand-short { display: none; }
-  @media (max-width: 640px) {
-    .brand-full { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
-    .brand-short { display: inline; }
-  }
-  .sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border-width: 0;
-  }
-
-  /* Interactive Cards Micro-Interactions */
-  article {
-    transition: transform 260ms cubic-bezier(0.2, 0, 0, 1), background 300ms ease, border-color 250ms ease, box-shadow 260ms ease !important;
-  }
-  a:hover article, article:hover {
-    box-shadow: var(--card-shadow);
-  }
-  .card-arrow {
-    display: inline-block;
-    transition: transform 220ms ease, color 200ms ease;
-  }
-  a:hover .card-arrow {
-    transform: translateX(5px);
-    color: var(--ink);
-  }
-
-  /* Tactile Hero Button Hover */
-  .hero-cta-btn {
-    transition: transform 200ms ease, box-shadow 200ms ease, opacity 200ms ease, background 200ms ease;
-  }
-  .hero-cta-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px -4px rgba(38,36,33, 0.15);
-  }
-  .hero-cta-btn:active {
-    transform: translateY(0);
-  }
-
-  /* Back to Top Floating Button */
-  .back-to-top-btn {
-    position: fixed;
-    bottom: 28px;
-    right: 28px;
-    width: 44px;
-    height: 44px;
-    border-radius: 999px;
-    background: var(--surface);
-    color: var(--ink);
-    border: 1px solid var(--line);
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(12px);
-    transition: opacity 250ms ease, transform 250ms ease, visibility 250ms, background 200ms ease, box-shadow 200ms ease;
-    box-shadow: 0 6px 18px -2px rgba(0,0,0,0.10);
-    z-index: 999;
-  }
-  .back-to-top-btn.visible,
-  .back-to-top-btn.is-visible {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-  }
-  .back-to-top-btn:hover {
-    background: var(--bg-2);
-    box-shadow: 0 10px 24px -4px rgba(0,0,0,0.18);
-    transform: translateY(-2px);
-  }
-
-  /* Reduced Motion Respect */
-  @media (prefers-reduced-motion: reduce) {
-    *, ::before, ::after {
-      animation-duration: 0.01ms !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: 0.01ms !important;
-      scroll-behavior: auto !important;
-    }
-    .skip-link {
-      transition: none !important;
-    }
-  }
-</style>
-</helmet>
-<div style="min-height: 100vh; padding: 28px clamp(20px, 5vw, 56px) 0;">
-  <div style="max-width: 1080px; margin: 0 auto;">
-
-    <nav aria-label="Main" class="site-nav" style="display: flex; align-items: center; justify-content: space-between; gap: 20px; margin-bottom: calc(clamp(60px, 12vh, 130px) - 14px);">
-      <a href="index.html" style="font-family: 'Archivo', Helvetica, sans-serif; font-size: 17px; font-weight: 600; letter-spacing: -0.01em;" aria-current="page"><span class="brand-full">Anadhya Badri Narayan</span><span class="brand-short" aria-hidden="true">ABN</span></a>
-      <div style="display: flex; align-items: center; gap: clamp(14px, 2.4vw, 28px);">
-        <a href="index.html" style="font-size: 13.5px; font-weight: 500; color: var(--ink-2); padding: 8px 4px;" style-hover="color: var(--ink);">Home</a>
-        <a href="about.html" style="font-size: 13.5px; font-weight: 500; color: var(--ink-2); padding: 8px 4px;" style-hover="color: var(--ink);">About</a>
-        <a href="https://www.linkedin.com/in/anadhyanarayan/" target="_blank" rel="noopener noreferrer" style="font-size: 13.5px; font-weight: 500; color: var(--ink-2); padding: 8px 4px;" style-hover="color: var(--ink);">LinkedIn<span class="sr-only"> (opens in a new tab)</span></a>
-        <a href="./_assets/CV/Profile.pdf" target="_blank" rel="noopener noreferrer" style="font-size: 13.5px; font-weight: 500; color: var(--ink-2); padding: 8px 4px;" style-hover="color: var(--ink);">CV<span class="sr-only"> (PDF document, opens in a new tab)</span></a>
-        <button onClick="{{ toggleTheme }}" aria-label="{{ themeLabel }}" title="{{ themeLabel }}" style="display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border: 1px solid var(--line); background: var(--bg-2); color: var(--ink); border-radius: 999px; padding: 0; cursor: pointer; transition: background 200ms ease, transform 200ms ease;" style-hover="background: var(--surface);">
-        <sc-if value="{{ isDark }}" hint-placeholder-val="{{ false }}">
-          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">
-            <circle cx="12" cy="12" r="4.2"></circle>
-            <line x1="12" y1="2.4" x2="12" y2="4.8"></line>
-            <line x1="12" y1="19.2" x2="12" y2="21.6"></line>
-            <line x1="2.4" y1="12" x2="4.8" y2="12"></line>
-            <line x1="19.2" y1="12" x2="21.6" y2="12"></line>
-            <line x1="5.4" y1="5.4" x2="7.1" y2="7.1"></line>
-            <line x1="16.9" y1="16.9" x2="18.6" y2="18.6"></line>
-            <line x1="5.4" y1="18.6" x2="7.1" y2="16.9"></line>
-            <line x1="16.9" y1="7.1" x2="18.6" y2="5.4"></line>
-          </svg>
-        </sc-if>
-        <sc-if value="{{ isLight }}" hint-placeholder-val="{{ true }}">
-          <svg width="19" height="19" viewBox="0 0 24 24" aria-hidden="true">
-            <mask id="anad-moon">
-              <rect width="24" height="24" fill="#fff"></rect>
-              <circle cx="19" cy="7" r="8.4" fill="#000"></circle>
-            </mask>
-            <circle cx="12" cy="12" r="8.4" fill="currentColor" mask="url(#anad-moon)"></circle>
-          </svg>
-        </sc-if>
-      </button>
-      </div>
-    </nav>
-
-    <main id="main-content">
-    <header style="max-width: 780px; padding-bottom: clamp(70px, 14vh, 150px);">
-      <p style="margin: 0 0 22px; font-family: 'Space Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-2);">Graphic Designer, Bengaluru, India</p>
-      <h1 style="margin: 0; font-family: 'Archivo', Helvetica, sans-serif; font-weight: 600; font-size: clamp(40px, 7vw, 78px); line-height: 1.04; letter-spacing: -0.02em; text-wrap: pretty;">Design that says less, and means more.</h1>
-      <p style="margin: 26px 0 0; max-width: 48ch; font-size: clamp(15px, 1.5vw, 18px); line-height: 1.65; color: var(--ink-2); text-wrap: pretty;">I'm a graphic designer with a background in Product Design, a soft spot for beautiful details, and a love for bringing ideas to life. From branding and illustration to print and everything in between, I enjoy creating designs that tell stories, spark emotions, and leave a lasting impression.</p>
-      <div style="display: flex; flex-wrap: wrap; gap: 12px; margin-top: 38px;">
-        <a href="#work" class="hero-cta-btn" style="background: var(--btn-bg); color: var(--btn-ink); border-radius: 999px; padding: 15px 32px; font-size: 14px; font-weight: 600; letter-spacing: 0.01em; display: inline-flex; align-items: center; justify-content: center; min-height: 48px;">View selected work</a>
-        <a href="mailto:anadhya94@gmail.com" class="hero-cta-btn" style="border: 1px solid var(--line); border-radius: 999px; padding: 15px 30px; font-size: 14px; font-weight: 500; color: var(--ink); background: var(--surface); display: inline-flex; align-items: center; justify-content: center; min-height: 48px;">Get in touch</a>
-        <a href="./_assets/CV/Profile.pdf" target="_blank" rel="noopener noreferrer" class="hero-cta-btn" style="border: 1px solid var(--line); border-radius: 999px; padding: 15px 30px; font-size: 14px; font-weight: 500; color: var(--ink); background: var(--surface); display: inline-flex; align-items: center; justify-content: center; min-height: 48px;">View CV (PDF)<span class="sr-only"> (opens in a new tab)</span></a>
-      </div>
-    </header>
-
-    <section id="work" style="padding-bottom: clamp(70px, 12vh, 130px);">
-      <div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 20px; padding-bottom: 34px; border-bottom: 1px solid var(--line);">
-        <h2 style="margin: 0; font-family: 'Archivo', Helvetica, sans-serif; font-weight: 600; font-size: clamp(24px, 3vw, 34px); letter-spacing: -0.01em;">Selected work</h2>
-        <span style="font-family: 'Space Mono', monospace; font-size: 12px; color: var(--ink-2); white-space: nowrap;">Projects</span>
-      </div>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: clamp(20px, 3vw, 34px); padding-top: clamp(24px, 4vw, 40px);">
-        <sc-for list="{{ projects }}" as="p" hint-placeholder-count="6">
-          <sc-if value="{{ p.link }}" hint-placeholder-val="{{ true }}">
-            <a href="{{ p.link }}" target="{{ p.target }}" rel="{{ p.rel }}" style="display: block; text-decoration: none; color: inherit;">
-              <article style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 16px 16px 26px; cursor: pointer; height: 100%; display: flex; flex-direction: column;" style-hover="transform: translateY(-4px); border-color: var(--ink-2);">
-                <sc-if value="{{ p.image }}" hint-placeholder-val="{{ true }}">
-                  <div style="border-radius: calc(var(--r) - 12px); aspect-ratio: 1 / 1; overflow: hidden; background-color: {{ p.tint }};"><img src="{{ p.image }}" alt="" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block;" /></div>
-                </sc-if>
-                <sc-if value="{{ !p.image }}" hint-placeholder-val="{{ false }}">
-                  <div role="img" aria-label="{{ p.title }} concept placeholder" style="border-radius: calc(var(--r) - 12px); aspect-ratio: 1 / 1; background-color: {{ p.tint }}; background-image: repeating-linear-gradient(45deg, var(--stripe) 0 7px, transparent 7px 14px);"></div>
-                </sc-if>
-                <div style="padding: 24px 12px 0; flex: 1; display: flex; flex-direction: column;">
-                  <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 8px;">
-                    <h3 style="margin: 0; font-size: 20px; font-weight: 600; letter-spacing: -0.01em;">
-                      {{ p.title }}
-                      <sc-if value="{{ p.isExternal }}" hint-placeholder-val="{{ false }}">
-                        <span class="sr-only"> (opens in a new tab)</span>
-                      </sc-if>
-                    </h3>
-                    <span class="card-arrow" style="font-size: 16px; color: var(--ink-2); margin-top: 2px;" aria-hidden="true">&rarr;</span>
-                  </div>
-                  <p style="margin: 10px 0 0; font-size: 15px; line-height: 1.65; color: var(--ink-2); text-wrap: pretty; flex: 1;">{{ p.blurb }}</p>
-                  <sc-if value="{{ showTags }}" hint-placeholder-val="{{ true }}">
-                    <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px;">
-                      <sc-for list="{{ p.tags }}" as="t" hint-placeholder-count="3">
-                        <span style="background: {{ t.bg }}; color: var(--chip-ink); border-radius: 999px; padding: 6px 14px; font-size: 12px; font-weight: 500;">{{ t.label }}</span>
-                      </sc-for>
-                    </div>
-                  </sc-if>
-                </div>
-              </article>
-            </a>
-          </sc-if>
-          <sc-if value="{{ !p.link }}" hint-placeholder-val="{{ false }}">
-            <article style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 16px 16px 26px; height: 100%; display: flex; flex-direction: column;" style-hover="transform: translateY(-4px);">
-              <sc-if value="{{ p.image }}" hint-placeholder-val="{{ false }}">
-                <div style="border-radius: calc(var(--r) - 12px); aspect-ratio: 1 / 1; overflow: hidden; background-color: {{ p.tint }};"><img src="{{ p.image }}" alt="" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block;" /></div>
-              </sc-if>
-              <sc-if value="{{ !p.image }}" hint-placeholder-val="{{ true }}">
-                <div role="img" aria-label="{{ p.title }} concept placeholder" style="border-radius: calc(var(--r) - 12px); aspect-ratio: 1 / 1; background-color: {{ p.tint }}; background-image: repeating-linear-gradient(45deg, var(--stripe) 0 7px, transparent 7px 14px);"></div>
-              </sc-if>
-              <div style="padding: 24px 12px 0; flex: 1; display: flex; flex-direction: column;">
-                <h3 style="margin: 0; font-size: 20px; font-weight: 600; letter-spacing: -0.01em;">{{ p.title }}</h3>
-                <p style="margin: 10px 0 0; font-size: 15px; line-height: 1.65; color: var(--ink-2); text-wrap: pretty; flex: 1;">{{ p.blurb }}</p>
-                <sc-if value="{{ showTags }}" hint-placeholder-val="{{ true }}">
-                  <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px;">
-                    <sc-for list="{{ p.tags }}" as="t" hint-placeholder-count="3">
-                      <span style="background: {{ t.bg }}; color: var(--chip-ink); border-radius: 999px; padding: 6px 14px; font-size: 12px; font-weight: 500;">{{ t.label }}</span>
-                    </sc-for>
-                  </div>
-                </sc-if>
-              </div>
-            </article>
-          </sc-if>
-        </sc-for>
-      </div>
-    </section>
-
-    <section id="illustrations" style="padding-bottom: clamp(70px, 12vh, 130px);">
-      <div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 20px; padding-bottom: 34px; border-bottom: 1px solid var(--line);">
-        <h2 style="margin: 0; font-family: 'Archivo', Helvetica, sans-serif; font-weight: 600; font-size: clamp(24px, 3vw, 34px); letter-spacing: -0.01em;">Illustrations</h2>
-        <span style="font-family: 'Space Mono', monospace; font-size: 12px; color: var(--ink-2); white-space: nowrap;">Personal &amp; commissioned</span>
-      </div>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: clamp(20px, 3vw, 34px); padding-top: clamp(24px, 4vw, 40px);">
-        <sc-for list="{{ illustrations }}" as="p" hint-placeholder-count="6">
-          <sc-if value="{{ p.link }}" hint-placeholder-val="{{ true }}">
-            <a href="{{ p.link }}" target="{{ p.target }}" rel="{{ p.rel }}" style="display: block; text-decoration: none; color: inherit;">
-              <article style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 16px 16px 26px; cursor: pointer; height: 100%; display: flex; flex-direction: column;" style-hover="transform: translateY(-4px); border-color: var(--ink-2);">
-                <sc-if value="{{ p.image }}" hint-placeholder-val="{{ true }}">
-                  <div style="border-radius: calc(var(--r) - 12px); aspect-ratio: 1 / 1; overflow: hidden; background-color: {{ p.tint }};"><img src="{{ p.image }}" alt="" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; object-position: center; display: block;" /></div>
-                </sc-if>
-                <sc-if value="{{ !p.image }}" hint-placeholder-val="{{ false }}">
-                  <div role="img" aria-label="{{ p.title }} illustration study" style="border-radius: calc(var(--r) - 12px); aspect-ratio: 1 / 1; background-color: {{ p.tint }}; background-image: repeating-linear-gradient(45deg, var(--stripe) 0 7px, transparent 7px 14px);"></div>
-                </sc-if>
-                <div style="padding: 24px 12px 0; flex: 1; display: flex; flex-direction: column;">
-                  <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 8px;">
-                    <h3 style="margin: 0; font-size: 20px; font-weight: 600; letter-spacing: -0.01em;">
-                      {{ p.title }}
-                      <sc-if value="{{ p.isExternal }}" hint-placeholder-val="{{ true }}">
-                        <span class="sr-only"> (opens in a new tab)</span>
-                      </sc-if>
-                    </h3>
-                    <span class="card-arrow" style="font-size: 16px; color: var(--ink-2); margin-top: 2px;" aria-hidden="true">&rarr;</span>
-                  </div>
-                  <p style="margin: 10px 0 0; font-size: 15px; line-height: 1.65; color: var(--ink-2); text-wrap: pretty; flex: 1;">{{ p.blurb }}</p>
-                  <sc-if value="{{ showTags }}" hint-placeholder-val="{{ true }}">
-                    <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px;">
-                      <sc-for list="{{ p.tags }}" as="t" hint-placeholder-count="2">
-                        <span style="background: {{ t.bg }}; color: var(--chip-ink); border-radius: 999px; padding: 6px 14px; font-size: 12px; font-weight: 500;">{{ t.label }}</span>
-                      </sc-for>
-                    </div>
-                  </sc-if>
-                </div>
-              </article>
-            </a>
-          </sc-if>
-          <sc-if value="{{ !p.link }}" hint-placeholder-val="{{ false }}">
-            <article style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 16px 16px 26px; height: 100%; display: flex; flex-direction: column;" style-hover="transform: translateY(-4px);">
-              <sc-if value="{{ p.image }}" hint-placeholder-val="{{ false }}">
-                <div style="border-radius: calc(var(--r) - 12px); aspect-ratio: 1 / 1; overflow: hidden; background-color: {{ p.tint }};"><img src="{{ p.image }}" alt="" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; object-position: center; display: block;" /></div>
-              </sc-if>
-              <sc-if value="{{ !p.image }}" hint-placeholder-val="{{ true }}">
-                <div role="img" aria-label="{{ p.title }} illustration study" style="border-radius: calc(var(--r) - 12px); aspect-ratio: 1 / 1; background-color: {{ p.tint }}; background-image: repeating-linear-gradient(45deg, var(--stripe) 0 7px, transparent 7px 14px);"></div>
-              </sc-if>
-              <div style="padding: 24px 12px 0; flex: 1; display: flex; flex-direction: column;">
-                <h3 style="margin: 0; font-size: 20px; font-weight: 600; letter-spacing: -0.01em;">{{ p.title }}</h3>
-                <p style="margin: 10px 0 0; font-size: 15px; line-height: 1.65; color: var(--ink-2); text-wrap: pretty; flex: 1;">{{ p.blurb }}</p>
-                <sc-if value="{{ showTags }}" hint-placeholder-val="{{ true }}">
-                  <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px;">
-                    <sc-for list="{{ p.tags }}" as="t" hint-placeholder-count="2">
-                      <span style="background: {{ t.bg }}; color: var(--chip-ink); border-radius: 999px; padding: 6px 14px; font-size: 12px; font-weight: 500;">{{ t.label }}</span>
-                    </sc-for>
-                  </div>
-                </sc-if>
-              </div>
-            </article>
-          </sc-if>
-        </sc-for>
-      </div>
-    </section>
-
-    <section id="industrial-design" style="padding-bottom: clamp(70px, 12vh, 130px);">
-      <div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 20px; padding-bottom: 34px; border-bottom: 1px solid var(--line);">
-        <h2 style="margin: 0; font-family: 'Archivo', Helvetica, sans-serif; font-weight: 600; font-size: clamp(24px, 3vw, 34px); letter-spacing: -0.01em;">Industrial Design</h2>
-        <span style="font-family: 'Space Mono', monospace; font-size: 12px; color: var(--ink-2); white-space: nowrap;">Product &amp; Research</span>
-      </div>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: clamp(20px, 3vw, 34px); padding-top: clamp(24px, 4vw, 40px);">
-        <sc-for list="{{ industrialDesign }}" as="p" hint-placeholder-count="3">
-          <sc-if value="{{ p.link }}" hint-placeholder-val="{{ true }}">
-            <a href="{{ p.link }}" target="{{ p.target }}" rel="{{ p.rel }}" style="display: block; text-decoration: none; color: inherit;">
-              <article style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 16px 16px 26px; cursor: pointer; height: 100%; display: flex; flex-direction: column;" style-hover="transform: translateY(-4px); border-color: var(--ink-2);">
-                <sc-if value="{{ p.image }}" hint-placeholder-val="{{ true }}">
-                  <div style="border-radius: calc(var(--r) - 12px); aspect-ratio: 1 / 1; overflow: hidden; background-color: {{ p.tint }};"><img src="{{ p.image }}" alt="" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block;" /></div>
-                </sc-if>
-                <sc-if value="{{ !p.image }}" hint-placeholder-val="{{ false }}">
-                  <div role="img" aria-label="{{ p.title }} concept placeholder" style="border-radius: calc(var(--r) - 12px); aspect-ratio: 1 / 1; background-color: {{ p.tint }}; background-image: repeating-linear-gradient(45deg, var(--stripe) 0 7px, transparent 7px 14px);"></div>
-                </sc-if>
-                <div style="padding: 24px 12px 0; flex: 1; display: flex; flex-direction: column;">
-                  <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 8px;">
-                    <h3 style="margin: 0; font-size: 20px; font-weight: 600; letter-spacing: -0.01em;">
-                      {{ p.title }}
-                      <sc-if value="{{ p.isExternal }}" hint-placeholder-val="{{ true }}">
-                        <span class="sr-only"> (opens in a new tab)</span>
-                      </sc-if>
-                    </h3>
-                    <span class="card-arrow" style="font-size: 16px; color: var(--ink-2); margin-top: 2px;" aria-hidden="true">&rarr;</span>
-                  </div>
-                  <p style="margin: 10px 0 0; font-size: 15px; line-height: 1.65; color: var(--ink-2); text-wrap: pretty; flex: 1;">{{ p.blurb }}</p>
-                  <sc-if value="{{ showTags }}" hint-placeholder-val="{{ true }}">
-                    <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px;">
-                      <sc-for list="{{ p.tags }}" as="t" hint-placeholder-count="3">
-                        <span style="background: {{ t.bg }}; color: var(--chip-ink); border-radius: 999px; padding: 6px 14px; font-size: 12px; font-weight: 500;">{{ t.label }}</span>
-                      </sc-for>
-                    </div>
-                  </sc-if>
-                </div>
-              </article>
-            </a>
-          </sc-if>
-          <sc-if value="{{ !p.link }}" hint-placeholder-val="{{ false }}">
-            <article style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 16px 16px 26px; height: 100%; display: flex; flex-direction: column;" style-hover="transform: translateY(-4px);">
-              <sc-if value="{{ p.image }}" hint-placeholder-val="{{ false }}">
-                <div style="border-radius: calc(var(--r) - 12px); aspect-ratio: 1 / 1; overflow: hidden; background-color: {{ p.tint }};"><img src="{{ p.image }}" alt="" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block;" /></div>
-              </sc-if>
-              <sc-if value="{{ !p.image }}" hint-placeholder-val="{{ true }}">
-                <div role="img" aria-label="{{ p.title }} concept placeholder" style="border-radius: calc(var(--r) - 12px); aspect-ratio: 1 / 1; background-color: {{ p.tint }}; background-image: repeating-linear-gradient(45deg, var(--stripe) 0 7px, transparent 7px 14px);"></div>
-              </sc-if>
-              <div style="padding: 24px 12px 0; flex: 1; display: flex; flex-direction: column;">
-                <h3 style="margin: 0; font-size: 20px; font-weight: 600; letter-spacing: -0.01em;">{{ p.title }}</h3>
-                <p style="margin: 10px 0 0; font-size: 15px; line-height: 1.65; color: var(--ink-2); text-wrap: pretty; flex: 1;">{{ p.blurb }}</p>
-                <sc-if value="{{ showTags }}" hint-placeholder-val="{{ true }}">
-                  <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px;">
-                    <sc-for list="{{ p.tags }}" as="t" hint-placeholder-count="3">
-                      <span style="background: {{ t.bg }}; color: var(--chip-ink); border-radius: 999px; padding: 6px 14px; font-size: 12px; font-weight: 500;">{{ t.label }}</span>
-                    </sc-for>
-                  </div>
-                </sc-if>
-              </div>
-            </article>
-          </sc-if>
-        </sc-for>
-      </div>
-    </section>
-    </main>
-
-    <footer style="border-top: 1px solid var(--line); padding: clamp(36px, 6vw, 60px) 0 44px; display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-end; justify-content: space-between;">
-      <div>
-        <p style="margin: 0; font-family: 'Archivo', Helvetica, sans-serif; font-weight: 600; font-size: clamp(20px, 2.6vw, 27px); letter-spacing: -0.02em;">Let's make something calm.</p>
-        <p style="margin: 10px 0 0; font-family: 'Space Mono', monospace; font-size: 12px; color: var(--ink-2);">© 2026 Anadhya Badri Narayan, Bengaluru</p>
-      </div>
-      <div style="display: flex; flex-wrap: wrap; gap: 10px;">
-        <a href="mailto:anadhya94@gmail.com" style="border: 1px solid var(--line); background: var(--bg-2); border-radius: 999px; padding: 12px 22px; font-size: 13.5px; font-weight: 500; min-height: 44px; display: inline-flex; align-items: center; justify-content: center; transition: background 200ms ease;" style-hover="background: var(--mint); color: var(--chip-ink);">Email</a>
-        <a href="https://www.linkedin.com/in/anadhyanarayan/" target="_blank" rel="noopener noreferrer" style="border: 1px solid var(--line); background: var(--bg-2); border-radius: 999px; padding: 12px 22px; font-size: 13.5px; font-weight: 500; min-height: 44px; display: inline-flex; align-items: center; justify-content: center; transition: background 200ms ease;" style-hover="background: var(--powder); color: var(--chip-ink);">LinkedIn<span class="sr-only"> (opens in a new tab)</span></a>
-        <a href="./_assets/CV/Profile.pdf" target="_blank" rel="noopener noreferrer" style="border: 1px solid var(--line); background: var(--bg-2); border-radius: 999px; padding: 12px 22px; font-size: 13.5px; font-weight: 500; min-height: 44px; display: inline-flex; align-items: center; justify-content: center; transition: background 200ms ease;" style-hover="background: var(--cream); color: var(--chip-ink);">CV (PDF)<span class="sr-only"> (PDF document, opens in a new tab)</span></a>
-      </div>
-    </footer>
-
-    <button id="back-to-top" class="back-to-top-btn" aria-label="Back to top" title="Back to top">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <polyline points="18 15 12 9 6 15"></polyline>
-      </svg>
-    </button>
-
+<a class="skip" href="#main">Skip to the work</a>
+<div class="page">
+<header class="hero wrap">
+  <nav class="top" aria-label="Main">
+  <a class="top__mark" href="index.html" aria-current="page"><span class="mono" aria-hidden="true">ABN</span><span class="top__name">Anadhya Badri Narayan</span><span class="sr">Anadhya Badri Narayan, home</span></a>
+  <div class="top__links">
+    <a href="index.html#work">Work</a>
+    <a href="index.html#illustration">Illustration</a>
+    <a href="about.html">About</a>
   </div>
+  <a class="button" href="mailto:anadhya94@gmail.com?subject=A%20commission">Commission a suite</a>
+</nav>
+  <div class="grid">
+    <article class="invite paper card-cut" data-rise>
+      <h1 class="display"><span class="line hero-line"><span style="--i:0">Anadhya</span></span><span class="line hero-line"><span style="--i:1">Badri Narayan</span></span></h1>
+      <p class="invite__lead lead" data-load style="--d:420ms">Graphic designer and illustrator in Bengaluru. I draw wedding invitations, monograms and the paper around them.</p>
+      <ul class="invite__details" data-load style="--d:520ms">
+        <li>Senior graphic designer at Kiana Bespoke Invitations</li>
+        <li aria-hidden="true" class="invite__sep"><span class="diamond"></span></li>
+        <li>Trained in industrial and product design at Raffles</li>
+      </ul>
+      <div class="plates">
+        <figure class="plate"><img src="./_assets/save-the-date/frame-1.jpg" alt="First frame of Dhriti and Prashant's save the date, with the date and DP monogram" width="1108" height="2400"></figure>
+        <figure class="plate">
+          <video id="teaser" src="./_assets/save-the-date/video.mp4" poster="./_assets/save-the-date/cover.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Dhriti and Prashant's animated save the date, the pieces dropping into the frame one by one" width="720" height="1560"></video>
+          <button class="pause" type="button" data-pause aria-controls="teaser" aria-label="Pause the teaser"></button>
+        </figure>
+        <figure class="plate"><img src="./_assets/save-the-date/frame-2.jpg" alt="Second frame of the save the date, with the couple's names and Hyderabad" width="1108" height="2400"></figure>
+      </div>
+      <p class="invite__caption small muted">Dhriti &amp; Prashant's save the date, Hyderabad, December 2026. <a class="link" href="save-the-date.html">See how it was made</a></p>
+    </article>
+  </div>
+</header>
+
+<main id="main">
+  <section class="section wrap" id="work" aria-labelledby="work-title">
+    <div class="section-head" data-reveal>
+      <h2 class="head" id="work-title">Stationery suites</h2>
+      <p class="lead">Six commissions, each filed with the motifs, dates and places it was drawn for.</p>
+    </div>
+    <div class="folders">
+      <a class="folder" href="save-the-date.html" style="--i:0">
+  <span class="folder__tabrow"><span class="folder__tab tab--paper">Dhriti &amp; Prashant</span></span>
+  <span class="band band--paper" style="display:block">
+    <span class="band__body">
+      <span class="band__pic" style="display:block"><img src="./_assets/covers/save%20the%20date_cover.jpg" alt="Both frames of Dhriti and Prashant's save the date, with bells, banana leaves and marigolds on red damask" width="704" height="704" loading="lazy" style="object-position:center 50%"></span>
+      <span class="band__text" data-reveal>
+        <h3>Our date drop</h3>
+        <span style="display:block">A save the date doesn't need to tell the whole story, just enough to make you curious. For a wedding joining Gujarati and Telugu families, I drew banana leaves, brass lamps, marigolds, bandhani and Hyderabad's arches as separate fragments, then animated them dropping into a vertical frame both families could share on WhatsApp.</span>
+        <span class="band__facts small" style="display:grid"><span style="display:flex;justify-content:space-between;gap:16px"><span class="italic">What</span><span>Save the date</span></span><span style="display:flex;justify-content:space-between;gap:16px"><span class="italic">Where</span><span>Hyderabad, December 2026</span></span><span style="display:flex;justify-content:space-between;gap:16px"><span class="italic">Format</span><span>Animated teaser, two frames</span></span><span style="display:flex;justify-content:space-between;gap:16px"><span class="italic">Dates</span><span>17 &amp; 18 Dec 2026</span></span></span>
+        <span class="link" style="justify-self:start">Open the project <span class="arrow" aria-hidden="true">&rarr;</span></span>
+      </span>
+    </span>
+  </span>
+</a>
+      <a class="folder" href="wedding-invitation-vivek-nisergini.html" style="--i:1">
+  <span class="folder__tabrow"><span class="folder__tab tab--jade">Vivek &amp; Nisergini</span></span>
+  <span class="band band--jade" style="display:block">
+    <span class="band__body">
+      <span class="band__pic" style="display:block"><img src="./_assets/invitation/4.jpg" alt="Vivek and Nisergini's printed invitation suite fanned out on green linen" width="974" height="1303" loading="lazy" style="object-position:center 45%"></span>
+      <span class="band__text" data-reveal>
+        <h3>Two traditions, one invite</h3>
+        <span style="display:block">A Kerala Muhurtham and a Maharashtrian wedding back to back in Mumbai, then a reception at home in Pookkottukavu a week later. The suite leans on what both families know: the golden Muthukkuda parasol from Kerala temple processions, hand-drawn banana leaves at the edges, and a cursive NV monogram in deep green.</span>
+        <span class="band__facts small" style="display:grid"><span style="display:flex;justify-content:space-between;gap:16px"><span class="italic">What</span><span>Wedding invitation</span></span><span style="display:flex;justify-content:space-between;gap:16px"><span class="italic">Where</span><span>Mumbai &amp; Kerala, January 2022</span></span><span style="display:flex;justify-content:space-between;gap:16px"><span class="italic">Scope</span><span>Monogram, cover, two cards</span></span><span style="display:flex;justify-content:space-between;gap:16px"><span class="italic">Dates</span><span>23 &amp; 30 Jan 2022</span></span></span>
+        <span class="link" style="justify-self:start">Open the project <span class="arrow" aria-hidden="true">&rarr;</span></span>
+      </span>
+    </span>
+  </span>
+</a>
+      <a class="folder" href="shashtiabdapoorthi-sampath.html" style="--i:2">
+  <span class="folder__tabrow"><span class="folder__tab tab--surface">Sampath Badri Narayan</span></span>
+  <span class="band band--surface" style="display:block">
+    <span class="band__body">
+      <span class="band__pic" style="display:block"><img src="./_assets/Sampath_cover/4.jpg" alt="The printed Shashtiabdapoorthi suite for Sri. Sampath Badri Narayan on green cloth" width="971" height="1299" loading="lazy" style="object-position:center 50%"></span>
+      <span class="band__text" data-reveal>
+        <h3>Honouring sixty years</h3>
+        <span style="display:block">The invitations I made with my family for my father's sixtieth birthday and my parents' vow renewal at the Tennis Pavilion, Bangalore Palace. Marigold torans, bronze temple bells and green ringneck parrots, the motifs we grew up with, set in classic serif type with a hand-lettered gold sixty on warm textured paper.</span>
+        <span class="band__facts small" style="display:grid"><span style="display:flex;justify-content:space-between;gap:16px"><span class="italic">What</span><span>Shashtiabdapoorthi</span></span><span style="display:flex;justify-content:space-between;gap:16px"><span class="italic">Where</span><span>Bangalore Palace, July 2018</span></span><span style="display:flex;justify-content:space-between;gap:16px"><span class="italic">Scope</span><span>Folio, invitation, programme</span></span><span style="display:flex;justify-content:space-between;gap:16px"><span class="italic">Dates</span><span>4 &amp; 5 Jul 2018</span></span></span>
+        <span class="link" style="justify-self:start">Open the project <span class="arrow" aria-hidden="true">&rarr;</span></span>
+      </span>
+    </span>
+  </span>
+</a>
+      <a class="folder" href="wedding-invitation-akshatha-bhargav.html" style="--i:3">
+  <span class="folder__tabrow"><span class="folder__tab tab--deep">Akshatha &amp; Bhargav</span></span>
+  <span class="band band--deep" style="display:block">
+    <span class="band__body">
+      <span class="band__pic" style="display:block"><img src="./_assets/Bhargav_cover/4.jpg" alt="Akshatha and Bhargav's printed suite laid out with a rose gold ribbon and candlelight" width="1266" height="878" loading="lazy" style="object-position:center 50%"></span>
+      <span class="band__text" data-reveal>
+        <h3>Four events, one wedding</h3>
+        <span style="display:block">Four celebrations in four days at Le Méridien and Ebisu Palace, each with its own mood. A blush folio opens on an AB monogram stamped in gold foil; inside is a separate watercolour card for every event: turquoise for the cocktail party, sunset orange for the mehendi, peach roses for the reception.</span>
+        <span class="band__facts small" style="display:grid"><span style="display:flex;justify-content:space-between;gap:16px"><span class="italic">What</span><span>Wedding stationery</span></span><span style="display:flex;justify-content:space-between;gap:16px"><span class="italic">Where</span><span>Bengaluru, April 2019</span></span><span style="display:flex;justify-content:space-between;gap:16px"><span class="italic">Scope</span><span>Folio and four event cards</span></span><span style="display:flex;justify-content:space-between;gap:16px"><span class="italic">Dates</span><span>19 to 22 Apr 2019</span></span></span>
+        <span class="link" style="justify-self:start">Open the project <span class="arrow" aria-hidden="true">&rarr;</span></span>
+      </span>
+    </span>
+  </span>
+</a>
+      <a class="folder" href="celebration-stationery-paul-milestones.html" style="--i:4">
+  <span class="folder__tabrow"><span class="folder__tab tab--paper">The Paul &amp; milestones</span></span>
+  <span class="band band--paper" style="display:block">
+    <span class="band__body">
+      <span class="band__pic" style="display:block"><img src="./_assets/Paul/2.jpg" alt="Round gold foil seals with Cicilla and Wilbur's CW monogram" width="924" height="656" loading="lazy" style="object-position:center 75%"></span>
+      <span class="band__text" data-reveal>
+        <h3>The big days in between</h3>
+        <span style="display:block">Seven invitations for smaller family occasions, each matched to the mood of its day. Cursive lettering and gold CW seals for a betrothal dinner at The Paul in Domlur, Pichwai cows and lotus vines for a housewarming homam, and roses, balloons and a hand-drawn bunny for a few very happy baby showers.</span>
+        <span class="band__facts small" style="display:grid"><span style="display:flex;justify-content:space-between;gap:16px"><span class="italic">What</span><span>Event stationery</span></span><span style="display:flex;justify-content:space-between;gap:16px"><span class="italic">Where</span><span>Bengaluru &amp; Papakura, 2019 to 2021</span></span><span style="display:flex;justify-content:space-between;gap:16px"><span class="italic">Pieces</span><span>Seven invitations, seals</span></span><span style="display:flex;justify-content:space-between;gap:16px"><span class="italic">Years</span><span>2019 to 2021</span></span></span>
+        <span class="link" style="justify-self:start">Open the project <span class="arrow" aria-hidden="true">&rarr;</span></span>
+      </span>
+    </span>
+  </span>
+</a>
+      <a class="folder" href="restaurant-branding-money-heist-whitefield.html" style="--i:5">
+  <span class="folder__tabrow"><span class="folder__tab tab--jade">Money Heist EN</span></span>
+  <span class="band band--jade" style="display:block">
+    <span class="band__body">
+      <span class="band__pic" style="display:block"><img src="./_assets/restaurant/11.jpg" alt="Money Heist EN Whitefield main banner with the Dali mask and flying banknotes" width="1113" height="702" loading="lazy" style="object-position:center 50%"></span>
+      <span class="band__text" data-reveal>
+        <h3>Join the crew</h3>
+        <span style="display:block">A La Casa de Papel themed bar and kitchen wanted the crew as the faces of its brand. I drew ten flat vector portraits, from the Professor's glasses to Nairobi's feather earrings, then the main banner and a week of offers named after them: Moscow Mondays, Oslo Wednesdays, Tokio Thursdays.</span>
+        <span class="band__facts small" style="display:grid"><span style="display:flex;justify-content:space-between;gap:16px"><span class="italic">What</span><span>Restaurant branding</span></span><span style="display:flex;justify-content:space-between;gap:16px"><span class="italic">Where</span><span>Whitefield, Bengaluru</span></span><span style="display:flex;justify-content:space-between;gap:16px"><span class="italic">Pieces</span><span>Ten portraits, banner, offers</span></span><span style="display:flex;justify-content:space-between;gap:16px"><span class="italic">Used on</span><span>Print, walls, Instagram</span></span></span>
+        <span class="link" style="justify-self:start">Open the project <span class="arrow" aria-hidden="true">&rarr;</span></span>
+      </span>
+    </span>
+  </span>
+</a>
+    </div>
+  </section>
+
+  <section class="section wrap" id="table" aria-labelledby="table-title">
+    <div class="section-head" data-reveal>
+      <h2 class="head" id="table-title">On the table</h2>
+      <p class="lead">Single pieces from the suites, tagged with what they carry and where they went.</p>
+    </div>
+    <div class="tiles" data-reveal>
+      <a class="tile" href="wedding-invitation-vivek-nisergini.html">
+  <span class="tile__pic"><img src="./_assets/invitation/1.jpg" alt="Vivek and Nisergini's cover card with the NV monogram over a gold parasol" width="993" height="1306" loading="lazy"></span>
+  <span class="tile__tag">
+    <span class="tile__row tile__row--values"><span>Cover</span><span>NV monogram</span><span>Parasol</span><span>Ivory</span></span>
+    <span class="tile__row tile__row--place"><span>Jan 2022</span><span>Mumbai</span></span>
+    <span class="tile__name">Cover card, for Vivek &amp; Nisergini</span>
+  </span>
+</a>
+      <a class="tile" href="shashtiabdapoorthi-sampath.html">
+  <span class="tile__pic"><img src="./_assets/Sampath_cover/1.jpg" alt="Cover folio with a hand-lettered gold 60, marigold garlands and a bronze bell" width="1300" height="1303" loading="lazy"></span>
+  <span class="tile__tag">
+    <span class="tile__row tile__row--values"><span>Folio</span><span>Gold 60</span><span>Marigold</span><span>Bell</span></span>
+    <span class="tile__row tile__row--place"><span>Jul 2018</span><span>Bangalore Palace</span></span>
+    <span class="tile__name">Cover folio, for Sri. Sampath Badri Narayan</span>
+  </span>
+</a>
+      <a class="tile" href="wedding-invitation-akshatha-bhargav.html">
+  <span class="tile__pic"><img src="./_assets/Bhargav_cover/1.jpg" alt="Blush cover folio with the gold foil AB monogram" width="993" height="1300" loading="lazy"></span>
+  <span class="tile__tag">
+    <span class="tile__row tile__row--values"><span>Folio</span><span>Gold foil</span><span>AB</span><span>Blush</span></span>
+    <span class="tile__row tile__row--place"><span>Apr 2019</span><span>Bengaluru</span></span>
+    <span class="tile__name">Folio, for Akshatha &amp; Bhargav</span>
+  </span>
+</a>
+      <a class="tile" href="celebration-stationery-paul-milestones.html">
+  <span class="tile__pic"><img src="./_assets/Paul/1.jpg" alt="Cicilla and Wilbur's betrothal invitation for The Paul" width="919" height="1218" loading="lazy"></span>
+  <span class="tile__tag">
+    <span class="tile__row tile__row--values"><span>Dinner</span><span>Cursive</span><span>Serif</span><span>Gold</span></span>
+    <span class="tile__row tile__row--place"><span>6 Jul 2019</span><span>The Paul, Domlur</span></span>
+    <span class="tile__name">Betrothal dinner, for Cicilla &amp; Wilbur</span>
+  </span>
+</a>
+      <a class="tile" href="wedding-invitation-vivek-nisergini.html">
+  <span class="tile__pic"><img src="./_assets/invitation/2.jpg" alt="Vivek and Nisergini's Mumbai wedding card" width="973" height="1302" loading="lazy"></span>
+  <span class="tile__tag">
+    <span class="tile__row tile__row--values"><span>Muhurtham</span><span>10:00 am</span><span>Wedding</span><span>11:30 am</span></span>
+    <span class="tile__row tile__row--place"><span>23 Jan 2022</span><span>Kohinoor Park</span></span>
+    <span class="tile__name">Wedding card, for Vivek &amp; Nisergini</span>
+  </span>
+</a>
+      <a class="tile" href="wedding-invitation-akshatha-bhargav.html">
+  <span class="tile__pic"><img src="./_assets/Bhargav_cover/5.jpg" alt="Turquoise watercolour cocktail party card for Le Méridien" width="1302" height="1151" loading="lazy"></span>
+  <span class="tile__tag">
+    <span class="tile__row tile__row--values"><span>Cocktails</span><span>Turquoise</span><span>7:00 pm</span><span>Wash</span></span>
+    <span class="tile__row tile__row--place"><span>19 Apr 2019</span><span>Le Méridien</span></span>
+    <span class="tile__name">Cocktail party, for Akshatha &amp; Bhargav</span>
+  </span>
+</a>
+      <a class="tile" href="shashtiabdapoorthi-sampath.html">
+  <span class="tile__pic"><img src="./_assets/Sampath_cover/3.jpg" alt="Ceremony programme and Bangalore Palace venue card" width="1299" height="1302" loading="lazy"></span>
+  <span class="tile__tag">
+    <span class="tile__row tile__row--values"><span>Two days</span><span>Homam</span><span>Muhurtham</span><span>Music</span></span>
+    <span class="tile__row tile__row--place"><span>4 &amp; 5 Jul 2018</span><span>Tennis Pavilion</span></span>
+    <span class="tile__name">Programme, for Sri. Sampath Badri Narayan</span>
+  </span>
+</a>
+      <a class="tile" href="celebration-stationery-paul-milestones.html">
+  <span class="tile__pic"><img src="./_assets/Paul/4.jpg" alt="Housewarming invitation with temple arches, lotus vines and Pichwai cows" width="693" height="930" loading="lazy"></span>
+  <span class="tile__tag">
+    <span class="tile__row tile__row--values"><span>Homam</span><span>Pichwai</span><span>Lotus</span><span>Arches</span></span>
+    <span class="tile__row tile__row--place"><span>20 Dec 2021</span><span>Dollars Colony</span></span>
+    <span class="tile__name">Housewarming, for Artisane Forest Breeze</span>
+  </span>
+</a>
+      <a class="tile" href="wedding-invitation-vivek-nisergini.html">
+  <span class="tile__pic"><img src="./_assets/invitation/3.jpg" alt="Vivek and Nisergini's Kerala reception card" width="976" height="1300" loading="lazy"></span>
+  <span class="tile__tag">
+    <span class="tile__row tile__row--values"><span>Reception</span><span>Parasols</span><span>Plantain</span><span>Saffron</span></span>
+    <span class="tile__row tile__row--place"><span>30 Jan 2022</span><span>Pookkottukavu</span></span>
+    <span class="tile__name">Reception card, for Vivek &amp; Nisergini</span>
+  </span>
+</a>
+      <a class="tile" href="wedding-invitation-akshatha-bhargav.html">
+  <span class="tile__pic"><img src="./_assets/Bhargav_cover/2.jpg" alt="Muhurtham card for Ebisu Palace with a small bouquet" width="968" height="1293" loading="lazy"></span>
+  <span class="tile__tag">
+    <span class="tile__row tile__row--values"><span>Muhurtham</span><span>11:53 am</span><span>a + b</span><span>Bouquet</span></span>
+    <span class="tile__row tile__row--place"><span>22 Apr 2019</span><span>Ebisu Palace</span></span>
+    <span class="tile__name">Muhurtham, for Akshatha &amp; Bhargav</span>
+  </span>
+</a>
+      <a class="tile" href="celebration-stationery-paul-milestones.html">
+  <span class="tile__pic"><img src="./_assets/Paul/7.jpg" alt="Ananya's Seemantham invitation with teal and pink lotus borders" width="696" height="984" loading="lazy"></span>
+  <span class="tile__tag">
+    <span class="tile__row tile__row--values"><span>Teal</span><span>Lotus</span><span>Gold type</span><span>Border</span></span>
+    <span class="tile__row tile__row--place"><span>13 Jan 2019</span><span>Papakura</span></span>
+    <span class="tile__name">Seemantham, for Ananya</span>
+  </span>
+</a>
+      <a class="tile" href="restaurant-branding-money-heist-whitefield.html">
+  <span class="tile__pic"><img src="./_assets/restaurant/12.jpg" alt="Weekly offer graphic with Moscow Mondays, Oslo Wednesdays and Tokio Thursdays" width="1115" height="868" loading="lazy"></span>
+  <span class="tile__tag">
+    <span class="tile__row tile__row--values"><span>Moscow</span><span>Oslo</span><span>Tokio</span><span>Weekend</span></span>
+    <span class="tile__row tile__row--place"><span>Every week</span><span>Whitefield</span></span>
+    <span class="tile__name">Weekly offers, for Money Heist EN</span>
+  </span>
+</a>
+    </div>
+  </section>
+
+  <section class="section wrap" id="illustration" aria-labelledby="desk-title">
+    <div class="grid desk">
+      <div class="covers" data-reveal>
+        <a class="cover" href="https://www.behance.net/gallery/138381645/Bigeyes" target="_blank" rel="noopener noreferrer"><img src="./_assets/covers/Octopus_cover.jpg" alt="A big-eyed octopus from the Bigeyes character series" width="600" height="600" decoding="async"><span>Bigeyes<span class="sr"> (opens in a new tab)</span></span></a>
+        <a class="cover" href="https://www.behance.net/gallery/161500361/Baby-Milestone-Cards" target="_blank" rel="noopener noreferrer"><img src="./_assets/covers/Babymilestone_cover.jpg" alt="Watercolour baby milestone cards with storybook animals" width="600" height="600" decoding="async"><span>Baby milestones<span class="sr"> (opens in a new tab)</span></span></a>
+        <a class="cover" href="https://www.behance.net/gallery/161501519/General-Illustrations" target="_blank" rel="noopener noreferrer"><img src="./_assets/covers/General_illustrations_cover.jpg" alt="A digital portrait of a woman from Anadhya's general illustrations" width="600" height="600" decoding="async"><span>Portraits<span class="sr"> (opens in a new tab)</span></span></a>
+        <a class="cover" href="https://portfolio-5208db.webflow.io/physical-computation-and-applied-research/parametric-prosthesis" target="_blank" rel="noopener noreferrer"><img src="./_assets/covers/Prosthetic%20Prosthesis_cover.jpg" alt="A parametric 3D-modelled prosthetic brace" width="600" height="600" decoding="async"><span>Prosthesis<span class="sr"> (opens in a new tab)</span></span></a>
+        <a class="cover" href="https://www.behance.net/gallery/161526615/Blaisse-Tableware" target="_blank" rel="noopener noreferrer"><img src="./_assets/covers/Blaisse_cover.jpg" alt="Blaisse tableware set in simple rounded shapes" width="600" height="600" decoding="async"><span>Blaisse<span class="sr"> (opens in a new tab)</span></span></a>
+        <a class="cover" href="https://www.behance.net/gallery/57872429/Aston-Martin-Retail-Store" target="_blank" rel="noopener noreferrer"><img src="./_assets/covers/Aston_martin_Store_cover.jpg" alt="Concept render of an Aston Martin retail showroom" width="600" height="600" decoding="async"><span>Aston Martin<span class="sr"> (opens in a new tab)</span></span></a>
+      </div>
+      <div class="sheet paper scallop-both" data-reveal>
+        <h2 class="display" id="desk-title">Illustration &amp; objects</h2>
+        <p class="sheet__note muted">Drawings of my own, and the product design I trained in before paper.</p>
+        <div class="sheet__group">
+          <h3>Illustration</h3>
+          <ul class="sheet__items">
+            <li class="sheet__item"><a href="https://www.behance.net/gallery/138381645/Bigeyes" target="_blank" rel="noopener noreferrer">Bigeyes<span class="sr"> (opens in a new tab)</span></a><span class="right">Characters</span><span class="desc">Big-eyed animals, from a tortoise and a snail to a squid and a very round pig.</span></li>
+            <li class="sheet__item"><a href="https://www.behance.net/gallery/161500361/Baby-Milestone-Cards" target="_blank" rel="noopener noreferrer">Baby milestone cards<span class="sr"> (opens in a new tab)</span></a><span class="right">Watercolour</span><span class="desc">Storybook animals in soft watercolour for a baby's first year.</span></li>
+            <li class="sheet__item"><a href="https://www.behance.net/gallery/161501519/General-Illustrations" target="_blank" rel="noopener noreferrer">General illustrations<span class="sr"> (opens in a new tab)</span></a><span class="right">Digital</span><span class="desc">Portraits of women, simple line drawings and plant shapes.</span></li>
+          </ul>
+        </div>
+        <div class="sheet__group">
+          <h3>Industrial design</h3>
+          <ul class="sheet__items">
+            <li class="sheet__item"><a href="https://portfolio-5208db.webflow.io/physical-computation-and-applied-research/parametric-prosthesis" target="_blank" rel="noopener noreferrer">Parametric prosthesis<span class="sr"> (opens in a new tab)</span></a><span class="right">Research</span><span class="desc">Braces and prosthetics redesigned with 3D modelling to fit the people who wear them.</span></li>
+            <li class="sheet__item"><a href="https://www.behance.net/gallery/161526615/Blaisse-Tableware" target="_blank" rel="noopener noreferrer">Blaisse tableware<span class="sr"> (opens in a new tab)</span></a><span class="right">Product</span><span class="desc">Simple shapes built around how they feel in the hand and how people eat every day.</span></li>
+            <li class="sheet__item"><a href="https://www.behance.net/gallery/57872429/Aston-Martin-Retail-Store" target="_blank" rel="noopener noreferrer">Aston Martin retail store<span class="sr"> (opens in a new tab)</span></a><span class="right">Spatial</span><span class="desc">A concept showroom shaped by the curves and speed of the cars.</span></li>
+          </ul>
+        </div>
+        <div class="sheet__group">
+          <h3>Commissions</h3>
+          <ul class="sheet__items">
+            <li class="sheet__item"><a href="save-the-date.html">Save the dates</a><span class="right">Printed or animated</span><span class="desc">Frames and short teasers sized for WhatsApp and stories.</span></li>
+            <li class="sheet__item"><a href="wedding-invitation-vivek-nisergini.html">Invitation suites</a><span class="right">Folio and inserts</span><span class="desc">A card for each ceremony, on paper chosen for the suite.</span></li>
+            <li class="sheet__item"><a href="wedding-invitation-akshatha-bhargav.html">Monograms</a><span class="right">Foil, seals, ink</span><span class="desc">The couple's initials drawn once and used on everything.</span></li>
+            <li class="sheet__item"><a href="shashtiabdapoorthi-sampath.html">Family occasions</a><span class="right">Milestones</span><span class="desc">Birthdays, homams, housewarmings and baby showers.</span></li>
+            <li class="sheet__item"><a href="restaurant-branding-money-heist-whitefield.html">Characters</a><span class="right">Venues and brands</span><span class="desc">Portrait sets and offer graphics for print and Instagram.</span></li>
+          </ul>
+        </div>
+        <p class="sheet__close"><span class="italic">Commissions by email</span><a class="link" href="mailto:anadhya94@gmail.com">anadhya94@gmail.com</a></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section wrap letter-wrap" id="about" aria-labelledby="letter-title">
+    <div class="letter">
+      <div class="letter__sheet paper">
+        <div style="display:flex;align-items:center;gap:20px">
+          <img class="letter__face" src="./_assets/_Profile/WhatsApp%20Image%202026-09-10%20at%202.20.50%20PM%20(1).jpeg" alt="Portrait of Anadhya Badri Narayan" width="960" height="1280" decoding="async">
+          <h2 class="lead italic" id="letter-title">Hello, I'm Anadhya</h2>
+        </div>
+        <div class="letter__body" data-reveal>
+          <p>I'm a graphic designer with a background in product design and a love for all things visual. Most days I'm at Kiana Bespoke Invitations in Bengaluru, drawing invitations and stationery suites for weddings.</p>
+          <p>I'm drawn to the little details: the beaded tassels on a parasol, the exact pink of a lotus, which way a monogram's tail should curl. Almost every project I take on starts in a sketchbook.</p>
+          <p>Before paper, I studied industrial and product design at Raffles Design Institute, which is why I still think about how a card feels in the hand and how a suite unfolds when it's opened.</p>
+          <p>My working rule is <mark>take one thing away, then look again</mark>. Whether it's a family's biggest day or a bar's whole crew of characters, I want the work to feel intentional, personal and a little unexpected.</p>
+        </div>
+        <div class="letter__sign"><p class="name">Anadhya Badri Narayan</p><p class="small muted">Senior graphic designer, Kiana Bespoke Invitations</p></div>
+      </div>
+      <div class="letter__tear paper scallop-bottom" style="--s:10px">
+        <div class="perforation" aria-hidden="true"></div>
+        <div class="letter__tear-row"><a class="link" href="mailto:anadhya94@gmail.com">anadhya94@gmail.com</a><a class="button button--ink" href="about.html">More about me <span class="arrow" aria-hidden="true">&rarr;</span></a></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="visit" id="contact" aria-labelledby="contact-title">
+  <figure class="visit__photo"><img src="./_assets/invitation/4.jpg" alt="Vivek and Nisergini's invitation suite fanned out on green linen in afternoon sun" width="974" height="1303" decoding="async"></figure>
+  <form class="visit__card paper" data-monogram>
+    <h2 class="display" id="contact-title">Commission a suite</h2>
+    <div class="monogram" role="group" aria-label="Your initials, set as a monogram">
+      <output class="monogram__out" aria-live="polite">
+        <span>
+          <span class="monogram__letters" aria-hidden="true"><span class="a">A</span><span class="b">B</span></span>
+          <span class="monogram__names small" style="display:block">Akshatha &amp; Bhargav</span>
+        </span>
+      </output>
+      <div class="monogram__fields">
+        <label>Your name<input name="one" autocomplete="given-name" placeholder="Akshatha" maxlength="24"></label>
+        <label>Your partner's name<input name="two" autocomplete="off" placeholder="Bhargav" maxlength="24"></label>
+      </div>
+    </div>
+    <div class="visit__lines">
+      <p>Invitations, monograms, save the dates and the paper around them, drawn in Bengaluru.</p>
+      <a class="link" href="mailto:anadhya94@gmail.com">anadhya94@gmail.com</a>
+    </div>
+    <div class="visit__more small">
+      <a class="link" href="https://www.linkedin.com/in/anadhyanarayan/" target="_blank" rel="noopener noreferrer">LinkedIn<span class="sr"> (opens in a new tab)</span></a>
+      <a class="link" href="./_assets/CV/Profile.pdf" target="_blank" rel="noopener noreferrer">CV, as a PDF<span class="sr"> (opens in a new tab)</span></a>
+    </div>
+    <a class="button" data-ask href="mailto:anadhya94@gmail.com?subject=A%20monogram%20for%20A%20%26%20B">Ask Anadhya to draw it <span class="arrow" aria-hidden="true">&rarr;</span></a>
+  </form>
+</section>
+</main>
 </div>
-</x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;defaultTheme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;light&quot;,&quot;dark&quot;],&quot;default&quot;:&quot;light&quot;,&quot;tsType&quot;:&quot;'light' | 'dark'&quot;},&quot;corners&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Soft&quot;,&quot;Rounded&quot;,&quot;Square&quot;],&quot;default&quot;:&quot;Soft&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;showTags&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;}}">
-class Component extends DCLogic {
-  state = {
-    theme: (function() {
-      try {
-        var urlTheme = new URLSearchParams(window.location.search).get('theme');
-        var saved = (urlTheme === 'dark' || urlTheme === 'light') ? urlTheme : localStorage.getItem('me-portfolio-theme');
-        return (saved === 'dark' || saved === 'light') ? saved : 'light';
-      } catch (e) {
-        return 'light';
-      }
-    })()
-  };
-
-  componentDidMount() {
-    let t = null;
-    try {
-      const urlTheme = new URLSearchParams(window.location.search).get('theme');
-      t = (urlTheme === 'dark' || urlTheme === 'light') ? urlTheme : localStorage.getItem('me-portfolio-theme');
-    } catch (e) {}
-    if (t !== 'dark' && t !== 'light') t = this.props.defaultTheme === 'dark' ? 'dark' : 'light';
-    if (this.state.theme !== t) {
-      this.setState({ theme: t });
-    }
-    this.applyTheme(t);
-    this.applyRadius();
-
-    window.addEventListener('storage', this.onStorage);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('storage', this.onStorage);
-  }
-
-  onStorage = (e) => {
-    if (e.key === 'me-portfolio-theme' && (e.newValue === 'dark' || e.newValue === 'light')) {
-      this.setState({ theme: e.newValue });
-      this.applyTheme(e.newValue);
-    }
-  };
-
-  componentDidUpdate(prev) {
-    if (prev.corners !== this.props.corners) this.applyRadius();
-  }
-
-  applyTheme(t) {
-    document.documentElement.setAttribute('data-theme', t);
-    var tc = document.querySelector('meta[name="theme-color"]'); if (tc) tc.setAttribute('content', t === 'dark' ? '#1C1C1A' : '#F7F4EF');
-  }
-
-  applyRadius() {
-    const map = { Soft: '28px', Rounded: '40px', Square: '6px' };
-    document.documentElement.style.setProperty('--r', map[this.props.corners] || '28px');
-  }
-
-  toggleTheme = () => {
-    const next = this.state.theme === 'dark' ? 'light' : 'dark';
-    this.setState({ theme: next });
-    this.applyTheme(next);
-    try { localStorage.setItem('me-portfolio-theme', next); } catch (e) {}
-  };
-
-  renderVals() {
-    const tag = (label, bg) => ({ label, bg: 'var(--' + bg + ')' });
-    return {
-      toggleTheme: this.toggleTheme,
-      themeLabel: this.state.theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode',
-      isDark: this.state.theme === 'dark',
-      isLight: this.state.theme !== 'dark',
-      showTags: this.props.showTags !== false,
-      projects: [
-        {
-          title: 'Dhriti & Prashant\'s Save the Date',
-          blurb: 'A little animated teaser for a Gujarati and Telugu wedding in Hyderabad, built from bits of both cultures.',
-          slot: 'featured project',
-          tint: 'var(--blush)',
-          image: './_assets/covers/save%20the%20date_cover.jpg',
-          link: 'save-the-date.html',
-          target: '_self',
-          rel: '',
-          isExternal: false,
-          tags: [tag('Wedding Identity', 'blush'), tag('Illustration', 'mint'), tag('Motion', 'lav')]
-        },
-        {
-          title: 'Vivek & Nisergini\'s Wedding Invitation',
-          blurb: 'A Kerala and Maharashtrian wedding suite with custom lettering, Muthukkuda umbrellas and an NV monogram drawn for the couple.',
-          slot: 'bespoke suite',
-          tint: 'var(--mint)',
-          image: './_assets/invitation/4.jpg',
-          link: 'wedding-invitation-vivek-nisergini.html',
-          target: '_self',
-          rel: '',
-          isExternal: false,
-          tags: [tag('Wedding Stationery', 'mint'), tag('Print & Foliage', 'cream'), tag('Monogram', 'blush')]
-        },
-        {
-          title: 'Shashtiabdapoorthi for Sri. Sampath Badri Narayan',
-          blurb: 'The invitations I made for my father\'s 60th birthday and my parents\' vow renewal at Bangalore Palace.',
-          slot: 'milestone suite',
-          tint: 'var(--cream)',
-          image: './_assets/covers/Sampath_cover.jpg',
-          link: 'shashtiabdapoorthi-sampath.html',
-          target: '_self',
-          rel: '',
-          isExternal: false,
-          tags: [tag('Milestone Stationery', 'cream'), tag('Marigold & Bells', 'mint'), tag('Bangalore Palace', 'blush')]
-        },
-        {
-          title: 'Akshatha & Bhargav\'s Wedding Stationery',
-          blurb: 'Blush florals, a gold foil monogram and loose watercolour for four wedding events at Le Méridien and Ebisu Palace.',
-          slot: 'bespoke suite',
-          tint: 'var(--powder)',
-          image: './_assets/covers/Bhargav_cover.jpg',
-          link: 'wedding-invitation-akshatha-bhargav.html',
-          target: '_self',
-          rel: '',
-          isExternal: false,
-          tags: [tag('Wedding Stationery', 'powder'), tag('Botanical Watercolour', 'blush'), tag('Ebisu Palace', 'mint')]
-        },
-        {
-          title: 'The Paul & Milestone Invitations',
-          blurb: 'A mix of invitations for a betrothal at The Paul, a housewarming homam and a few baby showers.',
-          slot: 'bespoke suite',
-          tint: 'var(--mint)',
-          image: './_assets/covers/Paul_cover.jpg',
-          link: 'celebration-stationery-paul-milestones.html',
-          target: '_self',
-          rel: '',
-          isExternal: false,
-          tags: [tag('Event Stationery', 'mint'), tag('Milestone Suites', 'powder'), tag('Custom Print', 'blush')]
-        },
-        {
-          title: 'Money Heist EN Whitefield Restaurant Branding',
-          blurb: 'Flat vector portraits of the La Casa de Papel cast for a Bangalore bar and kitchen, plus graphics for their daily offers.',
-          slot: 'brand illustration',
-          tint: 'var(--blush)',
-          image: './_assets/covers/restaurant_cover.jpg',
-          link: 'restaurant-branding-money-heist-whitefield.html',
-          target: '_self',
-          rel: '',
-          isExternal: false,
-          tags: [tag('Character Design', 'blush'), tag('Restaurant Branding', 'mint'), tag('Flat Vector', 'lav')]
-        }
-      ],
-      industrialDesign: [
-        {
-          title: 'Parametric Prosthesis',
-          blurb: 'Braces and prosthetics redesigned with 3D modelling so they fit the people who wear them better. A collaboration with ABN.',
-          slot: 'applied research',
-          tint: 'var(--powder)',
-          image: './_assets/covers/Prosthetic%20Prosthesis_cover.jpg',
-          link: 'https://portfolio-5208db.webflow.io/physical-computation-and-applied-research/parametric-prosthesis',
-          target: '_blank',
-          rel: 'noopener noreferrer',
-          isExternal: true,
-          tags: [tag('Computational Design', 'powder'), tag('3D Modeling', 'mint'), tag('Product Design', 'lav')]
-        },
-        {
-          title: 'Blaisse Tableware',
-          blurb: 'A tableware set built around simple shapes, how they feel in your hands and how people actually eat every day.',
-          slot: 'tableware design',
-          tint: 'var(--cream)',
-          image: './_assets/covers/Blaisse_cover.jpg',
-          link: 'https://www.behance.net/gallery/161526615/Blaisse-Tableware',
-          target: '_blank',
-          rel: 'noopener noreferrer',
-          isExternal: true,
-          tags: [tag('Product Design', 'cream'), tag('Tableware', 'blush'), tag('Industrial Design', 'mint')]
-        },
-        {
-          title: 'Aston Martin Retail Store',
-          blurb: 'A concept showroom for Aston Martin, shaped by the curves and speed of the cars.',
-          slot: 'spatial & retail',
-          tint: 'var(--mint)',
-          image: './_assets/covers/Aston_martin_Store_cover.jpg',
-          link: 'https://www.behance.net/gallery/57872429/Aston-Martin-Retail-Store',
-          target: '_blank',
-          rel: 'noopener noreferrer',
-          isExternal: true,
-          tags: [tag('Spatial Design', 'mint'), tag('Retail Design', 'powder'), tag('Automotive', 'lav')]
-        }
-      ],
-      illustrations: [
-        {
-          title: 'Bigeyes',
-          blurb: 'A set of big eyed animal characters, from a tortoise and a snail to a squid and a very round pig.',
-          slot: 'character series',
-          tint: 'var(--powder)',
-          image: './_assets/covers/Octopus_cover.jpg',
-          link: 'https://www.behance.net/gallery/138381645/Bigeyes',
-          target: '_blank',
-          rel: 'noopener noreferrer',
-          isExternal: true,
-          tags: [tag('Character Design', 'mint'), tag('Animal Series', 'powder'), tag('Illustration', 'lav')]
-        },
-        {
-          title: 'Baby Milestone Cards',
-          blurb: 'Cards for a baby\'s first year milestones, with storybook animals and soft watercolour.',
-          slot: 'stationery illustration',
-          tint: 'var(--cream)',
-          image: './_assets/covers/Babymilestone_cover.jpg',
-          link: 'https://www.behance.net/gallery/161500361/Baby-Milestone-Cards',
-          target: '_blank',
-          rel: 'noopener noreferrer',
-          isExternal: true,
-          tags: [tag('Children\'s Illustration', 'cream'), tag('Watercolour', 'mint'), tag('Baby Stationery', 'blush')]
-        },
-        {
-          title: 'General Illustrations',
-          blurb: 'Digital portraits of women, simple line drawings and plant shapes I\'ve drawn over the years.',
-          slot: 'digital portraits',
-          tint: 'var(--mint)',
-          image: './_assets/covers/General_illustrations_cover.jpg',
-          link: 'https://www.behance.net/gallery/161501519/General-Illustrations',
-          target: '_blank',
-          rel: 'noopener noreferrer',
-          isExternal: true,
-          tags: [tag('Digital Art', 'mint'), tag('Portraiture', 'powder'), tag('Line Art', 'lav')]
-        },
-
-      ]
-    };
-  }
-}
-</script>
-<script>
-  (function() {
-    function toggleBtt() {
-      var btt = document.getElementById('back-to-top');
-      if (!btt) return;
-      if ((window.pageYOffset || document.documentElement.scrollTop || window.scrollY || 0) > 380) {
-        btt.classList.add('visible');
-        btt.classList.add('is-visible');
-      } else {
-        btt.classList.remove('visible');
-        btt.classList.remove('is-visible');
-      }
-    }
-    window.addEventListener('scroll', toggleBtt, { passive: true });
-    toggleBtt();
-    document.addEventListener('click', function(e) {
-      var btn = e.target.closest('#back-to-top');
-      if (!btn) return;
-      var firstLink = document.querySelector('nav a, a[href="#main-content"]');
-      if (firstLink) firstLink.focus({ preventScroll: true });
-      if (window.lenis) {
-        window.lenis.scrollTo(0, { duration: 1.0 });
-      } else {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }
-    });
-  })();
-</script>
+<footer class="back" aria-labelledby="back-title">
+  <div class="grid">
+    <div class="back__card paper scallop-top">
+      <div class="back__note">
+        <h2 class="display" id="back-title">Thank you for looking</h2>
+        <p>If you have a wedding, a family occasion or a brand that needs paper, write and tell me about it: the people, the place and the date.</p>
+        <p class="italic">Anadhya</p>
+      </div>
+      <div class="back__address">
+        <figure class="stamp" aria-hidden="true"><img src="./_assets/_Profile/anadhya-share.jpg" alt="" width="84" height="112" loading="lazy"></figure>
+        <a href="mailto:anadhya94@gmail.com">anadhya94@gmail.com</a>
+        <a href="https://www.linkedin.com/in/anadhyanarayan/" target="_blank" rel="noopener noreferrer">LinkedIn<span class="sr"> (opens in a new tab)</span></a>
+        <a href="./_assets/CV/Profile.pdf" target="_blank" rel="noopener noreferrer">CV, as a PDF<span class="sr"> (opens in a new tab)</span></a>
+        <span>Bengaluru, Karnataka, India</span>
+      </div>
+      <p class="back__imprint small">© 2026 Anadhya Badri Narayan, Bengaluru. Set in Bebas Neue and EB Garamond.</p>
+    </div>
+  </div>
+</footer>
 </body>
 </html>

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-IN">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#F7F4EF">
+<meta name="theme-color" content="#161c1a">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="icon" href="favicon-48.png" sizes="48x48" type="image/png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -115,756 +115,142 @@
   ]
 }
 </script>
-<script>
-  (function () {
-    try {
-      var urlTheme = new URLSearchParams(window.location.search).get('theme');
-      var saved = (urlTheme === 'dark' || urlTheme === 'light') ? urlTheme : localStorage.getItem('me-portfolio-theme');
-      var theme = (saved === 'dark' || saved === 'light') ? saved : 'light';
-      document.documentElement.setAttribute('data-theme', theme);
-      var tc = document.querySelector('meta[name="theme-color"]'); if (tc) tc.setAttribute('content', theme === 'dark' ? '#1C1C1A' : '#F7F4EF');
-    } catch (e) {
-      document.documentElement.setAttribute('data-theme', 'light');
-    }
-  })();
-</script>
-<style>
-  html[data-theme="dark"] {
-    background-color: #1C1C1A;
-    color: #EDE9E2;
-    color-scheme: dark;
-  }
-  html[data-theme="light"], html:not([data-theme="dark"]) {
-    background-color: #F7F4EF;
-    color: #262421;
-    color-scheme: light;
-  }
-</style>
-<script src="./lenis.min.js" defer></script>
-<script src="./card-tilt.js" defer></script>
-<script>
-  (function () {
-    function initLenis() {
-      if (typeof Lenis === 'undefined') return;
-      var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      if (prefersReducedMotion) return; // respect user preference
-      var lenis = new Lenis({
-        duration: 1.1,
-        easing: function (t) { return Math.min(1, 1.001 - Math.pow(2, -10 * t)); },
-        smoothWheel: true,
-        wheelMultiplier: 1,
-        touchMultiplier: 2
-      });
-      window.lenis = lenis;
-      function raf(time) {
-        lenis.raf(time);
-        requestAnimationFrame(raf);
-      }
-      requestAnimationFrame(raf);
-
-      document.addEventListener('click', function (e) {
-        var anchor = e.target.closest('a[href^="#"]');
-        if (anchor && anchor.getAttribute('href').length > 1) {
-          var target = document.querySelector(anchor.getAttribute('href'));
-          if (target) {
-            e.preventDefault();
-            lenis.scrollTo(target, { offset: -((document.querySelector('.site-nav') || {}).offsetHeight || 0), duration: 1.2 });
-            if (!target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1');
-            target.focus({ preventScroll: true });
-          }
-        }
-      });
-
-      if (window.location.hash) {
-        setTimeout(function () {
-          var target = document.querySelector(window.location.hash);
-          if (target) {
-            lenis.scrollTo(target, { offset: -((document.querySelector('.site-nav') || {}).offsetHeight || 0), duration: 1.2 });
-          }
-        }, 150);
-      }
-    }
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initLenis);
-    } else {
-      initLenis();
-    }
-  })();
-</script>
-<script src="./support.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="./_assets/save-the-date/frame-1.jpg" fetchpriority="high">
+<link rel="stylesheet" href="site.css?v=2">
+<script>document.documentElement.classList.add('js')</script>
+<script src="site.js?v=2" defer></script>
 </head>
 <body>
-<x-dc>
-<helmet>
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Karla:ital,wght@0,400;0,500;0,600;1,400&family=Space+Mono:wght@400;700&family=Cinzel:wght@500;600;700&display=swap" rel="stylesheet" />
-<style>
-  :root {
-    --r: 28px;
-    --bg: #F7F4EF;
-    --nav-bg: rgba(247, 244, 239, 0.7);
-    --bg-2: #FFFDFA;
-    --surface: #FFFFFF;
-    --ink: #262421;
-    --ink-2: #524E46;
-    --line: rgba(38,36,33,0.14);
-    --mint: #CFE8DB;
-    --blush: #F6DADF;
-    --lav: #DFD9F3;
-    --powder: #D5E4F1;
-    --cream: #F3E9D8;
-    --chip-ink: #3A362F;
-    --pill-bg: #FFFFFF;
-    --pill-ink: #262421;
-    --btn-bg: #262421;
-    --btn-ink: #FBF9F5;
-    --stripe: rgba(38,36,33,0.05);
-    --gold: #D4AF37;
-    --maroon: #5F0E13;
-    --card-shadow: 0 4px 14px rgba(38,36,33,0.04), 0 1px 3px rgba(38,36,33,0.03);
-    --card-shadow-hover: 0 16px 36px rgba(38,36,33,0.08), 0 4px 10px rgba(38,36,33,0.04);
-  }
-  html[data-theme="dark"] {
-    --bg: #1C1C1A;
-    --nav-bg: rgba(28, 28, 26, 0.7);
-    --bg-2: #212120;
-    --surface: #262625;
-    --ink: #EDE9E2;
-    --ink-2: #ADA69C;
-    --line: rgba(237,233,226,0.12);
-    --mint: #A9D3C2;
-    --blush: #E7BEC5;
-    --lav: #C4BBE4;
-    --powder: #B2CBE0;
-    --cream: #E1CFAE;
-    --chip-ink: #1C1C1A;
-    --pill-bg: #171716;
-    --pill-ink: #EDE9E2;
-    --btn-bg: #CFE8DB;
-    --btn-ink: #1C1C1A;
-    --stripe: rgba(237,233,226,0.06);
-    --gold: #E5C358;
-    --maroon: #7D1A20;
-    --card-shadow: 0 4px 14px rgba(0,0,0,0.22);
-    --card-shadow-hover: 0 16px 36px rgba(0,0,0,0.38), 0 4px 10px rgba(0,0,0,0.25);
-  }
-  * { box-sizing: border-box; }
-  html {
-    scroll-behavior: smooth;
-    background: var(--bg);
-  }
-  html.lenis, html.lenis body {
-    height: auto;
-  }
-  .lenis.lenis-smooth {
-    scroll-behavior: auto !important;
-  }
-  .lenis.lenis-smooth [data-lenis-prevent] {
-    overscroll-behavior: contain;
-  }
-  .lenis.lenis-stopped {
-    overflow: hidden;
-  }
-  body {
-    margin: 0;
-    background: var(--bg);
-    color: var(--ink);
-    font-family: 'Karla', Helvetica, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    transition: background 300ms ease, color 300ms ease;
-  }
-  a { color: var(--ink); text-decoration: none; }
-  a:hover { color: var(--ink-2); }
-
-  :focus-visible {
-    outline: 2px solid var(--ink);
-    outline-offset: 3px;
-    border-radius: 4px;
-  }
-
-  .skip-link {
-    position: absolute;
-    top: -60px;
-    left: 20px;
-    background: var(--btn-bg);
-    color: var(--btn-ink);
-    padding: 10px 18px;
-    font-weight: 600;
-    font-size: 13.5px;
-    border-radius: 8px;
-    z-index: 9999;
-    transition: top 180ms ease;
-    text-decoration: none;
-  }
-  .skip-link:focus {
-    top: 20px;
-  }
-
-  main[tabindex="-1"]:focus { outline: none; }
-  /* Sticky, 70% opaque navigation bar (full width background behind the content column) */
-  html { scroll-padding-top: 88px; }
-  html, body { overflow-x: clip; }
-  .site-nav {
-    position: sticky;
-    top: 0;
-    z-index: 50;
-    padding-top: 14px;
-    padding-bottom: 14px;
-    margin-top: -14px;
-  }
-  .site-nav::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: calc(50% - 50vw);
-    width: 100vw;
-    z-index: -1;
-    background: var(--nav-bg);
-    -webkit-backdrop-filter: blur(12px);
-    backdrop-filter: blur(12px);
-    transition: background 300ms ease;
-  }
-  .brand-short { display: none; }
-  @media (max-width: 640px) {
-    .brand-full { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
-    .brand-short { display: inline; }
-  }
-  .sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border-width: 0;
-  }
-
-  .back-to-top-btn {
-    position: fixed;
-    bottom: 32px;
-    right: 32px;
-    width: 46px;
-    height: 46px;
-    border-radius: 50%;
-    background: var(--surface);
-    color: var(--ink);
-    border: 1px solid var(--line);
-    box-shadow: 0 4px 16px rgba(0,0,0,0.12);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    z-index: 100;
-    opacity: 0;
-    transform: translateY(16px);
-    transition: opacity 240ms ease, transform 240ms cubic-bezier(0.2, 0.9, 0.3, 1), background 200ms ease, visibility 240ms;
-    pointer-events: none;
-    visibility: hidden;
-  }
-  .back-to-top-btn.is-visible {
-    opacity: 1;
-    transform: translateY(0);
-    pointer-events: auto; visibility: visible;
-  }
-  .back-to-top-btn:hover {
-    background: var(--mint);
-    color: var(--chip-ink);
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    *, ::before, ::after {
-      animation-duration: 0.01ms !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: 0.01ms !important;
-      scroll-behavior: auto !important;
-    }
-  }
-  
-  .custom-scrollbar::-webkit-scrollbar {
-    height: 6px;
-  }
-  .custom-scrollbar::-webkit-scrollbar-track {
-    background: transparent;
-  }
-  .custom-scrollbar::-webkit-scrollbar-thumb {
-    background: var(--line);
-    border-radius: 999px;
-  }
-</style>
-</helmet>
-
-<div style="min-height: 100vh; padding: 28px clamp(20px, 5vw, 56px) 0;">
-  <a href="#main-content" class="skip-link">Skip to main content</a>
-  <div style="max-width: 1080px; margin: 0 auto;">
-
-    <!-- Navigation -->
-    <nav aria-label="Main" class="site-nav" style="display: flex; align-items: center; justify-content: space-between; gap: 20px; margin-bottom: calc(clamp(40px, 8vh, 80px) - 14px);">
-      <a href="index.html" style="font-family: 'Archivo', Helvetica, sans-serif; font-size: 17px; font-weight: 600; letter-spacing: -0.01em; display: inline-flex; align-items: center; gap: 8px;">
-        <span class="brand-full">Anadhya Badri Narayan</span><span class="brand-short" aria-hidden="true">ABN</span>
-      </a>
-      <div style="display: flex; align-items: center; gap: clamp(14px, 2.4vw, 28px);">
-        <a href="index.html" style="font-size: 13.5px; font-weight: 500; color: var(--ink-2);" style-hover="color: var(--ink);">Home</a>
-        <a href="about.html" style="font-size: 13.5px; font-weight: 500; color: var(--ink-2);" style-hover="color: var(--ink);">About</a>
-        <a href="https://www.linkedin.com/in/anadhyanarayan/" target="_blank" rel="noopener noreferrer" style="font-size: 13.5px; font-weight: 500; color: var(--ink-2);" style-hover="color: var(--ink);">LinkedIn<span class="sr-only"> (opens in new tab)</span></a>
-        <a href="./_assets/CV/Profile.pdf" target="_blank" rel="noopener noreferrer" style="font-size: 13.5px; font-weight: 500; color: var(--ink-2);" style-hover="color: var(--ink);">CV<span class="sr-only"> (opens PDF in new tab)</span></a>
-        <button onClick="{{ toggleTheme }}" aria-label="{{ themeLabel }}" title="{{ themeLabel }}" style="display: inline-flex; align-items: center; justify-content: center; width: 42px; height: 42px; border: 1px solid var(--line); background: var(--bg-2); color: var(--ink); border-radius: 999px; padding: 0; cursor: pointer; transition: background 200ms ease;" style-hover="background: var(--surface);">
-          <sc-if value="{{ isDark }}" hint-placeholder-val="{{ false }}">
-            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">
-              <circle cx="12" cy="12" r="4.2"></circle>
-              <line x1="12" y1="2.4" x2="12" y2="4.8"></line>
-              <line x1="12" y1="19.2" x2="12" y2="21.6"></line>
-              <line x1="2.4" y1="12" x2="4.8" y2="12"></line>
-              <line x1="19.2" y1="12" x2="21.6" y2="12"></line>
-              <line x1="5.4" y1="5.4" x2="7.1" y2="7.1"></line>
-              <line x1="16.9" y1="16.9" x2="18.6" y2="18.6"></line>
-              <line x1="5.4" y1="18.6" x2="7.1" y2="16.9"></line>
-              <line x1="16.9" y1="7.1" x2="18.6" y2="5.4"></line>
-            </svg>
-          </sc-if>
-          <sc-if value="{{ isLight }}" hint-placeholder-val="{{ true }}">
-            <svg width="19" height="19" viewBox="0 0 24 24" aria-hidden="true">
-              <mask id="anad-moon-std">
-                <rect width="24" height="24" fill="#fff"></rect>
-                <circle cx="19" cy="7" r="8.4" fill="#000"></circle>
-              </mask>
-              <circle cx="12" cy="12" r="8.4" fill="currentColor" mask="url(#anad-moon-std)"></circle>
-            </svg>
-          </sc-if>
-        </button>
-      </div>
-    </nav>
-
-    <!-- Breadcrumb back link -->
-    <nav aria-label="Breadcrumb" style="padding-bottom: 24px;">
-      <a href="index.html#work" style="display: inline-flex; align-items: center; gap: 8px; font-family: 'Space Mono', monospace; font-size: 12.5px; font-weight: 500; letter-spacing: 0.04em; color: var(--ink-2); transition: color 150ms ease;" style-hover="color: var(--ink);">
-        <span aria-hidden="true">&larr;</span> Back to selected work
-      </a>
-    </nav>
-
-    <main id="main-content">
-
-    <!-- Project Hero Header -->
-    <header style="padding-bottom: clamp(48px, 9vh, 90px);">
-      <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px;">
-        <span style="background: var(--blush); color: var(--chip-ink); border-radius: 999px; padding: 6px 14px; font-size: 12.5px; font-weight: 600;">Wedding Identity &amp; Motion</span>
-        <span style="background: var(--mint); color: var(--chip-ink); border-radius: 999px; padding: 6px 14px; font-size: 12.5px; font-weight: 600;">Gujarati and Telugu</span>
-        <span style="background: var(--cream); color: var(--chip-ink); border-radius: 999px; padding: 6px 14px; font-size: 12.5px; font-weight: 600;">Hyderabad, Dec 2026</span>
-      </div>
-      
-      <h1 style="margin: 0; font-family: 'Archivo', Helvetica, sans-serif; font-weight: 600; font-size: clamp(34px, 5.5vw, 64px); line-height: 1.08; letter-spacing: -0.02em; text-wrap: balance;">
-        Dhriti &amp; Prashant's Save the Date
-      </h1>
-
-      <p style="margin: 20px 0 0; font-family: 'Karla', sans-serif; font-size: clamp(16px, 1.75vw, 21px); line-height: 1.5; color: var(--ink-2); max-width: 100%;">
-        <em>&ldquo;Teasing the main event&rdquo;</em>. A save the date for a wedding that brings Gujarati and Telugu families together.
-      </p>
-
-      <!-- Project Metadata Grid -->
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 20px; margin-top: clamp(32px, 5vw, 48px); padding: 24px 28px; background: var(--surface); border: 1px solid var(--line); border-radius: calc(var(--r) - 8px);">
-        <div>
-          <span style="font-family: 'Space Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-2); display: block; margin-bottom: 6px;">Couple</span>
-          <span style="font-weight: 600; font-size: 15px;">Dhriti &amp; Prashant</span>
-        </div>
-        <div>
-          <span style="font-family: 'Space Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-2); display: block; margin-bottom: 6px;">Theme</span>
-          <span style="font-weight: 600; font-size: 15px;">Gujarati and Telugu</span>
-        </div>
-        <div>
-          <span style="font-family: 'Space Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-2); display: block; margin-bottom: 6px;">Format</span>
-          <span style="font-weight: 600; font-size: 15px;">Animated Teaser &amp; Artwork</span>
-        </div>
-        <div>
-          <span style="font-family: 'Space Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-2); display: block; margin-bottom: 6px;">Destination</span>
-          <span style="font-weight: 600; font-size: 15px;">Hyderabad, Dec 17 to 18, 2026</span>
-        </div>
-      </div>
-    </header>
-
-    <!-- Concept Narrative Section -->
-    <section style="margin-bottom: clamp(60px, 10vh, 120px);">
-      <div style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: clamp(28px, 6vw, 60px);">
-        
-        <div style="max-width: 820px;">
-          <span style="font-family: 'Space Mono', monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-2); display: block; margin-bottom: 16px;">The Concept</span>
-          
-          <h2 style="margin: 0 0 24px; font-family: 'Archivo', Helvetica, sans-serif; font-weight: 600; font-size: clamp(24px, 3.2vw, 36px); line-height: 1.2; letter-spacing: -0.01em;">
-            A Save the Date doesn't need to reveal the whole story, just enough to make you curious about what's coming.
-          </h2>
-
-          <p style="margin: 0 0 20px; font-size: clamp(16px, 1.4vw, 18px); line-height: 1.7; color: var(--ink-2); text-wrap: pretty;">
-            Starting with the moodboard, I wanted to move away from the usual Save the Date format and create something that felt more like a visual teaser for the wedding itself.
-          </p>
-
-          <p style="margin: 0; font-size: clamp(16px, 1.4vw, 18px); line-height: 1.7; color: var(--ink-2); text-wrap: pretty;">
-            Since the celebration brings together North and South Indian traditions, I picked out recognisable details from both cultures, including banana leaves, brass lamps, florals, marigolds, draped textiles, architecture and festive d&eacute;cor, and brought them together as individual fragments rather than one complete scene.
-          </p>
-        </div>
-
-        <!-- Cultural Details Pillars -->
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px; margin-top: clamp(36px, 5vw, 54px);">
-          
-          <div style="padding: 18px; background: var(--bg); border-radius: calc(var(--r) - 14px);">
-            <div aria-hidden="true" style="width: 36px; height: 36px; border-radius: 999px; background: var(--mint); display: flex; align-items: center; justify-content: center; font-size: 16px; margin-bottom: 12px;">🌿</div>
-            <h3 style="margin: 0 0 6px; font-size: 15px; font-weight: 600;">Banana Leaves &amp; Brass Lamps</h3>
-            <p style="margin: 0; font-size: 13.5px; line-height: 1.55; color: var(--ink-2);">Two things you see at every Telugu wedding, so they had to be in there.</p>
-          </div>
-
-          <div style="padding: 18px; background: var(--bg); border-radius: calc(var(--r) - 14px);">
-            <div aria-hidden="true" style="width: 36px; height: 36px; border-radius: 999px; background: var(--cream); display: flex; align-items: center; justify-content: center; font-size: 16px; margin-bottom: 12px;">🌼</div>
-            <h3 style="margin: 0 0 6px; font-size: 15px; font-weight: 600;">Marigolds &amp; Draped Textiles</h3>
-            <p style="margin: 0; font-size: 13.5px; line-height: 1.55; color: var(--ink-2);">Bandhani prints, mogra garlands and plenty of gold from the Gujarati side.</p>
-          </div>
-
-          <div style="padding: 18px; background: var(--bg); border-radius: calc(var(--r) - 14px);">
-            <div aria-hidden="true" style="width: 36px; height: 36px; border-radius: 999px; background: var(--blush); display: flex; align-items: center; justify-content: center; font-size: 16px; margin-bottom: 12px;">🏛️</div>
-            <h3 style="margin: 0 0 6px; font-size: 15px; font-weight: 600;">Arches &amp; Destination Mandap</h3>
-            <p style="margin: 0; font-size: 13.5px; line-height: 1.55; color: var(--ink-2);">Arches borrowed from Hyderabad's old buildings, framing the moment the date appears.</p>
-          </div>
-
-          <div style="padding: 18px; background: var(--bg); border-radius: calc(var(--r) - 14px);">
-            <div aria-hidden="true" style="width: 36px; height: 36px; border-radius: 999px; background: var(--powder); display: flex; align-items: center; justify-content: center; font-size: 16px; margin-bottom: 12px;">🕊️</div>
-            <h3 style="margin: 0 0 6px; font-size: 15px; font-weight: 600;">Doves &amp; Temple Bells</h3>
-            <p style="margin: 0; font-size: 13.5px; line-height: 1.55; color: var(--ink-2);">White doves and swinging bells to keep the whole thing light and happy.</p>
-          </div>
-
-        </div>
-
-      </div>
-    </section>
-
-    <!-- Motion Video Section -->
-    <section style="margin-bottom: clamp(60px, 10vh, 120px);">
-      <div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 20px; padding-bottom: 24px; border-bottom: 1px solid var(--line); margin-bottom: clamp(28px, 4vw, 44px);">
-        <div>
-          <span style="font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-2);">Motion Design</span>
-          <h2 style="margin: 6px 0 0; font-family: 'Archivo', Helvetica, sans-serif; font-weight: 600; font-size: clamp(22px, 2.8vw, 32px); letter-spacing: -0.01em;">The Animated Teaser</h2>
-        </div>
-        <span style="font-family: 'Space Mono', monospace; font-size: 12px; color: var(--ink-2); white-space: nowrap;">9:16 Reel</span>
-      </div>
-
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: clamp(24px, 4vw, 48px); align-items: center; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: clamp(24px, 5vw, 48px);">
-        
-        <!-- Video Player Container with custom phone / card styling -->
-        <div style="display: flex; justify-content: center;">
-          <div 
-            style="position: relative; width: 100%; max-width: 340px; border-radius: 24px; overflow: hidden; background: #000; box-shadow: 0 20px 48px rgba(0,0,0,0.18); border: 1px solid var(--line); user-select: none;"
-          >
-            <video 
-              id="std-video" aria-label="Animated save the date teaser for Dhriti and Prashant"
-              poster="./_assets/save-the-date/cover.jpg"
-              src="./_assets/save-the-date/video.mp4" 
-              controls 
-              autoplay
-              muted
-              loop
-              playsinline
-              preload="auto"
-              style="width: 100%; height: auto; display: block; object-fit: contain; max-height: 600px; cursor: pointer;"
-            >
-              Your browser does not support the video tag.
-            </video>
-
-            <!-- Play/Pause Indicator Button -->
-            <button
-              id="std-play-btn"
-              onClick="{{ toggleVideoPlay }}"
-              aria-label="{{ videoLabel }}"
-              title="{{ videoLabel }}"
-              style="position: absolute; top: 16px; right: 16px; width: 38px; height: 38px; border-radius: 999px; background: rgba(0,0,0,0.65); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.25); color: #fff; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: transform 150ms ease, background 150ms ease; z-index: 10; padding: 0;"
-              style-hover="transform: scale(1.08); background: rgba(0,0,0,0.85);"
-            >
-              <sc-if value="{{ isPaused }}" hint-placeholder-val="{{ false }}">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false" style="margin-left: 2px;">
-                  <polygon points="5 3 19 12 5 21 5 3"></polygon>
-                </svg>
-              </sc-if>
-              <sc-if value="{{ !isPaused }}" hint-placeholder-val="{{ true }}">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">
-                  <rect x="6" y="4" width="4" height="16"></rect>
-                  <rect x="14" y="4" width="4" height="16"></rect>
-                </svg>
-              </sc-if>
-            </button>
-          </div>
-        </div>
-
-        <!-- Video Narrative info -->
-        <div>
-          <div style="display: inline-block; background: var(--mint); color: var(--chip-ink); font-family: 'Space Mono', monospace; font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 999px; margin-bottom: 16px;">
-            STORY IN MOTION
-          </div>
-          <h3 style="margin: 0 0 16px; font-family: 'Archivo', Helvetica, sans-serif; font-size: clamp(20px, 2.2vw, 26px); font-weight: 600; letter-spacing: -0.01em;">
-            Small pieces that add up to the date
-          </h3>
-          <p style="margin: 0 0 16px; font-size: 15.5px; line-height: 1.65; color: var(--ink-2);">
-            In the animation each piece drops into the frame one at a time. The bells swing, the fabric settles and the DP monogram comes together before the city is revealed.
-          </p>
-          <p style="margin: 0 0 24px; font-size: 15.5px; line-height: 1.65; color: var(--ink-2);">
-            It's made in a 9:16 vertical format so both families could share it easily on WhatsApp and Instagram stories.
-          </p>
-
-          <div style="display: flex; flex-wrap: wrap; gap: 8px;">
-            <span style="font-family: 'Space Mono', monospace; font-size: 11.5px; background: var(--bg); border: 1px solid var(--line); padding: 6px 12px; border-radius: 999px; color: var(--ink);">9:16 Vertical Video</span>
-            <span style="font-family: 'Space Mono', monospace; font-size: 11.5px; background: var(--bg); border: 1px solid var(--line); padding: 6px 12px; border-radius: 999px; color: var(--ink);">Layered Stems Animation</span>
-            <span style="font-family: 'Space Mono', monospace; font-size: 11.5px; background: var(--bg); border: 1px solid var(--line); padding: 6px 12px; border-radius: 999px; color: var(--ink);">Sound &amp; Rhythm Sync</span>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- Artwork & Storyboard Visual Showcase -->
-    <section style="margin-bottom: clamp(60px, 10vh, 120px);">
-      <div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 20px; padding-bottom: 24px; border-bottom: 1px solid var(--line); margin-bottom: clamp(28px, 4vw, 44px);">
-        <div>
-          <span style="font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-2);">Illustration &amp; Layout</span>
-          <h2 style="margin: 6px 0 0; font-family: 'Archivo', Helvetica, sans-serif; font-weight: 600; font-size: clamp(22px, 2.8vw, 32px); letter-spacing: -0.01em;">Illustrated Stems &amp; Composition</h2>
-        </div>
-        <span style="font-family: 'Space Mono', monospace; font-size: 12px; color: var(--ink-2); white-space: nowrap;">Artwork</span>
-      </div>
-
-      <!-- Side by Side Layout Artworks -->
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr)); gap: clamp(20px, 3vw, 36px); margin-bottom: clamp(24px, 4vw, 40px);">
-        
-        <!-- Artwork Card 1 -->
-        <article style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 18px 18px 24px; transition: transform 250ms ease;" style-hover="transform: translateY(-4px);">
-          <div style="border-radius: calc(var(--r) - 12px); overflow: hidden; background: #500a0e; border: 1px solid var(--line); display: flex; justify-content: center; align-items: center;">
-            <img 
-              src="./_assets/save-the-date/frame-1.jpg" 
-              alt="First frame of Dhriti and Prashant's save the date, with the date and DP monogram" 
-              loading="lazy"
-              style="width: 100%; height: auto; max-height: 720px; object-fit: contain; display: block;"
-            />
-          </div>
-          <div style="padding: 20px 10px 0;">
-            <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 6px;">
-              <h3 style="margin: 0; min-width: 0; font-size: 18px; font-weight: 600; letter-spacing: -0.01em;">Frame 01, Date &amp; DP Monogram</h3>
-              <span style="font-family: 'Space Mono', monospace; font-size: 11px; background: var(--blush); color: var(--chip-ink); padding: 4px 10px; border-radius: 999px; white-space: nowrap; flex-shrink: 0;">17 &amp; 18 Dec ’26</span>
-            </div>
-            <p style="margin: 0; font-size: 14px; line-height: 1.6; color: var(--ink-2);">
-              The DP monogram in the middle, with vermillion silk, a brass Nandi and deepam, and strings of jasmine hanging down.
-            </p>
-          </div>
-        </article>
-
-        <!-- Artwork Card 2 -->
-        <article style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 18px 18px 24px; transition: transform 250ms ease;" style-hover="transform: translateY(-4px);">
-          <div style="border-radius: calc(var(--r) - 12px); overflow: hidden; background: #500a0e; border: 1px solid var(--line); display: flex; justify-content: center; align-items: center;">
-            <img 
-              src="./_assets/save-the-date/frame-2.jpg" 
-              alt="Second frame of the save the date, with the couple's names and Hyderabad" 
-              loading="lazy"
-              style="width: 100%; height: auto; max-height: 720px; object-fit: contain; display: block;"
-            />
-          </div>
-          <div style="padding: 20px 10px 0;">
-            <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 6px;">
-              <h3 style="margin: 0; min-width: 0; font-size: 18px; font-weight: 600; letter-spacing: -0.01em;">Frame 02, Names &amp; Hyderabad</h3>
-              <span style="font-family: 'Space Mono', monospace; font-size: 11px; background: var(--mint); color: var(--chip-ink); padding: 4px 10px; border-radius: 999px; white-space: nowrap; flex-shrink: 0;">HYD Reveal</span>
-            </div>
-            <p style="margin: 0; font-size: 14px; line-height: 1.6; color: var(--ink-2);">
-              Dhriti and Prashant's names, with gold zari fabric, baithak seating and the flower mandap in Hyderabad.
-            </p>
-          </div>
-        </article>
-
-      </div>
-
-      <!-- Full Moodboard & Side by side Artboard Showcase -->
-      <div style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: clamp(20px, 4vw, 36px);">
-        <div style="margin-bottom: 18px; display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 12px;">
-          <div>
-            <h3 style="margin: 0; font-family: 'Archivo', Helvetica, sans-serif; font-size: 20px; font-weight: 600; letter-spacing: -0.01em;">
-              Both Frames Side by Side
-            </h3>
-            <p style="margin: 4px 0 0; font-size: 14px; color: var(--ink-2);">
-              The two frames next to each other, so you can see how the same motifs carry across on the red damask background.
-            </p>
-          </div>
-          <span style="font-family: 'Space Mono', monospace; font-size: 11px; color: var(--ink-2); background: var(--bg); padding: 6px 12px; border-radius: 999px; border: 1px solid var(--line);">
-            Artboard Overview
-          </span>
-        </div>
-
-        <div style="border-radius: calc(var(--r) - 12px); overflow: hidden; background: #222; border: 1px solid var(--line);">
-          <img 
-            src="./_assets/save-the-date/artboard.jpg" 
-            alt="Both save the date frames side by side" 
-            loading="lazy"
-            style="width: 100%; height: auto; display: block; object-fit: contain;"
-          />
-        </div>
-      </div>
-    </section>
-
-    <!-- Bottom CTA Card -->
-    <section style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: clamp(30px, 5vw, 54px); margin-bottom: clamp(56px, 9vh, 100px); display: flex; flex-wrap: wrap; gap: 24px; align-items: center; justify-content: space-between;">
-      <div>
-        <h2 style="margin: 0; max-width: 22ch; font-family: 'Archivo', Helvetica, sans-serif; font-weight: 600; font-size: clamp(22px, 3vw, 34px); line-height: 1.15; letter-spacing: -0.02em; text-wrap: pretty;">
-          Planning a wedding or working on a brand?
-        </h2>
-        <p style="margin: 12px 0 0; font-size: 15px; color: var(--ink-2);">
-          I make invitations, printed pieces and small animations.
-        </p>
-      </div>
-      <div style="display: flex; flex-wrap: wrap; gap: 12px;">
-        <a href="mailto:anadhya94@gmail.com" style="background: var(--btn-bg); color: var(--btn-ink); border-radius: 999px; padding: 15px 30px; font-size: 14px; font-weight: 600; transition: opacity 200ms ease;" style-hover="opacity: 0.82; color: var(--btn-ink);">Get in touch</a>
-        <a href="index.html#work" style="border: 1px solid var(--line); border-radius: 999px; padding: 15px 30px; font-size: 14px; font-weight: 500; color: var(--ink-2); transition: background 200ms ease;" style-hover="background: var(--bg-2); color: var(--ink);">&larr; Back to all work</a>
-      </div>
-    </section>
-
-    </main>
-
-    <!-- Footer -->
-    <footer style="border-top: 1px solid var(--line); padding: clamp(36px, 6vw, 60px) 0 44px; display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-end; justify-content: space-between;">
-      <div>
-        <p style="margin: 0; font-family: 'Archivo', Helvetica, sans-serif; font-weight: 600; font-size: clamp(20px, 2.6vw, 27px); letter-spacing: -0.02em;">Let's make something calm.</p>
-        <p style="margin: 10px 0 0; font-family: 'Space Mono', monospace; font-size: 12px; color: var(--ink-2);">© 2026 Anadhya Badri Narayan, Bengaluru</p>
-      </div>
-      <div style="display: flex; flex-wrap: wrap; gap: 10px;">
-        <a href="mailto:anadhya94@gmail.com" style="border: 1px solid var(--line); background: var(--bg-2); border-radius: 999px; padding: 12px 22px; font-size: 13.5px; font-weight: 500; transition: background 200ms ease;" style-hover="background: var(--mint); color: var(--chip-ink);">Email</a>
-        <a href="https://www.linkedin.com/in/anadhyanarayan/" target="_blank" rel="noopener noreferrer" style="border: 1px solid var(--line); background: var(--bg-2); border-radius: 999px; padding: 12px 22px; font-size: 13.5px; font-weight: 500; transition: background 200ms ease;" style-hover="background: var(--powder); color: var(--chip-ink);">LinkedIn<span class="sr-only"> (opens in new tab)</span></a>
-        <a href="./_assets/CV/Profile.pdf" target="_blank" rel="noopener noreferrer" style="border: 1px solid var(--line); background: var(--bg-2); border-radius: 999px; padding: 12px 22px; font-size: 13.5px; font-weight: 500; transition: background 200ms ease;" style-hover="background: var(--cream); color: var(--chip-ink);">CV (PDF)<span class="sr-only"> (opens PDF in new tab)</span></a>
-      </div>
-    </footer>
-
-    <button id="back-to-top" class="back-to-top-btn" aria-label="Back to top" title="Back to top">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <polyline points="18 15 12 9 6 15"></polyline>
-      </svg>
-    </button>
-
+<a class="skip" href="#main">Skip to the work</a>
+<div class="page">
+<header class="wrap">
+  <nav class="top" aria-label="Main">
+  <a class="top__mark" href="index.html"><span class="mono" aria-hidden="true">ABN</span><span class="top__name">Anadhya Badri Narayan</span><span class="sr">Anadhya Badri Narayan, home</span></a>
+  <div class="top__links">
+    <a href="index.html#work" aria-current="page">Work</a>
+    <a href="index.html#illustration">Illustration</a>
+    <a href="about.html">About</a>
   </div>
+  <a class="button" href="mailto:anadhya94@gmail.com?subject=A%20commission">Commission a suite</a>
+</nav>
+  <div class="grid case-hero">
+    <article class="case-card paper card-cut" data-rise style="--title-size:clamp(3rem, 1rem + 5.4vw, 6rem);--chars:17">
+      <div>
+        <h1 class="display"><span class="line hero-line"><span style="--i:0">Dhriti &amp; Prashant</span></span><span class="line hero-line"><span style="--i:1">Save the date</span></span></h1>
+        <p class="lead" data-load style="--d:420ms">&quot;Teasing the main event.&quot; A save the date for a wedding that brings Gujarati and Telugu families together.</p>
+      </div>
+      <ul class="facts" data-load style="--d:520ms">
+        <li><span class="k">Couple</span><span>Dhriti &amp; Prashant</span></li>
+        <li><span class="k">Traditions</span><span>Gujarati and Telugu</span></li>
+        <li><span class="k">Format</span><span>Animated teaser &amp; artwork</span></li>
+        <li><span class="k">Destination</span><span>Hyderabad, 17 &amp; 18 Dec 2026</span></li>
+      </ul>
+      <p class="small" style="display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px"><a class="case-back link" href="index.html#work"><span aria-hidden="true">&larr;</span> All work</a><span class="diamond" aria-hidden="true"></span><span>Wedding identity &amp; motion</span><span class="diamond" aria-hidden="true"></span><span>Hyderabad, Dec 2026</span></p>
+    </article>
+    <figure class="case-pic" data-open><img src="./_assets/save-the-date/frame-1.jpg" alt="First frame of Dhriti and Prashant's save the date, with the date and DP monogram" width="1108" height="2400" fetchpriority="high" style="object-position:center 40%"></figure>
+  </div>
+</header>
+
+<main id="main">
+  <section class="section wrap" aria-labelledby="idea">
+    <div class="grid concept">
+      <div class="concept__letter" data-reveal>
+        <h2 class="head" id="idea">The idea</h2>
+        <p class="lead">A save the date doesn't need to reveal the whole story, just enough to make you curious about what's coming.</p>
+        <p>Starting with the moodboard, I wanted to move away from the usual save the date format and make something that felt more like a visual teaser for the wedding itself.</p>
+        <p>Since the celebration brings together North and South Indian traditions, I picked out recognisable details from both cultures, including banana leaves, brass lamps, florals, marigolds, draped textiles, architecture and festive décor, and brought them together as individual fragments rather than one complete scene.</p>
+      </div>
+      <div class="sheet paper scallop-both" data-reveal>
+        <h2>What's drawn in</h2>
+        <ul class="motifs">
+          <li><h3>Banana leaves &amp; brass lamps</h3><p>Two things you see at every Telugu wedding, so they had to be in there.</p></li>
+          <li><h3>Marigolds &amp; draped textiles</h3><p>Bandhani prints, mogra garlands and plenty of gold from the Gujarati side.</p></li>
+          <li><h3>Arches &amp; the mandap</h3><p>Arches borrowed from Hyderabad's old buildings, framing the moment the date appears.</p></li>
+          <li><h3>Doves &amp; temple bells</h3><p>White doves and swinging bells to keep the whole thing light and happy.</p></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section wrap" aria-labelledby="b0">
+    <div class="grid spread">
+      <figure class="spread__pic" data-open style="background:#500a0e"><video src="./_assets/save-the-date/video.mp4" poster="./_assets/save-the-date/cover.jpg" controls autoplay muted loop playsinline preload="metadata" aria-label="Animated save the date teaser for Dhriti and Prashant" width="720" height="1560"></video></figure>
+      <div class="spread__text" data-reveal>
+        <h2 class="head" id="b0">The animated teaser</h2>
+        <p>In the animation each piece drops into the frame one at a time. The bells swing, the fabric settles and the DP monogram comes together before the city is revealed.</p>
+        <p>It's made in a 9:16 vertical format so both families could share it easily on WhatsApp and Instagram stories.</p>
+        
+        <p class="small muted">9:16 vertical video, layered stems, cut to the music.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section wrap" aria-labelledby="b1">
+    <div class="section-head" data-reveal><h2 class="head" id="b1">Two frames</h2><p class="lead">The same motifs carry across both frames on the red damask ground.</p></div>
+    <div class="tiles tiles--3 tiles--natural" style="grid-template-columns:repeat(2,minmax(0,1fr));max-width:980px" data-reveal>
+      <figure class="tile">
+        <span class="tile__pic"><img src="./_assets/save-the-date/frame-1.jpg" alt="First frame of the save the date, with the date and DP monogram" width="1108" height="2400" loading="lazy"></span>
+        <figcaption class="tile__tag tile__tag--long"><span class="tile__row"><h3>Date &amp; DP monogram</h3><span>17 &amp; 18 Dec 2026</span></span><p>The DP monogram in the middle, with vermillion silk, a brass Nandi and deepam, and strings of jasmine hanging down.</p></figcaption>
+      </figure>
+      <figure class="tile">
+        <span class="tile__pic"><img src="./_assets/save-the-date/frame-2.jpg" alt="Second frame of the save the date, with the couple's names and Hyderabad" width="1108" height="2400" loading="lazy"></span>
+        <figcaption class="tile__tag tile__tag--long"><span class="tile__row"><h3>Names &amp; Hyderabad</h3><span>The HYD reveal</span></span><p>Dhriti and Prashant's names, with gold zari fabric, baithak seating and the flower mandap in Hyderabad.</p></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="section wrap" aria-labelledby="b2">
+    <div class="grid spread spread--flip">
+      <figure class="spread__pic spread__pic--contain" data-open><img src="./_assets/save-the-date/artboard.jpg" alt="Both save the date frames side by side" width="1908" height="1886" loading="lazy"></figure>
+      <div class="spread__text" data-reveal>
+        <h2 class="head" id="b2">Side by side</h2>
+        <p>The two frames next to each other, so you can see how the same motifs carry across on the red damask background.</p>
+        
+        
+      </div>
+    </div>
+  </section>
+
+  <section class="section wrap next" aria-labelledby="next-title">
+    <div class="section-head" data-reveal><h2 class="head" id="next-title">Next suite</h2><p class="lead">Or <a class="link" href="mailto:anadhya94@gmail.com">write to me</a> about yours.</p></div>
+    <a class="folder" href="wedding-invitation-vivek-nisergini.html" style="--i:0">
+  <span class="folder__tabrow"><span class="folder__tab tab--jade">Vivek &amp; Nisergini</span></span>
+  <span class="band band--jade" style="display:block">
+    <span class="band__body">
+      <span class="band__pic" style="display:block"><img src="./_assets/invitation/4.jpg" alt="Vivek and Nisergini's printed invitation suite fanned out on green linen" width="974" height="1303" loading="lazy" style="object-position:center 45%"></span>
+      <span class="band__text" data-reveal>
+        <h3>Two traditions, one invite</h3>
+        <span style="display:block">A Kerala Muhurtham and a Maharashtrian wedding back to back in Mumbai, then a reception at home in Pookkottukavu a week later. The suite leans on what both families know: the golden Muthukkuda parasol from Kerala temple processions, hand-drawn banana leaves at the edges, and a cursive NV monogram in deep green.</span>
+        <span class="band__facts small" style="display:grid"><span style="display:flex;justify-content:space-between;gap:16px"><span class="italic">What</span><span>Wedding invitation</span></span><span style="display:flex;justify-content:space-between;gap:16px"><span class="italic">Where</span><span>Mumbai &amp; Kerala, January 2022</span></span><span style="display:flex;justify-content:space-between;gap:16px"><span class="italic">Scope</span><span>Monogram, cover, two cards</span></span><span style="display:flex;justify-content:space-between;gap:16px"><span class="italic">Dates</span><span>23 &amp; 30 Jan 2022</span></span></span>
+        <span class="link" style="justify-self:start">Open the project <span class="arrow" aria-hidden="true">&rarr;</span></span>
+      </span>
+    </span>
+  </span>
+</a>
+  </section>
+</main>
 </div>
-</x-dc>
-
-<script type="text/x-dc" data-dc-script data-props="{&quot;defaultTheme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;light&quot;,&quot;dark&quot;],&quot;default&quot;:&quot;light&quot;,&quot;tsType&quot;:&quot;'light' | 'dark'&quot;}}">
-class Component extends DCLogic {
-  state = {
-    theme: (function() {
-      try {
-        var urlTheme = new URLSearchParams(window.location.search).get('theme');
-        var saved = (urlTheme === 'dark' || urlTheme === 'light') ? urlTheme : localStorage.getItem('me-portfolio-theme');
-        return (saved === 'dark' || saved === 'light') ? saved : 'light';
-      } catch (e) {
-        return 'light';
-      }
-    })(),
-    isPaused: false
-  };
-
-  componentDidMount() {
-    let t = null;
-    try {
-      const urlTheme = new URLSearchParams(window.location.search).get('theme');
-      t = (urlTheme === 'dark' || urlTheme === 'light') ? urlTheme : localStorage.getItem('me-portfolio-theme');
-    } catch (e) {}
-    if (t !== 'dark' && t !== 'light') t = this.props.defaultTheme === 'dark' ? 'dark' : 'light';
-    if (this.state.theme !== t) {
-      this.setState({ theme: t });
-    }
-    this.applyTheme(t);
-
-    window.addEventListener('storage', this.onStorage);
-
-    const vid = document.getElementById('std-video');
-    if (vid) {
-      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        vid.autoplay = false;
-        vid.removeAttribute('autoplay');
-        vid.pause();
-        this.setState({ isPaused: true });
-      }
-      vid.addEventListener('play', () => this.setState({ isPaused: false }));
-      vid.addEventListener('pause', () => this.setState({ isPaused: true }));
-      vid.addEventListener('click', (e) => {
-        // preventDefault stops browsers that also toggle natively (e.g. Firefox) from undoing this toggle
-        e.preventDefault();
-        if (vid.paused) {
-          vid.play();
-        } else {
-          vid.pause();
-        }
-      });
-    }
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('storage', this.onStorage);
-  }
-
-  onStorage = (e) => {
-    if (e.key === 'me-portfolio-theme' && (e.newValue === 'dark' || e.newValue === 'light')) {
-      this.setState({ theme: e.newValue });
-      this.applyTheme(e.newValue);
-    }
-  };
-
-  applyTheme(t) {
-    document.documentElement.setAttribute('data-theme', t);
-    var tc = document.querySelector('meta[name="theme-color"]'); if (tc) tc.setAttribute('content', t === 'dark' ? '#1C1C1A' : '#F7F4EF');
-  }
-
-  toggleTheme = () => {
-    const next = this.state.theme === 'dark' ? 'light' : 'dark';
-    this.setState({ theme: next });
-    this.applyTheme(next);
-    try { localStorage.setItem('me-portfolio-theme', next); } catch (e) {}
-  };
-
-  toggleVideoPlay = (e) => {
-    if (e && e.stopPropagation) e.stopPropagation();
-    const vid = document.getElementById('std-video');
-    if (!vid) return;
-    if (vid.paused) {
-      vid.play();
-    } else {
-      vid.pause();
-    }
-  };
-
-  renderVals() {
-    return {
-      toggleTheme: this.toggleTheme,
-      toggleVideoPlay: this.toggleVideoPlay,
-      themeLabel: this.state.theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode',
-      isDark: this.state.theme === 'dark',
-      isLight: this.state.theme !== 'dark',
-      isPaused: this.state.isPaused,
-      videoLabel: this.state.isPaused ? 'Play video' : 'Pause video'
-    };
-  }
-}
-</script>
-<script>
-  (function() {
-    function toggleBtt() {
-      var btt = document.getElementById('back-to-top');
-      if (!btt) return;
-      if ((window.pageYOffset || document.documentElement.scrollTop || window.scrollY || 0) > 380) {
-        btt.classList.add('is-visible');
-      } else {
-        btt.classList.remove('is-visible');
-      }
-    }
-    window.addEventListener('scroll', toggleBtt, { passive: true });
-    toggleBtt();
-    document.addEventListener('click', function(e) {
-      var btn = e.target.closest('#back-to-top');
-      if (!btn) return;
-      var firstLink = document.querySelector('nav a, a[href="#main-content"]');
-      if (firstLink) firstLink.focus({ preventScroll: true });
-      if (window.lenis) {
-        window.lenis.scrollTo(0, { duration: 1.2 });
-      } else {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }
-    });
-  })();
-</script>
+<footer class="back" aria-labelledby="back-title">
+  <div class="grid">
+    <div class="back__card paper scallop-top">
+      <div class="back__note">
+        <h2 class="display" id="back-title">Thank you for looking</h2>
+        <p>If you have a wedding, a family occasion or a brand that needs paper, write and tell me about it: the people, the place and the date.</p>
+        <p class="italic">Anadhya</p>
+      </div>
+      <div class="back__address">
+        <figure class="stamp" aria-hidden="true"><img src="./_assets/_Profile/anadhya-share.jpg" alt="" width="84" height="112" loading="lazy"></figure>
+        <a href="mailto:anadhya94@gmail.com">anadhya94@gmail.com</a>
+        <a href="https://www.linkedin.com/in/anadhyanarayan/" target="_blank" rel="noopener noreferrer">LinkedIn<span class="sr"> (opens in a new tab)</span></a>
+        <a href="./_assets/CV/Profile.pdf" target="_blank" rel="noopener noreferrer">CV, as a PDF<span class="sr"> (opens in a new tab)</span></a>
+        <span>Bengaluru, Karnataka, India</span>
+      </div>
+      <p class="back__imprint small">© 2026 Anadhya Badri Narayan, Bengaluru. Set in Bebas Neue and EB Garamond.</p>
+    </div>
+  </div>
+</footer>
 </body>
 </html>
