@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-IN">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#F7F4EF">
+<meta name="theme-color" content="#ddd3c4">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="icon" href="favicon-48.png" sizes="48x48" type="image/png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -111,847 +111,241 @@
   ]
 }
 </script>
-<script>
-  (function () {
-    try {
-      var urlTheme = new URLSearchParams(window.location.search).get('theme');
-      var saved = (urlTheme === 'dark' || urlTheme === 'light') ? urlTheme : localStorage.getItem('me-portfolio-theme');
-      var theme = (saved === 'dark' || saved === 'light') ? saved : 'light';
-      document.documentElement.setAttribute('data-theme', theme);
-      var tc = document.querySelector('meta[name="theme-color"]'); if (tc) tc.setAttribute('content', theme === 'dark' ? '#1C1C1A' : '#F7F4EF');
-    } catch (e) {
-      document.documentElement.setAttribute('data-theme', 'light');
-    }
-  })();
-</script>
-<style>
-  html[data-theme="dark"] {
-    background-color: #1C1C1A;
-    color: #EDE9E2;
-    color-scheme: dark;
-  }
-  html[data-theme="light"], html:not([data-theme="dark"]) {
-    background-color: #F7F4EF;
-    color: #262421;
-    color-scheme: light;
-  }
-  #bg-canvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    pointer-events: none;
-    z-index: 0;
-  }
-  #dc-root, x-dc {
-    position: relative;
-    z-index: 1;
-  }
-</style>
-<script src="./lenis.min.js" defer></script>
-<script src="./card-tilt.js" defer></script>
-<script>
-  (function () {
-    function initLenis() {
-      if (typeof Lenis === 'undefined') return;
-      var isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      if (isReducedMotion) return; // Respect user motion preference
-
-      var lenis = new Lenis({
-        duration: 1.1,
-        easing: function (t) { return Math.min(1, 1.001 - Math.pow(2, -10 * t)); },
-        smoothWheel: true,
-        wheelMultiplier: 1,
-        touchMultiplier: 2
-      });
-      window.lenis = lenis;
-      function raf(time) {
-        lenis.raf(time);
-        requestAnimationFrame(raf);
-      }
-      requestAnimationFrame(raf);
-
-      document.addEventListener('click', function (e) {
-        var anchor = e.target.closest('a[href^="#"]');
-        if (anchor && anchor.getAttribute('href').length > 1) {
-          var target = document.querySelector(anchor.getAttribute('href'));
-          if (target) {
-            e.preventDefault();
-            lenis.scrollTo(target, { offset: -((document.querySelector('.site-nav') || {}).offsetHeight || 0), duration: 1.2 });
-            if (!target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1');
-            target.focus({ preventScroll: true });
-          }
-        }
-      });
-
-      if (window.location.hash) {
-        setTimeout(function () {
-          var target = document.querySelector(window.location.hash);
-          if (target) {
-            lenis.scrollTo(target, { offset: -((document.querySelector('.site-nav') || {}).offsetHeight || 0), duration: 1.2 });
-          }
-        }, 150);
-      }
-    }
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initLenis);
-    } else {
-      initLenis();
-    }
-  })();
-</script>
-<script src="./canvas-bg.js?v=17" defer></script>
-<script src="./support.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hind:wght@400;500;600&family=Rozha+One&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site.css?v=3">
+<script>document.documentElement.classList.add('js')</script>
+<script src="site.js?v=3" defer></script>
 </head>
 <body>
-<a href="#main-content" class="skip-link">Skip to main content</a>
-<canvas id="bg-canvas" aria-hidden="true"></canvas>
-<x-dc>
-<helmet>
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600&family=Karla:wght@400;500;600&family=Space+Mono:wght@400&display=swap" rel="stylesheet" />
-<style>
-  :root {
-    --r: 28px;
-    --bg: #F7F4EF;
-    --nav-bg: rgba(247, 244, 239, 0.7);
-    --bg-2: #FFFDFA;
-    --surface: #FFFFFF;
-    --ink: #262421;
-    --ink-2: #524E46; /* High contrast AA/AAA compliant text */
-    --line: rgba(38,36,33,0.14);
-    --mint: #CFE8DB;
-    --blush: #F6DADF;
-    --lav: #DFD9F3;
-    --powder: #D5E4F1;
-    --cream: #F3E9D8;
-    --chip-ink: #3A362F;
-    --pill-bg: #FFFFFF;
-    --pill-ink: #262421;
-    --btn-bg: #262421;
-    --btn-ink: #FBF9F5;
-    --stripe: rgba(38,36,33,0.05);
-    --focus-ring: #262421;
-    --card-shadow: 0 14px 34px -8px rgba(38,36,33, 0.08);
-  }
-  html[data-theme="dark"] {
-    --bg: #1C1C1A;
-    --nav-bg: rgba(28, 28, 26, 0.7);
-    --bg-2: #212120;
-    --surface: #262625;
-    --ink: #EDE9E2;
-    --ink-2: #ADA69C; /* High contrast AA compliant text */
-    --line: rgba(237,233,226,0.13);
-    --mint: #A9D3C2;
-    --blush: #E7BEC5;
-    --lav: #C4BBE4;
-    --powder: #B2CBE0;
-    --cream: #E1CFAE;
-    --chip-ink: #1C1C1A;
-    --pill-bg: #171716;
-    --pill-ink: #EDE9E2;
-    --btn-bg: #CFE8DB;
-    --btn-ink: #1C1C1A;
-    --stripe: rgba(237,233,226,0.06);
-    --focus-ring: #CFE8DB;
-    --card-shadow: 0 14px 34px -8px rgba(0,0,0, 0.40);
-  }
-  * { box-sizing: border-box; }
-  html {
-    scroll-behavior: smooth;
-    background: var(--bg);
-  }
-  html.lenis, html.lenis body {
-    height: auto;
-  }
-  .lenis.lenis-smooth {
-    scroll-behavior: auto !important;
-  }
-  .lenis.lenis-smooth [data-lenis-prevent] {
-    overscroll-behavior: contain;
-  }
-  .lenis.lenis-stopped {
-    overflow: hidden;
-  }
-  body {
-    margin: 0;
-    background: var(--bg);
-    color: var(--ink);
-    font-family: 'Karla', Helvetica, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    transition: background 300ms ease, color 300ms ease;
-  }
-  a {
-    color: var(--ink);
-    text-decoration: none;
-    transition: color 200ms ease, opacity 200ms ease;
-  }
-  a:hover { color: var(--ink-2); }
-
-  /* Accessibility Skip Link */
-  .skip-link {
-    position: fixed;
-    top: -999px;
-    left: 20px;
-    background: var(--btn-bg);
-    color: var(--btn-ink);
-    padding: 12px 24px;
-    border-radius: 999px;
-    font-weight: 600;
-    font-size: 14px;
-    z-index: 99999;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.25);
-    transition: top 200ms ease;
-  }
-  .skip-link:focus {
-    top: 20px;
-    outline: 2px solid var(--focus-ring);
-    outline-offset: 3px;
-  }
-
-  /* Keyboard Focus Visibility */
-  :focus-visible {
-    outline: 2px solid var(--focus-ring);
-    outline-offset: 3px;
-    border-radius: 4px;
-  }
-  button:focus-visible, a[style*="border-radius: 999px"]:focus-visible, .btn-pill:focus-visible {
-    border-radius: 999px !important;
-  }
-
-  /* Screen Reader Only Utility */
-  main[tabindex="-1"]:focus { outline: none; }
-  /* Sticky, 70% opaque navigation bar (full width background behind the content column) */
-  html { scroll-padding-top: 88px; }
-  html, body { overflow-x: clip; }
-  .site-nav {
-    position: sticky;
-    top: 0;
-    z-index: 50;
-    padding-top: 14px;
-    padding-bottom: 14px;
-    margin-top: -14px;
-  }
-  .site-nav::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: calc(50% - 50vw);
-    width: 100vw;
-    z-index: -1;
-    background: var(--nav-bg);
-    -webkit-backdrop-filter: blur(12px);
-    backdrop-filter: blur(12px);
-    transition: background 300ms ease;
-  }
-  .brand-short { display: none; }
-  @media (max-width: 640px) {
-    .brand-full { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
-    .brand-short { display: inline; }
-  }
-  .sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border-width: 0;
-  }
-
-  /* Interactive Cards Micro-Interactions */
-  article {
-    transition: transform 260ms cubic-bezier(0.2, 0, 0, 1), background 300ms ease, border-color 250ms ease, box-shadow 260ms ease !important;
-  }
-  a:hover article, article:hover {
-    box-shadow: var(--card-shadow);
-  }
-  .card-arrow {
-    display: inline-block;
-    transition: transform 220ms ease, color 200ms ease;
-  }
-  a:hover .card-arrow {
-    transform: translateX(5px);
-    color: var(--ink);
-  }
-
-  /* Tactile Hero Button Hover */
-  .hero-cta-btn {
-    transition: transform 200ms ease, box-shadow 200ms ease, opacity 200ms ease, background 200ms ease;
-  }
-  .hero-cta-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px -4px rgba(38,36,33, 0.15);
-  }
-  .hero-cta-btn:active {
-    transform: translateY(0);
-  }
-
-  /* Back to Top Floating Button */
-  .back-to-top-btn {
-    position: fixed;
-    bottom: 28px;
-    right: 28px;
-    width: 44px;
-    height: 44px;
-    border-radius: 999px;
-    background: var(--surface);
-    color: var(--ink);
-    border: 1px solid var(--line);
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(12px);
-    transition: opacity 250ms ease, transform 250ms ease, visibility 250ms, background 200ms ease, box-shadow 200ms ease;
-    box-shadow: 0 6px 18px -2px rgba(0,0,0,0.10);
-    z-index: 999;
-  }
-  .back-to-top-btn.visible,
-  .back-to-top-btn.is-visible {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-  }
-  .back-to-top-btn:hover {
-    background: var(--bg-2);
-    box-shadow: 0 10px 24px -4px rgba(0,0,0,0.18);
-    transform: translateY(-2px);
-  }
-
-  /* Reduced Motion Respect */
-  @media (prefers-reduced-motion: reduce) {
-    *, ::before, ::after {
-      animation-duration: 0.01ms !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: 0.01ms !important;
-      scroll-behavior: auto !important;
-    }
-    .skip-link {
-      transition: none !important;
-    }
-  }
-</style>
-</helmet>
-<div style="min-height: 100vh; padding: 28px clamp(20px, 5vw, 56px) 0;">
-  <div style="max-width: 1080px; margin: 0 auto;">
-
-    <nav aria-label="Main" class="site-nav" style="display: flex; align-items: center; justify-content: space-between; gap: 20px; margin-bottom: calc(clamp(60px, 12vh, 130px) - 14px);">
-      <a href="index.html" style="font-family: 'Archivo', Helvetica, sans-serif; font-size: 17px; font-weight: 600; letter-spacing: -0.01em;" aria-current="page"><span class="brand-full">Anadhya Badri Narayan</span><span class="brand-short" aria-hidden="true">ABN</span></a>
-      <div style="display: flex; align-items: center; gap: clamp(14px, 2.4vw, 28px);">
-        <a href="index.html" style="font-size: 13.5px; font-weight: 500; color: var(--ink-2); padding: 8px 4px;" style-hover="color: var(--ink);">Home</a>
-        <a href="about.html" style="font-size: 13.5px; font-weight: 500; color: var(--ink-2); padding: 8px 4px;" style-hover="color: var(--ink);">About</a>
-        <a href="https://www.linkedin.com/in/anadhyanarayan/" target="_blank" rel="noopener noreferrer" style="font-size: 13.5px; font-weight: 500; color: var(--ink-2); padding: 8px 4px;" style-hover="color: var(--ink);">LinkedIn<span class="sr-only"> (opens in a new tab)</span></a>
-        <a href="./_assets/CV/Profile.pdf" target="_blank" rel="noopener noreferrer" style="font-size: 13.5px; font-weight: 500; color: var(--ink-2); padding: 8px 4px;" style-hover="color: var(--ink);">CV<span class="sr-only"> (PDF document, opens in a new tab)</span></a>
-        <button onClick="{{ toggleTheme }}" aria-label="{{ themeLabel }}" title="{{ themeLabel }}" style="display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border: 1px solid var(--line); background: var(--bg-2); color: var(--ink); border-radius: 999px; padding: 0; cursor: pointer; transition: background 200ms ease, transform 200ms ease;" style-hover="background: var(--surface);">
-        <sc-if value="{{ isDark }}" hint-placeholder-val="{{ false }}">
-          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">
-            <circle cx="12" cy="12" r="4.2"></circle>
-            <line x1="12" y1="2.4" x2="12" y2="4.8"></line>
-            <line x1="12" y1="19.2" x2="12" y2="21.6"></line>
-            <line x1="2.4" y1="12" x2="4.8" y2="12"></line>
-            <line x1="19.2" y1="12" x2="21.6" y2="12"></line>
-            <line x1="5.4" y1="5.4" x2="7.1" y2="7.1"></line>
-            <line x1="16.9" y1="16.9" x2="18.6" y2="18.6"></line>
-            <line x1="5.4" y1="18.6" x2="7.1" y2="16.9"></line>
-            <line x1="16.9" y1="7.1" x2="18.6" y2="5.4"></line>
-          </svg>
-        </sc-if>
-        <sc-if value="{{ isLight }}" hint-placeholder-val="{{ true }}">
-          <svg width="19" height="19" viewBox="0 0 24 24" aria-hidden="true">
-            <mask id="anad-moon">
-              <rect width="24" height="24" fill="#fff"></rect>
-              <circle cx="19" cy="7" r="8.4" fill="#000"></circle>
-            </mask>
-            <circle cx="12" cy="12" r="8.4" fill="currentColor" mask="url(#anad-moon)"></circle>
-          </svg>
-        </sc-if>
-      </button>
-      </div>
-    </nav>
-
-    <main id="main-content">
-    <header style="max-width: 780px; padding-bottom: clamp(70px, 14vh, 150px);">
-      <p style="margin: 0 0 22px; font-family: 'Space Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-2);">Graphic Designer, Bengaluru, India</p>
-      <h1 style="margin: 0; font-family: 'Archivo', Helvetica, sans-serif; font-weight: 600; font-size: clamp(40px, 7vw, 78px); line-height: 1.04; letter-spacing: -0.02em; text-wrap: pretty;">Design that says less, and means more.</h1>
-      <p style="margin: 26px 0 0; max-width: 48ch; font-size: clamp(15px, 1.5vw, 18px); line-height: 1.65; color: var(--ink-2); text-wrap: pretty;">I'm a graphic designer with a background in Product Design, a soft spot for beautiful details, and a love for bringing ideas to life. From branding and illustration to print and everything in between, I enjoy creating designs that tell stories, spark emotions, and leave a lasting impression.</p>
-      <div style="display: flex; flex-wrap: wrap; gap: 12px; margin-top: 38px;">
-        <a href="#work" class="hero-cta-btn" style="background: var(--btn-bg); color: var(--btn-ink); border-radius: 999px; padding: 15px 32px; font-size: 14px; font-weight: 600; letter-spacing: 0.01em; display: inline-flex; align-items: center; justify-content: center; min-height: 48px;">View selected work</a>
-        <a href="mailto:anadhya94@gmail.com" class="hero-cta-btn" style="border: 1px solid var(--line); border-radius: 999px; padding: 15px 30px; font-size: 14px; font-weight: 500; color: var(--ink); background: var(--surface); display: inline-flex; align-items: center; justify-content: center; min-height: 48px;">Get in touch</a>
-        <a href="./_assets/CV/Profile.pdf" target="_blank" rel="noopener noreferrer" class="hero-cta-btn" style="border: 1px solid var(--line); border-radius: 999px; padding: 15px 30px; font-size: 14px; font-weight: 500; color: var(--ink); background: var(--surface); display: inline-flex; align-items: center; justify-content: center; min-height: 48px;">View CV (PDF)<span class="sr-only"> (opens in a new tab)</span></a>
-      </div>
-    </header>
-
-    <section id="work" style="padding-bottom: clamp(70px, 12vh, 130px);">
-      <div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 20px; padding-bottom: 34px; border-bottom: 1px solid var(--line);">
-        <h2 style="margin: 0; font-family: 'Archivo', Helvetica, sans-serif; font-weight: 600; font-size: clamp(24px, 3vw, 34px); letter-spacing: -0.01em;">Selected work</h2>
-        <span style="font-family: 'Space Mono', monospace; font-size: 12px; color: var(--ink-2); white-space: nowrap;">Projects</span>
-      </div>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: clamp(20px, 3vw, 34px); padding-top: clamp(24px, 4vw, 40px);">
-        <sc-for list="{{ projects }}" as="p" hint-placeholder-count="6">
-          <sc-if value="{{ p.link }}" hint-placeholder-val="{{ true }}">
-            <a href="{{ p.link }}" target="{{ p.target }}" rel="{{ p.rel }}" style="display: block; text-decoration: none; color: inherit;">
-              <article style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 16px 16px 26px; cursor: pointer; height: 100%; display: flex; flex-direction: column;" style-hover="transform: translateY(-4px); border-color: var(--ink-2);">
-                <sc-if value="{{ p.image }}" hint-placeholder-val="{{ true }}">
-                  <div style="border-radius: calc(var(--r) - 12px); aspect-ratio: 1 / 1; overflow: hidden; background-color: {{ p.tint }};"><img src="{{ p.image }}" alt="" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block;" /></div>
-                </sc-if>
-                <sc-if value="{{ !p.image }}" hint-placeholder-val="{{ false }}">
-                  <div role="img" aria-label="{{ p.title }} concept placeholder" style="border-radius: calc(var(--r) - 12px); aspect-ratio: 1 / 1; background-color: {{ p.tint }}; background-image: repeating-linear-gradient(45deg, var(--stripe) 0 7px, transparent 7px 14px);"></div>
-                </sc-if>
-                <div style="padding: 24px 12px 0; flex: 1; display: flex; flex-direction: column;">
-                  <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 8px;">
-                    <h3 style="margin: 0; font-size: 20px; font-weight: 600; letter-spacing: -0.01em;">
-                      {{ p.title }}
-                      <sc-if value="{{ p.isExternal }}" hint-placeholder-val="{{ false }}">
-                        <span class="sr-only"> (opens in a new tab)</span>
-                      </sc-if>
-                    </h3>
-                    <span class="card-arrow" style="font-size: 16px; color: var(--ink-2); margin-top: 2px;" aria-hidden="true">&rarr;</span>
-                  </div>
-                  <p style="margin: 10px 0 0; font-size: 15px; line-height: 1.65; color: var(--ink-2); text-wrap: pretty; flex: 1;">{{ p.blurb }}</p>
-                  <sc-if value="{{ showTags }}" hint-placeholder-val="{{ true }}">
-                    <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px;">
-                      <sc-for list="{{ p.tags }}" as="t" hint-placeholder-count="3">
-                        <span style="background: {{ t.bg }}; color: var(--chip-ink); border-radius: 999px; padding: 6px 14px; font-size: 12px; font-weight: 500;">{{ t.label }}</span>
-                      </sc-for>
-                    </div>
-                  </sc-if>
-                </div>
-              </article>
-            </a>
-          </sc-if>
-          <sc-if value="{{ !p.link }}" hint-placeholder-val="{{ false }}">
-            <article style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 16px 16px 26px; height: 100%; display: flex; flex-direction: column;" style-hover="transform: translateY(-4px);">
-              <sc-if value="{{ p.image }}" hint-placeholder-val="{{ false }}">
-                <div style="border-radius: calc(var(--r) - 12px); aspect-ratio: 1 / 1; overflow: hidden; background-color: {{ p.tint }};"><img src="{{ p.image }}" alt="" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block;" /></div>
-              </sc-if>
-              <sc-if value="{{ !p.image }}" hint-placeholder-val="{{ true }}">
-                <div role="img" aria-label="{{ p.title }} concept placeholder" style="border-radius: calc(var(--r) - 12px); aspect-ratio: 1 / 1; background-color: {{ p.tint }}; background-image: repeating-linear-gradient(45deg, var(--stripe) 0 7px, transparent 7px 14px);"></div>
-              </sc-if>
-              <div style="padding: 24px 12px 0; flex: 1; display: flex; flex-direction: column;">
-                <h3 style="margin: 0; font-size: 20px; font-weight: 600; letter-spacing: -0.01em;">{{ p.title }}</h3>
-                <p style="margin: 10px 0 0; font-size: 15px; line-height: 1.65; color: var(--ink-2); text-wrap: pretty; flex: 1;">{{ p.blurb }}</p>
-                <sc-if value="{{ showTags }}" hint-placeholder-val="{{ true }}">
-                  <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px;">
-                    <sc-for list="{{ p.tags }}" as="t" hint-placeholder-count="3">
-                      <span style="background: {{ t.bg }}; color: var(--chip-ink); border-radius: 999px; padding: 6px 14px; font-size: 12px; font-weight: 500;">{{ t.label }}</span>
-                    </sc-for>
-                  </div>
-                </sc-if>
-              </div>
-            </article>
-          </sc-if>
-        </sc-for>
-      </div>
-    </section>
-
-    <section id="illustrations" style="padding-bottom: clamp(70px, 12vh, 130px);">
-      <div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 20px; padding-bottom: 34px; border-bottom: 1px solid var(--line);">
-        <h2 style="margin: 0; font-family: 'Archivo', Helvetica, sans-serif; font-weight: 600; font-size: clamp(24px, 3vw, 34px); letter-spacing: -0.01em;">Illustrations</h2>
-        <span style="font-family: 'Space Mono', monospace; font-size: 12px; color: var(--ink-2); white-space: nowrap;">Personal &amp; commissioned</span>
-      </div>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: clamp(20px, 3vw, 34px); padding-top: clamp(24px, 4vw, 40px);">
-        <sc-for list="{{ illustrations }}" as="p" hint-placeholder-count="6">
-          <sc-if value="{{ p.link }}" hint-placeholder-val="{{ true }}">
-            <a href="{{ p.link }}" target="{{ p.target }}" rel="{{ p.rel }}" style="display: block; text-decoration: none; color: inherit;">
-              <article style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 16px 16px 26px; cursor: pointer; height: 100%; display: flex; flex-direction: column;" style-hover="transform: translateY(-4px); border-color: var(--ink-2);">
-                <sc-if value="{{ p.image }}" hint-placeholder-val="{{ true }}">
-                  <div style="border-radius: calc(var(--r) - 12px); aspect-ratio: 1 / 1; overflow: hidden; background-color: {{ p.tint }};"><img src="{{ p.image }}" alt="" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; object-position: center; display: block;" /></div>
-                </sc-if>
-                <sc-if value="{{ !p.image }}" hint-placeholder-val="{{ false }}">
-                  <div role="img" aria-label="{{ p.title }} illustration study" style="border-radius: calc(var(--r) - 12px); aspect-ratio: 1 / 1; background-color: {{ p.tint }}; background-image: repeating-linear-gradient(45deg, var(--stripe) 0 7px, transparent 7px 14px);"></div>
-                </sc-if>
-                <div style="padding: 24px 12px 0; flex: 1; display: flex; flex-direction: column;">
-                  <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 8px;">
-                    <h3 style="margin: 0; font-size: 20px; font-weight: 600; letter-spacing: -0.01em;">
-                      {{ p.title }}
-                      <sc-if value="{{ p.isExternal }}" hint-placeholder-val="{{ true }}">
-                        <span class="sr-only"> (opens in a new tab)</span>
-                      </sc-if>
-                    </h3>
-                    <span class="card-arrow" style="font-size: 16px; color: var(--ink-2); margin-top: 2px;" aria-hidden="true">&rarr;</span>
-                  </div>
-                  <p style="margin: 10px 0 0; font-size: 15px; line-height: 1.65; color: var(--ink-2); text-wrap: pretty; flex: 1;">{{ p.blurb }}</p>
-                  <sc-if value="{{ showTags }}" hint-placeholder-val="{{ true }}">
-                    <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px;">
-                      <sc-for list="{{ p.tags }}" as="t" hint-placeholder-count="2">
-                        <span style="background: {{ t.bg }}; color: var(--chip-ink); border-radius: 999px; padding: 6px 14px; font-size: 12px; font-weight: 500;">{{ t.label }}</span>
-                      </sc-for>
-                    </div>
-                  </sc-if>
-                </div>
-              </article>
-            </a>
-          </sc-if>
-          <sc-if value="{{ !p.link }}" hint-placeholder-val="{{ false }}">
-            <article style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 16px 16px 26px; height: 100%; display: flex; flex-direction: column;" style-hover="transform: translateY(-4px);">
-              <sc-if value="{{ p.image }}" hint-placeholder-val="{{ false }}">
-                <div style="border-radius: calc(var(--r) - 12px); aspect-ratio: 1 / 1; overflow: hidden; background-color: {{ p.tint }};"><img src="{{ p.image }}" alt="" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; object-position: center; display: block;" /></div>
-              </sc-if>
-              <sc-if value="{{ !p.image }}" hint-placeholder-val="{{ true }}">
-                <div role="img" aria-label="{{ p.title }} illustration study" style="border-radius: calc(var(--r) - 12px); aspect-ratio: 1 / 1; background-color: {{ p.tint }}; background-image: repeating-linear-gradient(45deg, var(--stripe) 0 7px, transparent 7px 14px);"></div>
-              </sc-if>
-              <div style="padding: 24px 12px 0; flex: 1; display: flex; flex-direction: column;">
-                <h3 style="margin: 0; font-size: 20px; font-weight: 600; letter-spacing: -0.01em;">{{ p.title }}</h3>
-                <p style="margin: 10px 0 0; font-size: 15px; line-height: 1.65; color: var(--ink-2); text-wrap: pretty; flex: 1;">{{ p.blurb }}</p>
-                <sc-if value="{{ showTags }}" hint-placeholder-val="{{ true }}">
-                  <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px;">
-                    <sc-for list="{{ p.tags }}" as="t" hint-placeholder-count="2">
-                      <span style="background: {{ t.bg }}; color: var(--chip-ink); border-radius: 999px; padding: 6px 14px; font-size: 12px; font-weight: 500;">{{ t.label }}</span>
-                    </sc-for>
-                  </div>
-                </sc-if>
-              </div>
-            </article>
-          </sc-if>
-        </sc-for>
-      </div>
-    </section>
-
-    <section id="industrial-design" style="padding-bottom: clamp(70px, 12vh, 130px);">
-      <div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 20px; padding-bottom: 34px; border-bottom: 1px solid var(--line);">
-        <h2 style="margin: 0; font-family: 'Archivo', Helvetica, sans-serif; font-weight: 600; font-size: clamp(24px, 3vw, 34px); letter-spacing: -0.01em;">Industrial Design</h2>
-        <span style="font-family: 'Space Mono', monospace; font-size: 12px; color: var(--ink-2); white-space: nowrap;">Product &amp; Research</span>
-      </div>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: clamp(20px, 3vw, 34px); padding-top: clamp(24px, 4vw, 40px);">
-        <sc-for list="{{ industrialDesign }}" as="p" hint-placeholder-count="3">
-          <sc-if value="{{ p.link }}" hint-placeholder-val="{{ true }}">
-            <a href="{{ p.link }}" target="{{ p.target }}" rel="{{ p.rel }}" style="display: block; text-decoration: none; color: inherit;">
-              <article style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 16px 16px 26px; cursor: pointer; height: 100%; display: flex; flex-direction: column;" style-hover="transform: translateY(-4px); border-color: var(--ink-2);">
-                <sc-if value="{{ p.image }}" hint-placeholder-val="{{ true }}">
-                  <div style="border-radius: calc(var(--r) - 12px); aspect-ratio: 1 / 1; overflow: hidden; background-color: {{ p.tint }};"><img src="{{ p.image }}" alt="" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block;" /></div>
-                </sc-if>
-                <sc-if value="{{ !p.image }}" hint-placeholder-val="{{ false }}">
-                  <div role="img" aria-label="{{ p.title }} concept placeholder" style="border-radius: calc(var(--r) - 12px); aspect-ratio: 1 / 1; background-color: {{ p.tint }}; background-image: repeating-linear-gradient(45deg, var(--stripe) 0 7px, transparent 7px 14px);"></div>
-                </sc-if>
-                <div style="padding: 24px 12px 0; flex: 1; display: flex; flex-direction: column;">
-                  <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 8px;">
-                    <h3 style="margin: 0; font-size: 20px; font-weight: 600; letter-spacing: -0.01em;">
-                      {{ p.title }}
-                      <sc-if value="{{ p.isExternal }}" hint-placeholder-val="{{ true }}">
-                        <span class="sr-only"> (opens in a new tab)</span>
-                      </sc-if>
-                    </h3>
-                    <span class="card-arrow" style="font-size: 16px; color: var(--ink-2); margin-top: 2px;" aria-hidden="true">&rarr;</span>
-                  </div>
-                  <p style="margin: 10px 0 0; font-size: 15px; line-height: 1.65; color: var(--ink-2); text-wrap: pretty; flex: 1;">{{ p.blurb }}</p>
-                  <sc-if value="{{ showTags }}" hint-placeholder-val="{{ true }}">
-                    <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px;">
-                      <sc-for list="{{ p.tags }}" as="t" hint-placeholder-count="3">
-                        <span style="background: {{ t.bg }}; color: var(--chip-ink); border-radius: 999px; padding: 6px 14px; font-size: 12px; font-weight: 500;">{{ t.label }}</span>
-                      </sc-for>
-                    </div>
-                  </sc-if>
-                </div>
-              </article>
-            </a>
-          </sc-if>
-          <sc-if value="{{ !p.link }}" hint-placeholder-val="{{ false }}">
-            <article style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 16px 16px 26px; height: 100%; display: flex; flex-direction: column;" style-hover="transform: translateY(-4px);">
-              <sc-if value="{{ p.image }}" hint-placeholder-val="{{ false }}">
-                <div style="border-radius: calc(var(--r) - 12px); aspect-ratio: 1 / 1; overflow: hidden; background-color: {{ p.tint }};"><img src="{{ p.image }}" alt="" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block;" /></div>
-              </sc-if>
-              <sc-if value="{{ !p.image }}" hint-placeholder-val="{{ true }}">
-                <div role="img" aria-label="{{ p.title }} concept placeholder" style="border-radius: calc(var(--r) - 12px); aspect-ratio: 1 / 1; background-color: {{ p.tint }}; background-image: repeating-linear-gradient(45deg, var(--stripe) 0 7px, transparent 7px 14px);"></div>
-              </sc-if>
-              <div style="padding: 24px 12px 0; flex: 1; display: flex; flex-direction: column;">
-                <h3 style="margin: 0; font-size: 20px; font-weight: 600; letter-spacing: -0.01em;">{{ p.title }}</h3>
-                <p style="margin: 10px 0 0; font-size: 15px; line-height: 1.65; color: var(--ink-2); text-wrap: pretty; flex: 1;">{{ p.blurb }}</p>
-                <sc-if value="{{ showTags }}" hint-placeholder-val="{{ true }}">
-                  <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px;">
-                    <sc-for list="{{ p.tags }}" as="t" hint-placeholder-count="3">
-                      <span style="background: {{ t.bg }}; color: var(--chip-ink); border-radius: 999px; padding: 6px 14px; font-size: 12px; font-weight: 500;">{{ t.label }}</span>
-                    </sc-for>
-                  </div>
-                </sc-if>
-              </div>
-            </article>
-          </sc-if>
-        </sc-for>
-      </div>
-    </section>
-    </main>
-
-    <footer style="border-top: 1px solid var(--line); padding: clamp(36px, 6vw, 60px) 0 44px; display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-end; justify-content: space-between;">
+<a class="skip" href="#main">Skip to content</a>
+<header class="bar">
+  <a class="mark" href="index.html" aria-current="page"><b>ABN</b><span>Anadhya Badri Narayan</span><span class="sr">, home</span></a>
+  <nav aria-label="Main">
+    <a href="index.html#work" class="hide-sm">Work</a>
+    <a href="about.html">About</a>
+    <a href="https://www.linkedin.com/in/anadhyanarayan/" target="_blank" rel="noopener noreferrer">LinkedIn<span class="sr"> (opens in a new tab)</span></a>
+    <a class="btn" href="./_assets/CV/Profile.pdf" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v10M5 9l5 5 5-5M4 17h12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square"/></svg>CV (PDF)<span class="sr"> (opens in a new tab)</span></a>
+  </nav>
+</header>
+<main id="main">
+  <section class="cover" aria-labelledby="name">
+    <div class="cover__face">
       <div>
-        <p style="margin: 0; font-family: 'Archivo', Helvetica, sans-serif; font-weight: 600; font-size: clamp(20px, 2.6vw, 27px); letter-spacing: -0.02em;">Let's make something calm.</p>
-        <p style="margin: 10px 0 0; font-family: 'Space Mono', monospace; font-size: 12px; color: var(--ink-2);">© 2026 Anadhya Badri Narayan, Bengaluru</p>
+        <h1 id="name">Anadhya Badri Narayan</h1>
+        <p class="cover__role"><strong>Graphic designer and illustrator in Bengaluru.</strong> Senior Graphic Designer at Kiana Bespoke Invitations, with a background in industrial and product design.</p>
       </div>
-      <div style="display: flex; flex-wrap: wrap; gap: 10px;">
-        <a href="mailto:anadhya94@gmail.com" style="border: 1px solid var(--line); background: var(--bg-2); border-radius: 999px; padding: 12px 22px; font-size: 13.5px; font-weight: 500; min-height: 44px; display: inline-flex; align-items: center; justify-content: center; transition: background 200ms ease;" style-hover="background: var(--mint); color: var(--chip-ink);">Email</a>
-        <a href="https://www.linkedin.com/in/anadhyanarayan/" target="_blank" rel="noopener noreferrer" style="border: 1px solid var(--line); background: var(--bg-2); border-radius: 999px; padding: 12px 22px; font-size: 13.5px; font-weight: 500; min-height: 44px; display: inline-flex; align-items: center; justify-content: center; transition: background 200ms ease;" style-hover="background: var(--powder); color: var(--chip-ink);">LinkedIn<span class="sr-only"> (opens in a new tab)</span></a>
-        <a href="./_assets/CV/Profile.pdf" target="_blank" rel="noopener noreferrer" style="border: 1px solid var(--line); background: var(--bg-2); border-radius: 999px; padding: 12px 22px; font-size: 13.5px; font-weight: 500; min-height: 44px; display: inline-flex; align-items: center; justify-content: center; transition: background 200ms ease;" style-hover="background: var(--cream); color: var(--chip-ink);">CV (PDF)<span class="sr-only"> (PDF document, opens in a new tab)</span></a>
+      <figure class="cover__window"><span class="held"><span class="frame"><img src="./_assets/covers/save%20the%20date_cover.jpg" alt="Both frames of Dhriti and Prashant's save the date, with bells, banana leaves and marigolds on red damask" width="704" height="704"></span></span></figure>
+      <p class="cover__motto">Design that says less, and means more.</p>
+      <div class="cover__actions">
+        <a class="btn" href="./_assets/CV/Profile.pdf" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v10M5 9l5 5 5-5M4 17h12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square"/></svg>Download CV (PDF)<span class="sr"> (opens in a new tab)</span></a>
+        <a class="link" href="https://www.linkedin.com/in/anadhyanarayan/" target="_blank" rel="noopener noreferrer">LinkedIn<span class="sr"> (opens in a new tab)</span></a>
+        <a class="link" href="mailto:anadhya94@gmail.com">anadhya94@gmail.com</a>
       </div>
-    </footer>
+    </div>
+    <nav class="tabs" aria-labelledby="index-title">
+      <h2 id="index-title">Every project</h2>
+      <a class="tab" href="save-the-date.html" style="--i:0">
+      <span class="tab__face"><span class="tab__name">Dhriti &amp; Prashant</span><span class="tab__meta nums">2026</span></span>
+      <span class="peek" aria-hidden="true"><span class="held"><span class="frame"><img src="./_assets/covers/save%20the%20date_cover.jpg" alt="" width="704" height="704"></span></span></span>
+    </a>
+      <a class="tab" href="wedding-invitation-vivek-nisergini.html" style="--i:1">
+      <span class="tab__face"><span class="tab__name">Vivek &amp; Nisergini</span><span class="tab__meta nums">2022</span></span>
+      <span class="peek" aria-hidden="true"><span class="held"><span class="frame"><img src="./_assets/invitation/4.jpg" alt="" width="974" height="1303" loading="lazy"></span></span></span>
+    </a>
+      <a class="tab" href="shashtiabdapoorthi-sampath.html" style="--i:2">
+      <span class="tab__face"><span class="tab__name">Sampath Badri Narayan</span><span class="tab__meta nums">2018</span></span>
+      <span class="peek" aria-hidden="true"><span class="held"><span class="frame"><img src="./_assets/covers/Sampath_cover.jpg" alt="" width="972" height="971" loading="lazy"></span></span></span>
+    </a>
+      <a class="tab" href="wedding-invitation-akshatha-bhargav.html" style="--i:3">
+      <span class="tab__face"><span class="tab__name">Akshatha &amp; Bhargav</span><span class="tab__meta nums">2019</span></span>
+      <span class="peek" aria-hidden="true"><span class="held"><span class="frame"><img src="./_assets/covers/Bhargav_cover.jpg" alt="" width="878" height="878" loading="lazy"></span></span></span>
+    </a>
+      <a class="tab" href="celebration-stationery-paul-milestones.html" style="--i:4">
+      <span class="tab__face"><span class="tab__name">The Paul &amp; milestones</span><span class="tab__meta nums">2019–21</span></span>
+      <span class="peek" aria-hidden="true"><span class="held"><span class="frame"><img src="./_assets/covers/Paul_cover.jpg" alt="" width="912" height="912" loading="lazy"></span></span></span>
+    </a>
+      <a class="tab" href="restaurant-branding-money-heist-whitefield.html" style="--i:5">
+      <span class="tab__face"><span class="tab__name">Money Heist EN</span><span class="tab__meta nums">Whitefield</span></span>
+      <span class="peek" aria-hidden="true"><span class="held"><span class="frame"><img src="./_assets/covers/restaurant_cover.jpg" alt="" width="894" height="1200" loading="lazy"></span></span></span>
+    </a>
+      <a class="tab tab--illustration" href="https://www.behance.net/gallery/138381645/Bigeyes" target="_blank" rel="noopener noreferrer" style="--i:6">
+      <span class="tab__face"><span class="tab__name">Bigeyes<span class="sr"> (opens in a new tab)</span></span><span class="tab__meta">Behance</span></span>
+      <span class="peek" aria-hidden="true"><span class="held"><span class="frame"><img src="./_assets/covers/Octopus_cover.jpg" alt="" width="600" height="600" loading="lazy"></span></span></span>
+    </a>
+      <a class="tab tab--illustration" href="https://www.behance.net/gallery/161500361/Baby-Milestone-Cards" target="_blank" rel="noopener noreferrer" style="--i:7">
+      <span class="tab__face"><span class="tab__name">Baby Milestone Cards<span class="sr"> (opens in a new tab)</span></span><span class="tab__meta">Behance</span></span>
+      <span class="peek" aria-hidden="true"><span class="held"><span class="frame"><img src="./_assets/covers/Babymilestone_cover.jpg" alt="" width="600" height="600" loading="lazy"></span></span></span>
+    </a>
+      <a class="tab tab--illustration" href="https://www.behance.net/gallery/161501519/General-Illustrations" target="_blank" rel="noopener noreferrer" style="--i:8">
+      <span class="tab__face"><span class="tab__name">General Illustrations<span class="sr"> (opens in a new tab)</span></span><span class="tab__meta">Behance</span></span>
+      <span class="peek" aria-hidden="true"><span class="held"><span class="frame"><img src="./_assets/covers/General_illustrations_cover.jpg" alt="" width="600" height="600" loading="lazy"></span></span></span>
+    </a>
+      <a class="tab tab--industrial" href="https://portfolio-5208db.webflow.io/physical-computation-and-applied-research/parametric-prosthesis" target="_blank" rel="noopener noreferrer" style="--i:9">
+      <span class="tab__face"><span class="tab__name">Parametric Prosthesis<span class="sr"> (opens in a new tab)</span></span><span class="tab__meta">Webflow</span></span>
+      <span class="peek" aria-hidden="true"><span class="held"><span class="frame"><img src="./_assets/covers/Prosthetic%20Prosthesis_cover.jpg" alt="" width="600" height="600" loading="lazy"></span></span></span>
+    </a>
+      <a class="tab tab--industrial" href="https://www.behance.net/gallery/161526615/Blaisse-Tableware" target="_blank" rel="noopener noreferrer" style="--i:10">
+      <span class="tab__face"><span class="tab__name">Blaisse Tableware<span class="sr"> (opens in a new tab)</span></span><span class="tab__meta">Behance</span></span>
+      <span class="peek" aria-hidden="true"><span class="held"><span class="frame"><img src="./_assets/covers/Blaisse_cover.jpg" alt="" width="600" height="600" loading="lazy"></span></span></span>
+    </a>
+      <a class="tab tab--industrial" href="https://www.behance.net/gallery/57872429/Aston-Martin-Retail-Store" target="_blank" rel="noopener noreferrer" style="--i:11">
+      <span class="tab__face"><span class="tab__name">Aston Martin Retail Store<span class="sr"> (opens in a new tab)</span></span><span class="tab__meta">Behance</span></span>
+      <span class="peek" aria-hidden="true"><span class="held"><span class="frame"><img src="./_assets/covers/Aston_martin_Store_cover.jpg" alt="" width="600" height="600" loading="lazy"></span></span></span>
+    </a>
+    </nav>
+  </section>
 
-    <button id="back-to-top" class="back-to-top-btn" aria-label="Back to top" title="Back to top">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <polyline points="18 15 12 9 6 15"></polyline>
-      </svg>
-    </button>
+  <section class="album" id="work" aria-labelledby="work-title">
+    <h2 id="work-title">Stationery suites</h2>
+    <p class="lede">Six commissions and family occasions, each drawn for the people it was made for.</p>
+    <a class="spread page-sheet lift" href="save-the-date.html">
+      <span class="spread__pic"><span class="held"><span class="frame"><img src="./_assets/covers/save%20the%20date_cover.jpg" alt="Both frames of Dhriti and Prashant's save the date, with bells, banana leaves and marigolds on red damask" width="704" height="704" loading="lazy"></span></span></span>
+      <span class="spread__text">
+        <h3>Dhriti &amp; Prashant</h3>
+        <p>A little animated teaser for a Gujarati and Telugu wedding in Hyderabad, built from bits of both cultures.</p>
+        <dl class="facts"><dt>What</dt><dd>Save the date</dd><dt>Where</dt><dd>Hyderabad, December 2026</dd><dt>Format</dt><dd>Animated teaser, two frames</dd><dt>Dates</dt><dd>17 &amp; 18 Dec 2026</dd></dl>
+        <span class="go">See the suite <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 10h12M11 5l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square"/></svg></span>
+      </span>
+    </a>
+    <a class="spread page-sheet lift" href="wedding-invitation-vivek-nisergini.html">
+      <span class="spread__pic"><span class="held"><span class="frame"><img src="./_assets/invitation/4.jpg" alt="Vivek and Nisergini's printed invitation suite fanned out on green linen" width="974" height="1303" loading="lazy"></span></span></span>
+      <span class="spread__text">
+        <h3>Vivek &amp; Nisergini</h3>
+        <p>A Kerala and Maharashtrian wedding suite with custom lettering, Muthukkuda umbrellas and an NV monogram drawn for the couple.</p>
+        <dl class="facts"><dt>What</dt><dd>Wedding invitation</dd><dt>Where</dt><dd>Mumbai &amp; Kerala, January 2022</dd><dt>Scope</dt><dd>Monogram, cover, two cards</dd><dt>Dates</dt><dd>23 &amp; 30 Jan 2022</dd></dl>
+        <span class="go">See the suite <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 10h12M11 5l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square"/></svg></span>
+      </span>
+    </a>
+    <a class="spread page-sheet lift" href="shashtiabdapoorthi-sampath.html">
+      <span class="spread__pic"><span class="held"><span class="frame"><img src="./_assets/covers/Sampath_cover.jpg" alt="The printed Shashtiabdapoorthi suite for Sri. Sampath Badri Narayan on green cloth" width="972" height="971" loading="lazy"></span></span></span>
+      <span class="spread__text">
+        <h3>Sampath Badri Narayan</h3>
+        <p>The invitations I made for my father's 60th birthday and my parents' vow renewal at Bangalore Palace.</p>
+        <dl class="facts"><dt>What</dt><dd>Shashtiabdapoorthi</dd><dt>Where</dt><dd>Bangalore Palace, July 2018</dd><dt>Scope</dt><dd>Folio, invitation, programme</dd><dt>Dates</dt><dd>4 &amp; 5 Jul 2018</dd></dl>
+        <span class="go">See the suite <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 10h12M11 5l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square"/></svg></span>
+      </span>
+    </a>
+    <a class="spread page-sheet lift" href="wedding-invitation-akshatha-bhargav.html">
+      <span class="spread__pic"><span class="held"><span class="frame"><img src="./_assets/covers/Bhargav_cover.jpg" alt="Akshatha and Bhargav's printed suite laid out with a rose gold ribbon and candlelight" width="878" height="878" loading="lazy"></span></span></span>
+      <span class="spread__text">
+        <h3>Akshatha &amp; Bhargav</h3>
+        <p>Blush florals, a gold foil monogram and loose watercolour for four wedding events at Le Méridien and Ebisu Palace.</p>
+        <dl class="facts"><dt>What</dt><dd>Wedding stationery</dd><dt>Where</dt><dd>Bengaluru, April 2019</dd><dt>Scope</dt><dd>Folio and four event cards</dd><dt>Dates</dt><dd>19 to 22 Apr 2019</dd></dl>
+        <span class="go">See the suite <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 10h12M11 5l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square"/></svg></span>
+      </span>
+    </a>
+    <a class="spread page-sheet lift" href="celebration-stationery-paul-milestones.html">
+      <span class="spread__pic"><span class="held"><span class="frame"><img src="./_assets/covers/Paul_cover.jpg" alt="Round gold foil seals with Cicilla and Wilbur's CW monogram" width="912" height="912" loading="lazy"></span></span></span>
+      <span class="spread__text">
+        <h3>The Paul &amp; milestones</h3>
+        <p>A mix of invitations for a betrothal at The Paul, a housewarming homam and a few baby showers.</p>
+        <dl class="facts"><dt>What</dt><dd>Event stationery</dd><dt>Where</dt><dd>Bengaluru &amp; Papakura, 2019 to 2021</dd><dt>Pieces</dt><dd>Seven invitations, seals</dd><dt>Years</dt><dd>2019 to 2021</dd></dl>
+        <span class="go">See the suite <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 10h12M11 5l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square"/></svg></span>
+      </span>
+    </a>
+    <a class="spread page-sheet lift" href="restaurant-branding-money-heist-whitefield.html">
+      <span class="spread__pic"><span class="held"><span class="frame"><img src="./_assets/covers/restaurant_cover.jpg" alt="Money Heist EN Whitefield main banner with the Dali mask and flying banknotes" width="894" height="1200" loading="lazy"></span></span></span>
+      <span class="spread__text">
+        <h3>Money Heist EN</h3>
+        <p>Flat vector portraits of the La Casa de Papel cast for a Bangalore bar and kitchen, plus graphics for their daily offers.</p>
+        <dl class="facts"><dt>What</dt><dd>Restaurant branding</dd><dt>Where</dt><dd>Whitefield, Bengaluru</dd><dt>Pieces</dt><dd>Ten portraits, banner, offers</dd><dt>Used on</dt><dd>Print, walls, Instagram</dd></dl>
+        <span class="go">See the suite <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 10h12M11 5l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square"/></svg></span>
+      </span>
+    </a>
+  </section>
 
+  <section class="album" id="illustration" aria-labelledby="ill-title">
+    <h2 id="ill-title">Illustration and industrial design</h2>
+    <div class="samples page-sheet lift" aria-labelledby="ill-a">
+      <h3 class="samples__title" id="ill-a">Illustration</h3>
+      <a class="sample sample--lead" href="https://www.behance.net/gallery/138381645/Bigeyes" target="_blank" rel="noopener noreferrer">
+        <span class="held"><span class="frame"><img src="./_assets/covers/Octopus_cover.jpg" alt="A big-eyed octopus from the Bigeyes character series" width="600" height="600" loading="lazy"></span></span>
+        <span class="sample__text">
+          <h3>Bigeyes<span class="sr"> (opens in a new tab)</span></h3>
+          <p>A set of big eyed animal characters, from a tortoise and a snail to a squid and a very round pig.</p>
+          <span class="go">Character series on Behance <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7 4h9v9M16 4 5 15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square"/></svg></span>
+        </span>
+      </a>
+      <div class="samples__side">
+        <a class="sample" href="https://www.behance.net/gallery/161500361/Baby-Milestone-Cards" target="_blank" rel="noopener noreferrer">
+        <span class="held"><span class="frame"><img src="./_assets/covers/Babymilestone_cover.jpg" alt="Watercolour baby milestone cards with storybook animals" width="600" height="600" loading="lazy"></span></span>
+        <span class="sample__text">
+          <h3>Baby Milestone Cards<span class="sr"> (opens in a new tab)</span></h3>
+          <p>Cards for a baby's first year milestones, with storybook animals and soft watercolour.</p>
+          <span class="go">Watercolour cards on Behance <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7 4h9v9M16 4 5 15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square"/></svg></span>
+        </span>
+      </a>
+        <a class="sample" href="https://www.behance.net/gallery/161501519/General-Illustrations" target="_blank" rel="noopener noreferrer">
+        <span class="held"><span class="frame"><img src="./_assets/covers/General_illustrations_cover.jpg" alt="A digital portrait of a woman from Anadhya's general illustrations" width="600" height="600" loading="lazy"></span></span>
+        <span class="sample__text">
+          <h3>General Illustrations<span class="sr"> (opens in a new tab)</span></h3>
+          <p>Digital portraits of women, simple line drawings and plant shapes I've drawn over the years.</p>
+          <span class="go">Digital portraits on Behance <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7 4h9v9M16 4 5 15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square"/></svg></span>
+        </span>
+      </a>
+      </div>
+    </div>
+    <div class="samples page-sheet lift" aria-labelledby="ill-b">
+      <h3 class="samples__title" id="ill-b">Industrial design</h3>
+      <a class="sample sample--lead" href="https://portfolio-5208db.webflow.io/physical-computation-and-applied-research/parametric-prosthesis" target="_blank" rel="noopener noreferrer">
+        <span class="held"><span class="frame"><img src="./_assets/covers/Prosthetic%20Prosthesis_cover.jpg" alt="A parametric 3D-modelled prosthetic brace" width="600" height="600" loading="lazy"></span></span>
+        <span class="sample__text">
+          <h3>Parametric Prosthesis<span class="sr"> (opens in a new tab)</span></h3>
+          <p>Braces and prosthetics redesigned with 3D modelling so they fit the people who wear them better.</p>
+          <span class="go">Applied research on Webflow <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7 4h9v9M16 4 5 15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square"/></svg></span>
+        </span>
+      </a>
+      <div class="samples__side">
+        <a class="sample" href="https://www.behance.net/gallery/161526615/Blaisse-Tableware" target="_blank" rel="noopener noreferrer">
+        <span class="held"><span class="frame"><img src="./_assets/covers/Blaisse_cover.jpg" alt="Blaisse tableware set in simple rounded shapes" width="600" height="600" loading="lazy"></span></span>
+        <span class="sample__text">
+          <h3>Blaisse Tableware<span class="sr"> (opens in a new tab)</span></h3>
+          <p>A tableware set built around simple shapes, how they feel in your hands and how people actually eat every day.</p>
+          <span class="go">Tableware design on Behance <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7 4h9v9M16 4 5 15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square"/></svg></span>
+        </span>
+      </a>
+        <a class="sample" href="https://www.behance.net/gallery/57872429/Aston-Martin-Retail-Store" target="_blank" rel="noopener noreferrer">
+        <span class="held"><span class="frame"><img src="./_assets/covers/Aston_martin_Store_cover.jpg" alt="Concept render of an Aston Martin retail showroom" width="600" height="600" loading="lazy"></span></span>
+        <span class="sample__text">
+          <h3>Aston Martin Retail Store<span class="sr"> (opens in a new tab)</span></h3>
+          <p>A concept showroom for Aston Martin, shaped by the curves and speed of the cars.</p>
+          <span class="go">Spatial &amp; retail on Behance <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7 4h9v9M16 4 5 15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square"/></svg></span>
+        </span>
+      </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="album" aria-labelledby="about-title">
+    <div class="inside page-sheet lift">
+      <div class="inside__face"><span class="held"><span class="frame"><img src="./_assets/_Profile/WhatsApp%20Image%202026-09-10%20at%202.20.50%20PM%20(1).jpeg" alt="Portrait of Anadhya Badri Narayan" width="960" height="1280" loading="lazy"></span></span></div>
+      <div class="inside__text">
+        <h2 id="about-title">About Anadhya</h2>
+        <p class="lead">I'm a graphic designer with a background in Product Design, a soft spot for beautiful details, and a love for bringing ideas to life.</p>
+        <p>From branding and illustration to print and everything in between, I enjoy creating designs that tell stories, spark emotions, and leave a lasting impression.</p>
+        <ol class="roles">
+          <li><span class="when nums">Feb 2023 to now</span><span class="what">Senior Graphic Designer</span><span class="where">Kiana Bespoke Invitations, Bengaluru</span></li>
+          <li><span class="when nums">2019</span><span class="what">Graphic Designer</span><span class="where">ARN Square, Bengaluru</span></li>
+          <li><span class="when nums">2018 to 2019</span><span class="what">Event Designer</span><span class="where">With Love Nilma, Bangalore</span></li>
+          <li><span class="when nums">2013 to 2018</span><span class="what">BA, Industrial and Product Design</span><span class="where">Raffles Design Institute</span></li>
+        </ol>
+        <p style="display:flex;flex-wrap:wrap;gap:14px 28px;align-items:center"><a class="btn btn--ink" href="./_assets/CV/Profile.pdf" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v10M5 9l5 5 5-5M4 17h12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square"/></svg>Download CV (PDF)<span class="sr"> (opens in a new tab)</span></a><a class="link" href="about.html">More about me</a></p>
+      </div>
+    </div>
+  </section>
+</main>
+<footer class="back">
+  <div class="back__row">
+    <h2>Let's make something calm.</h2>
+    <div class="back__links">
+      <a href="mailto:anadhya94@gmail.com">anadhya94@gmail.com</a>
+      <a href="https://www.linkedin.com/in/anadhyanarayan/" target="_blank" rel="noopener noreferrer">LinkedIn<span class="sr"> (opens in a new tab)</span></a>
+      <a class="btn" href="./_assets/CV/Profile.pdf" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v10M5 9l5 5 5-5M4 17h12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square"/></svg>Download CV (PDF)<span class="sr"> (opens in a new tab)</span></a>
+    </div>
   </div>
-</div>
-</x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;defaultTheme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;light&quot;,&quot;dark&quot;],&quot;default&quot;:&quot;light&quot;,&quot;tsType&quot;:&quot;'light' | 'dark'&quot;},&quot;corners&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Soft&quot;,&quot;Rounded&quot;,&quot;Square&quot;],&quot;default&quot;:&quot;Soft&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;showTags&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;}}">
-class Component extends DCLogic {
-  state = {
-    theme: (function() {
-      try {
-        var urlTheme = new URLSearchParams(window.location.search).get('theme');
-        var saved = (urlTheme === 'dark' || urlTheme === 'light') ? urlTheme : localStorage.getItem('me-portfolio-theme');
-        return (saved === 'dark' || saved === 'light') ? saved : 'light';
-      } catch (e) {
-        return 'light';
-      }
-    })()
-  };
-
-  componentDidMount() {
-    let t = null;
-    try {
-      const urlTheme = new URLSearchParams(window.location.search).get('theme');
-      t = (urlTheme === 'dark' || urlTheme === 'light') ? urlTheme : localStorage.getItem('me-portfolio-theme');
-    } catch (e) {}
-    if (t !== 'dark' && t !== 'light') t = this.props.defaultTheme === 'dark' ? 'dark' : 'light';
-    if (this.state.theme !== t) {
-      this.setState({ theme: t });
-    }
-    this.applyTheme(t);
-    this.applyRadius();
-
-    window.addEventListener('storage', this.onStorage);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('storage', this.onStorage);
-  }
-
-  onStorage = (e) => {
-    if (e.key === 'me-portfolio-theme' && (e.newValue === 'dark' || e.newValue === 'light')) {
-      this.setState({ theme: e.newValue });
-      this.applyTheme(e.newValue);
-    }
-  };
-
-  componentDidUpdate(prev) {
-    if (prev.corners !== this.props.corners) this.applyRadius();
-  }
-
-  applyTheme(t) {
-    document.documentElement.setAttribute('data-theme', t);
-    var tc = document.querySelector('meta[name="theme-color"]'); if (tc) tc.setAttribute('content', t === 'dark' ? '#1C1C1A' : '#F7F4EF');
-  }
-
-  applyRadius() {
-    const map = { Soft: '28px', Rounded: '40px', Square: '6px' };
-    document.documentElement.style.setProperty('--r', map[this.props.corners] || '28px');
-  }
-
-  toggleTheme = () => {
-    const next = this.state.theme === 'dark' ? 'light' : 'dark';
-    this.setState({ theme: next });
-    this.applyTheme(next);
-    try { localStorage.setItem('me-portfolio-theme', next); } catch (e) {}
-  };
-
-  renderVals() {
-    const tag = (label, bg) => ({ label, bg: 'var(--' + bg + ')' });
-    return {
-      toggleTheme: this.toggleTheme,
-      themeLabel: this.state.theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode',
-      isDark: this.state.theme === 'dark',
-      isLight: this.state.theme !== 'dark',
-      showTags: this.props.showTags !== false,
-      projects: [
-        {
-          title: 'Dhriti & Prashant\'s Save the Date',
-          blurb: 'A little animated teaser for a Gujarati and Telugu wedding in Hyderabad, built from bits of both cultures.',
-          slot: 'featured project',
-          tint: 'var(--blush)',
-          image: './_assets/covers/save%20the%20date_cover.jpg',
-          link: 'save-the-date.html',
-          target: '_self',
-          rel: '',
-          isExternal: false,
-          tags: [tag('Wedding Identity', 'blush'), tag('Illustration', 'mint'), tag('Motion', 'lav')]
-        },
-        {
-          title: 'Vivek & Nisergini\'s Wedding Invitation',
-          blurb: 'A Kerala and Maharashtrian wedding suite with custom lettering, Muthukkuda umbrellas and an NV monogram drawn for the couple.',
-          slot: 'bespoke suite',
-          tint: 'var(--mint)',
-          image: './_assets/invitation/4.jpg',
-          link: 'wedding-invitation-vivek-nisergini.html',
-          target: '_self',
-          rel: '',
-          isExternal: false,
-          tags: [tag('Wedding Stationery', 'mint'), tag('Print & Foliage', 'cream'), tag('Monogram', 'blush')]
-        },
-        {
-          title: 'Shashtiabdapoorthi for Sri. Sampath Badri Narayan',
-          blurb: 'The invitations I made for my father\'s 60th birthday and my parents\' vow renewal at Bangalore Palace.',
-          slot: 'milestone suite',
-          tint: 'var(--cream)',
-          image: './_assets/covers/Sampath_cover.jpg',
-          link: 'shashtiabdapoorthi-sampath.html',
-          target: '_self',
-          rel: '',
-          isExternal: false,
-          tags: [tag('Milestone Stationery', 'cream'), tag('Marigold & Bells', 'mint'), tag('Bangalore Palace', 'blush')]
-        },
-        {
-          title: 'Akshatha & Bhargav\'s Wedding Stationery',
-          blurb: 'Blush florals, a gold foil monogram and loose watercolour for four wedding events at Le Méridien and Ebisu Palace.',
-          slot: 'bespoke suite',
-          tint: 'var(--powder)',
-          image: './_assets/covers/Bhargav_cover.jpg',
-          link: 'wedding-invitation-akshatha-bhargav.html',
-          target: '_self',
-          rel: '',
-          isExternal: false,
-          tags: [tag('Wedding Stationery', 'powder'), tag('Botanical Watercolour', 'blush'), tag('Ebisu Palace', 'mint')]
-        },
-        {
-          title: 'The Paul & Milestone Invitations',
-          blurb: 'A mix of invitations for a betrothal at The Paul, a housewarming homam and a few baby showers.',
-          slot: 'bespoke suite',
-          tint: 'var(--mint)',
-          image: './_assets/covers/Paul_cover.jpg',
-          link: 'celebration-stationery-paul-milestones.html',
-          target: '_self',
-          rel: '',
-          isExternal: false,
-          tags: [tag('Event Stationery', 'mint'), tag('Milestone Suites', 'powder'), tag('Custom Print', 'blush')]
-        },
-        {
-          title: 'Money Heist EN Whitefield Restaurant Branding',
-          blurb: 'Flat vector portraits of the La Casa de Papel cast for a Bangalore bar and kitchen, plus graphics for their daily offers.',
-          slot: 'brand illustration',
-          tint: 'var(--blush)',
-          image: './_assets/covers/restaurant_cover.jpg',
-          link: 'restaurant-branding-money-heist-whitefield.html',
-          target: '_self',
-          rel: '',
-          isExternal: false,
-          tags: [tag('Character Design', 'blush'), tag('Restaurant Branding', 'mint'), tag('Flat Vector', 'lav')]
-        }
-      ],
-      industrialDesign: [
-        {
-          title: 'Parametric Prosthesis',
-          blurb: 'Braces and prosthetics redesigned with 3D modelling so they fit the people who wear them better. A collaboration with ABN.',
-          slot: 'applied research',
-          tint: 'var(--powder)',
-          image: './_assets/covers/Prosthetic%20Prosthesis_cover.jpg',
-          link: 'https://portfolio-5208db.webflow.io/physical-computation-and-applied-research/parametric-prosthesis',
-          target: '_blank',
-          rel: 'noopener noreferrer',
-          isExternal: true,
-          tags: [tag('Computational Design', 'powder'), tag('3D Modeling', 'mint'), tag('Product Design', 'lav')]
-        },
-        {
-          title: 'Blaisse Tableware',
-          blurb: 'A tableware set built around simple shapes, how they feel in your hands and how people actually eat every day.',
-          slot: 'tableware design',
-          tint: 'var(--cream)',
-          image: './_assets/covers/Blaisse_cover.jpg',
-          link: 'https://www.behance.net/gallery/161526615/Blaisse-Tableware',
-          target: '_blank',
-          rel: 'noopener noreferrer',
-          isExternal: true,
-          tags: [tag('Product Design', 'cream'), tag('Tableware', 'blush'), tag('Industrial Design', 'mint')]
-        },
-        {
-          title: 'Aston Martin Retail Store',
-          blurb: 'A concept showroom for Aston Martin, shaped by the curves and speed of the cars.',
-          slot: 'spatial & retail',
-          tint: 'var(--mint)',
-          image: './_assets/covers/Aston_martin_Store_cover.jpg',
-          link: 'https://www.behance.net/gallery/57872429/Aston-Martin-Retail-Store',
-          target: '_blank',
-          rel: 'noopener noreferrer',
-          isExternal: true,
-          tags: [tag('Spatial Design', 'mint'), tag('Retail Design', 'powder'), tag('Automotive', 'lav')]
-        }
-      ],
-      illustrations: [
-        {
-          title: 'Bigeyes',
-          blurb: 'A set of big eyed animal characters, from a tortoise and a snail to a squid and a very round pig.',
-          slot: 'character series',
-          tint: 'var(--powder)',
-          image: './_assets/covers/Octopus_cover.jpg',
-          link: 'https://www.behance.net/gallery/138381645/Bigeyes',
-          target: '_blank',
-          rel: 'noopener noreferrer',
-          isExternal: true,
-          tags: [tag('Character Design', 'mint'), tag('Animal Series', 'powder'), tag('Illustration', 'lav')]
-        },
-        {
-          title: 'Baby Milestone Cards',
-          blurb: 'Cards for a baby\'s first year milestones, with storybook animals and soft watercolour.',
-          slot: 'stationery illustration',
-          tint: 'var(--cream)',
-          image: './_assets/covers/Babymilestone_cover.jpg',
-          link: 'https://www.behance.net/gallery/161500361/Baby-Milestone-Cards',
-          target: '_blank',
-          rel: 'noopener noreferrer',
-          isExternal: true,
-          tags: [tag('Children\'s Illustration', 'cream'), tag('Watercolour', 'mint'), tag('Baby Stationery', 'blush')]
-        },
-        {
-          title: 'General Illustrations',
-          blurb: 'Digital portraits of women, simple line drawings and plant shapes I\'ve drawn over the years.',
-          slot: 'digital portraits',
-          tint: 'var(--mint)',
-          image: './_assets/covers/General_illustrations_cover.jpg',
-          link: 'https://www.behance.net/gallery/161501519/General-Illustrations',
-          target: '_blank',
-          rel: 'noopener noreferrer',
-          isExternal: true,
-          tags: [tag('Digital Art', 'mint'), tag('Portraiture', 'powder'), tag('Line Art', 'lav')]
-        },
-
-      ]
-    };
-  }
-}
-</script>
-<script>
-  (function() {
-    function toggleBtt() {
-      var btt = document.getElementById('back-to-top');
-      if (!btt) return;
-      if ((window.pageYOffset || document.documentElement.scrollTop || window.scrollY || 0) > 380) {
-        btt.classList.add('visible');
-        btt.classList.add('is-visible');
-      } else {
-        btt.classList.remove('visible');
-        btt.classList.remove('is-visible');
-      }
-    }
-    window.addEventListener('scroll', toggleBtt, { passive: true });
-    toggleBtt();
-    document.addEventListener('click', function(e) {
-      var btn = e.target.closest('#back-to-top');
-      if (!btn) return;
-      var firstLink = document.querySelector('nav a, a[href="#main-content"]');
-      if (firstLink) firstLink.focus({ preventScroll: true });
-      if (window.lenis) {
-        window.lenis.scrollTo(0, { duration: 1.0 });
-      } else {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }
-    });
-  })();
-</script>
+  <p class="back__imprint">© 2026 Anadhya Badri Narayan, Bengaluru</p>
+</footer>
 </body>
 </html>

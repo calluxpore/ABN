@@ -1,0 +1,393 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-29T00:00:00Z",
+  "title": "Design System: Anadhya Badri Narayan",
+  "extensions": {
+    "colorMeta": {
+      "linen-cover": {
+        "role": "neutral",
+        "displayName": "Linen Cover",
+        "canonical": "#ddd3c4",
+        "tonalRamp": [
+          "oklch(15% 0.014 75)",
+          "oklch(25% 0.017 75)",
+          "oklch(38% 0.02 75)",
+          "oklch(50% 0.024 75)",
+          "oklch(62% 0.023 75)",
+          "oklch(74% 0.02 75)",
+          "oklch(85% 0.017 75)",
+          "oklch(95% 0.014 75)"
+        ]
+      },
+      "linen-deep": {
+        "role": "neutral",
+        "displayName": "Linen Deep",
+        "canonical": "#cfc3b2",
+        "tonalRamp": [
+          "oklch(15% 0.016 75)",
+          "oklch(25% 0.019 75)",
+          "oklch(38% 0.023 75)",
+          "oklch(50% 0.026 75)",
+          "oklch(62% 0.026 75)",
+          "oklch(74% 0.022 75)",
+          "oklch(85% 0.019 75)",
+          "oklch(95% 0.016 75)"
+        ]
+      },
+      "charcoal-ink": {
+        "role": "primary",
+        "displayName": "Charcoal Ink",
+        "canonical": "#2b2926",
+        "tonalRamp": [
+          "oklch(15% 0.003 70)",
+          "oklch(25% 0.004 70)",
+          "oklch(38% 0.005 70)",
+          "oklch(50% 0.006 70)",
+          "oklch(62% 0.006 70)",
+          "oklch(74% 0.005 70)",
+          "oklch(85% 0.004 70)",
+          "oklch(95% 0.003 70)"
+        ]
+      },
+      "charcoal-soft": {
+        "role": "neutral",
+        "displayName": "Charcoal Soft",
+        "canonical": "#534d46",
+        "tonalRamp": [
+          "oklch(15% 0.007 70)",
+          "oklch(25% 0.008 70)",
+          "oklch(38% 0.01 70)",
+          "oklch(50% 0.011 70)",
+          "oklch(62% 0.011 70)",
+          "oklch(74% 0.01 70)",
+          "oklch(85% 0.008 70)",
+          "oklch(95% 0.007 70)"
+        ]
+      },
+      "charcoal-press": {
+        "role": "primary",
+        "displayName": "Charcoal Press",
+        "canonical": "#45413b",
+        "tonalRamp": [
+          "oklch(15% 0.005 70)",
+          "oklch(25% 0.006 70)",
+          "oklch(38% 0.007 70)",
+          "oklch(50% 0.009 70)",
+          "oklch(62% 0.008 70)",
+          "oklch(74% 0.007 70)",
+          "oklch(85% 0.006 70)",
+          "oklch(95% 0.005 70)"
+        ]
+      },
+      "album-white": {
+        "role": "neutral",
+        "displayName": "Album White",
+        "canonical": "#ffffff",
+        "tonalRamp": [
+          "oklch(15% 0.0 0)",
+          "oklch(25% 0.0 0)",
+          "oklch(38% 0.0 0)",
+          "oklch(50% 0.0 0)",
+          "oklch(62% 0.0 0)",
+          "oklch(74% 0.0 0)",
+          "oklch(85% 0.0 0)",
+          "oklch(95% 0.0 0)"
+        ]
+      },
+      "paper-warm": {
+        "role": "neutral",
+        "displayName": "Paper Warm",
+        "canonical": "#f4f1ec",
+        "tonalRamp": [
+          "oklch(15% 0.005 80)",
+          "oklch(25% 0.005 80)",
+          "oklch(38% 0.007 80)",
+          "oklch(50% 0.008 80)",
+          "oklch(62% 0.007 80)",
+          "oklch(74% 0.006 80)",
+          "oklch(85% 0.005 80)",
+          "oklch(95% 0.005 80)"
+        ]
+      },
+      "foil-cream": {
+        "role": "neutral",
+        "displayName": "Foil Cream",
+        "canonical": "#faf8f4",
+        "tonalRamp": [
+          "oklch(15% 0.003 85)",
+          "oklch(25% 0.004 85)",
+          "oklch(38% 0.005 85)",
+          "oklch(50% 0.006 85)",
+          "oklch(62% 0.006 85)",
+          "oklch(74% 0.005 85)",
+          "oklch(85% 0.004 85)",
+          "oklch(95% 0.003 85)"
+        ]
+      },
+      "hairline": {
+        "role": "neutral",
+        "displayName": "Hairline",
+        "canonical": "#e6e0d6",
+        "tonalRamp": [
+          "oklch(15% 0.008 80)",
+          "oklch(25% 0.01 80)",
+          "oklch(38% 0.012 80)",
+          "oklch(50% 0.014 80)",
+          "oklch(62% 0.014 80)",
+          "oklch(74% 0.012 80)",
+          "oklch(85% 0.01 80)",
+          "oklch(95% 0.008 80)"
+        ]
+      },
+      "tab-pale-beige": {
+        "role": "neutral",
+        "displayName": "Tab Pale Beige",
+        "canonical": "#ece6dc",
+        "tonalRamp": [
+          "oklch(15% 0.008 80)",
+          "oklch(25% 0.01 80)",
+          "oklch(38% 0.012 80)",
+          "oklch(50% 0.014 80)",
+          "oklch(62% 0.014 80)",
+          "oklch(74% 0.012 80)",
+          "oklch(85% 0.01 80)",
+          "oklch(95% 0.008 80)"
+        ]
+      },
+      "tab-warm-grey": {
+        "role": "neutral",
+        "displayName": "Tab Warm Grey",
+        "canonical": "#6b665f",
+        "tonalRamp": [
+          "oklch(15% 0.007 75)",
+          "oklch(25% 0.008 75)",
+          "oklch(38% 0.01 75)",
+          "oklch(50% 0.011 75)",
+          "oklch(62% 0.011 75)",
+          "oklch(74% 0.01 75)",
+          "oklch(85% 0.008 75)",
+          "oklch(95% 0.007 75)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "The name on the cover and the back-cover sign-off; at most twice per page."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Album section, spread and case-study section titles."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Titles of smaller pieces mounted beside a lead plate."
+      },
+      "lead": {
+        "displayName": "Lead",
+        "purpose": "Role line, ledes, case intros; 34 to 52ch."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Running text, 46ch on album pages."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Buttons, nav, tab names, fact labels and dates; sentence case."
+      }
+    },
+    "shadows": [],
+    "motion": [
+      {
+        "name": "ease",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "The single easing for every transform: tabs, peeks, page lifts, arrows, underlines."
+      },
+      {
+        "name": "button-fill",
+        "value": "180ms ease",
+        "purpose": "Button fill to Charcoal Press on hover."
+      },
+      {
+        "name": "nav-underline",
+        "value": "240ms",
+        "purpose": "Top-bar underline scaling in from the left."
+      },
+      {
+        "name": "tab-slide",
+        "value": "320ms",
+        "purpose": "Tab sliding 22px out of the fore-edge (8px under 900px)."
+      },
+      {
+        "name": "peek",
+        "value": "opacity 240ms ease, transform 420ms",
+        "purpose": "Hovered tab's picture swapping into the cover window, tilting from 2deg to -1.5deg."
+      },
+      {
+        "name": "image-zoom",
+        "value": "700ms",
+        "purpose": "Picture scale to 1.03 when its spread or sample is hovered."
+      },
+      {
+        "name": "page-lift",
+        "value": "1000ms",
+        "purpose": "Album page rising from translateY(40px) rotate(-0.6deg) to rest as it scrolls in."
+      },
+      {
+        "name": "cover-arrive",
+        "value": "900ms, staggered 0/90/160/220ms",
+        "purpose": "Cover name, role, motto and actions fading up 20px on load."
+      },
+      {
+        "name": "tab-in",
+        "value": "700ms, delay 200ms + i * 40ms",
+        "purpose": "Cover tabs sliding in from the right on load."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "prefers-reduced-motion: reduce",
+        "purpose": "All entrances disabled, smooth scroll off, autoplay video paused."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "sm",
+        "value": "560px"
+      },
+      {
+        "name": "md",
+        "value": "900px"
+      },
+      {
+        "name": "lg",
+        "value": "1100px"
+      },
+      {
+        "name": "peek",
+        "value": "1180px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Charcoal CV button; on linen in the top bar, cover and footer.",
+      "html": "<a class=\"ds-btn ds-btn-primary\" href=\"#\"><svg viewBox=\"0 0 20 20\" width=\"16\" height=\"16\" aria-hidden=\"true\"><path d=\"M10 3v10M5 9l5 5 5-5M4 17h12\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"square\"/></svg>Download CV (PDF)</a>",
+      "css": ".ds-btn{display:inline-flex;align-items:center;gap:10px;min-height:48px;padding:0 22px;font:600 0.9375rem/1 'Hind','Mukta',system-ui,sans-serif;letter-spacing:0.01em;text-decoration:none;border:0;border-radius:12px;cursor:pointer;transition:background-color 180ms ease,transform 160ms cubic-bezier(0.16,1,0.3,1);}.ds-btn:active{transform:translateY(1px);}.ds-btn:focus-visible{outline:3px solid #2b2926;outline-offset:3px;}.ds-btn-primary{background:#2b2926;color:#faf8f4;}.ds-btn-primary:hover{background:#45413b;}"
+    },
+    {
+      "name": "Ink Button",
+      "kind": "button",
+      "refersTo": "button-ink",
+      "description": "The same charcoal button with white text, used on white album pages.",
+      "html": "<a class=\"ds-btn ds-btn-ink\" href=\"#\"><svg viewBox=\"0 0 20 20\" width=\"16\" height=\"16\" aria-hidden=\"true\"><path d=\"M10 3v10M5 9l5 5 5-5M4 17h12\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"square\"/></svg>Download CV (PDF)</a>",
+      "css": ".ds-btn{display:inline-flex;align-items:center;gap:10px;min-height:48px;padding:0 22px;font:600 0.9375rem/1 'Hind','Mukta',system-ui,sans-serif;letter-spacing:0.01em;text-decoration:none;border:0;border-radius:12px;cursor:pointer;transition:background-color 180ms ease,transform 160ms cubic-bezier(0.16,1,0.3,1);}.ds-btn:active{transform:translateY(1px);}.ds-btn:focus-visible{outline:3px solid #2b2926;outline-offset:3px;}.ds-btn-ink{background:#2b2926;color:#ffffff;}.ds-btn-ink:hover{background:#45413b;}"
+    },
+    {
+      "name": "Go Link",
+      "kind": "custom",
+      "refersTo": "",
+      "description": "Underlined text link with an arrow that slides right on hover; closes every spread and sample.",
+      "html": "<a class=\"ds-go\" href=\"#\">See the suite <svg viewBox=\"0 0 20 20\" width=\"18\" height=\"18\" aria-hidden=\"true\"><path d=\"M3 10h12M11 5l5 5-5 5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"square\"/></svg></a>",
+      "css": ".ds-go{display:inline-flex;align-items:center;gap:10px;font:600 1.125rem/1.6 'Hind','Mukta',system-ui,sans-serif;color:#2b2926;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:0.24em;transition:text-underline-offset 200ms cubic-bezier(0.16,1,0.3,1);}.ds-go svg{transition:transform 260ms cubic-bezier(0.16,1,0.3,1);}.ds-go:hover{text-underline-offset:0.4em;}.ds-go:hover svg{transform:translateX(5px);}.ds-go:focus-visible{outline:3px solid #2b2926;outline-offset:3px;}"
+    },
+    {
+      "name": "Top Bar",
+      "kind": "nav",
+      "refersTo": "",
+      "description": "ABN mark, page links with a scale-in underline, and the CV button, on linen.",
+      "html": "<header class=\"ds-bar\"><a class=\"ds-mark\" href=\"#\"><b>ABN</b><span>Anadhya Badri Narayan</span></a><nav><a href=\"#\" aria-current=\"page\">Work</a><a href=\"#\">About</a><a href=\"#\">LinkedIn</a><a class=\"ds-btn ds-btn-primary\" href=\"#\"><svg viewBox=\"0 0 20 20\" width=\"16\" height=\"16\" aria-hidden=\"true\"><path d=\"M10 3v10M5 9l5 5 5-5M4 17h12\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"square\"/></svg>CV (PDF)</a></nav></header>",
+      "css": ".ds-btn{display:inline-flex;align-items:center;gap:10px;min-height:48px;padding:0 22px;font:600 0.9375rem/1 'Hind','Mukta',system-ui,sans-serif;letter-spacing:0.01em;text-decoration:none;border:0;border-radius:12px;cursor:pointer;transition:background-color 180ms ease,transform 160ms cubic-bezier(0.16,1,0.3,1);}.ds-btn:active{transform:translateY(1px);}.ds-btn:focus-visible{outline:3px solid #2b2926;outline-offset:3px;}.ds-btn-primary{background:#2b2926;color:#faf8f4;}.ds-btn-primary:hover{background:#45413b;}.ds-bar{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:18px 32px;background:#ddd3c4;color:#2b2926;font-family:'Hind','Mukta',system-ui,sans-serif;}.ds-mark{display:inline-flex;align-items:baseline;gap:12px;text-decoration:none;color:inherit;}.ds-mark b{font:400 1.75rem/1 'Rozha One','Bodoni Moda',serif;}.ds-mark span{font-size:0.9375rem;}.ds-bar nav{display:flex;align-items:center;gap:24px;}.ds-bar nav a:not(.ds-btn){font-size:0.9375rem;font-weight:500;text-decoration:none;color:inherit;padding:12px 0;position:relative;}.ds-bar nav a:not(.ds-btn)::after{content:'';position:absolute;left:0;right:0;bottom:6px;height:2px;background:#2b2926;transform:scaleX(0);transform-origin:left;transition:transform 240ms cubic-bezier(0.16,1,0.3,1);}.ds-bar nav a:not(.ds-btn):hover::after,.ds-bar nav a[aria-current=page]::after{transform:scaleX(1);}.ds-bar nav a:focus-visible{outline:3px solid #2b2926;outline-offset:3px;}"
+    },
+    {
+      "name": "Fore-edge Tab Rail",
+      "kind": "nav",
+      "refersTo": "tab-stationery",
+      "description": "The project index: discipline-coded rounded tabs that slide out of the fore-edge on hover, focus or current page.",
+      "html": "<nav class=\"ds-tabs\"><p class=\"ds-tabs-h\">Every project</p><a class=\"ds-tab\" href=\"#\" aria-current=\"page\"><span>Dhriti &amp; Prashant</span><small>2026</small></a><a class=\"ds-tab\" href=\"#\"><span>Vivek &amp; Nisergini</span><small>2022</small></a><a class=\"ds-tab ds-tab--ill\" href=\"#\"><span>Bigeyes</span><small>Behance</small></a><a class=\"ds-tab ds-tab--ind\" href=\"#\"><span>Blaisse Tableware</span><small>Behance</small></a></nav>",
+      "css": ".ds-tabs{display:flex;flex-direction:column;gap:6px;padding:24px 0 24px 28px;background:#ddd3c4;width:340px;font-family:'Hind','Mukta',system-ui,sans-serif;}.ds-tabs-h{margin:0;padding-bottom:6px;font-weight:600;font-size:0.9375rem;color:#534d46;}.ds-tab{display:grid;grid-template-columns:1fr auto;align-items:center;gap:12px;min-height:46px;padding:8px 18px;margin-right:24px;background:#ffffff;color:#2b2926;border-radius:12px;text-decoration:none;transition:transform 320ms cubic-bezier(0.16,1,0.3,1);}.ds-tab span{font-weight:600;font-size:1rem;line-height:1.2;}.ds-tab small{font-size:0.875rem;white-space:nowrap;}.ds-tab--ill{background:#ece6dc;}.ds-tab--ind{background:#6b665f;color:#faf8f4;}.ds-tab:hover,.ds-tab:focus-visible,.ds-tab[aria-current=page]{transform:translateX(-22px);}.ds-tab:focus-visible{outline:3px solid #2b2926;outline-offset:-3px;}"
+    },
+    {
+      "name": "Album Spread",
+      "kind": "card",
+      "refersTo": "page-sheet",
+      "description": "A rounded white page on linen: a rounded picture on one side; stamped title, text, facts and a go link on the other.",
+      "html": "<div class=\"ds-linen\"><a class=\"ds-sheet\" href=\"#\"><div class=\"ds-pic\"></div><div class=\"ds-text\"><h3>Vivek &amp; Nisergini</h3><p>A Kerala and Maharashtrian wedding suite with custom lettering and an AV monogram.</p><dl><dt>Where</dt><dd>Mumbai &amp; Kerala, 2022</dd><dt>Scope</dt><dd>Monogram, cards</dd></dl><span class=\"ds-go\">See the suite <svg viewBox=\"0 0 20 20\" width=\"18\" height=\"18\" aria-hidden=\"true\"><path d=\"M3 10h12M11 5l5 5-5 5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"square\"/></svg></span></div></a></div>",
+      "css": ".ds-linen{background:#ddd3c4;padding:32px;}.ds-sheet{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:center;padding:clamp(28px,4vw,64px);background:#ffffff;color:#2b2926;border-radius:clamp(16px,1.6vw,24px);overflow:clip;text-decoration:none;font:400 1.125rem/1.6 'Hind','Mukta',system-ui,sans-serif;}.ds-pic{aspect-ratio:4/3;background:#f4f1ec;border-radius:clamp(16px,1.6vw,24px);}.ds-text{display:grid;gap:18px;}.ds-text h3{margin:0;font:400 clamp(2rem,1.4rem + 2.4vw,3.25rem)/1.04 'Rozha One','Bodoni Moda',serif;letter-spacing:-0.01em;}.ds-text p{margin:0;max-width:46ch;}.ds-text dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:4px 20px;font-size:0.9375rem;}.ds-text dt{color:#534d46;}.ds-text dd{margin:0;font-weight:500;}.ds-go{display:inline-flex;align-items:center;gap:10px;font-weight:600;text-decoration:underline;text-underline-offset:0.24em;}.ds-go svg{transition:transform 260ms cubic-bezier(0.16,1,0.3,1);}.ds-sheet:hover .ds-go svg{transform:translateX(5px);}.ds-sheet:focus-visible{outline:3px solid #2b2926;outline-offset:3px;}"
+    },
+    {
+      "name": "Inset Panel",
+      "kind": "card",
+      "refersTo": "inset-panel",
+      "description": "Paper Warm rounded panel inside a white page; motif lists and the closing ask.",
+      "html": "<div class=\"ds-white\"><div class=\"ds-panel\"><h2>Planning a wedding?</h2><p>I make invitations people hold on to long after the day.</p><a class=\"ds-btn\" href=\"#\">Get in touch</a></div></div>",
+      "css": ".ds-white{background:#ffffff;padding:24px;}.ds-panel{background:#f4f1ec;color:#2b2926;border-radius:clamp(16px,1.6vw,24px);padding:clamp(28px,4vw,56px) clamp(28px,4vw,64px);display:grid;gap:12px;justify-items:start;font:400 1.125rem/1.6 'Hind','Mukta',system-ui,sans-serif;}.ds-panel h2{margin:0;font:400 clamp(2rem,1.4rem + 2.4vw,3.25rem)/1.04 'Rozha One','Bodoni Moda',serif;}.ds-panel p{margin:0;}.ds-btn{display:inline-flex;align-items:center;min-height:48px;padding:0 22px;font:600 0.9375rem/1 'Hind','Mukta',system-ui,sans-serif;background:#2b2926;color:#ffffff;border-radius:12px;text-decoration:none;transition:background-color 180ms ease;}.ds-btn:hover{background:#45413b;}.ds-btn:focus-visible{outline:3px solid #2b2926;outline-offset:3px;}"
+    },
+    {
+      "name": "Back Cover",
+      "kind": "custom",
+      "refersTo": "back-cover",
+      "description": "Footer on Linen Deep with only its top corners rounded, display sign-off and contact links.",
+      "html": "<footer class=\"ds-back\"><h2>Let's make something calm.</h2><div><a href=\"#\">anadhya94@gmail.com</a><a href=\"#\">LinkedIn</a></div></footer>",
+      "css": ".ds-back{background:#cfc3b2;color:#2b2926;border-radius:clamp(16px,1.6vw,24px) clamp(16px,1.6vw,24px) 0 0;padding:clamp(56px,8vw,112px) 32px 28px;display:grid;grid-template-columns:1.2fr 1fr;gap:40px;align-items:end;font-family:'Hind','Mukta',system-ui,sans-serif;}.ds-back h2{margin:0;font:400 clamp(3.25rem,1.6rem + 6vw,6rem)/1 'Rozha One','Bodoni Moda',serif;max-width:12ch;}.ds-back div{display:grid;gap:14px;justify-items:start;}.ds-back a{font-size:clamp(1.25rem,1.1rem + 0.6vw,1.5rem);color:inherit;text-decoration:none;}.ds-back a:hover{text-decoration:underline;text-underline-offset:0.2em;}.ds-back a:focus-visible{outline:3px solid #2b2926;outline-offset:3px;}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Card Shop Sample Album",
+    "overview": "The site is the thick sample album a Bengaluru card shop hands you across the counter. A beige linen cover holds everything. White album pages sit on it, one design per page. A fore-edge of tabs down the right side is the index and the navigation on every page. The interface is bound in neutrals so the printed work is the only colour.\n\nDensity is calm and generous. Each page is a rounded white sheet with wide inner margins, set on linen that shows around it. Type is stamped rather than styled: one heavy Devanagari-born serif (Rozha One) for anything announced, one plain humanist sans (Hind) for everything read. Depth comes from paper on linen and from tone, not from shadow. Motion is physical and short: tabs slide out of the fore-edge, pages lift into place as they scroll in, and a held picture tilts a degree or two as if it were set down by hand.\n\nThe confirmed rejections are the visitor's: nothing that reads as a template thumbnail grid, nothing dark, nothing over-decorated, and the CV never hidden.",
+    "keyCharacteristics": [
+      "Beige linen ground, white rounded album pages, warm charcoal ink.",
+      "Neutral palette only; every hue on screen belongs to a photograph of her work.",
+      "Every corner rounded: pictures, page sheets, tabs, buttons, inset panels, the footer's top edge.",
+      "A fore-edge tab rail, coded by discipline, as the index on every page.",
+      "Rozha One stamped display over Hind text.",
+      "Flat: no shadows, no gradients."
+    ],
+    "rules": [
+      {
+        "name": "The Colour Belongs To Her Work Rule",
+        "body": "The interface uses only beige, white and warm grey. Every saturated hue on a page must come from a photograph of a printed piece. This is a binding brand commitment pinned by the user; no accent colour, tinted button, or coloured link is ever added.",
+        "section": "colors"
+      },
+      {
+        "name": "The Discipline Tab Rule",
+        "body": "Tab colour encodes discipline and nothing else: white for stationery, pale beige for illustration, warm grey with cream text for industrial design.",
+        "section": "colors"
+      },
+      {
+        "name": "The Two Faces Rule",
+        "body": "Rozha One announces, Hind is read. Plate and motif headings inside a page are Hind 600 at body size, not display, so the album pages stay quiet beneath their single stamped title.",
+        "section": "typography"
+      },
+      {
+        "name": "The Paper On Linen Rule",
+        "body": "Separation is always a change of surface (linen, white, warm paper), never a drop shadow or a border box. The only drawn line is the 1px Hairline between list rows.",
+        "section": "elevation"
+      },
+      {
+        "name": "The No Square Corner Rule",
+        "body": "No image, sheet, tab, button, panel or footer edge ships with a square corner. A new element picks `rounded.page` if it holds work or content and `rounded.sm` if it is a control.",
+        "section": "shapes"
+      }
+    ],
+    "dos": [
+      "**Do** keep the interface to beige, white and warm grey, and let photographs of her printed work carry all colour.",
+      "**Do** round every picture, sheet, tab, button, panel and the footer's top edge, using `rounded.page` (16 to 24px) for content and `rounded.sm` (12px) for controls.",
+      "**Do** separate surfaces with paper on linen and Paper Warm insets, not lines or shadows.",
+      "**Do** use Rozha One only for stamped titles and Hind for everything read, with Hind 600 at body size for headings inside a page.",
+      "**Do** keep the CV button in Charcoal Ink and present in the top bar of every page.",
+      "**Do** colour tabs strictly by discipline and keep the tab rail as the index on every page.",
+      "**Do** honour reduced motion: pages and tabs appear at rest, and autoplay video is paused."
+    ],
+    "donts": [
+      "**Don't** add an accent hue, tinted button, coloured link or coloured background to the interface.",
+      "**Don't** ship any element with square corners.",
+      "**Don't** use box shadows or gradients for depth.",
+      "**Don't** lay work out as a uniform white thumbnail grid; mount it as spreads and lead plates on album pages.",
+      "**Don't** go dark: no charcoal page grounds or dark mode sections.",
+      "**Don't** uppercase or letter-space labels; they are sentence case Hind."
+    ]
+  }
+}
