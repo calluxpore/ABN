@@ -50,3 +50,35 @@
     if (saved !== 'dark' && saved !== 'light') apply(e.matches ? 'dark' : 'light');
   });
 })();
+
+// Pictures tilt in 3D toward the pointer, and the image inside drifts the other way for depth.
+// Mouse and trackpad only, and never when the visitor asks for reduced motion.
+(() => {
+  if (!matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const MAX = 9; // degrees
+  document.querySelectorAll('.held').forEach((card) => {
+    if (card.closest('.peek') || card.querySelector('video')) return;
+    card.classList.add('tilt');
+    let frame = 0;
+    card.addEventListener('pointermove', (e) => {
+      if (e.pointerType !== 'mouse') return;
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        const r = card.getBoundingClientRect();
+        const x = (e.clientX - r.left) / r.width - 0.5; // -0.5 to 0.5
+        const y = (e.clientY - r.top) / r.height - 0.5;
+        card.style.setProperty('--ry', `${(x * 2 * MAX).toFixed(2)}deg`);
+        card.style.setProperty('--rx', `${(-y * 2 * MAX).toFixed(2)}deg`);
+        card.style.setProperty('--px', (x * 2).toFixed(3));
+        card.style.setProperty('--py', (y * 2).toFixed(3));
+        card.classList.add('is-tilting');
+      });
+    });
+    card.addEventListener('pointerleave', () => {
+      cancelAnimationFrame(frame);
+      card.classList.remove('is-tilting');
+      ['--rx', '--ry', '--px', '--py'].forEach((p) => card.style.removeProperty(p));
+    });
+  });
+})();

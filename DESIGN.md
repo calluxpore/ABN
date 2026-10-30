@@ -115,7 +115,7 @@ components:
 
 The site is the thick sample album a Bengaluru card shop hands you across the counter. A beige linen cover holds everything. White album pages sit on it, one design per page. A fore-edge of tabs down the right side is the index and the navigation on every page. The interface is bound in neutrals so the printed work is the only colour.
 
-Density is calm and generous. Each page is a rounded white sheet with wide inner margins, set on linen that shows around it. Type is stamped rather than styled: one heavy Devanagari-born serif (Rozha One) for anything announced, one plain humanist sans (Hind) for everything read. Depth comes from paper on linen and from tone, not from shadow. Motion is physical and short: tabs slide out of the fore-edge, pages lift into place as they scroll in, and a held picture tilts a degree or two as if it were set down by hand.
+Density is calm and generous. Each page is a rounded white sheet with wide inner margins, set on linen that shows around it. Type is stamped rather than styled: one heavy Devanagari-born serif (Rozha One) for anything announced, one plain humanist sans (Hind) for everything read. Depth comes from paper on linen and from tone, not from shadow. Motion is physical and short: tabs slide out of the fore-edge, pages lift into place as they scroll in, and a held picture tilts a degree or two as if it were set down by hand. Under a mouse or trackpad, every picture tilts in 3D toward the pointer (up to 9 degrees on each axis, scaled to 1.025) while the image inside drifts up to 10px the other way for depth; it eases back flat over 600ms when the pointer leaves. There is no glare layer, because the system has no gradients. Touch screens and reduced-motion visitors get the still picture. The tab-rail previews and the video are excluded.
 
 The confirmed rejections are the visitor's: nothing that reads as a template thumbnail grid, nothing dark, nothing over-decorated, and the CV never hidden.
 
@@ -125,7 +125,7 @@ The confirmed rejections are the visitor's: nothing that reads as a template thu
 - Every corner rounded: pictures, page sheets, tabs, buttons, inset panels, the footer's top edge.
 - A fore-edge tab rail, coded by discipline, as the index on every page.
 - Rozha One stamped display over Hind text.
-- Flat: no shadows, no gradients.
+- Flat at rest: no gradients, and no shadows except the one cast by a picture while it tilts under the pointer (user pinned).
 
 ## Colors
 
@@ -181,10 +181,12 @@ Responsive: below 1180px the hover peek is replaced by a static tilted window pi
 
 ## Elevation & Depth
 
-The system is flat. There are no shadows and no gradients anywhere. Depth is conveyed by material and tone: white paper sheets on beige linen, Paper Warm panels inset within a white page, and a darker linen back cover that closes the album. The only sense of lift is motion (a page rising 40px as it enters, a tab sliding out) and a slight 1.5 to 2 degree tilt on the cover's held picture.
+The system is flat at rest. There are no gradients anywhere, and only one shadow: a picture lifted by the pointer casts one (user pinned, see below). Depth is conveyed by material and tone: white paper sheets on beige linen, Paper Warm panels inset within a white page, and a darker linen back cover that closes the album. The only sense of lift is motion (a page rising 40px as it enters, a tab sliding out) and a slight 1.5 to 2 degree tilt on the cover's held picture.
 
 ### Named Rules
-**The Paper On Linen Rule.** Separation is always a change of surface (linen, white, warm paper), never a drop shadow or a border box. The only drawn line is the 1px Hairline between list rows.
+**The Paper On Linen Rule.** Separation is always a change of surface (linen, white, warm paper), never a drop shadow or a border box.
+
+**The Lifted Card Rule.** The one shadow in the system belongs to a picture while it tilts toward the pointer. It is two layers cast away from the pointer, as if lit from above the visitor: a tight contact shadow (14px blur, -6px spread, `--lift-near`) and a wide soft one (48px blur, -14px spread, `--lift-far`), with offsets that follow the tilt. Light theme: Charcoal Ink at 18% and 26%. Dark theme: black at 45% and 70%, so it still separates from charcoal pages. It fades in over 140ms and out over 600ms with the tilt. Nothing at rest carries a shadow. The only drawn line is the 1px Hairline between list rows.
 
 ## Shapes
 
@@ -226,7 +228,7 @@ A two-column definition list at label size: Charcoal Soft terms, Hind 500 values
 ### Do:
 - **Do** keep the interface to beige, white and warm grey, and let photographs of her printed work carry all colour.
 - **Do** round every picture, sheet, tab, button, panel and the footer's top edge, using `rounded.page` (16 to 24px) for content and `rounded.sm` (12px) for controls.
-- **Do** separate surfaces with paper on linen and Paper Warm insets, not lines or shadows.
+- **Do** separate surfaces with paper on linen and Paper Warm insets, not lines or shadows; the tilting picture's shadow is the only exception.
 - **Do** use Rozha One only for stamped titles and Hind for everything read, with Hind 600 at body size for headings inside a page.
 - **Do** keep the CV button in Charcoal Ink and present in the top bar of every page.
 - **Do** colour tabs strictly by discipline and keep the tab rail as the index on every page.
@@ -235,7 +237,7 @@ A two-column definition list at label size: Charcoal Soft terms, Hind 500 values
 ### Don't:
 - **Don't** add an accent hue, tinted button, coloured link or coloured background to the interface.
 - **Don't** ship any element with square corners.
-- **Don't** use box shadows or gradients for depth.
+- **Don't** use gradients, or put a box shadow on anything at rest.
 - **Don't** lay work out as a uniform white thumbnail grid; mount it as spreads and lead plates on album pages.
 - **Don't** go dark: no charcoal page grounds or dark mode sections.
 - **Don't** uppercase or letter-space labels; they are sentence case Hind.

@@ -6,7 +6,7 @@ Scope: home, about and the six case studies. Mode: Experience. Audience: employe
 
 THESIS: The portfolio is the thick sample album a Bengaluru card shop hands you across the counter: a linen cover, a fore-edge of tabs, one design per page. It refuses the white thumbnail grid. The user pinned a neutral palette (beige, whites and greys only), so the album is bound in beige linen and the colour comes only from her work.
 
-OWN-WORLD: Beige linen (#DDD3C4) for the cover and tab rail ground, white album pages, warm charcoal (#2B2926) ink and buttons, tabs in white, pale beige and warm grey by discipline, every picture, page, tab and button with rounded corners (user pinned). Rozha One for stamped display, Hind for everything read. No shadows or gradients; no hue outside the photographs.
+OWN-WORLD: Beige linen (#DDD3C4) for the cover and tab rail ground, white album pages, warm charcoal (#2B2926) ink and buttons, tabs in white, pale beige and warm grey by discipline, every picture, page, tab and button with rounded corners (user pinned). Rozha One for stamped display, Hind for everything read. No gradients, and no shadows at rest; a picture tilting under the pointer casts a theme-aware shadow (user pinned). No hue outside the photographs.
 
 STORY: In one screen the visitor reads who she is and what she does, sees every project as a tab, and finds the CV. Pages below prove the craft with real printed pieces; case studies open each design's page.
 
